@@ -198,11 +198,7 @@ Transform:
   m_Children:
   - {fileID: 2012227886}
   m_Father: {fileID: 0}
-<<<<<<< Updated upstream
-  m_RootOrder: 3
-=======
   m_RootOrder: 4
->>>>>>> Stashed changes
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &514365331
 PrefabInstance:
@@ -213,7 +209,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4286898538686210868, guid: 0d6898e8a7db9c84ab3e94ce86857249, type: 3}
       propertyPath: m_RootOrder
-      value: 6
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 4286898538686210868, guid: 0d6898e8a7db9c84ab3e94ce86857249, type: 3}
       propertyPath: m_LocalPosition.x
@@ -621,6 +617,7 @@ Transform:
   - {fileID: 613173131}
   - {fileID: 215375194}
   - {fileID: 1776897457}
+  - {fileID: 1340232981}
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -658,15 +655,11 @@ MonoBehaviour:
   jumpColdown: 0.25
   airMultiplier: 0.4
   jumpKey: 32
-  sprintKey: 304
   playerHeight: 2
   whatIsGround:
     serializedVersion: 2
     m_Bits: 64
   orientation: {fileID: 215375194}
-<<<<<<< Updated upstream
-=======
-  state: 0
 --- !u!1001 &1077785069
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -676,11 +669,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4286898538686210868, guid: 0d6898e8a7db9c84ab3e94ce86857249, type: 3}
       propertyPath: m_RootOrder
-      value: 7
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 4286898538686210868, guid: 0d6898e8a7db9c84ab3e94ce86857249, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 29.916798
+      value: 30.94
       objectReference: {fileID: 0}
     - target: {fileID: 4286898538686210868, guid: 0d6898e8a7db9c84ab3e94ce86857249, type: 3}
       propertyPath: m_LocalPosition.y
@@ -821,7 +814,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1340232980}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
->>>>>>> Stashed changes
 --- !u!1 &1776897456
 GameObject:
   m_ObjectHideFlags: 0
@@ -991,7 +983,6 @@ MonoBehaviour:
   sensX: 200
   sensY: 200
   orientation: {fileID: 215375194}
-  playerBody: {fileID: 1013846638}
 --- !u!81 &2012227888
 AudioListener:
   m_ObjectHideFlags: 0
