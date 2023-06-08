@@ -890,7 +890,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4286898538686210868, guid: 0d6898e8a7db9c84ab3e94ce86857249, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 31.01
+      value: 32.95
       objectReference: {fileID: 0}
     - target: {fileID: 4286898538686210868, guid: 0d6898e8a7db9c84ab3e94ce86857249, type: 3}
       propertyPath: m_LocalPosition.y
@@ -983,6 +983,7 @@ MonoBehaviour:
   sensX: 200
   sensY: 200
   orientation: {fileID: 215375194}
+  playerBody: {fileID: 1013846638}
 --- !u!81 &2012227888
 AudioListener:
   m_ObjectHideFlags: 0
