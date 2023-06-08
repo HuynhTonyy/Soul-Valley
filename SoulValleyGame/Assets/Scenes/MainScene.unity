@@ -503,7 +503,6 @@ Transform:
   - {fileID: 613173131}
   - {fileID: 215375194}
   - {fileID: 1776897457}
-  - {fileID: 1340232981}
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -535,19 +534,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7eb7c565561a9904a8fb687780c6b58c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+<<<<<<< HEAD
   walkSpeed: 5
   sprintSpeed: 10
+=======
+  moveSpeed: 7
+>>>>>>> parent of 320e16e (added details)
   groundDrag: 5
   jumpForce: 12
   jumpColdown: 0.25
   airMultiplier: 0.4
   jumpKey: 32
-  sprintKey: 304
   playerHeight: 2
   whatIsGround:
     serializedVersion: 2
     m_Bits: 64
   orientation: {fileID: 215375194}
+<<<<<<< HEAD
   state: 0
 --- !u!1 &1340232980
 GameObject:
@@ -646,6 +649,8 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1340232980}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+=======
+>>>>>>> parent of 320e16e (added details)
 --- !u!1 &1776897456
 GameObject:
   m_ObjectHideFlags: 0
@@ -758,7 +763,6 @@ MonoBehaviour:
   sensX: 200
   sensY: 200
   orientation: {fileID: 215375194}
-  playerBody: {fileID: 1013846638}
 --- !u!81 &2012227888
 AudioListener:
   m_ObjectHideFlags: 0
