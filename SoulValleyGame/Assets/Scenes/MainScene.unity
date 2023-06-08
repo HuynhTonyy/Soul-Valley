@@ -541,6 +541,7 @@ MonoBehaviour:
   jumpColdown: 0.25
   airMultiplier: 0.4
   jumpKey: 32
+  sprintKey: 304
   playerHeight: 2
   whatIsGround:
     serializedVersion: 2
@@ -756,6 +757,7 @@ MonoBehaviour:
   sensX: 200
   sensY: 200
   orientation: {fileID: 215375194}
+  playerBody: {fileID: 1013846638}
 --- !u!81 &2012227888
 AudioListener:
   m_ObjectHideFlags: 0
