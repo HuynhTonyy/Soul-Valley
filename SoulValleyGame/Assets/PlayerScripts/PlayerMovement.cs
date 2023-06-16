@@ -5,11 +5,12 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
     [Header("Movement")]
-    private float moveSpeed;
+    private float currentSpeed;
     public float walkSpeed;
     public float sprintSpeed;
-
+    public float gravity = -9.81f;
     public float groundDrag;
+
 
     public float jumpForce;
     public float jumpColdown;
@@ -26,6 +27,8 @@ public class PlayerMovement : MonoBehaviour
     public LayerMask whatIsGround;
     bool grounded;
 
+    [Header("Animation")]
+    private Animator animator;
 
     public Transform orientation;
 
@@ -35,6 +38,8 @@ public class PlayerMovement : MonoBehaviour
     Vector3 moveDirection;
 
     Rigidbody rb;
+
+    Vector3 cameraForward;
 
     public MovementState state;
     public enum MovementState
@@ -46,6 +51,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void Start()
     {
+        animator = GetComponent<Animator>();
         rb = GetComponent<Rigidbody>();
         rb.freezeRotation = true;
         ResetJump();
@@ -54,9 +60,9 @@ public class PlayerMovement : MonoBehaviour
     private void Update()
     {
         grounded = Physics.Raycast(transform.position, Vector3.down, playerHeight * 0.5f + 0.2f, whatIsGround);
+        
         MyInput();
         StateHandler();
-        SpeedControl();
 
         if (grounded)
             rb.drag = groundDrag;
@@ -79,6 +85,8 @@ public class PlayerMovement : MonoBehaviour
         {
             readyToJump = false;
 
+            
+
             Jump();
 
             Invoke(nameof(ResetJump), jumpColdown);
@@ -87,18 +95,24 @@ public class PlayerMovement : MonoBehaviour
 
     private void StateHandler()
     {
-        if(grounded && Input.GetKey(sprintKey))
+        if(grounded && Input.GetButton("Sprint"))
         {
             state = MovementState.sprinting;
-            moveSpeed = sprintSpeed;
+            currentSpeed = sprintSpeed;
+            animator.SetBool("Running", true);
         }
         else if (grounded)
         {
+
             state = MovementState.walking;
-            moveSpeed = walkSpeed;
+            currentSpeed = walkSpeed;
+            animator.SetBool("Running", false);
+            animator.SetBool("isJumping", false);
+
         }
         else
         {
+            animator.SetBool("isJumping", true);
             state = MovementState.air;
             
         }
@@ -106,36 +120,30 @@ public class PlayerMovement : MonoBehaviour
 
     private void MovePlayer()
     {
-        moveDirection = orientation.forward * verticalInput + orientation.right * horizontalInput;
-        if (grounded)
-            rb.AddForce(moveDirection.normalized * moveSpeed * 10f, ForceMode.Force);
+        
+        cameraForward = Vector3.Scale(orientation.forward, new Vector3(1, 0, 1)).normalized;
+        Vector3 movement = (verticalInput * cameraForward + horizontalInput * orientation.right).normalized;
+        movement *= currentSpeed * Time.deltaTime;
+        rb.MovePosition(transform.position + movement);
+               
+        animator.SetFloat("Speed", movement.magnitude);
 
-
-        else if (!grounded)
-            rb.AddForce(moveDirection.normalized * moveSpeed * 10f * airMultiplier, ForceMode.Force);
+        Debug.Log("Movement: " + movement.magnitude);
     }
 
-    private void SpeedControl()
-    {
-        Vector3 flatVel = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
-
-        //Limit velocity
-        if(flatVel.magnitude > moveSpeed)
-        {
-            Vector3 limitedVel = flatVel.normalized * moveSpeed;
-            rb.velocity = new Vector3(limitedVel.x, rb.velocity.y, limitedVel.z);
-        }
-    }
+   
 
     private void Jump()
     {
-        rb.velocity = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
+        rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
 
-        rb.AddForce(transform.up * jumpForce, ForceMode.Impulse);
+        
+        rb.AddForce(Vector3.up * gravity, ForceMode.Acceleration);
     }
     
     private void ResetJump()
     {
         readyToJump = true;
     }
+
 }
