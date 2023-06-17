@@ -10,6 +10,7 @@ public class ItemScript : ScriptableObject
 
     [Header("Only UI")]
     public bool stackable = true;
+    public bool tool = true;
 
     [Header("Both")]
     public Sprite image;

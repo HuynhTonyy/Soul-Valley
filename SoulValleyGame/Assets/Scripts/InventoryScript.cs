@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class InventoryScript : MonoBehaviour
 {
-    public GameObject toolBar, inventory,player,camera;
+    public GameObject toolBar, inventory,player;
     // Start is called before the first frame update
     void Start()
     {

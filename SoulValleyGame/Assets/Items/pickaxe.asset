@@ -13,4 +13,5 @@ MonoBehaviour:
   m_Name: pickaxe
   m_EditorClassIdentifier: 
   stackable: 0
+  tool: 1
   image: {fileID: 21300000, guid: 9613a0a392101064cb93d4a01fef704a, type: 3}

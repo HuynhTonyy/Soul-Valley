@@ -13,4 +13,5 @@ MonoBehaviour:
   m_Name: shovel
   m_EditorClassIdentifier: 
   stackable: 0
+  tool: 1
   image: {fileID: 21300000, guid: 686ff9816c0ff2d429fe5552f48c4f73, type: 3}
