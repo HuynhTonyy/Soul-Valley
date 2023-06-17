@@ -28,7 +28,6 @@ public class InventoryItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
         countText.gameObject.SetActive(textActive);
     }
 
-
     public void OnBeginDrag(PointerEventData eventData)
     {
         Debug.Log("BeginDrag");

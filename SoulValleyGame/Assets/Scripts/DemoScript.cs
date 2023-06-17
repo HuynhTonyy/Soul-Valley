@@ -19,7 +19,6 @@ public class DemoScript : MonoBehaviour
         }
 
     }
-
     public void UseGetSelectedItem()
     {
         ItemScript recievedItem = inventoryManager.GetSelectedItem(true);
