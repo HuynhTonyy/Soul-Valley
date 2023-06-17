@@ -19,20 +19,45 @@ public class InventoryManager : MonoBehaviour
     }
     private void Update()
     {
+        ScrollMouse();
         if (Input.inputString != null)
         {
             //Check inputString is a number
             //  -> if string to number success : true then attack to variable number
             bool isNumber = int.TryParse(Input.inputString, out int number);
-            if(isNumber && number >0 && number < 10)
+            if (isNumber && number > 0 && number < 10)
             {
                 ChangeSelectedSlot(number - 1);
             }
         }
     }
+    private void ScrollMouse()
+    {
+        int maxSelectedSlot = 8;
+        int mixSelectedSlot = 0;
+        float scrollDelta = Input.mouseScrollDelta.y;
+
+        if (scrollDelta < 0)
+        {
+            if (selectedSlot == 8)
+            {ChangeSelectedSlot(maxSelectedSlot);}
+            else
+            {ChangeSelectedSlot(selectedSlot + 1);}
+        }
+   
+        if (scrollDelta > 0)
+        {
+            if (selectedSlot == 0)
+            {ChangeSelectedSlot(mixSelectedSlot);}
+            else 
+            {ChangeSelectedSlot(selectedSlot - 1); }
+        }
+        Debug.Log("Scroll - chose at index: " + selectedSlot);
+    }
 
     void ChangeSelectedSlot(int newValue){
-        if(selectedSlot > -1)
+        
+        if (selectedSlot > -1)
         {
             inventorySlots[selectedSlot].NotSelect();
         }
