@@ -5,6 +5,9 @@ using UnityEngine;
 public class InventoryScript : MonoBehaviour
 {
     public GameObject toolBar, inventory,player;
+    public static bool status = false;
+    /*public GameObject camera;*/
+
     // Start is called before the first frame update
     void Start()
     {
@@ -24,6 +27,7 @@ public class InventoryScript : MonoBehaviour
         {
             onAndOff(inventory);
             onAndOff(player);
+            
             //onAndOff(camera);
             cursorStatus();
         }
@@ -32,16 +36,23 @@ public class InventoryScript : MonoBehaviour
     {
         objectName.SetActive(!objectName.activeSelf);
     }
+
+    public static bool getState()
+    {
+        return status;
+    }
     void cursorStatus()
     {
         Cursor.visible = !Cursor.visible;
         if (Cursor.visible)
         {
             Cursor.lockState = CursorLockMode.None;
+            status = true;
         }
         else
         {
             Cursor.lockState = CursorLockMode.Locked;
+            status = false;
         }
     }
 }
