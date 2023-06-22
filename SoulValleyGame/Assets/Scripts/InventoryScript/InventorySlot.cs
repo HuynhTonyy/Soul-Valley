@@ -1,40 +1,51 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
-using UnityEngine.EventSystems;
 
 [System.Serializable]
-public class InventorySlot : MonoBehaviour, IDropHandler
+public class InventorySlot
 {
     [SerializeField] private ItemScript itemData;
     [SerializeField] private int stackSize;
 
-    public Image item;
-    public Color selected, notSelected;
-
-    public void Awake()
+    public ItemScript ItemData => itemData;
+    public int StackSize => stackSize;
+    public InventorySlot(ItemScript source, int amount)
     {
-        NotSelect();
+        itemData = source;
+        stackSize = amount;
     }
-
-    public void Select()
+    public InventorySlot()
     {
-        item.color = selected;
+        ClearSlot();
     }
-    public void NotSelect()
+    public void ClearSlot()
     {
-        item.color = notSelected;
+        itemData = null;
+        stackSize = -1;
     }
-
-    // drag and drop
-    public void OnDrop(PointerEventData eventData){
-        if (transform.childCount == 0)
-        {
-            GameObject droppedItem = eventData.pointerDrag;
-            InventoryItem draggableItem = droppedItem.GetComponent<InventoryItem>();
-            draggableItem.parentAfterDrag = transform;
-        }
-
+    public void UpdateInventorySlot(ItemScript item, int amount)
+    {
+        itemData = item;
+        stackSize = amount;
+    }
+    public bool RoomLeftInStack(int amountToAdd, out int amountRemaining)
+    {
+        amountRemaining = itemData.MaxStackSize - stackSize;
+        return RoomLeftInStack(amountToAdd);
+    }
+    public bool RoomLeftInStack(int amountToAdd)
+    {
+        if (stackSize + amountToAdd <= itemData.MaxStackSize) return true;
+        else return false;
+    }
+    
+    public void AddToStack(int amount)
+    {
+        stackSize += amount;
+    }
+    public void RemoveFromStack(int amount)
+    {
+        stackSize -= amount;
     }
 }

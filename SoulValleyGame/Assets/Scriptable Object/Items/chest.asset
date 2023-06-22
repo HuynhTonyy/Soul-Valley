@@ -10,8 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7a30545f24b025247a4363717c05ce8e, type: 3}
-  m_Name: chest
+  m_Name: Chest
   m_EditorClassIdentifier: 
-  stackable: 1
-  tool: 0
-  image: {fileID: 21300000, guid: e6db12f15855a7346aeaa99f7b95d7ba, type: 3}
+  Id: 0
+  DisplayName: 
+  Description: 
+  MaxStackSize: 4
+  icon: {fileID: 21300000, guid: e6db12f15855a7346aeaa99f7b95d7ba, type: 3}

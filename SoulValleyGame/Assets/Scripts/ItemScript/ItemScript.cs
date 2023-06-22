@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
-[CreateAssetMenu(menuName = "Scriptable object/Item")]
+[CreateAssetMenu(menuName = "Inventory System/Inventory Item")]
 public class ItemScript : ScriptableObject
 {
     public int Id;
@@ -14,15 +14,11 @@ public class ItemScript : ScriptableObject
     public string Description;
 
     [Header("Only UI")]
-    public bool stackable = true;
-    public bool tool = true;
+    public int MaxStackSize;
 
     [Header("Both")]
-    public Sprite image;
+    public Sprite icon;
 
-    public enum ItemType
-    {
-
-    }
+  
 
 }

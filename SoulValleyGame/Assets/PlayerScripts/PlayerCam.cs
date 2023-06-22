@@ -22,13 +22,13 @@ public class PlayerCam : MonoBehaviour
     void Update()
     {
 
-        bool invState = InventoryScript.status;
+        //bool invState = InventoryScript.status;
 
-        if (invState)
-        {
+        //if (invState)
+        //{
 
-        }
-        else
+        //}
+       // else
         {
             // Get mouse input
             float mouseX = Input.GetAxisRaw("Mouse X") * Time.deltaTime * sensX;
