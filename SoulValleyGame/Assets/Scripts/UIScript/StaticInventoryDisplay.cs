@@ -20,7 +20,7 @@ public class StaticInventoryDisplay : InventoryDisplay
         }
         AssignSlot(inventorySystem);
     }
-    public override void AssignSlot(InventorySystem invDisplay)
+    public override void AssignSlot(InventorySystem invDisplay) 
     {
         slotDictionary = new Dictionary<InventorySlot_UI, InventorySlot>();
         if (slots.Length != inventorySystem.InventorySize) Debug.Log("Inventory slot out of on " + this.gameObject);

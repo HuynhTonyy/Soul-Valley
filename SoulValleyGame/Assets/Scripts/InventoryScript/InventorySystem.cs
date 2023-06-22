@@ -13,6 +13,7 @@ public class InventorySystem
 
     public List<InventorySlot> InventorySlots => inventorySlots;
     public int InventorySize => InventorySlots.Count;
+
     public UnityAction<InventorySlot> OnInventorySlotChanged;
     public InventorySystem(int size)
     {
@@ -48,8 +49,8 @@ public class InventorySystem
     public bool ContainsItem(ItemScript item, out List<InventorySlot> invSlot)
     {
         invSlot = inventorySlots.Where(i => i.ItemData == item).ToList();
-        Debug.Log(invSlot.Count);
-        return invSlot.Count > 1 ? true:false;
+        //Debug.Log(invSlot.Count);
+        return invSlot == null ? false:true;
     }
     public bool HasFreeSlot(out InventorySlot freeSlot)
     {

@@ -24,6 +24,16 @@ public class InventorySlot
         itemData = null;
         stackSize = -1;
     }
+    public void AssignItem(InventorySlot invSlot)
+    {
+        if (itemData == invSlot.ItemData) AddToStack(invSlot.stackSize);
+        else
+        {
+            itemData = invSlot.itemData;
+            stackSize = 0;
+            AddToStack(invSlot.stackSize);
+        }
+    }
     public void UpdateInventorySlot(ItemScript item, int amount)
     {
         itemData = item;
@@ -31,7 +41,7 @@ public class InventorySlot
     }
     public bool RoomLeftInStack(int amountToAdd, out int amountRemaining)
     {
-        amountRemaining = itemData.MaxStackSize - stackSize;
+        amountRemaining = ItemData.MaxStackSize - stackSize;
         return RoomLeftInStack(amountToAdd);
     }
     public bool RoomLeftInStack(int amountToAdd)
