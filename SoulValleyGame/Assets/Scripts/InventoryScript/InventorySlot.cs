@@ -4,8 +4,12 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
+[System.Serializable]
 public class InventorySlot : MonoBehaviour, IDropHandler
 {
+    [SerializeField] private ItemScript itemData;
+    [SerializeField] private int stackSize;
+
     public Image item;
     public Color selected, notSelected;
 

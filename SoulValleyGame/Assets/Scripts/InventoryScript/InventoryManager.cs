@@ -6,7 +6,6 @@ using UnityEngine.EventSystems;
 
 public class InventoryManager : MonoBehaviour
 {
-   
     public InventorySlot[] inventorySlots;
     public GameObject inventoryItemPrefab;
     public int maxStackItem = 4;
