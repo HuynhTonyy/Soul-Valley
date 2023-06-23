@@ -8,7 +8,7 @@ public class Interactor : MonoBehaviour
 {
     public Transform InteractionPoint;
     public LayerMask InteractionLayer;
-    public float InteractionPointRadius = 1f;
+    public float InteractionPointRadius = 0.1f;
 
     public bool IsInteracting { get; set; }
 
