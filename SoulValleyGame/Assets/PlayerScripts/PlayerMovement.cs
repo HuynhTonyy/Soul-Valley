@@ -41,6 +41,8 @@ public class PlayerMovement : MonoBehaviour
 
     Vector3 cameraForward;
 
+    private bool invStatus;
+
     public MovementState state;
     public enum MovementState
     {
@@ -59,8 +61,9 @@ public class PlayerMovement : MonoBehaviour
 
     private void Update()
     {
+        invStatus = InventoryUIControler.status;
         grounded = Physics.Raycast(transform.position, Vector3.down, playerHeight * 0.5f + 0.2f, whatIsGround);
-        
+
         MyInput();
         StateHandler();
 
@@ -77,11 +80,19 @@ public class PlayerMovement : MonoBehaviour
 
     private void MyInput()
     {
-        horizontalInput = Input.GetAxisRaw("Horizontal");
-        verticalInput = Input.GetAxisRaw("Vertical");
-
+        
+        if (invStatus)
+        {
+            horizontalInput = 0f;
+            verticalInput = 0f;
+        }
+        else
+        {
+            horizontalInput = Input.GetAxisRaw("Horizontal");
+            verticalInput = Input.GetAxisRaw("Vertical");
+        }
         //Jump trigger
-        if(Input.GetKey(jumpKey) && readyToJump && grounded)
+        if (Input.GetKey(jumpKey) && readyToJump && grounded)
         {
             readyToJump = false;
 
@@ -128,7 +139,6 @@ public class PlayerMovement : MonoBehaviour
                
         animator.SetFloat("Speed", movement.magnitude);
 
-        Debug.Log("Movement: " + movement.magnitude);
     }
 
    

@@ -17,32 +17,31 @@ public class PlayerCam : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
     }
-
     
     void Update()
     {
 
-        bool invState = InventorySystem.status;
+        bool invState = InventoryUIControler.status;
 
-    if (invState)
-    {
+        if (invState)
+        {
 
-    }
-    else
-    {
-        // Get mouse input
-        float mouseX = Input.GetAxisRaw("Mouse X") * Time.deltaTime * sensX;
-        float mousey = Input.GetAxisRaw("Mouse Y") * Time.deltaTime * sensX;
+        }
+        else
+        {
+            // Get mouse input
+            float mouseX = Input.GetAxisRaw("Mouse X") * Time.deltaTime * sensX;
+            float mousey = Input.GetAxisRaw("Mouse Y") * Time.deltaTime * sensX;
 
-        yRotation += mouseX;
-        xRotation -= mousey;
-        xRotation = Mathf.Clamp(xRotation, -90f, 90f);
+            yRotation += mouseX;
+            xRotation -= mousey;
+            xRotation = Mathf.Clamp(xRotation, -90f, 90f);
 
-        playerBody.Rotate(Vector3.up * mouseX);
+            playerBody.Rotate(Vector3.up * mouseX);
 
-        transform.rotation = Quaternion.Euler(xRotation, yRotation, 0);
-        orientation.rotation = Quaternion.Euler(xRotation, yRotation, 0);
-    }
-        
+            transform.rotation = Quaternion.Euler(xRotation, yRotation, 0);
+            orientation.rotation = Quaternion.Euler(xRotation, yRotation, 0);
+        }
+
     }
 }

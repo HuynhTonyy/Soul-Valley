@@ -10,7 +10,7 @@ public class InventorySystem
     [SerializeField] private List<InventorySlot> inventorySlots;
     [SerializeField]
     private int inventorySize;
-    internal static bool status;
+    
     public List<InventorySlot> InventorySlots => inventorySlots;
     public int InventorySize => InventorySlots.Count;
 
