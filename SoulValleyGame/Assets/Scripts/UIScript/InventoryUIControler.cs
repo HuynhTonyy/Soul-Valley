@@ -11,12 +11,12 @@ public class InventoryUIControler : MonoBehaviour
     public DynamicInventoryDisplay playerBackpackPanel;
     public Image backGround;
 
+
     private void Awake()
     {
         playerBackpackPanel.gameObject.SetActive(false);
         chestPanel.gameObject.SetActive(false);
         backGround.enabled=false;
-        Cursor.visible = false;
     }
     private void OnEnable()
     {
@@ -36,15 +36,13 @@ public class InventoryUIControler : MonoBehaviour
             || chestPanel.gameObject.activeInHierarchy && Keyboard.current.iKey.wasPressedThisFrame)
         { 
             chestPanel.gameObject.SetActive(false);
-            backGround.enabled = false;
-            Cursor.visible = false;
+            backGround.enabled = false;    
         }
         if(playerBackpackPanel.gameObject.activeInHierarchy && Keyboard.current.escapeKey.wasPressedThisFrame
             || playerBackpackPanel.gameObject.activeInHierarchy && Keyboard.current.iKey.wasPressedThisFrame)
         {
             playerBackpackPanel.gameObject.SetActive(false);
             backGround.enabled = false;
-            Cursor.visible = false;
         }
     }
 

@@ -10,11 +10,13 @@ public class InventorySystem
     [SerializeField] private List<InventorySlot> inventorySlots;
     [SerializeField]
     private int inventorySize;
-
+    internal static bool status;
     public List<InventorySlot> InventorySlots => inventorySlots;
     public int InventorySize => InventorySlots.Count;
 
     public UnityAction<InventorySlot> OnInventorySlotChanged;
+    
+
     public InventorySystem(int size)// Contructor set amount of slot
     {
         inventorySlots = new List<InventorySlot>(size);

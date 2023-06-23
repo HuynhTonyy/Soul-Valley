@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 using TMPro;
 using System;
 
@@ -14,8 +15,10 @@ public class InventorySlot_UI : MonoBehaviour
     private Button btn; 
     public InventorySlot AssignInventorySlot => assignInventorySlot;
     public InventoryDisplay ParentDisplay {get;private set;}
+    public Color selectedColor, notSelectedColor;
     private void Awake()
     {
+        Deselected();
         ClearSlot();
 
         btn = GetComponent<Button>();
@@ -23,6 +26,14 @@ public class InventorySlot_UI : MonoBehaviour
 
         ParentDisplay = transform.parent.GetComponent<InventoryDisplay>(); 
 
+    }
+    public void Selected()
+    {
+        itemSprite.color = selectedColor;
+    }
+    public void Deselected()
+    {
+        itemSprite.color = notSelectedColor;
     }
     public void Init(InventorySlot slot)
     {
