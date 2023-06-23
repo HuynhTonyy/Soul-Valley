@@ -20,7 +20,7 @@ public class ItemPickUp : MonoBehaviour
     {
         var inventory = other.transform.GetComponent<InventoryHolder>();
         if (!inventory) return;
-        if (inventory.InventorySystem.AddToInventory(itemData,1))
+        if (inventory.PrimaryInventorySystem.AddToInventory(itemData,1))
         {
             Destroy(this.gameObject);
         }

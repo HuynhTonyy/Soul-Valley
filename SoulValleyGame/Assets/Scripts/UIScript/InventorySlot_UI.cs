@@ -11,8 +11,7 @@ public class InventorySlot_UI : MonoBehaviour
     [SerializeField] private TextMeshProUGUI itemCount;
     [SerializeField] private InventorySlot assignInventorySlot;
 
-    private Button btn;
-
+    private Button btn; 
     public InventorySlot AssignInventorySlot => assignInventorySlot;
     public InventoryDisplay ParentDisplay {get;private set;}
     private void Awake()
@@ -44,7 +43,9 @@ public class InventorySlot_UI : MonoBehaviour
         }
         else
         {
-            ClearSlot();
+            itemSprite.sprite = null;
+            itemSprite.color = Color.clear;
+            itemCount.text = "";
         }
     }
     public void UpdateUISlot()

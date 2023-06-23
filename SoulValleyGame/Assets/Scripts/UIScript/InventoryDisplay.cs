@@ -7,14 +7,14 @@ public abstract class InventoryDisplay : MonoBehaviour
 {
     [SerializeField] MouseItemData mouseInventoryItem;
     protected InventorySystem inventorySystem;
-    protected Dictionary<InventorySlot_UI, InventorySlot> slotDictionary;
+    protected Dictionary<InventorySlot_UI, InventorySlot> slotDictionary;// pair UI_slot with System_slot
     public InventorySystem InventorySystem => inventorySystem;
     public Dictionary<InventorySlot_UI, InventorySlot> SlotDictionary => slotDictionary;
     protected virtual void Start()
     {
 
     }
-    public abstract void AssignSlot(InventorySystem invDisplay);
+    public abstract void AssignSlot(InventorySystem invDisplay);// implement in child class
     protected virtual void UpdateSLot(InventorySlot updatedSlot)
     {
         foreach(var slot in SlotDictionary)
@@ -39,14 +39,13 @@ public abstract class InventoryDisplay : MonoBehaviour
                 clickedUISlot.UpdateUISlot();
                 return;
             }
-            else
+            else// pick item in the clicked slot
             {
                 mouseInventoryItem.UpdateMouseSlot(clickedUISlot.AssignInventorySlot);
                 clickedUISlot.ClearSlot();
                 return;
             }
         }
-
         // Clicked slot doesn't has an item - mouse does have an item - place to empty slot
         if (clickedUISlot.AssignInventorySlot.ItemData == null && mouseInventoryItem.AssignInventorySlot.ItemData != null)
         {
@@ -65,7 +64,7 @@ public abstract class InventoryDisplay : MonoBehaviour
                 SwapSlot(clickedUISlot);
                 return;
             }
-            // if both are the same - combine
+            // if both are the same && enought room - combine
             if (clickedUISlot.AssignInventorySlot.ItemData == mouseInventoryItem.AssignInventorySlot.ItemData
                 && clickedUISlot.AssignInventorySlot.EnoughRoomLeftInStack(mouseInventoryItem.AssignInventorySlot.StackSize))
             {
@@ -75,6 +74,7 @@ public abstract class InventoryDisplay : MonoBehaviour
                 mouseInventoryItem.ClearSlot();
                 return;
             }
+            // if both are the same && not enought room - take needed
             else if (clickedUISlot.AssignInventorySlot.ItemData == mouseInventoryItem.AssignInventorySlot.ItemData
                    && !clickedUISlot.AssignInventorySlot.RoomLeftInStack(mouseInventoryItem.AssignInventorySlot.StackSize, out int leftInStack))
             {
@@ -98,7 +98,6 @@ public abstract class InventoryDisplay : MonoBehaviour
             }
         }   
     }
-
     private void SwapSlot(InventorySlot_UI clickedUISlot)
     {
         var clonedSlot = new InventorySlot(mouseInventoryItem.AssignInventorySlot.ItemData, mouseInventoryItem.AssignInventorySlot.StackSize);

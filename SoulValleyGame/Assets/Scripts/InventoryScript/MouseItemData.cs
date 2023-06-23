@@ -9,9 +9,9 @@ using System;
 
 public class MouseItemData : MonoBehaviour
 {
-    public Image ItemSprite { get; private set; }
-    public TextMeshProUGUI ItemCount { get; private set; }
-    public InventorySlot AssignInventorySlot { get; private set; } 
+    public Image ItemSprite;
+    public TextMeshProUGUI ItemCount;
+    public InventorySlot AssignInventorySlot;
 
     public void Awake()
     {
@@ -47,7 +47,7 @@ public class MouseItemData : MonoBehaviour
         ItemSprite.color = Color.clear;
         ItemSprite.sprite = null;
     }
-    public static bool IsPointerOverUIObject()
+    public static bool IsPointerOverUIObject()// 
     {
         PointerEventData evenDataCurrentPosition = new PointerEventData(EventSystem.current);
         evenDataCurrentPosition.position = Mouse.current.position.ReadValue();
