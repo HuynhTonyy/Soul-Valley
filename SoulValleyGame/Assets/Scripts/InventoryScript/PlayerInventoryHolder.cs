@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.InputSystem;
 
 public class PlayerInventoryHolder : InventoryHolder
@@ -9,6 +10,8 @@ public class PlayerInventoryHolder : InventoryHolder
     [SerializeField] protected InventorySystem secoundaryInventorySystem;
 
     public InventorySystem SecoundaryInventorySystem => secoundaryInventorySystem;
+
+    public static UnityAction<InventorySystem> OnPlayerBackpackDisplayRequested;
     protected override void Awake()
     {
         base.Awake();
@@ -19,6 +22,18 @@ public class PlayerInventoryHolder : InventoryHolder
     // Update is called once per frame
     void Update()
     {
-        if(Keyboard.current.iKey.wasPressedThisFrame) OnDynamicInventoryDisplayRequested?.Invoke(secoundaryInventorySystem);
+        if(Keyboard.current.iKey.wasPressedThisFrame) OnPlayerBackpackDisplayRequested?.Invoke(secoundaryInventorySystem);
+    }
+    public bool AddToInventory(ItemScript item, int amount)
+    {
+        if (primaryInventorySystem.AddToInventory(item, amount))
+        {
+            return true;
+        }
+        else if(secoundaryInventorySystem.AddToInventory(item, amount))
+        {
+            return true;
+        }
+        return false;
     }
 }

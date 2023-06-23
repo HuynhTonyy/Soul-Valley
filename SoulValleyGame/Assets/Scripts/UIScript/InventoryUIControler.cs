@@ -7,40 +7,58 @@ using UnityEngine.InputSystem;
 
 public class InventoryUIControler : MonoBehaviour
 {
-    public DynamicInventoryDisplay inventoryPanel;
+    public DynamicInventoryDisplay chestPanel;
+    public DynamicInventoryDisplay playerBackpackPanel;
     public Image backGround;
 
     private void Awake()
     {
-        inventoryPanel.gameObject.SetActive(false);
+        playerBackpackPanel.gameObject.SetActive(false);
+        chestPanel.gameObject.SetActive(false);
         backGround.enabled=false;
         Cursor.visible = false;
     }
     private void OnEnable()
     {
         InventoryHolder.OnDynamicInventoryDisplayRequested += DisplayInventory;
+        PlayerInventoryHolder.OnPlayerBackpackDisplayRequested += DisplayPlayerBackpack;
     }
     private void OnDisable()
     {
         InventoryHolder.OnDynamicInventoryDisplayRequested -= DisplayInventory;
+        PlayerInventoryHolder.OnPlayerBackpackDisplayRequested -= DisplayPlayerBackpack;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (inventoryPanel.gameObject.activeInHierarchy && Keyboard.current.escapeKey.wasPressedThisFrame
-            || inventoryPanel.gameObject.activeInHierarchy && Keyboard.current.iKey.wasPressedThisFrame)
+        if (chestPanel.gameObject.activeInHierarchy && Keyboard.current.escapeKey.wasPressedThisFrame
+            || chestPanel.gameObject.activeInHierarchy && Keyboard.current.iKey.wasPressedThisFrame)
         { 
-            inventoryPanel.gameObject.SetActive(false);
+            chestPanel.gameObject.SetActive(false);
+            backGround.enabled = false;
+            Cursor.visible = false;
+        }
+        if(playerBackpackPanel.gameObject.activeInHierarchy && Keyboard.current.escapeKey.wasPressedThisFrame
+            || playerBackpackPanel.gameObject.activeInHierarchy && Keyboard.current.iKey.wasPressedThisFrame)
+        {
+            playerBackpackPanel.gameObject.SetActive(false);
             backGround.enabled = false;
             Cursor.visible = false;
         }
     }
 
-    private void DisplayInventory(InventorySystem invDisplay)
+    void DisplayInventory(InventorySystem invDisplay)
     {
-        inventoryPanel.gameObject.SetActive(true);
-        inventoryPanel.RefreshDynamicInventory(invDisplay);
+        chestPanel.gameObject.SetActive(true);
+        chestPanel.RefreshDynamicInventory(invDisplay);
+        Cursor.visible = true;
+        backGround.enabled = true;
+    }
+    void DisplayPlayerBackpack(InventorySystem invDisplay)
+    {
+        playerBackpackPanel.gameObject.SetActive(true);
+        playerBackpackPanel.RefreshDynamicInventory(invDisplay);
         Cursor.visible = true;
         backGround.enabled = true;
     }
