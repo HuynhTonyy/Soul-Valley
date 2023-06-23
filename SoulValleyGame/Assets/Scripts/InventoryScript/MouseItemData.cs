@@ -9,16 +9,15 @@ using System;
 
 public class MouseItemData : MonoBehaviour
 {
-    public Image ItemSprite;
-    public TextMeshProUGUI ItemCount;
-    public InventorySlot AssignInventorySlot;
+    public Image ItemSprite { get; private set; }
+    public TextMeshProUGUI ItemCount { get; private set; }
+    public InventorySlot AssignInventorySlot { get; private set; } 
 
     public void Awake()
     {
         ItemSprite.color = Color.clear;
         ItemCount.text = "";
     }
-
     public void UpdateMouseSlot(InventorySlot invSlot)
     {
         AssignInventorySlot.AssignItem(invSlot);
@@ -32,17 +31,15 @@ public class MouseItemData : MonoBehaviour
     }
     public void Update()
     {
-        if(AssignInventorySlot.ItemData != null)
+        if(AssignInventorySlot.ItemData != null) // if has item - follow mouse
         {
             transform.position = Mouse.current.position.ReadValue();
             if(Mouse.current.leftButton.wasPressedThisFrame && !IsPointerOverUIObject())
             {
                 ClearSlot();
             }
-
         }
     }
-
     public void ClearSlot()
     {
         AssignInventorySlot.ClearSlot();
@@ -50,7 +47,6 @@ public class MouseItemData : MonoBehaviour
         ItemSprite.color = Color.clear;
         ItemSprite.sprite = null;
     }
-
     public static bool IsPointerOverUIObject()
     {
         PointerEventData evenDataCurrentPosition = new PointerEventData(EventSystem.current);
@@ -58,7 +54,6 @@ public class MouseItemData : MonoBehaviour
         List<RaycastResult> results = new List<RaycastResult>();
         EventSystem.current.RaycastAll(evenDataCurrentPosition, results);
         return results.Count > 0;
-
     }
 }
 

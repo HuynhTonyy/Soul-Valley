@@ -27,15 +27,24 @@ public abstract class InventoryDisplay : MonoBehaviour
     }
     public void SlotCliked(InventorySlot_UI clickedUISlot)
     {
-       
+        bool isShiftPress = Keyboard.current.leftShiftKey.isPressed;
 
         // Clicked slot has an item - mouse doesn't have an item - pick up item
         if (clickedUISlot.AssignInventorySlot.ItemData != null && mouseInventoryItem.AssignInventorySlot.ItemData == null)
         {
             // if shift key hold - split stack
-            mouseInventoryItem.UpdateMouseSlot(clickedUISlot.AssignInventorySlot);
-            clickedUISlot.ClearSlot();
-            return;
+            if (isShiftPress && clickedUISlot.AssignInventorySlot.SplitStack( out InventorySlot halfStackSlot))
+            {
+                mouseInventoryItem.UpdateMouseSlot(halfStackSlot);
+                clickedUISlot.UpdateUISlot();
+                return;
+            }
+            else
+            {
+                mouseInventoryItem.UpdateMouseSlot(clickedUISlot.AssignInventorySlot);
+                clickedUISlot.ClearSlot();
+                return;
+            }
         }
 
         // Clicked slot doesn't has an item - mouse does have an item - place to empty slot
@@ -45,11 +54,60 @@ public abstract class InventoryDisplay : MonoBehaviour
             clickedUISlot.UpdateUISlot();
 
             mouseInventoryItem.ClearSlot();
+            return;
         }
-
         //both slot have item - decide
-        // if both are the same - combine
-        // is the slot stack size + mouse stack > the slot max stack size ? take from mouse
-        // if different - swap
+        if (clickedUISlot.AssignInventorySlot.ItemData != null && mouseInventoryItem.AssignInventorySlot.ItemData != null)
+        {
+            // if different - swap
+            if (clickedUISlot.AssignInventorySlot.ItemData != mouseInventoryItem.AssignInventorySlot.ItemData)
+            {
+                SwapSlot(clickedUISlot);
+                return;
+            }
+            // if both are the same - combine
+            if (clickedUISlot.AssignInventorySlot.ItemData == mouseInventoryItem.AssignInventorySlot.ItemData
+                && clickedUISlot.AssignInventorySlot.EnoughRoomLeftInStack(mouseInventoryItem.AssignInventorySlot.StackSize))
+            {
+                clickedUISlot.AssignInventorySlot.AssignItem(mouseInventoryItem.AssignInventorySlot);
+                clickedUISlot.UpdateUISlot();
+
+                mouseInventoryItem.ClearSlot();
+                return;
+            }
+            else if (clickedUISlot.AssignInventorySlot.ItemData == mouseInventoryItem.AssignInventorySlot.ItemData
+                   && !clickedUISlot.AssignInventorySlot.RoomLeftInStack(mouseInventoryItem.AssignInventorySlot.StackSize, out int leftInStack))
+            {
+                if (leftInStack < 1) SwapSlot(clickedUISlot);// swap when stack full
+                else // take what need if stack NOT full
+                {
+                    int remainOnMouse = mouseInventoryItem.AssignInventorySlot.StackSize - leftInStack;
+                    clickedUISlot.AssignInventorySlot.AddToStack(leftInStack);
+                    clickedUISlot.UpdateUISlot();
+
+                    var newItem = new InventorySlot(mouseInventoryItem.AssignInventorySlot.ItemData, remainOnMouse);
+                    mouseInventoryItem.ClearSlot();
+                    mouseInventoryItem.UpdateMouseSlot(newItem);
+                    return;
+                }
+            }
+            else if (clickedUISlot.AssignInventorySlot.ItemData != mouseInventoryItem.AssignInventorySlot.ItemData)
+            {
+                SwapSlot(clickedUISlot);
+                return;
+            }
+        }   
+    }
+
+    private void SwapSlot(InventorySlot_UI clickedUISlot)
+    {
+        var clonedSlot = new InventorySlot(mouseInventoryItem.AssignInventorySlot.ItemData, mouseInventoryItem.AssignInventorySlot.StackSize);
+        mouseInventoryItem.ClearSlot();
+
+        mouseInventoryItem.UpdateMouseSlot(clickedUISlot.AssignInventorySlot);
+
+        clickedUISlot.ClearSlot();
+        clickedUISlot.AssignInventorySlot.AssignItem(clonedSlot);
+        clickedUISlot.UpdateUISlot();
     }
 }

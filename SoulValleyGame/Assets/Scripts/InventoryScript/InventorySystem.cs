@@ -15,7 +15,7 @@ public class InventorySystem
     public int InventorySize => InventorySlots.Count;
 
     public UnityAction<InventorySlot> OnInventorySlotChanged;
-    public InventorySystem(int size)
+    public InventorySystem(int size)// Contructor set amount of slot
     {
         inventorySlots = new List<InventorySlot>(size);
         for(int i = 0; i < size; i++)
@@ -29,7 +29,7 @@ public class InventorySystem
         {
             foreach(var slot in invSlot)
             {
-                if (slot.RoomLeftInStack(amount))
+                if (slot.EnoughRoomLeftInStack(amount))
                 {
                     slot.AddToStack(amount);
                     OnInventorySlotChanged?.Invoke(slot);
@@ -39,22 +39,25 @@ public class InventorySystem
         }
         if (HasFreeSlot(out InventorySlot freeSlot))// Get the first available slot
         {
-            freeSlot.UpdateInventorySlot(item, amount);
-            OnInventorySlotChanged?.Invoke(freeSlot);
-            return true;
+            if (freeSlot.EnoughRoomLeftInStack(amount))
+            {
+                freeSlot.UpdateInventorySlot(item, amount);
+                OnInventorySlotChanged?.Invoke(freeSlot);
+                return true;
+            }
         }
         return false;
     }
 
-    public bool ContainsItem(ItemScript item, out List<InventorySlot> invSlot)
+    public bool ContainsItem(ItemScript item, out List<InventorySlot> invSlot)// any slot have item to add 
     {
-        invSlot = inventorySlots.Where(i => i.ItemData == item).ToList();
+        invSlot = inventorySlots.Where(i => i.ItemData == item).ToList(); // get the list of all of them
         //Debug.Log(invSlot.Count);
-        return invSlot == null ? false:true;
+        return invSlot == null ? false : true;
     }
     public bool HasFreeSlot(out InventorySlot freeSlot)
     {
-        freeSlot = InventorySlots.FirstOrDefault(i => i.ItemData == null);
+        freeSlot = InventorySlots.FirstOrDefault(i => i.ItemData == null); // get the first free slot
         return freeSlot == null ? false : true;
     }
 }
