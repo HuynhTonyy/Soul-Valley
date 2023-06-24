@@ -7,13 +7,14 @@ using UnityEngine.InputSystem;
 
 public class InventoryUIControler : MonoBehaviour
 {
+    public static bool isClosed = true;
     public DynamicInventoryDisplay chestPanel;
     public DynamicInventoryDisplay playerBackpackPanel;
     public Image backGround;
 
 
     internal static bool status = false;
-    private void Awake()
+    private void Start()
     {
         playerBackpackPanel.gameObject.SetActive(false);
         chestPanel.gameObject.SetActive(false);
@@ -35,10 +36,16 @@ public class InventoryUIControler : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (chestPanel.gameObject.activeInHierarchy && (Keyboard.current.escapeKey.wasPressedThisFrame
-            || Keyboard.current.bKey.wasPressedThisFrame))
+        if (isClosed)
         {
-            
+            close();
+        }
+    }
+    public void close()
+    {
+        if (chestPanel.gameObject.activeInHierarchy)
+        {
+
             chestPanel.gameObject.SetActive(false);
             playerBackpackPanel.gameObject.SetActive(false);
             backGround.enabled = false;
@@ -47,8 +54,7 @@ public class InventoryUIControler : MonoBehaviour
             Cursor.visible = false;
         }
 
-        if(playerBackpackPanel.gameObject.activeInHierarchy && (Keyboard.current.escapeKey.wasPressedThisFrame
-            || Keyboard.current.bKey.wasPressedThisFrame))
+        if (playerBackpackPanel.gameObject.activeInHierarchy)
         {
             Debug.Log("hien");
             playerBackpackPanel.gameObject.SetActive(false);
@@ -58,7 +64,6 @@ public class InventoryUIControler : MonoBehaviour
             Cursor.visible = false;
         }
     }
-
     void DisplayInventory(InventorySystem invDisplay)
     {
         chestPanel.gameObject.SetActive(true);

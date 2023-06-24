@@ -6,25 +6,44 @@ using UnityEngine.InputSystem;
 
 public class Interactor : MonoBehaviour
 {
-    public Transform InteractionPoint;
-    public LayerMask InteractionLayer;
     public float InteractionPointRadius = 0.1f;
 
     public bool IsInteracting { get; set; }
 
+    RaycastHit hit;
+    public Transform camera;
+    FarmLand selectedLand;
+
     private void Update()
     {
-        var colliders = Physics.OverlapSphere(InteractionPoint.position, InteractionPointRadius, InteractionLayer);
-
-        if (Mouse.current.rightButton.wasPressedThisFrame)
+        if (Physics.Raycast(camera.transform.position, camera.transform.forward, out hit, 4f))
         {
-            for (int i = 0; i < colliders.Length; i++)
+            if(hit.transform.tag == "FarmLand")
             {
-                var interactable = colliders[i].GetComponent<IInteractable>();
-
+                FarmLand farmLand = hit.collider.GetComponent<FarmLand>();
+                if (selectedLand != null)
+                {
+                    selectedLand.Select(false);
+                }
+                selectedLand = farmLand;
+                farmLand.Select(true);
+            }
+            else if (selectedLand != null)
+            {
+                selectedLand.Select(false);
+            }
+            if (hit.transform.tag == "Interactable" && Mouse.current.rightButton.wasPressedThisFrame && InventoryUIControler.isClosed)
+            {
+                var interactable = hit.collider.GetComponent<IInteractable>();
                 if (interactable != null) StartInteraction(interactable);
+                InventoryUIControler.isClosed = false;
+            }
+            else if (!InventoryUIControler.isClosed && Keyboard.current.tabKey.wasPressedThisFrame)
+            {
+                InventoryUIControler.isClosed = true;
             }
         }
+
     }
 
     private void StartInteraction(IInteractable interactable)

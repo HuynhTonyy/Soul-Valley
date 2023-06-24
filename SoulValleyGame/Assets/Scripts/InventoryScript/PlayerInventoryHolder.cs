@@ -9,10 +9,10 @@ public class PlayerInventoryHolder : InventoryHolder
     [SerializeField] protected int secoundaryInventorySize;
     [SerializeField] protected InventorySystem secoundaryInventorySystem;
 
-
     public InventorySystem SecoundaryInventorySystem => secoundaryInventorySystem;
 
     public static UnityAction<InventorySystem> OnPlayerBackpackDisplayRequested;
+    
 
     protected override void Awake()
     {
@@ -23,10 +23,16 @@ public class PlayerInventoryHolder : InventoryHolder
     // Update is called once per frame
     void Update()
     {
-        if (Keyboard.current.bKey.wasPressedThisFrame)
+        if (InventoryUIControler.isClosed && Keyboard.current.tabKey.wasPressedThisFrame)
         {
             OnPlayerBackpackDisplayRequested?.Invoke(secoundaryInventorySystem);
+            InventoryUIControler.isClosed = false;
         }
+        else if(!InventoryUIControler.isClosed && Keyboard.current.tabKey.wasPressedThisFrame)
+        {
+            InventoryUIControler.isClosed = true;
+        }
+        
 
     }
     public bool AddToInventory(ItemScript item, int amount)
