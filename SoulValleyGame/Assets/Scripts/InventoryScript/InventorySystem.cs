@@ -62,4 +62,16 @@ public class InventorySystem
         freeSlot = InventorySlots.FirstOrDefault(i => i.ItemData == null); // get the first free slot
         return freeSlot == null ? false : true;
     }
+    public InventorySlot GetSlot(int index)
+    {
+        if (index >= 0 && index < InventorySize)
+        {
+            return inventorySlots[index];
+        }
+        else
+        {
+            Debug.LogError("Invalid slot index: " + index);
+            return null;
+        }
+    }
 }

@@ -16,12 +16,9 @@ public class ItemScript : ScriptableObject
     [Header("Only gameplay")]
     [TextArea(4, 4)]
     public string Description;
-
-    [Header("Only UI")]
     public int MaxStackSize;
-
-    [Header("Both")]
     public Sprite icon;
+    public GameObject ItemPreFab;
 
   
 

@@ -12,23 +12,37 @@ public class MouseItemData : MonoBehaviour
     public Image ItemSprite;
     public TextMeshProUGUI ItemCount;
     public InventorySlot AssignInventorySlot;
+    public float dropOffset = 3f;
 
+
+    private Transform playerTransform;
     public void Awake()
     {
         ItemSprite.color = Color.clear;
         ItemCount.text = "";
+
+        playerTransform = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
+        if(playerTransform == null)
+        {
+            Debug.Log("player Not Found");
+        }
     }
     public void UpdateMouseSlot(InventorySlot invSlot)
     {
         AssignInventorySlot.AssignItem(invSlot);
-        ItemSprite.sprite = invSlot.ItemData.icon;
-        if (invSlot.StackSize.ToString() == "1")
+        UpdateMouseSlot();
+    }
+    public void UpdateMouseSlot()
+    {
+        ItemSprite.sprite = AssignInventorySlot.ItemData.icon;
+        if (AssignInventorySlot.StackSize.ToString() == "1")
         {
             ItemCount.text = "";
         }
-        else ItemCount.text = invSlot.StackSize.ToString();
+        else ItemCount.text = AssignInventorySlot.StackSize.ToString();
         ItemSprite.color = Color.white;
     }
+
     public void Update()
     {
         if(AssignInventorySlot.ItemData != null) // if has item - follow mouse
@@ -36,8 +50,22 @@ public class MouseItemData : MonoBehaviour
             transform.position = Mouse.current.position.ReadValue();
             if(Mouse.current.leftButton.wasPressedThisFrame && !IsPointerOverUIObject())
             {
-                ClearSlot();
+                if(AssignInventorySlot.ItemData.ItemPreFab != null)
+                {
+                    Instantiate(AssignInventorySlot.ItemData.ItemPreFab, playerTransform.position+ playerTransform.forward * dropOffset, Quaternion.identity);
+                }
+                if (AssignInventorySlot.StackSize > 1)
+                {
+                    AssignInventorySlot.AddToStack(-1);
+                    UpdateMouseSlot(); 
+                }
+                else
+                {
+                    ClearSlot();
+                }
+                
             }
+
         }
     }
     public void ClearSlot()

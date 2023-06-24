@@ -39,7 +39,7 @@ public class InventorySlot_UI : MonoBehaviour
         ParentDisplay = transform.parent.GetComponent<InventoryDisplay>(); 
 
     }
-   
+
     public void Init(InventorySlot slot)
     {
         assignInventorySlot = slot;
