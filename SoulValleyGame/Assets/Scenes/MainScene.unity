@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.14703594, g: 0.36398482, b: 0.57992315, a: 1}
+  m_IndirectSpecularColor: {r: 0.14703749, g: 0.3639866, b: 0.57992274, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -2509,7 +2509,7 @@ Light:
     serializedVersion: 2
     m_Bits: 4294967295
   m_RenderingLayerMask: 1
-  m_Lightmapping: 4
+  m_Lightmapping: 2
   m_LightShadowCasterMode: 0
   m_AreaSize: {x: 1, y: 1}
   m_BounceIntensity: 1
@@ -2844,10 +2844,10 @@ RectTransform:
   m_Father: {fileID: 1917818509}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 1484, y: 650}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &501005123
 MonoBehaviour:
@@ -3173,6 +3173,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 73cb71444bbbf4043ac613b5c7be93a4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rotationSpeed: 20
   PickUpRadius: 1
   itemData: {fileID: 11400000, guid: eccc08b503c515f418f23d46cfe02a80, type: 2}
 --- !u!135 &564208611
@@ -4189,6 +4190,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 73cb71444bbbf4043ac613b5c7be93a4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rotationSpeed: 20
   PickUpRadius: 1
   itemData: {fileID: 11400000, guid: eccc08b503c515f418f23d46cfe02a80, type: 2}
 --- !u!135 &671278734
@@ -5331,6 +5333,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 73cb71444bbbf4043ac613b5c7be93a4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rotationSpeed: 20
   PickUpRadius: 1
   itemData: {fileID: 11400000, guid: eccc08b503c515f418f23d46cfe02a80, type: 2}
 --- !u!135 &805588846
@@ -5439,6 +5442,10 @@ PrefabInstance:
     - target: {fileID: -4235729450609539576, guid: ef63ae4464bd63c478c5012209ec0a44, type: 3}
       propertyPath: m_LocalPosition.z
       value: -15.9
+      objectReference: {fileID: 0}
+    - target: {fileID: -2601552257854514524, guid: ef63ae4464bd63c478c5012209ec0a44, type: 3}
+      propertyPath: m_Lightmapping
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: ef63ae4464bd63c478c5012209ec0a44, type: 3}
       propertyPath: m_Name
@@ -7118,6 +7125,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 73cb71444bbbf4043ac613b5c7be93a4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rotationSpeed: 20
   PickUpRadius: 1
   itemData: {fileID: 11400000, guid: aa3a131c1ee26ab47b67abbf6fb3f1df, type: 2}
 --- !u!135 &1179334403
@@ -8208,6 +8216,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 73cb71444bbbf4043ac613b5c7be93a4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rotationSpeed: 20
   PickUpRadius: 1
   itemData: {fileID: 11400000, guid: eccc08b503c515f418f23d46cfe02a80, type: 2}
 --- !u!135 &1308306578
@@ -8480,6 +8489,9 @@ MonoBehaviour:
   - {fileID: 396781303}
   - {fileID: 1634433106}
   - {fileID: 1079269775}
+  InventorySlot:
+    itemData: {fileID: 0}
+    stackSize: -1
 --- !u!114 &1316089909
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9047,6 +9059,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 73cb71444bbbf4043ac613b5c7be93a4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rotationSpeed: 20
   PickUpRadius: 1
   itemData: {fileID: 11400000, guid: aa3a131c1ee26ab47b67abbf6fb3f1df, type: 2}
 --- !u!135 &1355617928
@@ -9108,6 +9121,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 73cb71444bbbf4043ac613b5c7be93a4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rotationSpeed: 20
   PickUpRadius: 1
   itemData: {fileID: 11400000, guid: aa3a131c1ee26ab47b67abbf6fb3f1df, type: 2}
 --- !u!135 &1365686265
@@ -9675,9 +9689,7 @@ MonoBehaviour:
   AssignInventorySlot:
     itemData: {fileID: 0}
     stackSize: -1
-    image: {fileID: 0}
-    selectedColor: {r: 0, g: 0, b: 0, a: 0}
-    notSelectedColor: {r: 0, g: 0, b: 0, a: 0}
+  dropOffset: 3
 --- !u!1001 &1465487139
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -9928,6 +9940,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 73cb71444bbbf4043ac613b5c7be93a4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rotationSpeed: 20
   PickUpRadius: 1
   itemData: {fileID: 11400000, guid: aa3a131c1ee26ab47b67abbf6fb3f1df, type: 2}
 --- !u!135 &1472846279
@@ -10091,6 +10104,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 73cb71444bbbf4043ac613b5c7be93a4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rotationSpeed: 20
   PickUpRadius: 1
   itemData: {fileID: 11400000, guid: eccc08b503c515f418f23d46cfe02a80, type: 2}
 --- !u!135 &1513082540
@@ -11912,7 +11926,7 @@ MonoBehaviour:
   m_UiScaleMode: 0
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
-  m_ReferenceResolution: {x: 800, y: 600}
+  m_ReferenceResolution: {x: 1920, y: 1080}
   m_ScreenMatchMode: 0
   m_MatchWidthOrHeight: 0
   m_PhysicalUnit: 3
