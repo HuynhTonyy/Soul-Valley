@@ -138,7 +138,6 @@ public class StaticInventoryDisplay : InventoryDisplay
         }
 
     }
-
     private void ChangedSelectedSlot(int value)
     {
         if (selectedSlot >= 0)
