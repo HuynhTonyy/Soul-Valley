@@ -9,7 +9,6 @@ public class PlayerInventoryHolder : InventoryHolder
     [SerializeField] protected int secoundaryInventorySize;
     [SerializeField] protected InventorySystem secoundaryInventorySystem;
 
-    
 
     public InventorySystem SecoundaryInventorySystem => secoundaryInventorySystem;
 
@@ -19,12 +18,17 @@ public class PlayerInventoryHolder : InventoryHolder
         base.Awake();
 
         secoundaryInventorySystem = new InventorySystem(secoundaryInventorySize);
+        
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Keyboard.current.iKey.wasPressedThisFrame) OnPlayerBackpackDisplayRequested?.Invoke(secoundaryInventorySystem);
+        if (Keyboard.current.iKey.isPressed)
+        {
+            OnPlayerBackpackDisplayRequested?.Invoke(secoundaryInventorySystem);
+        }
+
     }
     public bool AddToInventory(ItemScript item, int amount)
     {
