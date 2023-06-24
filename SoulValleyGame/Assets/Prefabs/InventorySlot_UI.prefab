@@ -352,3 +352,6 @@ MonoBehaviour:
   assignInventorySlot:
     itemData: {fileID: 0}
     stackSize: -1
+  image: {fileID: 2325541038570017316}
+  selectedColor: {r: 0.8301887, g: 0.22267021, b: 0.121395506, a: 0.54509807}
+  notSelectedColor: {r: 0.9150943, g: 0.84799266, b: 0.17697577, a: 0.48235294}

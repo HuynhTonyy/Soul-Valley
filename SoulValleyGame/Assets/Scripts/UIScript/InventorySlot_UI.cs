@@ -15,7 +15,19 @@ public class InventorySlot_UI : MonoBehaviour
     private Button btn; 
     public InventorySlot AssignInventorySlot => assignInventorySlot;
     public InventoryDisplay ParentDisplay {get;private set;}
+
+  
+    public Image image;
     public Color selectedColor, notSelectedColor;
+    public void Selected()
+    {
+        image.color = selectedColor;
+    }
+    public void Deselected()
+    {
+        image.color = notSelectedColor;
+    }
+
     private void Awake()
     {
         Deselected();
@@ -27,14 +39,7 @@ public class InventorySlot_UI : MonoBehaviour
         ParentDisplay = transform.parent.GetComponent<InventoryDisplay>(); 
 
     }
-    public void Selected()
-    {
-        itemSprite.color = selectedColor;
-    }
-    public void Deselected()
-    {
-        itemSprite.color = notSelectedColor;
-    }
+   
     public void Init(InventorySlot slot)
     {
         assignInventorySlot = slot;

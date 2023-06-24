@@ -11,17 +11,20 @@ public class InventoryUIControler : MonoBehaviour
     public DynamicInventoryDisplay playerBackpackPanel;
     public Image backGround;
 
+
     internal static bool status = false;
     private void Awake()
     {
         playerBackpackPanel.gameObject.SetActive(false);
         chestPanel.gameObject.SetActive(false);
         backGround.enabled=false;
+
     }
     private void OnEnable()
     {
         InventoryHolder.OnDynamicInventoryDisplayRequested += DisplayInventory;
         PlayerInventoryHolder.OnPlayerBackpackDisplayRequested += DisplayPlayerBackpack;
+        
     }
     private void OnDisable()
     {
@@ -32,22 +35,27 @@ public class InventoryUIControler : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (chestPanel.gameObject.activeInHierarchy && Keyboard.current.escapeKey.isPressed
-            || chestPanel.gameObject.activeInHierarchy && Keyboard.current.iKey.isPressed)
-        { 
+        if (chestPanel.gameObject.activeInHierarchy && (Keyboard.current.escapeKey.wasPressedThisFrame
+            || Keyboard.current.bKey.wasPressedThisFrame))
+        {
+            
             chestPanel.gameObject.SetActive(false);
             playerBackpackPanel.gameObject.SetActive(false);
             backGround.enabled = false;
             status = false;
             Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
         }
-        if(playerBackpackPanel.gameObject.activeInHierarchy && Keyboard.current.escapeKey.isPressed
-            || playerBackpackPanel.gameObject.activeInHierarchy && Keyboard.current.iKey.isPressed)
+
+        if(playerBackpackPanel.gameObject.activeInHierarchy && (Keyboard.current.escapeKey.wasPressedThisFrame
+            || Keyboard.current.bKey.wasPressedThisFrame))
         {
+            Debug.Log("hien");
             playerBackpackPanel.gameObject.SetActive(false);
             backGround.enabled = false;
             status = false;
             Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
         }
     }
 
@@ -60,6 +68,7 @@ public class InventoryUIControler : MonoBehaviour
         backGround.enabled = true;
         status = true;
         Cursor.lockState = CursorLockMode.None;
+       
     }
     void DisplayPlayerBackpack(InventorySystem invDisplay)
     {
@@ -69,7 +78,7 @@ public class InventoryUIControler : MonoBehaviour
         backGround.enabled = true;
         status = true;
         Cursor.lockState = CursorLockMode.None;
+        
     }
-
     
 }

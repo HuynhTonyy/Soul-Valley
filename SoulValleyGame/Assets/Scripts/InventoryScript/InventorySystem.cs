@@ -8,14 +8,13 @@ using System.Linq;
 public class InventorySystem
 {
     [SerializeField] private List<InventorySlot> inventorySlots;
-    [SerializeField]
-    private int inventorySize;
+    [SerializeField] private int inventorySize;
     
     public List<InventorySlot> InventorySlots => inventorySlots;
+    public InventorySlot_UI[] inventorySlot;
     public int InventorySize => InventorySlots.Count;
 
     public UnityAction<InventorySlot> OnInventorySlotChanged;
-    
 
     public InventorySystem(int size)// Contructor set amount of slot
     {
@@ -27,6 +26,7 @@ public class InventorySystem
     }
     public bool AddToInventory(ItemScript item,int amount)
     {
+        
         if (ContainsItem(item, out List<InventorySlot> invSlot))// Check if Item exist in inventory
         {
             foreach(var slot in invSlot)

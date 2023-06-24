@@ -2,14 +2,18 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 [System.Serializable]
 public class InventorySlot
 {
     [SerializeField] private ItemScript itemData; // reference to the data
     [SerializeField] private int stackSize; // Current stack size
+
     public ItemScript ItemData => itemData;
     public int StackSize => stackSize;
+
+    
     public InventorySlot(ItemScript source, int amount)// contructor to make a occupied inventoryslot
     {
         itemData = source;

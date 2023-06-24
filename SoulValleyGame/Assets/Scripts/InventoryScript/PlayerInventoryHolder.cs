@@ -13,18 +13,17 @@ public class PlayerInventoryHolder : InventoryHolder
     public InventorySystem SecoundaryInventorySystem => secoundaryInventorySystem;
 
     public static UnityAction<InventorySystem> OnPlayerBackpackDisplayRequested;
+
     protected override void Awake()
     {
         base.Awake();
-
         secoundaryInventorySystem = new InventorySystem(secoundaryInventorySize);
-        
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Keyboard.current.iKey.isPressed)
+        if (Keyboard.current.bKey.wasPressedThisFrame)
         {
             OnPlayerBackpackDisplayRequested?.Invoke(secoundaryInventorySystem);
         }
