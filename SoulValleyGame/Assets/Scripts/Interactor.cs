@@ -9,13 +9,14 @@ public class Interactor : MonoBehaviour
 
     public bool IsInteracting { get; set; }
 
-    RaycastHit hit;
-    public Transform camera;
-    FarmLand selectedLand;
-
+    public static RaycastHit hit;
+    public Transform cam;
+    public static FarmLand selectedLand;
+    public static bool inRange;
     private void Update()
     {
-        if (Physics.Raycast(camera.transform.position, camera.transform.forward, out hit, 4f))
+        inRange = Physics.Raycast(cam.transform.position, cam.transform.forward, out hit, 4f);
+        if (inRange)
         {
             if(hit.transform.tag == "FarmLand")
             {
@@ -40,7 +41,6 @@ public class Interactor : MonoBehaviour
         }
 
     }
-
     private void StartInteraction(IInteractable interactable)
     {
         interactable.Interact(this, out bool interactSuccessful);

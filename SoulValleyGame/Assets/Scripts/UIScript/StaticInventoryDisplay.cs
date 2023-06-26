@@ -97,16 +97,33 @@ public class StaticInventoryDisplay : InventoryDisplay
             return false;
         }
     }
-    private void Update()
+    private SeedData GetSeed(int selectedSlot)
     {
-        
-        if(Input.GetKeyDown(KeyCode.Q) && GetSelectedItem(selectedSlot))
+        InventorySystem inventorySystem = inventoryHolder.PrimaryInventorySystem;
+        SeedData slot = inventorySystem.GetSlot(selectedSlot).ItemData as SeedData;
+        return slot;
+    }
+        private void Update()
+    {
+
+        if (Input.GetKeyDown(KeyCode.Q) && GetSelectedItem(selectedSlot))
         {
             throwItem(selectedSlot);
         }
-        if(Mouse.current.leftButton.wasPressedThisFrame && GetSelectedItem(selectedSlot))
+        if (Mouse.current.leftButton.wasPressedThisFrame && GetSelectedItem(selectedSlot))
         {
-            UseItem(selectedSlot);
+            SeedData seed = GetSeed(selectedSlot);
+            if (seed != null)
+            {
+                if (Interactor.selectedLand != null && Interactor.selectedLand.Interact(seed))
+                {
+                    UseItem(selectedSlot);
+                }
+            }
+            /*else
+            {
+                UseItem(selectedSlot);
+            }*/
         }
 
         float scrollValue = Input.mouseScrollDelta.y;
