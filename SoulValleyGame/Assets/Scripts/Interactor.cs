@@ -6,7 +6,6 @@ using UnityEngine.InputSystem;
 
 public class Interactor : MonoBehaviour
 {
-    public float InteractionPointRadius = 0.1f;
 
     public bool IsInteracting { get; set; }
 
@@ -37,10 +36,6 @@ public class Interactor : MonoBehaviour
                 var interactable = hit.collider.GetComponent<IInteractable>();
                 if (interactable != null) StartInteraction(interactable);
                 InventoryUIControler.isClosed = false;
-            }
-            else if (!InventoryUIControler.isClosed && Keyboard.current.tabKey.wasPressedThisFrame)
-            {
-                InventoryUIControler.isClosed = true;
             }
         }
 
