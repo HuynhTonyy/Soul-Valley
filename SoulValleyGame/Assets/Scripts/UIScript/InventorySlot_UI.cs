@@ -33,6 +33,8 @@ public class InventorySlot_UI : MonoBehaviour
         Deselected();
         ClearSlot();
 
+        itemSprite.preserveAspect = true;
+
         btn = GetComponent<Button>();
         btn?.onClick.AddListener(OnUISlotClick);
 

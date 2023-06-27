@@ -19,7 +19,9 @@ public class MouseItemData : MonoBehaviour
     public void Awake()
     {
         ItemSprite.color = Color.clear;
+        ItemSprite.preserveAspect = true;
         ItemCount.text = "";
+       
 
         playerTransform = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
         if(playerTransform == null)

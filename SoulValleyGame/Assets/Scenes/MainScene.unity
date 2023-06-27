@@ -3897,10 +3897,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: InventorySlot_UI (1)
       objectReference: {fileID: 0}
-    - target: {fileID: 6280966574996812331, guid: 852d2416d24ec1a41a4c8630aeaed4ab, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 7254752643665771143, guid: 852d2416d24ec1a41a4c8630aeaed4ab, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -10191,15 +10187,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2571332453162033982, guid: 852d2416d24ec1a41a4c8630aeaed4ab, type: 3}
       propertyPath: notSelectedColor.b
-      value: 0.25355998
+      value: 0.1764706
       objectReference: {fileID: 0}
     - target: {fileID: 2571332453162033982, guid: 852d2416d24ec1a41a4c8630aeaed4ab, type: 3}
       propertyPath: notSelectedColor.g
-      value: 0.6845152
+      value: 0.84705883
       objectReference: {fileID: 0}
     - target: {fileID: 2571332453162033982, guid: 852d2416d24ec1a41a4c8630aeaed4ab, type: 3}
       propertyPath: notSelectedColor.r
-      value: 0.6981132
+      value: 0.9137255
       objectReference: {fileID: 0}
     - target: {fileID: 6280966574996812331, guid: 852d2416d24ec1a41a4c8630aeaed4ab, type: 3}
       propertyPath: m_Name
