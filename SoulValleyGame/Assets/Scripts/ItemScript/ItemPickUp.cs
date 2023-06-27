@@ -6,7 +6,6 @@ using UnityEngine;
 public class ItemPickUp : MonoBehaviour
 {
     [SerializeField] private float rotationSpeed = 20f;
-    [SerializeField] private float moveSpeed = 1f;
     public float PickUpRadius = 1f;
     public ItemScript itemData;
 
@@ -15,23 +14,6 @@ public class ItemPickUp : MonoBehaviour
     private void Update()
     {
         transform.Rotate(Vector3.up * rotationSpeed * Time.deltaTime);
-        
-        if (transform.position.y <= 10)
-        {
-            float upYPosition = transform.position.y + moveSpeed * Time.deltaTime;
-            transform.position = new Vector3(transform.position.x, upYPosition, transform.position.z);
-            Debug.Log("Len"+transform.position.y);
-        }
-        if (transform.position.y > 13 && transform.position.y > 10)
-        {
-            float downYPosition = transform.position.y - moveSpeed * Time.deltaTime;
-            transform.position = new Vector3(transform.position.x, downYPosition, transform.position.z);
-            Debug.Log("Xuong" + transform.position.y);
-        }
-       
-       
-        
-   
     }
     private void Awake()
     {

@@ -17,7 +17,7 @@ public class CropBehaviour : MonoBehaviour
     public void PLant(SeedData seedToGrow)
     {
         this.seedToGrow = seedToGrow;
-        seed = Instantiate(seedToGrow.ItemPreFab,transform);
+        seed = Instantiate(seedToGrow.seed,transform);
         seedling = Instantiate(seedToGrow.seedling, transform);
         harvestable = Instantiate(seedToGrow.CropToYeild.ItemPreFab, transform);
         SwitchToState(CropState.Seed);

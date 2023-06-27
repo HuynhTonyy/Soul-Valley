@@ -16,7 +16,8 @@ MonoBehaviour:
   DisplayName: Mushroom  seed
   MaxStackSize: 4
   icon: {fileID: 21300000, guid: c4a42d087d095a34fbc8920ff4ac6a56, type: 3}
-  ItemPreFab: {fileID: 8333869302400229472, guid: b419a9bab418cfd4d9886e4ab26278e3, type: 3}
+  ItemPreFab: {fileID: 2111610932176695751, guid: b15680852f6dad34b81468f9e869796c, type: 3}
   DayToGrow: 2
   seedling: {fileID: 8333869302400229472, guid: 5bd155a55131e74429ab14965c294c85, type: 3}
+  seed: {fileID: 8333869302400229472, guid: b419a9bab418cfd4d9886e4ab26278e3, type: 3}
   CropToYeild: {fileID: 11400000, guid: 610f36e588908ad43b326d4d329d9e90, type: 2}

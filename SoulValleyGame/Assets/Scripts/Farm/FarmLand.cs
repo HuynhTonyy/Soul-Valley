@@ -17,7 +17,7 @@ public class FarmLand : MonoBehaviour
         if(cropPlanted == null)
         {
             Debug.Log(transform.position);
-            GameObject cropObject = Instantiate(cropPrefab, transform);
+            GameObject cropObject = Instantiate(cropPrefab,transform);
             cropObject.transform.localPosition = new Vector3(0, 0, 0);
             cropPlanted = cropObject.GetComponent<CropBehaviour>();
             cropPlanted.PLant(seed);

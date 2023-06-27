@@ -8,6 +8,7 @@ public class StaticInventoryDisplay : InventoryDisplay
     [SerializeField] private InventoryHolder inventoryHolder;
     [SerializeField] protected InventorySlot_UI[] slots;
     public InventorySlot InventorySlot;
+    private Transform playerTransform;
 
     int selectedSlot=-1;
     protected override void Start()
@@ -15,6 +16,7 @@ public class StaticInventoryDisplay : InventoryDisplay
         base.Start();
         RefreshStaticDisplay();
         ChangedSelectedSlot(0);
+        playerTransform = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
         
     }
     private void throwItem(int selectedSlot)
@@ -25,8 +27,14 @@ public class StaticInventoryDisplay : InventoryDisplay
         if (selectedSlotData != null && selectedSlotData.ItemData != null)
         {
             ItemScript itemData = selectedSlotData.ItemData;
+            GameObject itemGameObject = itemData.ItemPreFab;
             if (isShiftPress){
-                selectedSlotData.ClearSlot();
+                for(int i = 0; i < selectedSlotData.StackSize; i++)
+                {
+                    Instantiate(itemGameObject, playerTransform.position + playerTransform.forward * 1f, Quaternion.identity);
+ 
+                }
+                selectedSlotData.ClearSlot();    
             }
             else
             {
@@ -34,14 +42,15 @@ public class StaticInventoryDisplay : InventoryDisplay
                 {
                     selectedSlotData.RemoveFromStack(1);
                     selectedUISlot.UpdateUISlot(selectedSlotData);
+                    Instantiate(itemData.ItemPreFab, playerTransform.position + playerTransform.forward * 1f, Quaternion.identity);
                     Debug.Log("Throw Item: " + itemData.DisplayName + " - " + selectedSlotData.StackSize);
                 }
                 else
                 {
                     selectedSlotData.ClearSlot();
+                    Instantiate(itemData.ItemPreFab, transform);
                 }
             }
-            selectedUISlot.UpdateUISlot(selectedSlotData);
             selectedUISlot.UpdateUISlot(selectedSlotData);
             Debug.Log("Throw Item: " + itemData.DisplayName);
         }
@@ -58,7 +67,7 @@ public class StaticInventoryDisplay : InventoryDisplay
         if (selectedSlotData != null && selectedSlotData.ItemData != null)
         {
             ItemScript itemData = selectedSlotData.ItemData;
-            if (itemData.MaxStackSize > 1)
+            if (itemData.MaxStackSize >= 1)
             {
                 selectedSlotData.RemoveFromStack(1);
                 selectedUISlot.UpdateUISlot(selectedSlotData);
@@ -103,9 +112,14 @@ public class StaticInventoryDisplay : InventoryDisplay
         SeedData slot = inventorySystem.GetSlot(selectedSlot).ItemData as SeedData;
         return slot;
     }
-        private void Update()
+    private PlaceableData GetPlaceableData(int selectedSlot)
     {
-
+        InventorySystem inventorySystem = inventoryHolder.PrimaryInventorySystem;
+        PlaceableData data = inventorySystem.GetSlot(selectedSlot).ItemData as PlaceableData;
+        return data;
+    }
+    private void Update()
+    {
         if (Input.GetKeyDown(KeyCode.Q) && GetSelectedItem(selectedSlot))
         {
             throwItem(selectedSlot);
@@ -113,6 +127,7 @@ public class StaticInventoryDisplay : InventoryDisplay
         if (Mouse.current.leftButton.wasPressedThisFrame && GetSelectedItem(selectedSlot))
         {
             SeedData seed = GetSeed(selectedSlot);
+            PlaceableData data = GetPlaceableData(selectedSlot);
             if (seed != null)
             {
                 if (Interactor.selectedLand != null && Interactor.selectedLand.Interact(seed))
@@ -120,10 +135,14 @@ public class StaticInventoryDisplay : InventoryDisplay
                     UseItem(selectedSlot);
                 }
             }
-            /*else
+
+            if (data != null && Interactor.hit.transform.tag=="Placeable")
             {
+                Debug.Log("Place");
+                Instantiate(data.itemData.ItemPreFab, (playerTransform.position) + playerTransform.forward * 1f, Quaternion.identity);
                 UseItem(selectedSlot);
-            }*/
+               
+            }
         }
 
         float scrollValue = Input.mouseScrollDelta.y;

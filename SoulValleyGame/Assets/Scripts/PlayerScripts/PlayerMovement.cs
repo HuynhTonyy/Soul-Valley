@@ -92,14 +92,10 @@ public class PlayerMovement : MonoBehaviour
             verticalInput = Input.GetAxisRaw("Vertical");
         }
         //Jump trigger
-        if (Input.GetKey(jumpKey) && readyToJump && grounded)
+        if (Input.GetKey(jumpKey) && readyToJump && grounded && !invStatus)
         {
             readyToJump = false;
-
-            
-
             Jump();
-
             Invoke(nameof(ResetJump), jumpColdown);
         }
     }
