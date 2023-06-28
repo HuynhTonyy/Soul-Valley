@@ -15,6 +15,10 @@ public class Interactor : MonoBehaviour
     public static bool inRange;
     private void Update()
     {
+        if (Input.GetKey(KeyCode.O))
+        {
+            TimeManager.Instance.Tick();
+        }
         inRange = Physics.Raycast(cam.transform.position, cam.transform.forward, out hit, 4f);
         if (inRange)
         {
