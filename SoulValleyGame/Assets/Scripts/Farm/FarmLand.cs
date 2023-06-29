@@ -2,12 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FarmLand : MonoBehaviour
+public class FarmLand : MonoBehaviour, ITimeTracker
 {
     public GameObject select;
     [Header("Crop")]
     public GameObject cropPrefab;
     CropBehaviour cropPlanted = null;
+    private void Start()
+    {
+        TimeManager.Instance.RegisterTracker(this);
+    }
     public void Select(bool toggle)
     {
         select.SetActive(toggle);
@@ -27,5 +31,9 @@ public class FarmLand : MonoBehaviour
         {
             return false;
         }
+    }
+
+    public void ClockUpdate(GameTimeStamp timeStamp)
+    {
     }
 }

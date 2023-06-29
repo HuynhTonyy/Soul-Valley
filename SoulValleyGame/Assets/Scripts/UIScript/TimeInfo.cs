@@ -13,7 +13,7 @@ public class TimeInfo : MonoBehaviour, ITimeTracker
     // Start is called before the first frame update
     void Start()
     {
-        TimeManager.Instance.RegisterTrachker(this);
+        TimeManager.Instance.RegisterTracker(this);
     }
 
     public void ClockUpdate(GameTimeStamp timeStamp)

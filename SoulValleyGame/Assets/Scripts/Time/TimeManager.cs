@@ -30,8 +30,8 @@ public class TimeManager : MonoBehaviour
     {
         while (true)
         {
-            yield return new WaitForSeconds(1/timeScale);
             Tick();
+            yield return new WaitForSeconds(1/timeScale);
         }
     }
     public void Tick()
@@ -51,11 +51,11 @@ public class TimeManager : MonoBehaviour
         float sunAngle = .25f * timeInMinute - 90;
         sunTranform.eulerAngles = new Vector3(sunAngle, 0, 0);
     }
-    public void RegisterTrachker(ITimeTracker listener)
+    public void RegisterTracker(ITimeTracker listener)
     {
         listeners.Add(listener);
     }
-    public void UnregisterTrachker(ITimeTracker listener)
+    public void UnregisterTracker(ITimeTracker listener)
     {
         listeners.Remove(listener);
     }

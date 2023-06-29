@@ -13,7 +13,14 @@ public class CropBehaviour : MonoBehaviour
     {
         Seed,Seedling,Harvestable
     }
-    CropState cropState;
+    public CropState cropState;
+    public enum LandStatus
+    {
+        Dry, Watered
+    }
+    public LandStatus landStatus;
+    int growth;
+    int maxGrowth;
     public void PLant(SeedData seedToGrow)
     {
         this.seedToGrow = seedToGrow;
@@ -23,15 +30,20 @@ public class CropBehaviour : MonoBehaviour
         SwitchToState(CropState.Seed);
     }
 
-    void Grow()
+    public void Grow()
     {
-        
+        growth++;
+        if(growth >= maxGrowth)
+        {
+            SwitchToState(CropState.Harvestable);
+        }
     }
     public void SwitchToState(CropState stateToSwitch)
     {
         seed.SetActive(false);
         seedling.SetActive(false);
         harvestable.SetActive(false);
+        cropState = stateToSwitch;
         switch (stateToSwitch)
         {
             case CropState.Seed:

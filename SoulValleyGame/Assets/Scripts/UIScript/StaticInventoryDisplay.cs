@@ -24,6 +24,7 @@ public class StaticInventoryDisplay : InventoryDisplay
         InventorySlot_UI selectedUISlot = slots[selectedSlot];
         InventorySlot selectedSlotData = selectedUISlot.AssignInventorySlot;
         bool isShiftPress = Keyboard.current.leftShiftKey.isPressed;
+        Vector3 positionToSpawn = playerTransform.position + playerTransform.forward * 1f;
         if (selectedSlotData != null && selectedSlotData.ItemData != null)
         {
             ItemScript itemData = selectedSlotData.ItemData;
@@ -31,7 +32,7 @@ public class StaticInventoryDisplay : InventoryDisplay
             if (isShiftPress){
                 for(int i = 0; i < selectedSlotData.StackSize; i++)
                 {
-                    Instantiate(itemGameObject, playerTransform.position + playerTransform.forward * 1f, Quaternion.identity);
+                    Instantiate(itemGameObject, positionToSpawn, Quaternion.identity);
  
                 }
                 selectedSlotData.ClearSlot();    
@@ -42,13 +43,13 @@ public class StaticInventoryDisplay : InventoryDisplay
                 {
                     selectedSlotData.RemoveFromStack(1);
                     selectedUISlot.UpdateUISlot(selectedSlotData);
-                    Instantiate(itemData.ItemPreFab, playerTransform.position + playerTransform.forward * 1f, Quaternion.identity);
+                    Instantiate(itemGameObject, positionToSpawn, Quaternion.identity);
                     Debug.Log("Throw Item: " + itemData.DisplayName + " - " + selectedSlotData.StackSize);
                 }
                 else
                 {
                     selectedSlotData.ClearSlot();
-                    Instantiate(itemData.ItemPreFab, transform);
+                    Instantiate(itemData.ItemPreFab, positionToSpawn, Quaternion.identity);
                 }
             }
             selectedUISlot.UpdateUISlot(selectedSlotData);
@@ -118,6 +119,12 @@ public class StaticInventoryDisplay : InventoryDisplay
         PlaceableData data = inventorySystem.GetSlot(selectedSlot).ItemData as PlaceableData;
         return data;
     }
+    private ToolData GetToolData(int selectedSlot)
+    {
+        InventorySystem inventorySystem = inventoryHolder.PrimaryInventorySystem;
+        ToolData data = inventorySystem.GetSlot(selectedSlot).ItemData as ToolData;
+        return data;
+    }
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Q) && GetSelectedItem(selectedSlot))
@@ -127,21 +134,37 @@ public class StaticInventoryDisplay : InventoryDisplay
         if (Mouse.current.leftButton.wasPressedThisFrame && GetSelectedItem(selectedSlot))
         {
             SeedData seed = GetSeed(selectedSlot);
-            PlaceableData data = GetPlaceableData(selectedSlot);
+            PlaceableData placeable = GetPlaceableData(selectedSlot);
+            ToolData tool = GetToolData(selectedSlot);
             if (seed != null)
             {
                 if (Interactor.selectedLand != null && Interactor.selectedLand.Interact(seed))
                 {
                     UseItem(selectedSlot);
                 }
-            }
-
-            if (data != null && Interactor.hit.transform.tag=="Placeable")
+            }else if (placeable != null && Interactor.hit.transform.tag=="Placeable")
             {
                 Debug.Log("Place");
-                Instantiate(data.itemData.ItemPreFab, (playerTransform.position) + playerTransform.forward * 1f, Quaternion.identity);
+                Instantiate(placeable.itemData.ItemPreFab, (playerTransform.position) + playerTransform.forward * 1f, Quaternion.identity);
                 UseItem(selectedSlot);
                
+            }
+            else if (tool != null)
+            {
+                switch (tool.toolType)
+                {
+                    case ToolData.ToolType.WateringCan:
+                        if (Interactor.hit.transform.tag == "FarmLand")
+                        {
+                            CropBehaviour farmLand = Interactor.hit.transform.GetComponent<CropBehaviour>();
+                            if (farmLand.landStatus == CropBehaviour.LandStatus.Dry && (farmLand.cropState == CropBehaviour.CropState.Seed || farmLand.cropState == CropBehaviour.CropState.Seedling))
+                            {
+                                Debug.Log("Watered");
+                            }
+                        }
+                        break;
+
+                }
             }
         }
 
