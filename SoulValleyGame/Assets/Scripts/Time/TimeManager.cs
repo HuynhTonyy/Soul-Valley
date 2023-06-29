@@ -59,4 +59,8 @@ public class TimeManager : MonoBehaviour
     {
         listeners.Remove(listener);
     }
+    public GameTimeStamp GetTimeStamp()
+    {
+        return new GameTimeStamp(timeStamp);
+    }
 }

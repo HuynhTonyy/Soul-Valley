@@ -7,7 +7,14 @@ public class FarmLand : MonoBehaviour, ITimeTracker
     public GameObject select;
     [Header("Crop")]
     public GameObject cropPrefab;
-    CropBehaviour cropPlanted = null;
+    public CropBehaviour cropPlanted = null;
+    public enum LandStatus
+    {
+        Dry, 
+        Watered
+    }
+    public LandStatus landStatus = LandStatus.Dry;
+    GameTimeStamp timeWatered;
     private void Start()
     {
         TimeManager.Instance.RegisterTracker(this);
@@ -32,8 +39,21 @@ public class FarmLand : MonoBehaviour, ITimeTracker
             return false;
         }
     }
+    public void Water()
+    {
+        landStatus = LandStatus.Watered;
+        timeWatered = TimeManager.Instance.GetTimeStamp();
 
+    }
     public void ClockUpdate(GameTimeStamp timeStamp)
     {
+        if(landStatus == LandStatus.Watered)
+        {
+            cropPlanted.Grow();
+            if(GameTimeStamp.CompareTimeStamp(timeWatered, timeStamp) >= 24)
+            {
+                landStatus = LandStatus.Dry;
+            }
+        }
     }
 }

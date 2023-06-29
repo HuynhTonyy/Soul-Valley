@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 2111610932176695749}
   - component: {fileID: 7806388658939080006}
   m_Layer: 0
-  m_Name: Blue soul
+  m_Name: Blue_Soul_Seed
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

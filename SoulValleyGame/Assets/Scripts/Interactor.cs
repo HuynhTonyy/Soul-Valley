@@ -36,11 +36,24 @@ public class Interactor : MonoBehaviour
             {
                 selectedLand.Select(false);
             }
-            if (hit.transform.tag == "Interactable" && Mouse.current.rightButton.wasPressedThisFrame && InventoryUIControler.isClosed)
+            if (hit.transform.tag == "Interactable")
             {
-                var interactable = hit.collider.GetComponent<IInteractable>();
-                if (interactable != null) StartInteraction(interactable);
-                InventoryUIControler.isClosed = false;
+                if (Mouse.current.rightButton.wasPressedThisFrame && InventoryUIControler.isClosed)
+                {
+                    var interactable = hit.collider.GetComponent<IInteractable>();
+                    if (interactable != null) StartInteraction(interactable);
+                    InventoryUIControler.isClosed = false;
+                }
+                if (Keyboard.current.eKey.wasPressedThisFrame)
+                {
+                    Debug.Log("Pickup");
+                    var inventory = this.gameObject.GetComponent<PlayerInventoryHolder>();
+                    if (!inventory) return;
+                    if (inventory.AddToInventory(hit.collider.GetComponent<InteractableObject>().itemData, 1))
+                    {
+                        Destroy(hit.collider.gameObject);
+                    }
+                }
             }
         }
 

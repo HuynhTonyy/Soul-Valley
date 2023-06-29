@@ -154,11 +154,12 @@ public class StaticInventoryDisplay : InventoryDisplay
                 switch (tool.toolType)
                 {
                     case ToolData.ToolType.WateringCan:
-                        if (Interactor.hit.transform.tag == "FarmLand")
+                        if (Interactor.inRange && Interactor.hit.transform.tag == "FarmLand")
                         {
-                            CropBehaviour farmLand = Interactor.hit.transform.GetComponent<CropBehaviour>();
-                            if (farmLand.landStatus == CropBehaviour.LandStatus.Dry && (farmLand.cropState == CropBehaviour.CropState.Seed || farmLand.cropState == CropBehaviour.CropState.Seedling))
+                            FarmLand farmLand = Interactor.hit.transform.GetComponent<FarmLand>();
+                            if (farmLand.landStatus == FarmLand.LandStatus.Dry && farmLand.cropPlanted != null && farmLand.cropPlanted.cropState != CropBehaviour.CropState.Harvestable)
                             {
+                                farmLand.Water();
                                 Debug.Log("Watered");
                             }
                         }
