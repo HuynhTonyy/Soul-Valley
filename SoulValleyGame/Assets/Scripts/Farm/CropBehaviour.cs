@@ -14,12 +14,7 @@ public class CropBehaviour : MonoBehaviour
         Seed,Seedling,Harvestable
     }
     public CropState cropState;
-    public enum LandStatus
-    {
-        Dry, Watered
-    }
-    public LandStatus landStatus;
-    int growth;
+    int growth = 1;
     int maxGrowth;
     public void PLant(SeedData seedToGrow)
     {
@@ -27,13 +22,17 @@ public class CropBehaviour : MonoBehaviour
         seed = Instantiate(seedToGrow.seed,transform);
         seedling = Instantiate(seedToGrow.seedling, transform);
         harvestable = Instantiate(seedToGrow.CropToYeild.ItemPreFab, transform);
+        maxGrowth = GameTimeStamp.HoursToMinutes(GameTimeStamp.DaysToHours(seedToGrow.DayToGrow));
         SwitchToState(CropState.Seed);
     }
 
     public void Grow()
     {
         growth++;
-        if(growth >= maxGrowth)
+        if(growth >= maxGrowth / 2 && cropState == CropState.Seed)
+        {
+            SwitchToState(CropState.Seedling);
+        }else if(growth >= maxGrowth && cropState == CropState.Seedling)
         {
             SwitchToState(CropState.Harvestable);
         }
@@ -54,6 +53,8 @@ public class CropBehaviour : MonoBehaviour
                 break;
             case CropState.Harvestable:
                 harvestable.SetActive(true);
+                harvestable.transform.parent = null;
+                Destroy(gameObject);
                 break;
         }
         cropState = stateToSwitch;

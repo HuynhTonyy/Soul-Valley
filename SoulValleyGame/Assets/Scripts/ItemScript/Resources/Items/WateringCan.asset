@@ -16,5 +16,5 @@ MonoBehaviour:
   DisplayName: WateringCan
   MaxStackSize: 1
   icon: {fileID: 21300000, guid: 5ef8c6546020bb44aa80851ee160b22c, type: 3}
-  ItemPreFab: {fileID: 1595407501170236, guid: 13a72c55b88a6a141b686faede26377f, type: 3}
+  ItemPreFab: {fileID: 2631189658582271801, guid: 25d2f3a0e1d167047bc13752f7229c5a, type: 3}
   toolType: 0
