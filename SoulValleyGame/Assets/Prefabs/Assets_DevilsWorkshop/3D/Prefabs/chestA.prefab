@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 23525014595314014}
   - component: {fileID: 1556278585}
   - component: {fileID: 1556278586}
+  - component: {fileID: 2272203477948123887}
   m_Layer: 0
   m_Name: chestA
   m_TagString: Interactable
@@ -115,3 +116,16 @@ MonoBehaviour:
     inventorySlots: []
     inventorySize: 0
     inventorySlot: []
+--- !u!114 &2272203477948123887
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1619717194498572}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f2f6d31c9f4cab1458e5406b901cb5b0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  id: f6e3d297-b1e9-4877-bceb-53edc49f74a6

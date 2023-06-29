@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 2111610932176695750}
   - component: {fileID: 2111610932176695748}
   - component: {fileID: 2111610932176695749}
+  - component: {fileID: 7806388658939080006}
   m_Layer: 0
   m_Name: Blue soul
   m_TagString: Untagged
@@ -25,7 +26,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2111610932176695751}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 490.986, y: 9.94, z: 512.252}
   m_LocalScale: {x: 0.32573548, y: 0.32573548, z: 0.35902563}
   m_ConstrainProportionsScale: 0
@@ -62,6 +63,23 @@ MonoBehaviour:
   rotationSpeed: 50
   PickUpRadius: 1
   itemData: {fileID: 11400000, guid: fcda694406921e14b83e43c7799fd9e9, type: 2}
+  itemSaveData:
+    itemData: {fileID: 0}
+    position: {x: 0, y: 0, z: 0}
+    rotation: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &7806388658939080006
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2111610932176695751}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f2f6d31c9f4cab1458e5406b901cb5b0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  id: dc747f1c-274d-4aeb-8cd4-d5eb7e616fdf
 --- !u!1 &2868655031277547047
 GameObject:
   m_ObjectHideFlags: 0
