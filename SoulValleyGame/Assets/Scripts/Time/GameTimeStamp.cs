@@ -93,10 +93,18 @@ public class GameTimeStamp
     {
         return years* 4 * 30;
     }
-    public static int CompareTimeStamp(GameTimeStamp gameTimeStampX, GameTimeStamp gameTimeStampY)
+    public static int CompareTimeStamp(GameTimeStamp gameTimeStampX, GameTimeStamp gameTimeStampY, bool toHour)
     {
         int hourX = DaysToHours(YearsToDays(gameTimeStampX.year) + SeasonsToDays(gameTimeStampX.season) + gameTimeStampX.day) + gameTimeStampX.hour;
         int hourY = DaysToHours(YearsToDays(gameTimeStampY.year) + SeasonsToDays(gameTimeStampY.season) + gameTimeStampY.day) + gameTimeStampY.hour;
-        return Mathf.Abs(hourY - hourX);
+        if (toHour)
+        {
+            return Mathf.Abs(hourY - hourX);
+        }
+        else
+        {
+            return Mathf.Abs((HoursToMinutes(hourX) + gameTimeStampX.minute) - (HoursToMinutes(hourY) + gameTimeStampY.minute));
+
+        }
     }
 }

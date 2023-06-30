@@ -138,7 +138,7 @@ public class StaticInventoryDisplay : InventoryDisplay
             ToolData tool = GetToolData(selectedSlot);
             if (seed != null)
             {
-                if (Interactor.selectedLand != null && Interactor.selectedLand.Interact(seed))
+                if (Interactor.selectedLand != null && Interactor.selectedLand.Plant(seed))
                 {
                     UseItem(selectedSlot);
                 }

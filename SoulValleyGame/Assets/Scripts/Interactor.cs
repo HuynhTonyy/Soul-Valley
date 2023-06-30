@@ -6,9 +6,6 @@ using UnityEngine.InputSystem;
 
 public class Interactor : MonoBehaviour
 {
-
-    public bool IsInteracting { get; set; }
-
     public static RaycastHit hit;
     public Transform cam;
     public static FarmLand selectedLand;
@@ -22,7 +19,7 @@ public class Interactor : MonoBehaviour
         inRange = Physics.Raycast(cam.transform.position, cam.transform.forward, out hit, 4f);
         if (inRange)
         {
-            if(hit.transform.tag == "FarmLand")
+            if (hit.transform.tag == "FarmLand")
             {
                 FarmLand farmLand = hit.collider.GetComponent<FarmLand>();
                 if (selectedLand != null)
@@ -41,31 +38,11 @@ public class Interactor : MonoBehaviour
                 if (Mouse.current.rightButton.wasPressedThisFrame && InventoryUIControler.isClosed)
                 {
                     var interactable = hit.collider.GetComponent<IInteractable>();
-                    if (interactable != null) StartInteraction(interactable);
-                    InventoryUIControler.isClosed = false;
-                }
-                if (Keyboard.current.eKey.wasPressedThisFrame)
-                {
-                    Debug.Log("Pickup");
-                    var inventory = this.gameObject.GetComponent<PlayerInventoryHolder>();
-                    if (!inventory) return;
-                    if (inventory.AddToInventory(hit.collider.GetComponent<InteractableObject>().itemData, 1))
-                    {
-                        Destroy(hit.collider.gameObject);
-                    }
+                    if (interactable != null) interactable.Interact(this);
                 }
             }
         }
 
     }
-    private void StartInteraction(IInteractable interactable)
-    {
-        interactable.Interact(this, out bool interactSuccessful);
-        IsInteracting = true;
-    }
-
-    void EndInteraction()
-    {
-        IsInteracting = false;
-    }
 }
+

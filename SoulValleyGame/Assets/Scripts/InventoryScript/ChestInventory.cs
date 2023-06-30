@@ -8,7 +8,7 @@ using UnityEngine.Events;
 [RequireComponent(typeof(UniqueID))]
 public class ChestInventory : InventoryHolder, IInteractable
 {
-    public UnityAction<IInteractable> OnInteractableComplete { get; set; }
+    /*public UnityAction<IInteractable> OnInteractableComplete { get; set; }*/
 
     protected override void Awake()
     {
@@ -34,15 +34,15 @@ public class ChestInventory : InventoryHolder, IInteractable
         }
     }
 
-    public void Interact(Interactor interactor, out bool interactSuccessful)
+    public void Interact(Interactor interactor)
     {
         OnDynamicInventoryDisplayRequested?.Invoke(primaryInventorySystem);
-        interactSuccessful = true;
+        InventoryUIControler.isClosed = false;
     }
-    public void EndInteraction()
+    /*public void EndInteraction()
     {
        
-    }
+    }*/
 
 }
 

@@ -5,9 +5,9 @@ using UnityEngine.Events;
 
 public interface IInteractable
 {
-    public UnityAction<IInteractable> OnInteractableComplete { get; set; }
+    /*public UnityAction<IInteractable> OnInteractableComplete { get; set; }*/
 
-    public void Interact(Interactor interactor, out bool interactSuccessful);
+    public void Interact(Interactor interactor);
 
     public void EndInteraction();
 }

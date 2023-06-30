@@ -23,7 +23,7 @@ public class FarmLand : MonoBehaviour, ITimeTracker
     {
         select.SetActive(toggle);
     }
-    public bool Interact(SeedData seed)
+    public bool Plant(SeedData seed)
     {
         if(cropPlanted == null)
         {
@@ -50,7 +50,7 @@ public class FarmLand : MonoBehaviour, ITimeTracker
         if(landStatus == LandStatus.Watered)
         {
             cropPlanted.Grow();
-            if(GameTimeStamp.CompareTimeStamp(timeWatered, timeStamp) >= 24)
+            if(GameTimeStamp.CompareTimeStamp(timeWatered, timeStamp, false) >= 24 * 60)
             {
                 landStatus = LandStatus.Dry;
             }

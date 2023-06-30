@@ -23,7 +23,7 @@ public class TimeManager : MonoBehaviour
     }
     private void Start()
     {
-        timeStamp = new GameTimeStamp(0, GameTimeStamp.Season.Spring, 1, 6, 0);
+        timeStamp = new GameTimeStamp(0, GameTimeStamp.Season.Spring, 1, 7, 0);
         StartCoroutine(TimeUpdate());
     }
     IEnumerator TimeUpdate()

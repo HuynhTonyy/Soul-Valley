@@ -11,11 +11,12 @@ GameObject:
   - component: {fileID: 8713349641152330458}
   - component: {fileID: 5711640474824373631}
   - component: {fileID: 7541037375568642485}
-  - component: {fileID: -8573770435133915037}
-  - component: {fileID: 3704444273173229816}
+  - component: {fileID: -5207903756352239713}
+  - component: {fileID: -1074907473481601392}
+  - component: {fileID: -2648830155907728408}
   m_Layer: 0
   m_Name: Mushroom Harvestable
-  m_TagString: Interactable
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -85,7 +86,20 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &-8573770435133915037
+--- !u!135 &-5207903756352239713
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8333869302400229472}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.17706703
+  m_Center: {x: -0.002418138, y: 0.12496347, z: 0.0038491488}
+--- !u!114 &-1074907473481601392
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -94,21 +108,26 @@ MonoBehaviour:
   m_GameObject: {fileID: 8333869302400229472}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7ff5becc6d29a584da9d006487e626f4, type: 3}
+  m_Script: {fileID: 11500000, guid: f2f6d31c9f4cab1458e5406b901cb5b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemData: {fileID: 11400000, guid: 610f36e588908ad43b326d4d329d9e90, type: 2}
---- !u!64 &3704444273173229816
-MeshCollider:
+  id: 09a938cf-bec4-468c-98a7-9f6c611e61ad
+--- !u!114 &-2648830155907728408
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8333869302400229472}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
   m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 1
-  m_CookingOptions: 30
-  m_Mesh: {fileID: -1826515769343568023, guid: 2ec966d90911a454c9760fa28789a4f8, type: 3}
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 73cb71444bbbf4043ac613b5c7be93a4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rotationSpeed: 20
+  PickUpRadius: 1
+  itemData: {fileID: 11400000, guid: 610f36e588908ad43b326d4d329d9e90, type: 2}
+  itemSaveData:
+    itemData: {fileID: 0}
+    position: {x: 0, y: 0, z: 0}
+    rotation: {x: 0, y: 0, z: 0, w: 0}
