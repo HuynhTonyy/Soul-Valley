@@ -9,5 +9,5 @@ public interface IInteractable
 
     public void Interact(Interactor interactor);
 
-    public void EndInteraction();
+    /*public void EndInteraction();*/
 }
