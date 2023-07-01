@@ -8,7 +8,6 @@ public class SaveGameManager : MonoBehaviour
 {
     public static SaveData data;
 
-
     private void Awake()
     {
         data = new SaveData();

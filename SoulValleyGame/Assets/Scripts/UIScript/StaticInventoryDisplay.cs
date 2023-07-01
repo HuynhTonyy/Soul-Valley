@@ -33,6 +33,7 @@ public class StaticInventoryDisplay : InventoryDisplay
         InventorySlot selectedSlotData = selectedUISlot.AssignInventorySlot;
         bool isShiftPress = Keyboard.current.leftShiftKey.isPressed;
         Vector3 positionToSpawn = playerTransform.position + playerTransform.forward * 1f;
+
         if (selectedSlotData != null && selectedSlotData.ItemData != null)
         {
             ItemScript itemData = selectedSlotData.ItemData;
@@ -40,9 +41,13 @@ public class StaticInventoryDisplay : InventoryDisplay
             if (isShiftPress){
                 for(int i = 0; i < selectedSlotData.StackSize; i++)
                 {
-                    Instantiate(itemGameObject, positionToSpawn, Quaternion.identity);
- 
+                  
+                    var position = new Vector3(Random.Range(-0.3f, -0.1f), 0, Random.Range(-0.3f, -0.1f));
+                    Vector3 _dropOffset = position;
+                    Instantiate(itemGameObject, positionToSpawn + _dropOffset, Quaternion.identity);
+                   
                 }
+
                 selectedSlotData.ClearSlot();    
             }
             else
@@ -52,7 +57,6 @@ public class StaticInventoryDisplay : InventoryDisplay
                     selectedSlotData.RemoveFromStack(1);
                     selectedUISlot.UpdateUISlot(selectedSlotData);
                     Instantiate(itemGameObject, positionToSpawn, Quaternion.identity);
-                    Debug.Log("Throw Item: " + itemData.DisplayName + " - " + selectedSlotData.StackSize);
                 }
                 else
                 {
@@ -61,7 +65,6 @@ public class StaticInventoryDisplay : InventoryDisplay
                 }
             }
             selectedUISlot.UpdateUISlot(selectedSlotData);
-            Debug.Log("Throw Item: " + itemData.DisplayName);
         }
         else
         {
@@ -85,7 +88,6 @@ public class StaticInventoryDisplay : InventoryDisplay
                 selectedSlotData.ClearSlot();
             }
             selectedUISlot.UpdateUISlot(selectedSlotData);
-            Debug.Log("USe Item: " + itemData.DisplayName);
         }
         else
         {
@@ -96,20 +98,15 @@ public class StaticInventoryDisplay : InventoryDisplay
     {
         InventorySystem inventorySystem = inventoryHolder.PrimaryInventorySystem;
         InventorySlot slot = inventorySystem.GetSlot(selectedSlot);
+       
 
         if (slot != null && slot.ItemData != null)
         {
-            string itemName = slot.ItemData.DisplayName;
-            int itemCount = slot.StackSize;
-
-            // Sử dụng thông tin của item
-            Debug.Log("Item Name: " + itemName);
-            Debug.Log("Item Count: " + itemCount);
             return true;
         }
         else
         {
-            Debug.Log("No item in the specified slot.");
+            //Debug.Log("No item in the specified slot.");
             return false;
         }
     }
@@ -223,7 +220,7 @@ public class StaticInventoryDisplay : InventoryDisplay
         }
         else
         {
-            Debug.Log("No inventory assign to: " + this.gameObject);
+           // Debug.Log("No inventory assign to: " + this.gameObject);
         }
         AssignSlot(inventorySystem,0);
     }

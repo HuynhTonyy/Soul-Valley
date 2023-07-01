@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -23,8 +24,13 @@ public class SerializableDictionary<TKey, TValue> : Dictionary<TKey, TValue>, IS
 		}
 	}
 
-	// load dictionary from lists
-	public void OnAfterDeserialize()
+    internal bool TryGetValue(string iD, out ItemNeedToSpawnData itemSpawnData)
+    {
+        throw new NotImplementedException();
+    }
+
+    // load dictionary from lists
+    public void OnAfterDeserialize()
 	{
 		this.Clear();
 

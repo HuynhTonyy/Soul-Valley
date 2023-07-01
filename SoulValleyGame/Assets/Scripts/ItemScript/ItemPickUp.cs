@@ -39,12 +39,41 @@ public class ItemPickUp : MonoBehaviour
     {
         id = GetComponent<UniqueID>().ID;
         SaveGameManager.data.activeItems.Add(id, itemSaveData);
+        
     }
 
     private void LoadGame(SaveData data)
     {
         Debug.Log(data.collectedItems);
         if (data.collectedItems.Contains(id)) Destroy(this.gameObject);
+        else 
+        {
+
+            foreach(var activeKey in data.activeItems)
+            {
+                string key = activeKey.Key;
+                int instanceID = activeKey.Value.itemData.GetInstanceID();
+                Vector3 position = new Vector3(activeKey.Value.position.x, activeKey.Value.position.y, activeKey.Value.position.z);
+                // get itemPrefab throw = instanceID
+
+              
+                Instantiate(itemData.ItemPreFab, position , Quaternion.identity);
+            }
+            
+        }
+
+        /*foreach (var activeKey in data.activeItems.Keys)
+        {
+            foreach (var collectKey in data.collectedItems)
+            {
+                if (activeKey != collectKey)
+                {
+                    Instantiate(itemData.GetInstanceID,, Quaternion.identity);
+                }
+            }
+                
+        }*/
+        
     }
 
     private void OnDestroy()
