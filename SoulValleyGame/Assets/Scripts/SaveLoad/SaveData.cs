@@ -13,11 +13,14 @@ public class SaveData
     
     public InventorySaveData playerInventory;
 
+    public PlayerData playerData ;
+
     public SaveData()
     {
         collectedItems = new List<string>();
         activeItems = new SerializableDictionary<string, ItemPickUpSaveData>();
         chestDictionary = new SerializableDictionary<string, InventorySaveData>();
         playerInventory = new InventorySaveData();
+        playerData = new PlayerData();
     }
 }

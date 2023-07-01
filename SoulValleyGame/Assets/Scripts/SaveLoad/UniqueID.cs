@@ -16,6 +16,7 @@ public class UniqueID : MonoBehaviour
     private void Awake()
     {
         if (idDatabase == null) idDatabase = new SerializableDictionary<string, GameObject>();
+
         if (idDatabase.ContainsKey(id)) Generate();
         else idDatabase.Add(id, this.gameObject);
     }
@@ -28,5 +29,6 @@ public class UniqueID : MonoBehaviour
     {
         id = Guid.NewGuid().ToString();
         idDatabase.Add(id, this.gameObject);
+        Debug.Log(idDatabase.Count);
     }
 }
