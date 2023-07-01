@@ -45,6 +45,23 @@ public class FarmLand : MonoBehaviour, ITimeTracker
         timeWatered = TimeManager.Instance.GetTimeStamp();
 
     }
+    public void Harvest(GameObject player)
+    {
+        var inventory = player.GetComponent<PlayerInventoryHolder>();
+
+        if (!inventory) return;
+        List<Transform> children = new List<Transform>();
+        foreach(Transform child in cropPlanted.transform)
+        {
+            children.Add(child);
+        }
+        if (inventory.AddToInventory(children[children.Count - 1].GetComponent<ItemPickUp>().itemData, 1))
+        {
+            SaveGameManager.data.collectedItems.Add(children[children.Count  - 1].GetComponent<UniqueID>().ID);
+            Destroy(cropPlanted.gameObject);
+            cropPlanted = null;
+        }
+    }
     public void ClockUpdate(GameTimeStamp timeStamp)
     {
         if(landStatus == LandStatus.Watered)

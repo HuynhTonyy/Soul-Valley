@@ -17,6 +17,9 @@ public class ItemPickUp : MonoBehaviour
     [SerializeField] private ItemPickUpSaveData itemSaveData;
 
     private string id;
+    float minPositionY;
+    float maxPositionY;
+    bool isMax = false;
 
     private void Awake()
     {
@@ -27,6 +30,10 @@ public class ItemPickUp : MonoBehaviour
         myCollider = GetComponent<SphereCollider>();
         myCollider.isTrigger = true;
         myCollider.radius = PickUpRadius;
+        myCollider.center = new Vector3(0, 0, 0);
+        minPositionY = transform.position.y;
+        maxPositionY = transform.position.y + 0.1f;
+        
     }
 
     private void Start()
@@ -61,6 +68,23 @@ public class ItemPickUp : MonoBehaviour
     private void Update()
     {
         transform.Rotate(Vector3.up * rotationSpeed * Time.deltaTime);
+        if (!isMax)
+        {
+            transform.position = Vector3.MoveTowards(transform.position, new Vector3(transform.position.x, maxPositionY, transform.position.z), 0.001f);
+            if (transform.position.y >= maxPositionY)
+            {
+                isMax = true;
+            }
+        }
+        else
+        {
+            transform.position = Vector3.MoveTowards(transform.position, new Vector3(transform.position.x, minPositionY, transform.position.z), 0.001f);
+            if (transform.position.y <= minPositionY)
+            {
+                isMax = false;
+            }
+        }
+
     }
 }
 
