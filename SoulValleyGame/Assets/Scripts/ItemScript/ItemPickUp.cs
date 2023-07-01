@@ -23,7 +23,6 @@ public class ItemPickUp : MonoBehaviour
 
     private void Awake()
     {
-        id = GetComponent<UniqueID>().ID;
         SaveLoad.OnLoadGame += LoadGame;
         itemSaveData = new ItemPickUpSaveData(itemData, transform.position, transform.rotation);
 
@@ -38,6 +37,7 @@ public class ItemPickUp : MonoBehaviour
 
     private void Start()
     {
+        id = GetComponent<UniqueID>().ID;
         SaveGameManager.data.activeItems.Add(id, itemSaveData);
     }
 

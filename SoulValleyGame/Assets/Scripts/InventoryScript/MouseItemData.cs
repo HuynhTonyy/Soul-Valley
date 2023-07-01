@@ -13,9 +13,9 @@ public class MouseItemData : MonoBehaviour
     public TextMeshProUGUI ItemCount;
     public InventorySlot AssignInventorySlot;
     public float dropOffset = 3f;
-
-
     private Transform playerTransform;
+
+
     public void Awake()
     {
         ItemSprite.color = Color.clear;

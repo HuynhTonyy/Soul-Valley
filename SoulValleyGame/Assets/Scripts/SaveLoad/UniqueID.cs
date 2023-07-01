@@ -7,16 +7,16 @@ using System;
 [ExecuteInEditMode]
 public class UniqueID : MonoBehaviour
 {
-    [ReadOnly, SerializeField] private string id= Guid.NewGuid().ToString();
-    [SerializeField] 
-    private static SerializableDictionary<string, GameObject> idDatabase 
+    [ReadOnly, SerializeField] private string id;
+    [SerializeField] private static SerializableDictionary<string, GameObject> idDatabase 
         = new SerializableDictionary<string, GameObject>();
 
     public string ID => id;
 
-    private void OnValidate()
+    private void Awake()
     {
-        if( idDatabase.ContainsKey(id)) Generate();
+        if (idDatabase == null) idDatabase = new SerializableDictionary<string, GameObject>();
+        if (idDatabase.ContainsKey(id)) Generate();
         else idDatabase.Add(id, this.gameObject);
     }
     private void OnDestroy()

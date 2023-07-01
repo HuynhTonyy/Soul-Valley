@@ -76,15 +76,13 @@ public class StaticInventoryDisplay : InventoryDisplay
         if (selectedSlotData != null && selectedSlotData.ItemData != null)
         {
             ItemScript itemData = selectedSlotData.ItemData;
-            if (itemData.MaxStackSize >= 1)
+            if (itemData.MaxStackSize > 1)
             {
                 selectedSlotData.RemoveFromStack(1);
-                selectedUISlot.UpdateUISlot(selectedSlotData);
-                if (selectedSlotData.StackSize < 1)
-                {
-                    selectedSlotData.ClearSlot();
-                    selectedUISlot.UpdateUISlot(selectedSlotData);
-                }
+            }
+            else
+            {
+                selectedSlotData.ClearSlot();
             }
             selectedUISlot.UpdateUISlot(selectedSlotData);
             Debug.Log("USe Item: " + itemData.DisplayName);
