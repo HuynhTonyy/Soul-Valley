@@ -24,10 +24,6 @@ public class SerializableDictionary<TKey, TValue> : Dictionary<TKey, TValue>, IS
 		}
 	}
 
-    internal bool TryGetValue(string iD, out ItemNeedToSpawnData itemSpawnData)
-    {
-        throw new NotImplementedException();
-    }
 
     // load dictionary from lists
     public void OnAfterDeserialize()

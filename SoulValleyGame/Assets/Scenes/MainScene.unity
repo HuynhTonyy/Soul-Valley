@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.17306644, g: 0.21630163, b: 0.29830188, a: 1}
+  m_IndirectSpecularColor: {r: 0.1730649, g: 0.21630043, b: 0.29830068, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -687,6 +687,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: mushroom Seed (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 8092510909966043816, guid: f529888146675fd4891605a979bbd7fe, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8092510909966043817, guid: f529888146675fd4891605a979bbd7fe, type: 3}
       propertyPath: m_RootOrder
       value: 8
@@ -771,7 +775,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &143849028
 PrefabInstance:
@@ -1167,6 +1171,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Blue_Soul_Seed (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 2111610932176695751, guid: b15680852f6dad34b81468f9e869796c, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7806388658939080006, guid: b15680852f6dad34b81468f9e869796c, type: 3}
       propertyPath: id
       value: 38f1cbe3-3bb7-42b9-b1a9-55b0a4953689
@@ -1462,7 +1470,7 @@ Transform:
   - {fileID: 1679043783}
   - {fileID: 1973157365}
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &223873637
 GameObject:
@@ -1834,7 +1842,7 @@ Transform:
   m_Children:
   - {fileID: 2012227886}
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &322148038
 GameObject:
@@ -2106,6 +2114,10 @@ PrefabInstance:
     - target: {fileID: 8092510909966043816, guid: f529888146675fd4891605a979bbd7fe, type: 3}
       propertyPath: m_Name
       value: mushroom Seed (4)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8092510909966043816, guid: f529888146675fd4891605a979bbd7fe, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8092510909966043817, guid: f529888146675fd4891605a979bbd7fe, type: 3}
       propertyPath: m_RootOrder
@@ -2831,6 +2843,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Blue_Soul_Seed (8)
       objectReference: {fileID: 0}
+    - target: {fileID: 2111610932176695751, guid: b15680852f6dad34b81468f9e869796c, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7806388658939080006, guid: b15680852f6dad34b81468f9e869796c, type: 3}
       propertyPath: id
       value: f3e53c3f-c4e4-4581-89a7-3d964c111e77
@@ -2918,7 +2934,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &563835685
 PrefabInstance:
@@ -3303,7 +3319,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 9
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &604478602
 MonoBehaviour:
@@ -5253,7 +5269,7 @@ Transform:
   m_Children:
   - {fileID: 1751704512}
   m_Father: {fileID: 0}
-  m_RootOrder: 10
+  m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!136 &874784125
 CapsuleCollider:
@@ -5279,6 +5295,10 @@ PrefabInstance:
     - target: {fileID: 8092510909966043816, guid: f529888146675fd4891605a979bbd7fe, type: 3}
       propertyPath: m_Name
       value: mushroom Seed (5)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8092510909966043816, guid: f529888146675fd4891605a979bbd7fe, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8092510909966043817, guid: f529888146675fd4891605a979bbd7fe, type: 3}
       propertyPath: m_RootOrder
@@ -7050,6 +7070,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: mushroom Seed (8)
       objectReference: {fileID: 0}
+    - target: {fileID: 8092510909966043816, guid: f529888146675fd4891605a979bbd7fe, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8092510909966043817, guid: f529888146675fd4891605a979bbd7fe, type: 3}
       propertyPath: m_RootOrder
       value: 20
@@ -7144,7 +7168,7 @@ Transform:
   - {fileID: 740548597}
   - {fileID: 1926629943}
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1184810293
 MonoBehaviour:
@@ -8174,6 +8198,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Blue_Soul_Seed (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 2111610932176695751, guid: b15680852f6dad34b81468f9e869796c, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7806388658939080006, guid: b15680852f6dad34b81468f9e869796c, type: 3}
       propertyPath: id
       value: d5d28867-3d81-4e4d-8cb5-dd124b903134
@@ -8195,6 +8223,10 @@ PrefabInstance:
     - target: {fileID: 8092510909966043816, guid: f529888146675fd4891605a979bbd7fe, type: 3}
       propertyPath: m_Name
       value: mushroom Seed (6)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8092510909966043816, guid: f529888146675fd4891605a979bbd7fe, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8092510909966043817, guid: f529888146675fd4891605a979bbd7fe, type: 3}
       propertyPath: m_RootOrder
@@ -8793,6 +8825,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Blue_Soul_Seed (3)
       objectReference: {fileID: 0}
+    - target: {fileID: 2111610932176695751, guid: b15680852f6dad34b81468f9e869796c, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7806388658939080006, guid: b15680852f6dad34b81468f9e869796c, type: 3}
       propertyPath: id
       value: 444ebc43-d06e-4e98-b3d4-e6dfe58039fe
@@ -9069,6 +9105,10 @@ PrefabInstance:
     - target: {fileID: 2111610932176695751, guid: b15680852f6dad34b81468f9e869796c, type: 3}
       propertyPath: m_Name
       value: Blue_Soul_Seed (4)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2111610932176695751, guid: b15680852f6dad34b81468f9e869796c, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7806388658939080006, guid: b15680852f6dad34b81468f9e869796c, type: 3}
       propertyPath: id
@@ -9654,6 +9694,10 @@ PrefabInstance:
     - target: {fileID: 8092510909966043816, guid: f529888146675fd4891605a979bbd7fe, type: 3}
       propertyPath: m_Name
       value: mushroom Seed (7)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8092510909966043816, guid: f529888146675fd4891605a979bbd7fe, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8092510909966043817, guid: f529888146675fd4891605a979bbd7fe, type: 3}
       propertyPath: m_RootOrder
@@ -10312,6 +10356,63 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 7254752643665771143, guid: 852d2416d24ec1a41a4c8630aeaed4ab, type: 3}
   m_PrefabInstance: {fileID: 1640979246}
   m_PrefabAsset: {fileID: 0}
+--- !u!1001 &1670862213
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 253111368481189729, guid: 78a726f36ceb07f47b8351929fb9a9a7, type: 3}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 253111368481189729, guid: 78a726f36ceb07f47b8351929fb9a9a7, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 490.32672
+      objectReference: {fileID: 0}
+    - target: {fileID: 253111368481189729, guid: 78a726f36ceb07f47b8351929fb9a9a7, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 9.588
+      objectReference: {fileID: 0}
+    - target: {fileID: 253111368481189729, guid: 78a726f36ceb07f47b8351929fb9a9a7, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 512.2661
+      objectReference: {fileID: 0}
+    - target: {fileID: 253111368481189729, guid: 78a726f36ceb07f47b8351929fb9a9a7, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 253111368481189729, guid: 78a726f36ceb07f47b8351929fb9a9a7, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 253111368481189729, guid: 78a726f36ceb07f47b8351929fb9a9a7, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 253111368481189729, guid: 78a726f36ceb07f47b8351929fb9a9a7, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 253111368481189729, guid: 78a726f36ceb07f47b8351929fb9a9a7, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 253111368481189729, guid: 78a726f36ceb07f47b8351929fb9a9a7, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 253111368481189729, guid: 78a726f36ceb07f47b8351929fb9a9a7, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 254568738006658359, guid: 78a726f36ceb07f47b8351929fb9a9a7, type: 3}
+      propertyPath: m_Name
+      value: Watering Can
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 78a726f36ceb07f47b8351929fb9a9a7, type: 3}
 --- !u!1 &1675025801
 GameObject:
   m_ObjectHideFlags: 0
@@ -11219,6 +11320,10 @@ PrefabInstance:
     - target: {fileID: 4655821640382162206, guid: 4493e7161e6a5db41aea1e7dfc774d98, type: 3}
       propertyPath: m_Name
       value: Big_Chest (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4655821640382162206, guid: 4493e7161e6a5db41aea1e7dfc774d98, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4655821640382162207, guid: 4493e7161e6a5db41aea1e7dfc774d98, type: 3}
       propertyPath: m_RootOrder
@@ -12163,6 +12268,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: mushroom Seed (3)
       objectReference: {fileID: 0}
+    - target: {fileID: 8092510909966043816, guid: f529888146675fd4891605a979bbd7fe, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8092510909966043817, guid: f529888146675fd4891605a979bbd7fe, type: 3}
       propertyPath: m_RootOrder
       value: 10
@@ -12228,6 +12337,10 @@ PrefabInstance:
     - target: {fileID: 8092510909966043816, guid: f529888146675fd4891605a979bbd7fe, type: 3}
       propertyPath: m_Name
       value: mushroom Seed
+      objectReference: {fileID: 0}
+    - target: {fileID: 8092510909966043816, guid: f529888146675fd4891605a979bbd7fe, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8092510909966043817, guid: f529888146675fd4891605a979bbd7fe, type: 3}
       propertyPath: m_RootOrder
@@ -12310,7 +12423,7 @@ Transform:
   m_Children:
   - {fileID: 629666087}
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1917818505
 GameObject:
@@ -12411,7 +12524,7 @@ RectTransform:
   - {fileID: 1214411102}
   - {fileID: 1955450653}
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -12441,6 +12554,10 @@ PrefabInstance:
     - target: {fileID: 8092510909966043816, guid: f529888146675fd4891605a979bbd7fe, type: 3}
       propertyPath: m_Name
       value: mushroom Seed (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8092510909966043816, guid: f529888146675fd4891605a979bbd7fe, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8092510909966043817, guid: f529888146675fd4891605a979bbd7fe, type: 3}
       propertyPath: m_RootOrder
@@ -12731,6 +12848,10 @@ PrefabInstance:
     - target: {fileID: 2111610932176695751, guid: b15680852f6dad34b81468f9e869796c, type: 3}
       propertyPath: m_Name
       value: Blue_Soul_Seed (5)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2111610932176695751, guid: b15680852f6dad34b81468f9e869796c, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7806388658939080006, guid: b15680852f6dad34b81468f9e869796c, type: 3}
       propertyPath: id
@@ -13167,6 +13288,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Blue_Soul_Seed (6)
       objectReference: {fileID: 0}
+    - target: {fileID: 2111610932176695751, guid: b15680852f6dad34b81468f9e869796c, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7806388658939080006, guid: b15680852f6dad34b81468f9e869796c, type: 3}
       propertyPath: id
       value: 80e6e3bc-3145-41f5-8d7f-de763b88da5d
@@ -13537,6 +13662,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2079478530}
+  - component: {fileID: 2079478531}
   m_Layer: 0
   m_Name: items
   m_TagString: Untagged
@@ -13579,8 +13705,20 @@ Transform:
   - {fileID: 1102955641}
   - {fileID: 1772698523}
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2079478531
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2079478529}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 776215dbf4d185c47be336d5a57f069a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &2093360093
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -13737,6 +13875,10 @@ PrefabInstance:
     - target: {fileID: 2111610932176695751, guid: b15680852f6dad34b81468f9e869796c, type: 3}
       propertyPath: m_Name
       value: Blue_Soul_Seed (7)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2111610932176695751, guid: b15680852f6dad34b81468f9e869796c, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7806388658939080006, guid: b15680852f6dad34b81468f9e869796c, type: 3}
       propertyPath: id
