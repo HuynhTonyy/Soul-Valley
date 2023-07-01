@@ -28,6 +28,10 @@ public class Interactor : MonoBehaviour
                 }
                 selectedLand = farmLand;
                 farmLand.Select(true);
+                if(Keyboard.current.eKey.wasReleasedThisFrame && farmLand.cropPlanted != null && farmLand.cropPlanted.cropState == CropBehaviour.CropState.Harvestable)
+                {
+                    farmLand.Harvest(this.gameObject);
+                }
             }
             else if (selectedLand != null)
             {
