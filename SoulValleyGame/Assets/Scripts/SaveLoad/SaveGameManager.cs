@@ -2,10 +2,12 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class SaveGameManager : MonoBehaviour
 {
     public static SaveData data;
+
 
     private void Awake()
     {

@@ -4,33 +4,32 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.InputSystem;
+using UnityEngine.Serialization;
 
 public class InventoryUIControler : MonoBehaviour
 {
     public static bool isClosed = true;
-    public DynamicInventoryDisplay chestPanel;
+    [FormerlySerializedAs("chestPanel")] public DynamicInventoryDisplay inventoryPanel;
     public DynamicInventoryDisplay playerBackpackPanel;
     public Image backGround;
-
 
     internal static bool status = false;
     private void Start()
     {
         playerBackpackPanel.gameObject.SetActive(false);
-        chestPanel.gameObject.SetActive(false);
+        inventoryPanel.gameObject.SetActive(false);
         backGround.enabled=false;
 
     }
     private void OnEnable()
     {
         InventoryHolder.OnDynamicInventoryDisplayRequested += DisplayInventory;
-        PlayerInventoryHolder.OnPlayerBackpackDisplayRequested += DisplayPlayerBackpack;
-        
+        PlayerInventoryHolder.OnDynamicPlayerInventoryDisplayRequested += DisplayPlayerInventory;
     }
     private void OnDisable()
     {
         InventoryHolder.OnDynamicInventoryDisplayRequested -= DisplayInventory;
-        PlayerInventoryHolder.OnPlayerBackpackDisplayRequested -= DisplayPlayerBackpack;
+        PlayerInventoryHolder.OnDynamicPlayerInventoryDisplayRequested -= DisplayPlayerInventory;
     }
 
     // Update is called once per frame
@@ -40,13 +39,13 @@ public class InventoryUIControler : MonoBehaviour
         {
             close();
         }
+
     }
     public void close()
     {
-        if (chestPanel.gameObject.activeInHierarchy)
+        if (inventoryPanel.gameObject.activeInHierarchy)
         {
-
-            chestPanel.gameObject.SetActive(false);
+            inventoryPanel.gameObject.SetActive(false);
             playerBackpackPanel.gameObject.SetActive(false);
             backGround.enabled = false;
             status = false;
@@ -64,26 +63,29 @@ public class InventoryUIControler : MonoBehaviour
             Cursor.visible = false;
         }
     }
-    void DisplayInventory(InventorySystem invDisplay)
+    void DisplayInventory(InventorySystem invDisplay,int offset)
     {
-        chestPanel.gameObject.SetActive(true);
-        chestPanel.RefreshDynamicInventory(invDisplay);
+        inventoryPanel.gameObject.SetActive(true);
+        inventoryPanel.RefreshDynamicInventory(invDisplay,offset);
         playerBackpackPanel.gameObject.SetActive(true);
+        RectTransform rectTransform = playerBackpackPanel.GetComponent<RectTransform>();
+        rectTransform.anchoredPosition = new Vector2(0,-88f);
         Cursor.visible = true;
         backGround.enabled = true;
         status = true;
         Cursor.lockState = CursorLockMode.None;
        
     }
-    void DisplayPlayerBackpack(InventorySystem invDisplay)
+    void DisplayPlayerInventory(InventorySystem invDisplay, int offset)
     {
         playerBackpackPanel.gameObject.SetActive(true);
-        playerBackpackPanel.RefreshDynamicInventory(invDisplay);
+        playerBackpackPanel.RefreshDynamicInventory(invDisplay, offset);
+        RectTransform rectTransform = playerBackpackPanel.GetComponent<RectTransform>();
+        rectTransform.anchoredPosition = Vector2.zero;
         Cursor.visible = true;
         backGround.enabled = true;
         status = true;
         Cursor.lockState = CursorLockMode.None;
-        
     }
-    
+
 }

@@ -19,6 +19,14 @@ public class StaticInventoryDisplay : InventoryDisplay
         playerTransform = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
         
     }
+    private void OnEnable()
+    {
+        PlayerInventoryHolder.OnPlayerInventoryChanged += RefreshStaticDisplay;
+    }
+    private void OnDisable()
+    {
+        PlayerInventoryHolder.OnPlayerInventoryChanged -= RefreshStaticDisplay;
+    }
     private void throwItem(int selectedSlot)
     {
         InventorySlot_UI selectedUISlot = slots[selectedSlot];
@@ -219,13 +227,13 @@ public class StaticInventoryDisplay : InventoryDisplay
         {
             Debug.Log("No inventory assign to: " + this.gameObject);
         }
-        AssignSlot(inventorySystem);
+        AssignSlot(inventorySystem,0);
     }
-    public override void AssignSlot(InventorySystem invDisplay) 
+    public override void AssignSlot(InventorySystem invDisplay,int offset) 
     {
         slotDictionary = new Dictionary<InventorySlot_UI, InventorySlot>();
-        if (slots.Length != inventorySystem.InventorySize) Debug.Log("Inventory slot out of on " + this.gameObject);
-        for(int i =0; i< inventorySystem.InventorySize; i++)
+
+        for(int i = 0; i < inventoryHolder.Offset; i++)
         {
             slotDictionary.Add(slots[i], inventorySystem.InventorySlots[i]);
             slots[i].Init(inventorySystem.InventorySlots[i]);
