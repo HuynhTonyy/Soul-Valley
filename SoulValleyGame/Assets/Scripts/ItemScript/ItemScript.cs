@@ -13,6 +13,8 @@ public class ItemScript : ScriptableObject
     public int Id;
     public string DisplayName;
     public int MaxStackSize;
+    public int Value = 0;
+    public string Description = "";
     public Sprite icon;
     public GameObject ItemPreFab;
 

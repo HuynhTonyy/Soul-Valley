@@ -6,4 +6,5 @@ using UnityEngine;
 public class PlaceableData : ItemScript
 {
     public ItemScript itemData;
+
 }

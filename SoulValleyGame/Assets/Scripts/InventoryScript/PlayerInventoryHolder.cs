@@ -9,6 +9,8 @@ public class PlayerInventoryHolder : InventoryHolder
     public static UnityAction OnPlayerInventoryChanged;
     public static UnityAction<InventorySystem, int> OnDynamicPlayerInventoryDisplayRequested;
 
+    
+
     private void Start()
     {
         SaveGameManager.data.playerInventory = new InventorySaveData(primaryInventorySystem);
@@ -27,17 +29,25 @@ public class PlayerInventoryHolder : InventoryHolder
     // Update is called once per frame
     void Update()
     {
-        if (InventoryUIControler.isClosed && Keyboard.current.tabKey.wasPressedThisFrame)
+        if (!UIController.isShopClosed && InventoryUIControler.isClosed && Keyboard.current.tabKey.wasPressedThisFrame)
         {
-            OnDynamicPlayerInventoryDisplayRequested?.Invoke(primaryInventorySystem, offset);
-            InventoryUIControler.isClosed = false;
+            
+           
+
         }
-        else if(!InventoryUIControler.isClosed && Keyboard.current.tabKey.wasPressedThisFrame)
+        else if (UIController.isShopClosed && InventoryUIControler.isClosed && Keyboard.current.tabKey.wasPressedThisFrame)
         {
+            Debug.Log("IF 2" + UIController.isShopClosed);         
+            OnDynamicPlayerInventoryDisplayRequested?.Invoke(primaryInventorySystem, offset);
+            InventoryUIControler.isClosed = false;    
+        }
+        else if(UIController.isShopClosed && !InventoryUIControler.isClosed && Keyboard.current.tabKey.wasPressedThisFrame)
+        {
+            Debug.Log("IF 3" + UIController.isShopClosed);
             InventoryUIControler.isClosed = true;
         }
         
-
+            
     }
     public bool AddToInventory(ItemScript item, int amount)
     {

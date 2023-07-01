@@ -54,8 +54,7 @@ public class InventoryUIControler : MonoBehaviour
         }
 
         if (playerBackpackPanel.gameObject.activeInHierarchy)
-        {
-            //Debug.Log("hien");
+        {      
             playerBackpackPanel.gameObject.SetActive(false);
             backGround.enabled = false;
             status = false;
