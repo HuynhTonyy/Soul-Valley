@@ -44,7 +44,7 @@ public class ItemPickUp : MonoBehaviour
 
     private void LoadGame(SaveData data)
     {
-        if (data.activeItems.ContainsKey(id)) Destroy(gameObject);
+        Destroy(gameObject);
     }
 
     private void OnDestroy()

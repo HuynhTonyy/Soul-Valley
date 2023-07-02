@@ -31,18 +31,23 @@ public struct InventorySaveData
     public InventorySystem InvSystem;
     public Vector3 Position;
     public Quaternion Rotation;
+    public ItemScript itemData;
 
-    public InventorySaveData(InventorySystem _invSystem, Vector3 _position, Quaternion _rotation)
+    public InventorySaveData(InventorySystem _invSystem, Vector3 _position, Quaternion _rotation, ItemScript _itemData)
     {
         InvSystem = _invSystem;
         Position = _position;
         Rotation = _rotation;
+        itemData = _itemData;
     }
 
-    public InventorySaveData(InventorySystem _invSystem)
+    public InventorySaveData(InventorySystem _invSystem, ItemScript _itemData)
     {
         InvSystem = _invSystem;
         Position = Vector3.zero;
         Rotation = Quaternion.identity;
+        itemData = _itemData;
     }
+
+
 }

@@ -4,12 +4,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-
 [RequireComponent(typeof(UniqueID))]
 public class ChestInventory : InventoryHolder, IInteractable
 {
     /*public UnityAction<IInteractable> OnInteractableComplete { get; set; }*/
 
+    [SerializeField] private ItemScript itemData;
     protected override void Awake()
     {
         base.Awake();
@@ -18,7 +18,7 @@ public class ChestInventory : InventoryHolder, IInteractable
 
     private void Start()
     {
-        var chestSaveData = new InventorySaveData(primaryInventorySystem,transform.position,transform.rotation);
+        var chestSaveData = new InventorySaveData(primaryInventorySystem,transform.position,transform.rotation, itemData);
 
         SaveGameManager.data.chestDictionary.Add(GetComponent<UniqueID>().ID, chestSaveData);
     }

@@ -17,7 +17,20 @@ public class SpawnItem : MonoBehaviour
             ItemPickUpSaveData item;
             data.activeItems.TryGetValue(activeKey, out item);
             Instantiate(item.itemData.ItemPreFab, item.position, item.rotation);
+        }
+        LoadChest(data);
+    }
+    
+    void LoadChest(SaveData data)
+    {
+        foreach (var chestKey in data.chestDictionary.Keys)
+        {
+            InventorySaveData inventorySaveData;
+            data.chestDictionary.TryGetValue(chestKey, out inventorySaveData);
 
+            GameObject chest = inventorySaveData.itemData.ItemPreFab;
+            Instantiate(chest, inventorySaveData.Position,inventorySaveData.Rotation);
+            chest.GetComponent<ChestInventory>();
         }
     }
 }
