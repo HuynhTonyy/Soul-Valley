@@ -8,13 +8,12 @@ using UnityEngine.Events;
 public class ChestInventory : InventoryHolder, IInteractable
 {
     /*public UnityAction<IInteractable> OnInteractableComplete { get; set; }*/
-
+    public string hi = "yes";
     [SerializeField] private ItemScript itemData;
     protected override void Awake()
     {
         base.Awake();
         SaveLoad.OnLoadGame += LoadChest;
-        SaveLoad.OnLoadGame += LoadInventory;
     }
 
     private void Start()
@@ -26,17 +25,21 @@ public class ChestInventory : InventoryHolder, IInteractable
     void LoadChest(SaveData data)
     {
         if(!data.chestDictionary.ContainsKey(GetComponent<UniqueID>().ID)) Destroy(gameObject);
+        else
+        {
+            LoadInventory(data, GetComponent<UniqueID>().ID);
+        }
     }
     protected override void LoadInventory(SaveData data)
     {
 
         // check the save data for specific chest inventory - if exist load in
-        if(data.chestDictionary.TryGetValue(GetComponent<UniqueID>().ID, out ChestSaveData chestData))
+        /*if(data.chestDictionary.TryGetValue(GetComponent<UniqueID>().ID, out ChestSaveData chestData))
         {
             primaryInventorySystem = chestData.InvSystem;
-        }
+        }*/
     }
-    public void LoadInventory(SaveData data, String ID)
+    public void LoadInventory(SaveData data, string ID)
     {
 
         // check the save data for specific chest inventory - if exist load in
@@ -44,6 +47,10 @@ public class ChestInventory : InventoryHolder, IInteractable
         {
             primaryInventorySystem = chestData.InvSystem;
         }
+    }
+    public void LoadInventory(ChestSaveData chestData)
+    {
+        primaryInventorySystem = chestData.InvSystem;
     }
     public void Interact(Interactor interactor)
     {

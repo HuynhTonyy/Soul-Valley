@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Small_chest
   m_EditorClassIdentifier: 
   Id: 0
-  DisplayName: 
+  DisplayName: small chest
   MaxStackSize: 1
   Value: 0
   Description: 

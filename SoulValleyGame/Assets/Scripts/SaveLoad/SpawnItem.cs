@@ -35,9 +35,8 @@ public class SpawnItem : MonoBehaviour
                 }else if(chestKey != chestInventory.gameObject.GetComponent<UniqueID>().ID && lenght == chestInventorys.Length)
                 {
                     data.chestDictionary.TryGetValue(chestKey, out ChestSaveData chestSaveData);
-                    GameObject chest = chestSaveData.ItemData.ItemPreFab;
-                    Instantiate(chest, chestSaveData.Position, chestSaveData.Rotation);
-                    chest.GetComponent<ChestInventory>().LoadInventory(data, chestKey);
+                    GameObject chest = Instantiate(chestSaveData.ItemData.ItemPreFab, chestSaveData.Position, chestSaveData.Rotation);
+                    chest.GetComponent<ChestInventory>().LoadInventory(chestSaveData);
                 }
                 lenght++;
             }
