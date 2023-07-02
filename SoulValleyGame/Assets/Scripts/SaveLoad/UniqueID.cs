@@ -7,7 +7,7 @@ using System;
 [ExecuteInEditMode]
 public class UniqueID : MonoBehaviour
 {
-    [ReadOnly, SerializeField] private string id;
+    [ReadOnly, SerializeField] string id;
     [SerializeField] private static SerializableDictionary<string, GameObject> idDatabase 
         = new SerializableDictionary<string, GameObject>();
 
@@ -20,6 +20,7 @@ public class UniqueID : MonoBehaviour
         if (idDatabase.ContainsKey(id)) Generate();
         else idDatabase.Add(id, this.gameObject);
     }
+
     private void OnDestroy()
     {
         if (idDatabase.ContainsKey(id)) idDatabase.Remove(id);

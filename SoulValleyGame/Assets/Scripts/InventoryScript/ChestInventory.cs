@@ -13,36 +13,62 @@ public class ChestInventory : InventoryHolder, IInteractable
     protected override void Awake()
     {
         base.Awake();
+        SaveLoad.OnLoadGame += LoadChest;
         SaveLoad.OnLoadGame += LoadInventory;
     }
 
     private void Start()
     {
-        var chestSaveData = new InventorySaveData(primaryInventorySystem,transform.position,transform.rotation, itemData);
+        var chestSaveData = new ChestSaveData(primaryInventorySystem,transform.position,transform.rotation, itemData);
 
         SaveGameManager.data.chestDictionary.Add(GetComponent<UniqueID>().ID, chestSaveData);
     }
-
+    void LoadChest(SaveData data)
+    {
+        if(!data.chestDictionary.ContainsKey(GetComponent<UniqueID>().ID)) Destroy(gameObject);
+    }
     protected override void LoadInventory(SaveData data)
     {
+
         // check the save data for specific chest inventory - if exist load in
-        if(data.chestDictionary.TryGetValue(GetComponent<UniqueID>().ID, out InventorySaveData chestData))
+        if(data.chestDictionary.TryGetValue(GetComponent<UniqueID>().ID, out ChestSaveData chestData))
         {
-            this.primaryInventorySystem = chestData.InvSystem;
-            this.transform.position = chestData.Position;
-            this.transform.rotation = chestData.Rotation;
+            primaryInventorySystem = chestData.InvSystem;
         }
     }
+    public void LoadInventory(SaveData data, String ID)
+    {
 
+        // check the save data for specific chest inventory - if exist load in
+        if (data.chestDictionary.TryGetValue(ID, out ChestSaveData chestData))
+        {
+            primaryInventorySystem = chestData.InvSystem;
+        }
+    }
     public void Interact(Interactor interactor)
     {
         OnDynamicInventoryDisplayRequested?.Invoke(primaryInventorySystem,0);
         InventoryUIControler.isClosed = false;
     }
-    /*public void EndInteraction()
+
+
+}
+[System.Serializable]
+public struct ChestSaveData
+{
+    public InventorySystem InvSystem;
+    public Vector3 Position;
+    public Quaternion Rotation;
+    public ItemScript ItemData;
+
+    public ChestSaveData(InventorySystem _invSystem, Vector3 _position, Quaternion _rotation, ItemScript _itemData)
     {
-       
-    }*/
+        InvSystem = _invSystem;
+        Position = _position;
+        Rotation = _rotation;
+        ItemData = _itemData;
+    }
+
 
 }
 

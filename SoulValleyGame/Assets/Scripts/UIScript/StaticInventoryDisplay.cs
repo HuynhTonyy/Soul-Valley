@@ -136,40 +136,45 @@ public class StaticInventoryDisplay : InventoryDisplay
         }
         if (Mouse.current.leftButton.wasPressedThisFrame && GetSelectedItem(selectedSlot))
         {
-            SeedData seed = GetSeed(selectedSlot);
-            PlaceableData placeable = GetPlaceableData(selectedSlot);
-            ToolData tool = GetToolData(selectedSlot);
-            if (seed != null)
+            if (Interactor.inRange)
             {
-                if (Interactor.selectedLand != null && Interactor.selectedLand.Plant(seed))
+                SeedData seed = GetSeed(selectedSlot);
+                PlaceableData placeable = GetPlaceableData(selectedSlot);
+                ToolData tool = GetToolData(selectedSlot);
+                if (seed != null)
                 {
-                    UseItem(selectedSlot);
+                    if (Interactor.selectedLand != null && Interactor.selectedLand.Plant(seed))
+                    {
+                        UseItem(selectedSlot);
+                    }
                 }
-            }else if (placeable != null && Interactor.hit.transform.tag=="Placeable")
-            {
-                Debug.Log("Place");
-                Instantiate(placeable.itemData.ItemPreFab, (playerTransform.position) + playerTransform.forward * 1f, Quaternion.identity);
-                UseItem(selectedSlot);
-               
-            }
-            else if (tool != null)
-            {
-                switch (tool.toolType)
+                else if (placeable != null && Interactor.hit.transform.tag == "Placeable")
                 {
-                    case ToolData.ToolType.WateringCan:
-                        if (Interactor.inRange && Interactor.hit.transform.tag == "FarmLand")
-                        {
-                            FarmLand farmLand = Interactor.hit.transform.GetComponent<FarmLand>();
-                            if (farmLand.landStatus == FarmLand.LandStatus.Dry && farmLand.cropPlanted != null && farmLand.cropPlanted.cropState != CropBehaviour.CropState.Harvestable)
-                            {
-                                farmLand.Water();
-                                Debug.Log("Watered");
-                            }
-                        }
-                        break;
+                    Debug.Log("Place");
+                    Instantiate(placeable.itemData.ItemPreFab, (playerTransform.position) + playerTransform.forward * 1f, Quaternion.identity);
+                    UseItem(selectedSlot);
 
                 }
+                else if (tool != null)
+                {
+                    switch (tool.toolType)
+                    {
+                        case ToolData.ToolType.WateringCan:
+                            if (Interactor.inRange && Interactor.hit.transform.tag == "FarmLand")
+                            {
+                                FarmLand farmLand = Interactor.hit.transform.GetComponent<FarmLand>();
+                                if (farmLand.landStatus == FarmLand.LandStatus.Dry && farmLand.cropPlanted != null && farmLand.cropPlanted.cropState != CropBehaviour.CropState.Harvestable)
+                                {
+                                    farmLand.Water();
+                                    Debug.Log("Watered");
+                                }
+                            }
+                            break;
+
+                    }
+                }
             }
+            
         }
 
         float scrollValue = Input.mouseScrollDelta.y;
