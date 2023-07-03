@@ -12,7 +12,7 @@ public abstract class InventoryDisplay : MonoBehaviour
     public Dictionary<InventorySlot_UI, InventorySlot> SlotDictionary => slotDictionary;
     protected virtual void Start()
     {
-
+        
     }
     public abstract void AssignSlot(InventorySystem invDisplay,int offset);// implement in child class
     protected virtual void UpdateSLot(InventorySlot updatedSlot)

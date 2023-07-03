@@ -9,7 +9,6 @@ public class StaticInventoryDisplay : InventoryDisplay
     [SerializeField] protected InventorySlot_UI[] slots;
     public InventorySlot InventorySlot;
     private Transform playerTransform;
-
     int selectedSlot=-1;
     protected override void Start()
     {
@@ -41,13 +40,10 @@ public class StaticInventoryDisplay : InventoryDisplay
             if (isShiftPress){
                 for(int i = 0; i < selectedSlotData.StackSize; i++)
                 {
-                  
                     var position = new Vector3(Random.Range(-0.3f, -0.1f), 0, Random.Range(-0.3f, -0.1f));
                     Vector3 _dropOffset = position;
-                    Instantiate(itemGameObject, positionToSpawn + _dropOffset, Quaternion.identity);
-                   
+                    Instantiate(itemGameObject, positionToSpawn + _dropOffset, Quaternion.identity);  
                 }
-
                 selectedSlotData.ClearSlot();    
             }
             else
@@ -153,7 +149,6 @@ public class StaticInventoryDisplay : InventoryDisplay
                     Debug.Log("Place");
                     Instantiate(placeable.itemData.ItemPreFab, (playerTransform.position) + playerTransform.forward * 1f, Quaternion.identity);
                     UseItem(selectedSlot);
-
                 }
                 else if (tool != null)
                 {
@@ -170,11 +165,9 @@ public class StaticInventoryDisplay : InventoryDisplay
                                 }
                             }
                             break;
-
                     }
                 }
-            }
-            
+            }          
         }
 
         float scrollValue = Input.mouseScrollDelta.y;
