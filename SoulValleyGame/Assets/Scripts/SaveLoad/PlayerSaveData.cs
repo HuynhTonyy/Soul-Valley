@@ -10,8 +10,9 @@ public class PlayerSaveData : MonoBehaviour
     private void Start()
     {
         SaveLoad.OnLoadGame += LoadMyPlayerData;
+        SaveLoad.OnSaveData += SaveMyPlayerData;
     }
-    private void Update(){
+    private void SaveMyPlayerData(){
         var playerData = new PlayerData(transform.position,gameObject.GetComponentInChildren<PlayerCam>().transform.rotation);
         SaveGameManager.data.playerData = playerData;
     }

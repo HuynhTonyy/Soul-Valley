@@ -3,11 +3,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using Random = UnityEngine.Random;
 
 [RequireComponent(typeof(UniqueID))]
 public class ChestInventory : InventoryHolder, IInteractable
 {
-    [SerializeField] private ItemScript itemData;
+    [SerializeField] private PlaceableData itemData;
     protected override void Awake()
     {
         base.Awake();
@@ -53,6 +54,23 @@ public class ChestInventory : InventoryHolder, IInteractable
     {
         OnDynamicInventoryDisplayRequested?.Invoke(primaryInventorySystem,0);
         InventoryUIControler.isClosed = false;
+    }
+
+    public void Destroy(){
+        foreach (InventorySlot slot in primaryInventorySystem.InventorySlots)
+        {
+            if(slot != null){
+                for(int i = 0; i < slot.StackSize; i++)
+                {
+                    var position = new Vector3(Random.Range(-0.3f, -0.1f), 0, Random.Range(-0.3f, -0.1f));
+                    Vector3 _dropOffset = position;
+                    Instantiate(slot.ItemData.ItemPreFab, transform.position + _dropOffset, Quaternion.identity);
+                }
+            }
+        }
+        Instantiate(itemData.ItemPreFab, transform.position, Quaternion.identity);
+        Destroy(gameObject);
+        
     }
 
 }

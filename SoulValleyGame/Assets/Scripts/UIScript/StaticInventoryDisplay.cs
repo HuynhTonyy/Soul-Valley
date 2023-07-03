@@ -125,11 +125,11 @@ public class StaticInventoryDisplay : InventoryDisplay
     }
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Q) && GetSelectedItem(selectedSlot))
+        if (Input.GetKeyDown(KeyCode.Q) && GetSelectedItem(selectedSlot)  && InventoryUIControler.isClosed )
         {
             throwItem(selectedSlot);
         }
-        if (Mouse.current.leftButton.wasPressedThisFrame && GetSelectedItem(selectedSlot))
+        if (Mouse.current.leftButton.wasPressedThisFrame && GetSelectedItem(selectedSlot) && InventoryUIControler.isClosed )
         {
             if (Interactor.inRange)
             {
@@ -143,7 +143,7 @@ public class StaticInventoryDisplay : InventoryDisplay
                         UseItem(selectedSlot);
                     }
                 }
-                else if (placeable != null && Interactor.hit.transform.tag == "Placeable")
+                else if (placeable != null && Interactor.hit.transform.tag == "Placeable" )
                 {
                     Instantiate(placeable.itemData.ItemPreFab, (playerTransform.position) + playerTransform.forward * 1f, Quaternion.identity);
                     UseItem(selectedSlot);
@@ -157,6 +157,13 @@ public class StaticInventoryDisplay : InventoryDisplay
                             {
                                 FarmLand farmLand = Interactor.hit.transform.GetComponent<FarmLand>();
                                 farmLand.Water();
+                            }
+                            break;
+                        case ToolData.ToolType.Hammer:
+                            if (Interactor.hit.transform.tag == "Interactable")
+                            {
+                                ChestInventory chestGO = Interactor.hit.transform.gameObject.GetComponent<ChestInventory>();
+                                chestGO.Destroy();
                             }
                             break;
                         case ToolData.ToolType.Hoe:
