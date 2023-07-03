@@ -12,7 +12,10 @@ public class InventorySlot
 
     public ItemScript ItemData => itemData;
     public int StackSize => stackSize;
-
+    public int GetCurrentStackSize()
+    {
+        return stackSize;
+    }
     public InventorySlot(ItemScript source, int amount)// contructor to make a occupied inventoryslot
     {
         itemData = source;
