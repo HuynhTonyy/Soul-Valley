@@ -34,6 +34,5 @@ public struct InventorySaveData
         InvSystem = _invSystem;
     }
 
-
 }
 

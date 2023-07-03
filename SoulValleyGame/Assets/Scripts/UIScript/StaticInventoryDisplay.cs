@@ -16,7 +16,6 @@ public class StaticInventoryDisplay : InventoryDisplay
         RefreshStaticDisplay();
         ChangedSelectedSlot(0);
         playerTransform = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
-        
     }
     private void OnEnable()
     {
