@@ -29,7 +29,7 @@ public class ItemPickUp : MonoBehaviour
         myCollider = GetComponent<SphereCollider>();
         myCollider.isTrigger = true;
         myCollider.radius = PickUpRadius;
-        myCollider.center = new Vector3(0, 0, 0);
+        myCollider.center = new Vector3(0, PickUpRadius/2, 0);
         minPositionY = transform.position.y;
         maxPositionY = transform.position.y + 0.1f;
         

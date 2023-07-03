@@ -48,7 +48,7 @@ public class StaticInventoryDisplay : InventoryDisplay
             }
             else
             {
-                if (selectedSlotData.StackSize > 1)
+                if (selectedSlotData.GetCurrentStackSize() > 1)
                 {
                     selectedSlotData.RemoveFromStack(1);
                     selectedUISlot.UpdateUISlot(selectedSlotData);
@@ -146,7 +146,6 @@ public class StaticInventoryDisplay : InventoryDisplay
                 }
                 else if (placeable != null && Interactor.hit.transform.tag == "Placeable")
                 {
-                    Debug.Log("Place");
                     Instantiate(placeable.itemData.ItemPreFab, (playerTransform.position) + playerTransform.forward * 1f, Quaternion.identity);
                     UseItem(selectedSlot);
                 }
@@ -155,14 +154,17 @@ public class StaticInventoryDisplay : InventoryDisplay
                     switch (tool.toolType)
                     {
                         case ToolData.ToolType.WateringCan:
-                            if (Interactor.inRange && Interactor.hit.transform.tag == "FarmLand")
+                            if (Interactor.hit.transform.tag == "FarmLand")
                             {
                                 FarmLand farmLand = Interactor.hit.transform.GetComponent<FarmLand>();
-                                if (farmLand.landStatus == FarmLand.LandStatus.Dry && farmLand.cropPlanted != null && farmLand.cropPlanted.cropState != CropBehaviour.CropState.Harvestable)
-                                {
-                                    farmLand.Water();
-                                    Debug.Log("Watered");
-                                }
+                                farmLand.Water();
+                            }
+                            break;
+                        case ToolData.ToolType.Hoe:
+                            if (Interactor.hit.transform.tag == "FarmLand")
+                            {
+                                FarmLand farmLand = Interactor.hit.transform.GetComponent<FarmLand>();
+                                farmLand.Till();
                             }
                             break;
                     }

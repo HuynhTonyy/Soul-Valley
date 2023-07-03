@@ -7,7 +7,7 @@ using System;
 [ExecuteInEditMode]
 public class UniqueID : MonoBehaviour
 {
-    [ReadOnly, SerializeField] string id;
+    [ReadOnly, SerializeField] string id = "0";
     [SerializeField] private static SerializableDictionary<string, GameObject> idDatabase 
         = new SerializableDictionary<string, GameObject>();
 
