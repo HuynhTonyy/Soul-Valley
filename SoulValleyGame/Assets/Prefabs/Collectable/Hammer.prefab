@@ -124,7 +124,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 73cb71444bbbf4043ac613b5c7be93a4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rotationSpeed: 20
+  rotationSpeed: 50
   PickUpRadius: 1
   itemData: {fileID: 11400000, guid: a97455bf733eb934cab12c792f431124, type: 2}
   itemSaveData:
