@@ -15,13 +15,15 @@ public class FarmLand : MonoBehaviour, ITimeTracker
         Tilled,
         Watered
     }
-    public LandState landState = LandState.Dry;
+    LandState landState = LandState.Dry;
     GameTimeStamp timeWatered;
     Renderer renderer;
     private void Start()
     {
         TimeManager.Instance.RegisterTracker(this);
         renderer = GetComponent<Renderer>();
+        SaveLoad.OnSaveData += SaveFarmData;
+        SaveLoad.OnLoadGame += LoadFarmData;
     }
     public void Select(bool toggle)
     {
@@ -29,7 +31,7 @@ public class FarmLand : MonoBehaviour, ITimeTracker
     }
     public bool Plant(SeedData seed)
     {
-        if(cropPlanted == null && landState == LandState.Tilled)
+        if(cropPlanted == null && landState == LandState.Tilled && seed != null)
         {
             GameObject cropObject = Instantiate(cropPrefab,transform);
             cropObject.transform.localPosition = new Vector3(0, 0.5f, 0);
@@ -84,7 +86,7 @@ public class FarmLand : MonoBehaviour, ITimeTracker
         {
             children.Add(child);
         }
-        if (inventory.AddToInventory(children[children.Count - 1].GetComponent<ItemPickUp>().itemData, 1))
+        if (inventory.AddToInventory(children[children.Count - 1].GetComponent<CropHarvest>().itemData, 1))
         {
             SaveGameManager.data.collectedItems.Add(children[children.Count  - 1].GetComponent<UniqueID>().ID);
             Destroy(cropPlanted.gameObject);
@@ -102,5 +104,57 @@ public class FarmLand : MonoBehaviour, ITimeTracker
                 SwitchLandState(LandState.Tilled);
             }
         }
+    }
+    void SaveFarmData(){
+        SeedData seed = null;
+        int growth = 1;
+        CropBehaviour.CropState CropState = CropBehaviour.CropState.Seed;
+        if(cropPlanted != null){
+            seed = cropPlanted.seedToGrow;
+            growth = cropPlanted.growth;
+            CropState = cropPlanted.cropState;
+        }
+        FarmSaveData landSaveData = new FarmSaveData(seed,growth,CropState,timeWatered,landState);
+        if(SaveGameManager.data.farmDictionary.ContainsKey(GetComponent<UniqueID>().ID)){
+            SaveGameManager.data.farmDictionary[GetComponent<UniqueID>().ID] = landSaveData;
+        }else{
+            SaveGameManager.data.farmDictionary.Add(GetComponent<UniqueID>().ID, landSaveData);
+        }
+    }
+    void LoadFarmData(SaveData data){
+        if(data.farmDictionary.TryGetValue(GetComponent<UniqueID>().ID,out FarmSaveData land)){
+            if(GetComponentInChildren<CropBehaviour>() != null){
+                Destroy(GetComponentInChildren<CropBehaviour>().gameObject);
+            }
+            cropPlanted = null;
+            if(land.SeedData == null){
+                SwitchLandState(land.LandState);
+            }else{
+                SwitchLandState(LandState.Tilled);
+                if(Plant(land.SeedData)){
+                    cropPlanted.growth = land.Growth;
+                    cropPlanted.SwitchCropState(land.CropState);
+                    SwitchLandState(LandState.Watered);
+                    timeWatered = land.TimeWatered;
+                }
+            }
+        }
+    }
+}
+[System.Serializable]
+public struct FarmSaveData
+{
+    public SeedData SeedData;
+    public int Growth;
+    public CropBehaviour.CropState CropState;
+    public GameTimeStamp TimeWatered;
+    public FarmLand.LandState LandState;
+    public FarmSaveData(SeedData _seedData, int _growth,CropBehaviour.CropState _cropState,GameTimeStamp _timeWatered, FarmLand.LandState _landState)
+    {
+        SeedData = _seedData;
+        Growth = _growth;
+        CropState = _cropState;
+        TimeWatered = _timeWatered;
+        LandState = _landState;
     }
 }

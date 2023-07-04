@@ -74,7 +74,7 @@ public class StaticInventoryDisplay : InventoryDisplay
         if (selectedSlotData != null && selectedSlotData.ItemData != null)
         {
             ItemScript itemData = selectedSlotData.ItemData;
-            if (itemData.MaxStackSize > 1)
+            if (selectedSlotData.GetCurrentStackSize() > 1)
             {
                 selectedSlotData.RemoveFromStack(1);
             }
@@ -93,8 +93,6 @@ public class StaticInventoryDisplay : InventoryDisplay
     {
         InventorySystem inventorySystem = inventoryHolder.PrimaryInventorySystem;
         InventorySlot slot = inventorySystem.GetSlot(selectedSlot);
-       
-
         if (slot != null && slot.ItemData != null)
         {
             return true;
@@ -216,7 +214,6 @@ public class StaticInventoryDisplay : InventoryDisplay
         slots[value].Selected();
         selectedSlot = value;
     }
-  
     public void RefreshStaticDisplay()
     {
         if (inventoryHolder != null)

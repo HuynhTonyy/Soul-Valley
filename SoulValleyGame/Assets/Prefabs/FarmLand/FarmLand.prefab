@@ -96,6 +96,7 @@ GameObject:
   - component: {fileID: 4752028887470922254}
   - component: {fileID: 876749755425808587}
   - component: {fileID: 3782917760061041155}
+  - component: {fileID: 6978748574627854536}
   m_Layer: 6
   m_Name: FarmLand
   m_TagString: FarmLand
@@ -200,4 +201,16 @@ MonoBehaviour:
   dryMat: {fileID: 2100000, guid: 54d8e7cfc70e96f4cb1fd837a60c9dd8, type: 2}
   tilledMat: {fileID: 2100000, guid: ee998d8f968884b49820622b752e5637, type: 2}
   wateredMat: {fileID: 2100000, guid: b6e3a99d1f5697c45aa66edcde0c6aac, type: 2}
-  landState: 0
+--- !u!114 &6978748574627854536
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7278377743631286059}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f2f6d31c9f4cab1458e5406b901cb5b0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  id: 0
