@@ -17,7 +17,8 @@ public class EnemyBehaviour : MonoBehaviour
     {
         Collider[] colliders = Physics.OverlapSphere(transform.position,radius, playerMask);
         if(colliders.Length >= 1){
-            Vector3 relativePos = new Vector3(colliders[0].transform.position.x,0,colliders[0].transform.position.z) - new Vector3(transform.position.x,0,transform.position.z);
+            Vector3 relativePos = new Vector3(colliders[0].transform.position.x,0,colliders[0].transform.position.z) 
+                - new Vector3(transform.position.x-1,0,transform.position.z-1);
             Quaternion rotation = Quaternion.LookRotation(relativePos, Vector3.up);
             transform.rotation = rotation;
             transform.position = Vector3.MoveTowards(transform.position, colliders[0].transform.position, speed * Time.deltaTime);

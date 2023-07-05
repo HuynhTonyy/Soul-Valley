@@ -9,19 +9,22 @@ public class PlayerInventoryHolder : InventoryHolder
     public static UnityAction OnPlayerInventoryChanged;
     public static UnityAction<InventorySystem, int> OnDynamicPlayerInventoryDisplayRequested;
 
+    public void setPrimarySystem(InventorySystem invSys){
+        this.primaryInventorySystem = invSys;
+        OnPlayerInventoryChanged?.Invoke();
+    }
     private void Start()
     {
-        SaveGameManager.data.playerInventory = new InventorySaveData(primaryInventorySystem);
             
     }
     protected override void LoadInventory(SaveData data)
     {
         // check the save data for specific chest inventory - if exist load in
-        if (data.playerInventory.InvSystem != null)
-        {
-            this.primaryInventorySystem = data.playerInventory.InvSystem;
-            OnPlayerInventoryChanged?.Invoke();
-        }
+        // if (data.playerData.TryGetValue(GetComponent<UniqueID>) != null)
+        // {
+        //     this.primaryInventorySystem =;
+        //     OnPlayerInventoryChanged?.Invoke();
+        // }
     }
 
     // Update is called once per frame

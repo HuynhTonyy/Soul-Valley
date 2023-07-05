@@ -38,7 +38,9 @@ public class ItemPickUp : MonoBehaviour
     private void Start()
     {
         id = GetComponent<UniqueID>().ID;
-        SaveGameManager.data.activeItems.Add(id, itemSaveData);
+        if(SaveGameManager.data.activeItems.ContainsKey(id)){
+            SaveGameManager.data.activeItems[id]=itemSaveData;
+        }else SaveGameManager.data.activeItems.Add(id,itemSaveData);
         
     }
 

@@ -140,10 +140,11 @@ public class StaticInventoryDisplay : InventoryDisplay
                     {
                         UseItem(selectedSlot);
                     }
-                }
+                }   
                 else if (placeable != null && Interactor.hit.transform.tag == "Placeable" )
                 {
-                    Instantiate(placeable.itemData.ItemPreFab, (playerTransform.position) + playerTransform.forward * 1f, Quaternion.identity);
+                    Instantiate(placeable.itemData.ItemPreFab, (new Vector3(playerTransform.position.x,playerTransform.position.y-0.5f,playerTransform.position.z)) 
+                        + playerTransform.forward * 5f, Quaternion.identity);
                     UseItem(selectedSlot);
                 }
                 else if (tool != null)
