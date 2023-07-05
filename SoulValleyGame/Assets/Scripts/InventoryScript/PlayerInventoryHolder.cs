@@ -37,13 +37,13 @@ public class PlayerInventoryHolder : InventoryHolder
         }
         else if (UIController.isShopClosed && InventoryUIControler.isClosed && Keyboard.current.tabKey.wasPressedThisFrame)
         {
-            Debug.Log("IF 2" + UIController.isShopClosed);         
+                   
             OnDynamicPlayerInventoryDisplayRequested?.Invoke(primaryInventorySystem, offset);
             InventoryUIControler.isClosed = false;    
         }
         else if(UIController.isShopClosed && !InventoryUIControler.isClosed && Keyboard.current.tabKey.wasPressedThisFrame)
         {
-            Debug.Log("IF 3" + UIController.isShopClosed);
+            
             InventoryUIControler.isClosed = true;
         }
         

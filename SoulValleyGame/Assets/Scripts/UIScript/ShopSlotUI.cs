@@ -45,10 +45,10 @@ public class ShopSlotUI : MonoBehaviour, IPointerClickHandler
             BuyPrice = _assignedItemSlot.ItemData.Value + _assignedItemSlot.ItemData.Value * 0.5;
             _itemSprite.sprite = _assignedItemSlot.ItemData.icon;
             _itemSprite.color = Color.white;
-            _itemCount.text = _assignedItemSlot.StackSize.ToString();
+            _itemCount.text = 'x' + _assignedItemSlot.StackSize.ToString();
             _itemName.text = _assignedItemSlot.ItemData.DisplayName;
             _itemSPrice.text = SellPrice.ToString();
-            _itemBPrice.text = SellPrice.ToString();
+            _itemBPrice.text = BuyPrice.ToString();
             
         }
         else
