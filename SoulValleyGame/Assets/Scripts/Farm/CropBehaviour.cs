@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class CropBehaviour : MonoBehaviour
 {
-    SeedData seedToGrow;
+    public SeedData seedToGrow;
     [Header("Stage of life")]
     private GameObject seed;
     private GameObject seedling;
@@ -14,16 +14,16 @@ public class CropBehaviour : MonoBehaviour
         Seed,Seedling,Harvestable
     }
     public CropState cropState;
-    int growth = 1;
+    public int growth = 1;
     int maxGrowth;
     public void PLant(SeedData seedToGrow)
     {
         this.seedToGrow = seedToGrow;
         seed = Instantiate(seedToGrow.seed,transform);
         seedling = Instantiate(seedToGrow.seedling, transform);
-        harvestable = Instantiate(seedToGrow.CropToYeild.ItemPreFab, transform);
+        harvestable = Instantiate(seedToGrow.harvestable, transform);
         maxGrowth = GameTimeStamp.HoursToMinutes(GameTimeStamp.DaysToHours(seedToGrow.DayToGrow));
-        SwitchToState(CropState.Seed);
+        SwitchCropState(CropState.Seed);
     }
 
     public void Grow()
@@ -31,13 +31,13 @@ public class CropBehaviour : MonoBehaviour
         growth++;
         if(growth >= maxGrowth / 2 && cropState == CropState.Seed)
         {
-            SwitchToState(CropState.Seedling);
+            SwitchCropState(CropState.Seedling);
         }else if(growth >= maxGrowth && cropState == CropState.Seedling)
         {
-            SwitchToState(CropState.Harvestable);
+            SwitchCropState(CropState.Harvestable);
         }
     }
-    public void SwitchToState(CropState stateToSwitch)
+    public void SwitchCropState(CropState stateToSwitch)
     {
         seed.SetActive(false);
         seedling.SetActive(false);

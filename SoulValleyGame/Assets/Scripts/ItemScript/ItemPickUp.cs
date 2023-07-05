@@ -29,7 +29,7 @@ public class ItemPickUp : MonoBehaviour
         myCollider = GetComponent<SphereCollider>();
         myCollider.isTrigger = true;
         myCollider.radius = PickUpRadius;
-        myCollider.center = new Vector3(0, 0, 0);
+        myCollider.center = new Vector3(0, PickUpRadius/2, 0);
         minPositionY = transform.position.y;
         maxPositionY = transform.position.y + 0.1f;
         
@@ -38,13 +38,15 @@ public class ItemPickUp : MonoBehaviour
     private void Start()
     {
         id = GetComponent<UniqueID>().ID;
-        SaveGameManager.data.activeItems.Add(id, itemSaveData);
+        if(SaveGameManager.data.activeItems.ContainsKey(id)){
+            SaveGameManager.data.activeItems[id]=itemSaveData;
+        }else SaveGameManager.data.activeItems.Add(id,itemSaveData);
         
     }
 
     private void LoadGame(SaveData data)
     {
-        if (data.activeItems.ContainsKey(id)) Destroy(gameObject);
+        Destroy(gameObject);
     }
 
     private void OnDestroy()

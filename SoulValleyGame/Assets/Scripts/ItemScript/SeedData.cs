@@ -5,6 +5,6 @@ using UnityEngine;
 public class SeedData : ItemScript
 {
     public int DayToGrow;
-    public GameObject seedling, seed;
+    public GameObject seedling, seed, harvestable;
     public ItemScript CropToYeild;
 }

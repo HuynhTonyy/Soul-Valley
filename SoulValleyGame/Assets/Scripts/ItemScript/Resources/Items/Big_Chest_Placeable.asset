@@ -15,6 +15,8 @@ MonoBehaviour:
   Id: 0
   DisplayName: Big_Chest
   MaxStackSize: 1
+  Value: 0
+  Description: 
   icon: {fileID: 21300000, guid: 89c00a5cf5151ce4393f83a26a5a4c45, type: 3}
   ItemPreFab: {fileID: 4655821640382162206, guid: 4493e7161e6a5db41aea1e7dfc774d98, type: 3}
   itemData: {fileID: 11400000, guid: 10d78e97e5f9b9549b806cbc129f6e0d, type: 2}

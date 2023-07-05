@@ -6,8 +6,7 @@ public class TimeManager : MonoBehaviour
 {
     public static TimeManager Instance { get; private set; }
     [Header("Internal clock")]
-    [SerializeField]
-    GameTimeStamp timeStamp;
+    [SerializeField] GameTimeStamp timeStamp;
     public float timeScale = 1.0f;
     [Header("Day & Night cycle")]
     public Transform sunTranform;
@@ -20,6 +19,8 @@ public class TimeManager : MonoBehaviour
             Destroy(this);
         }
         else { Instance = this; };
+        SaveLoad.OnSaveData += SaveTimeData;
+        SaveLoad.OnLoadGame += LoadTimeData;
     }
     private void Start()
     {
@@ -62,5 +63,11 @@ public class TimeManager : MonoBehaviour
     public GameTimeStamp GetTimeStamp()
     {
         return new GameTimeStamp(timeStamp);
+    }
+    void SaveTimeData(){
+        SaveGameManager.data.timeData = Instance.timeStamp;
+    }
+    void LoadTimeData(SaveData data){
+        Instance.timeStamp = data.timeData;
     }
 }

@@ -10,7 +10,8 @@ public class ToolData : ItemScript
         Hoe,
         Axe,
         Pickaxe,
-        Shovel
+        Shovel,
+        Hammer
     }
     public ToolType toolType;
 }

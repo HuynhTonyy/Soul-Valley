@@ -22,4 +22,5 @@ MonoBehaviour:
   DayToGrow: 1
   seedling: {fileID: 8333869302400229472, guid: 5bd155a55131e74429ab14965c294c85, type: 3}
   seed: {fileID: 8333869302400229472, guid: b419a9bab418cfd4d9886e4ab26278e3, type: 3}
+  harvestable: {fileID: 1419995953428668373, guid: 61982c2c99063e44e9e4646d763c0439, type: 3}
   CropToYeild: {fileID: 11400000, guid: 610f36e588908ad43b326d4d329d9e90, type: 2}

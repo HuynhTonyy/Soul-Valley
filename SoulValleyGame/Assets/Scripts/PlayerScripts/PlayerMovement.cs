@@ -132,12 +132,9 @@ public class PlayerMovement : MonoBehaviour
         Vector3 movement = (verticalInput * cameraForward + horizontalInput * orientation.right).normalized;
         movement *= currentSpeed * Time.deltaTime;
         rb.MovePosition(transform.position + movement);
-               
         animator.SetFloat("Speed", movement.magnitude);
 
     }
-
-   
 
     private void Jump()
     {

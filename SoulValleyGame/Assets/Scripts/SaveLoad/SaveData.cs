@@ -9,18 +9,20 @@ public class SaveData
 
     public SerializableDictionary<string, ItemPickUpSaveData> activeItems;
 
-    public SerializableDictionary<string, InventorySaveData> chestDictionary;
-    
-    public InventorySaveData playerInventory;
+    public SerializableDictionary<string, ChestSaveData> chestDictionary;
 
-    public PlayerData playerData ;
+    public SerializableDictionary<string, FarmSaveData> farmDictionary;
+
+    public SerializableDictionary<string,PlayerData> playerData;
+
+    public GameTimeStamp timeData ;
 
     public SaveData()
     {
         collectedItems = new List<string>();
         activeItems = new SerializableDictionary<string, ItemPickUpSaveData>();
-        chestDictionary = new SerializableDictionary<string, InventorySaveData>();
-        playerInventory = new InventorySaveData();
-        playerData = new PlayerData();
+        chestDictionary = new SerializableDictionary<string, ChestSaveData>();
+        farmDictionary = new SerializableDictionary<string, FarmSaveData>();
+        playerData = new SerializableDictionary<string, PlayerData>();
     }
 }
