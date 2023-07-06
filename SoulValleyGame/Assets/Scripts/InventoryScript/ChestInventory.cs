@@ -57,18 +57,18 @@ public class ChestInventory : InventoryHolder, IInteractable
     }
 
     public void Destroy(){
+        Vector3 _dropOffset = new Vector3(Random.Range(-0.3f, -0.1f), .5f, Random.Range(-0.3f, -0.1f));
         foreach (InventorySlot slot in primaryInventorySystem.InventorySlots)
         {
             if(slot != null){
                 for(int i = 0; i < slot.StackSize; i++)
                 {
-                    var position = new Vector3(Random.Range(-0.3f, -0.1f), 0, Random.Range(-0.3f, -0.1f));
-                    Vector3 _dropOffset = position;
+                    _dropOffset = new Vector3(Random.Range(-0.3f, -0.1f), .5f, Random.Range(-0.3f, -0.1f));
                     Instantiate(slot.ItemData.ItemPreFab, transform.position + _dropOffset, Quaternion.identity);
                 }
             }
         }
-        Instantiate(itemData.ItemPreFab, transform.position, Quaternion.identity);
+        Instantiate(itemData.ItemPreFab, transform.position + _dropOffset, Quaternion.identity);
         Destroy(gameObject);
         
     }
