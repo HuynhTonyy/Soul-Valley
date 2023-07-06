@@ -30,25 +30,27 @@ public class PlayerInventoryHolder : InventoryHolder
     // Update is called once per frame
     void Update()
     {
-        if (!UIController.isShopClosed && InventoryUIControler.isClosed && Keyboard.current.tabKey.wasPressedThisFrame)
-        {
-            
-           
-
-        }
+        if (!UIController.isShopClosed && InventoryUIControler.isClosed && Keyboard.current.tabKey.wasPressedThisFrame) ;
         else if (UIController.isShopClosed && InventoryUIControler.isClosed && Keyboard.current.tabKey.wasPressedThisFrame)
         {
-                   
+
             OnDynamicPlayerInventoryDisplayRequested?.Invoke(primaryInventorySystem, offset);
-            InventoryUIControler.isClosed = false;    
+            InventoryUIControler.isClosed = false;
         }
-        else if(UIController.isShopClosed && !InventoryUIControler.isClosed && Keyboard.current.tabKey.wasPressedThisFrame)
+        else if (UIController.isShopClosed && !InventoryUIControler.isClosed && Keyboard.current.tabKey.wasPressedThisFrame)
         {
-            
+
             InventoryUIControler.isClosed = true;
         }
         
             
+    }
+
+    public void InvokeInventory()
+    {
+        OnDynamicPlayerInventoryDisplayRequested?.Invoke(primaryInventorySystem, offset);
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
     }
     public bool AddToInventory(ItemScript item, int amount)
     {

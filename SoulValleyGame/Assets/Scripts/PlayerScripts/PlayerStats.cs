@@ -5,7 +5,7 @@ using UnityEngine;
 public class PlayerStats : MonoBehaviour
 {
 
-    public static int playerCurrency = 100;
+    public static int playerSoulCoin = 500;
     // Start is called before the first frame update
     void Start()
     {
@@ -16,5 +16,10 @@ public class PlayerStats : MonoBehaviour
     void Update()
     {
         
+    }
+
+    public static void SpendCoin(int spendAmount)
+    {
+        playerSoulCoin -= spendAmount;
     }
 }

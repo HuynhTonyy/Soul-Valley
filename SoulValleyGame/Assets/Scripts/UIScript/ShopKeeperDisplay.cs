@@ -22,6 +22,11 @@ public class ShopKeeperDisplay : MonoBehaviour
 
     [SerializeField] private GameObject _itemListContentPanel;
 
+    public GameObject BuyTabDisplay;
+    public GameObject SellTabDisplay;
+
+    private ItemScript curSelectedItemData;
+    private double itemBuyPrice;
 
     private ShopSystem _shopSystem;
     private PlayerInventoryHolder _playerInventoryHolder;
@@ -47,6 +52,7 @@ public class ShopKeeperDisplay : MonoBehaviour
         _itemSellPrice.SetText("");
         _buyBtn.gameObject.SetActive(false);
         _sellBtn.gameObject.SetActive(false);
+        _buyBtn.onClick.AddListener(BuyItems);
     }
     public void SetItemPreview(Sprite img,string itemName, string itemDes, string itemBPrice, string itemSPrice)
     {
@@ -78,4 +84,28 @@ public class ShopKeeperDisplay : MonoBehaviour
             shopSlot.Init(item, _shopSystem.BuyMarkUp);
         }
     }
+
+    public void SetCurSelectedItem(ItemScript item, double buyPrice)
+    {
+        curSelectedItemData = item;
+        itemBuyPrice = buyPrice;
+    }
+
+    private void BuyItems()
+    {
+        if (PlayerStats.playerSoulCoin < (int)itemBuyPrice) return;
+        if (!_playerInventoryHolder.PrimaryInventorySystem.HasFreeSlot(out InventorySlot freeslot)) return;
+
+        if (_shopSystem.PurchaseItem(curSelectedItemData, 1))
+        {
+            _playerInventoryHolder.PrimaryInventorySystem.AddToInventory(curSelectedItemData, 1);
+            PlayerStats.SpendCoin((int)itemBuyPrice);
+            _shopSystem.GainGoid((int)itemBuyPrice);
+        };
+        
+        ClearSlots();
+        DisplayShopInventory();
+    }
+
+    
 }

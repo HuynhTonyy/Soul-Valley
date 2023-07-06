@@ -18,7 +18,7 @@ public class CurrencySystem : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        soulCoin = PlayerStats.playerCurrency;
+        soulCoin = PlayerStats.playerSoulCoin;
         souldCoinValues.SetText("Currency: " + soulCoin);
     }
 }

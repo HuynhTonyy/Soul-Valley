@@ -25,6 +25,16 @@ public class ShopSystem
         SetShopSize(size);
     }
 
+    public float getBuyMarkUp()
+    {
+        return BuyMarkUp;
+    }
+
+    public float getSellMarkUp()
+    {
+        return SellMarkUp;
+    }
+
     private void SetShopSize(int size)
     {
         _shopInventory = new List<ShopSlot>(size);
@@ -66,5 +76,23 @@ public class ShopSystem
         shopSlot = _shopInventory.Find(i => i.ItemData == itemToAdd); // check if the item already in the shop => get the shop slot the item currently in
         //Debug.Log(invSlot.Count);
         return shopSlot != null;
+    }
+
+    public bool PurchaseItem(ItemScript data, int amount)
+    {
+        if (!ContainsItem(data, out ShopSlot slot)) return false;
+        slot.RemoveFromStack(amount);
+        if (slot.StackSize <= 0) 
+        {
+            slot.ClearSlot();
+            return false; 
+        }       
+        
+        return true;
+    }
+
+    public void GainGoid(int gainAmount)
+    {
+        _availableGold += gainAmount;
     }
 }

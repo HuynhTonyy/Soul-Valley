@@ -40,8 +40,12 @@ public class UIController : MonoBehaviour
             isShopClosed = true;
             _shopKeeperDisplay.gameObject.SetActive(false);       
             InventoryUIControler.status = false; // Movement
+
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
+
+            _shopKeeperDisplay.BuyTabDisplay.SetActive(true);
+            _shopKeeperDisplay.SellTabDisplay.SetActive(false);
         }
 
     }
