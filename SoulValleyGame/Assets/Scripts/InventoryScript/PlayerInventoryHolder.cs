@@ -13,18 +13,8 @@ public class PlayerInventoryHolder : InventoryHolder
         this.primaryInventorySystem = invSys;
         OnPlayerInventoryChanged?.Invoke();
     }
-    private void Start()
-    {
-            
-    }
     protected override void LoadInventory(SaveData data)
     {
-        // check the save data for specific chest inventory - if exist load in
-        // if (data.playerData.TryGetValue(GetComponent<UniqueID>) != null)
-        // {
-        //     this.primaryInventorySystem =;
-        //     OnPlayerInventoryChanged?.Invoke();
-        // }
     }
 
     // Update is called once per frame

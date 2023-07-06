@@ -9,7 +9,7 @@ public class StaticInventoryDisplay : InventoryDisplay
     [SerializeField] protected InventorySlot_UI[] slots;
     public InventorySlot InventorySlot;
     private Transform playerTransform;
-    int selectedSlot=-1;
+    public int selectedSlot=-1;
     protected override void Start()
     {
         base.Start();
@@ -25,7 +25,7 @@ public class StaticInventoryDisplay : InventoryDisplay
     {
         PlayerInventoryHolder.OnPlayerInventoryChanged -= RefreshStaticDisplay;
     }
-    private void throwItem(int selectedSlot)
+    public void throwItem(int selectedSlot)
     {
         InventorySlot_UI selectedUISlot = slots[selectedSlot];
         InventorySlot selectedSlotData = selectedUISlot.AssignInventorySlot;
@@ -66,11 +66,10 @@ public class StaticInventoryDisplay : InventoryDisplay
             Debug.Log("No item in the selected slot.");
         }
     }
-    private void UseItem(int selectedSlot)
+    public void UseItem(int selectedSlot)
     {
         InventorySlot_UI selectedUISlot = slots[selectedSlot];
         InventorySlot selectedSlotData = selectedUISlot.AssignInventorySlot;
-
         if (selectedSlotData != null && selectedSlotData.ItemData != null)
         {
             ItemScript itemData = selectedSlotData.ItemData;
@@ -84,12 +83,8 @@ public class StaticInventoryDisplay : InventoryDisplay
             }
             selectedUISlot.UpdateUISlot(selectedSlotData);
         }
-        else
-        {
-            Debug.Log("No item in the selected slot.");
-        }
     }
-    private bool GetSelectedItem(int selectedSlot)
+    public bool GetSelectedItem(int selectedSlot)
     {
         InventorySystem inventorySystem = inventoryHolder.PrimaryInventorySystem;
         InventorySlot slot = inventorySystem.GetSlot(selectedSlot);
@@ -99,114 +94,28 @@ public class StaticInventoryDisplay : InventoryDisplay
         }
         else
         {
-            //Debug.Log("No item in the specified slot.");
             return false;
         }
     }
-    private SeedData GetSeed(int selectedSlot)
+    public SeedData GetSeed(int selectedSlot)
     {
         InventorySystem inventorySystem = inventoryHolder.PrimaryInventorySystem;
         SeedData slot = inventorySystem.GetSlot(selectedSlot).ItemData as SeedData;
         return slot;
     }
-    private PlaceableData GetPlaceableData(int selectedSlot)
+    public PlaceableData GetPlaceableData(int selectedSlot)
     {
         InventorySystem inventorySystem = inventoryHolder.PrimaryInventorySystem;
         PlaceableData data = inventorySystem.GetSlot(selectedSlot).ItemData as PlaceableData;
         return data;
     }
-    private ToolData GetToolData(int selectedSlot)
+    public ToolData GetToolData(int selectedSlot)
     {
         InventorySystem inventorySystem = inventoryHolder.PrimaryInventorySystem;
         ToolData data = inventorySystem.GetSlot(selectedSlot).ItemData as ToolData;
         return data;
     }
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Q) && GetSelectedItem(selectedSlot)  && InventoryUIControler.isClosed )
-        {
-            throwItem(selectedSlot);
-        }
-        if (Mouse.current.leftButton.wasPressedThisFrame && GetSelectedItem(selectedSlot) && InventoryUIControler.isClosed )
-        {
-            if (Interactor.inRange)
-            {
-                SeedData seed = GetSeed(selectedSlot);
-                PlaceableData placeable = GetPlaceableData(selectedSlot);
-                ToolData tool = GetToolData(selectedSlot);
-                if (seed != null)
-                {
-                    if (Interactor.selectedLand != null && Interactor.selectedLand.Plant(seed))
-                    {
-                        UseItem(selectedSlot);
-                    }
-                }   
-                else if (placeable != null && Interactor.hit.transform.tag == "Placeable" )
-                {
-                    Instantiate(placeable.itemData.ItemPreFab, (new Vector3(playerTransform.position.x,playerTransform.position.y-0.5f,playerTransform.position.z)) 
-                        + playerTransform.forward * 5f, Quaternion.identity);
-                    UseItem(selectedSlot);
-                }
-                else if (tool != null)
-                {
-                    switch (tool.toolType)
-                    {
-                        case ToolData.ToolType.WateringCan:
-                            if (Interactor.hit.transform.tag == "FarmLand")
-                            {
-                                FarmLand farmLand = Interactor.hit.transform.GetComponent<FarmLand>();
-                                farmLand.Water();
-                            }
-                            break;
-                        case ToolData.ToolType.Hammer:
-                            if (Interactor.hit.transform.tag == "Interactable")
-                            {
-                                ChestInventory chestGO = Interactor.hit.transform.gameObject.GetComponent<ChestInventory>();
-                                chestGO.Destroy();
-                            }
-                            break;
-                        case ToolData.ToolType.Hoe:
-                            if (Interactor.hit.transform.tag == "FarmLand")
-                            {
-                                FarmLand farmLand = Interactor.hit.transform.GetComponent<FarmLand>();
-                                farmLand.Till();
-                            }
-                            break;
-                    }
-                }
-            }          
-        }
-
-        float scrollValue = Input.mouseScrollDelta.y;
-
-        if (selectedSlot > -1 && selectedSlot < 9)
-        {
-            if (scrollValue < 0 && selectedSlot < 8)
-            {
-                //Debug.Log("cuon len");
-                ChangedSelectedSlot(selectedSlot + 1);
-                GetSelectedItem(selectedSlot);
-            }
-            else if (scrollValue > 0 && selectedSlot > 0)
-            {
-                //Debug.Log("cuon xuong");
-                ChangedSelectedSlot(selectedSlot - 1);
-                GetSelectedItem(selectedSlot);
-            }
-        }
-        if (Input.inputString != null)
-        {
-            bool isNumber = int.TryParse(Input.inputString, out int number);
-            if(isNumber && number >0 && number< 10)
-            {
-                //Debug.Log("Phim "+number);
-                ChangedSelectedSlot(number - 1);
-                GetSelectedItem(selectedSlot);
-            }
-        }
-
-    }
-    private void ChangedSelectedSlot(int value)
+    public void ChangedSelectedSlot(int value)
     {
         if (selectedSlot >= 0)
         {
@@ -238,6 +147,33 @@ public class StaticInventoryDisplay : InventoryDisplay
             slots[i].Init(inventorySystem.InventorySlots[i]);
         }
     }
-   
+    private void Update() {
+        float scrollValue = Input.mouseScrollDelta.y;
 
+        if (selectedSlot > -1 && selectedSlot < 9)
+        {
+            if (scrollValue < 0 && selectedSlot < 8)
+            {
+                //Debug.Log("cuon len");
+                ChangedSelectedSlot(selectedSlot + 1);
+                GetSelectedItem(selectedSlot);
+            }
+            else if (scrollValue > 0 && selectedSlot > 0)
+            {
+                //Debug.Log("cuon xuong");
+                ChangedSelectedSlot(selectedSlot - 1);
+                GetSelectedItem(selectedSlot);
+            }
+        }
+        if (Input.inputString != null)
+        {
+            bool isNumber = int.TryParse(Input.inputString, out int number);
+            if(isNumber && number >0 && number< 10)
+            {
+                //Debug.Log("Phim "+number);
+                ChangedSelectedSlot(number - 1);
+                GetSelectedItem(selectedSlot);
+            }
+        }
+    }
 }

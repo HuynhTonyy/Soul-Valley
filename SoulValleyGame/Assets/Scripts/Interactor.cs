@@ -6,46 +6,86 @@ using UnityEngine.InputSystem;
 
 public class Interactor : MonoBehaviour
 {
-    public static RaycastHit hit;
-    public Transform cam;
-    public static FarmLand selectedLand;
-    public static bool inRange;
+    [SerializeField] Transform cam;
+    FarmLand selectedLand;
+    RaycastHit hit;
+    StaticInventoryDisplay hotBar;
+    string tag;
+    bool inRange;
+    private void Start() {
+        hotBar = gameObject.GetComponentInChildren<StaticInventoryDisplay>();
+    }
     private void Update()
     {
-        if (Input.GetKey(KeyCode.O))
-        {
+        //Time skip
+        if (Input.GetKey(KeyCode.O)){
             TimeManager.Instance.Tick();
         }
+        int selectedSlot = hotBar.selectedSlot;
+        //Throw item which is selected in hot bar
+        if(hotBar.GetSelectedItem(selectedSlot)  && InventoryUIControler.isClosed && Keyboard.current.qKey.wasPressedThisFrame){
+            hotBar.throwItem(selectedSlot);
+        }
+        //In range of sight
         inRange = Physics.Raycast(cam.transform.position, cam.transform.forward, out hit, 4f);
         if (inRange)
         {
-            if (hit.transform.tag == "FarmLand")
-            {
+            tag = hit.transform.tag;
+            if(tag == "FarmLand"){
                 FarmLand farmLand = hit.collider.GetComponent<FarmLand>();
-                if (selectedLand != null)
-                {
+                if (selectedLand){
                     selectedLand.Select(false);
                 }
                 selectedLand = farmLand;
                 farmLand.Select(true);
-                if(Keyboard.current.eKey.wasReleasedThisFrame && farmLand.cropPlanted != null && farmLand.cropPlanted.cropState == CropBehaviour.CropState.Harvestable)
-                {
+                if(Keyboard.current.eKey.wasReleasedThisFrame && farmLand.cropPlanted && farmLand.cropPlanted.cropState == CropBehaviour.CropState.Harvestable){
                     farmLand.Harvest(this.gameObject);
                 }
-            }
-            else if (selectedLand != null)
-            {
+            }else if(tag == "Interactable" && Mouse.current.rightButton.wasPressedThisFrame && InventoryUIControler.isClosed){
+                IInteractable interactable = hit.collider.GetComponent<IInteractable>();
+                if (interactable != null) interactable.Interact(this);
+            }else if(selectedLand){
                 selectedLand.Select(false);
             }
-            if (hit.transform.tag == "Interactable")
-            {
-                if (Mouse.current.rightButton.wasPressedThisFrame && InventoryUIControler.isClosed)
-                {
-                    var interactable = hit.collider.GetComponent<IInteractable>();
-                    if (interactable != null) interactable.Interact(this);
+            if(hotBar.GetSelectedItem(selectedSlot)  && InventoryUIControler.isClosed && Mouse.current.leftButton.wasPressedThisFrame){
+                SeedData seed = hotBar.GetSeed(selectedSlot);
+                PlaceableData placeable = hotBar.GetPlaceableData(selectedSlot);
+                ToolData tool = hotBar.GetToolData(selectedSlot);
+                if (seed && selectedLand && selectedLand.Plant(seed)){
+                    hotBar.UseItem(selectedSlot);
+                }   
+                else if (placeable && tag == "Placeable" ){
+                    GameObject spawn = Instantiate(placeable.itemData.ItemPreFab, hit.point,Quaternion.identity);
+                    hotBar.UseItem(selectedSlot);
                 }
+                else if (tool){
+                    switch (tool.toolType){
+                        case ToolData.ToolType.WateringCan:
+                            if (tag == "FarmLand"){
+                                FarmLand farmLand = hit.transform.GetComponent<FarmLand>();
+                                farmLand.Water();
+                            }
+                            break;
+                        case ToolData.ToolType.Hoe:
+                            if (tag == "FarmLand"){
+                                FarmLand farmLand = hit.transform.GetComponent<FarmLand>();
+                                farmLand.Till();
+                            }
+                            break;
+                        case ToolData.ToolType.Hammer:
+                            if (tag == "Interactable"){
+                                ChestInventory chestGO = hit.transform.gameObject.GetComponent<ChestInventory>();
+                                chestGO.Destroy();
+                            }
+                            break;
+                    }
+                }         
             }
+        }else if(selectedLand){
+            selectedLand.Select(false);
         }
+        
     }
 }
+
 
