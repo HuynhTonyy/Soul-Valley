@@ -6,7 +6,6 @@ using UnityEngine.Events;
 [RequireComponent(typeof(UniqueID))]
 public class PlayerSaveData : MonoBehaviour
 {
-    private PlayerData myPlayerData = new PlayerData();
 
     private void Start()
     {
@@ -30,7 +29,6 @@ public class PlayerSaveData : MonoBehaviour
             gameObject.GetComponentInChildren<PlayerCam>().transform.rotation = value.PlayerRotation;
             GetComponent<PlayerInventoryHolder>().setPrimarySystem(value.PlayerInven); 
         }
-       
     }
 }
 

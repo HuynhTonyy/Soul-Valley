@@ -17,7 +17,7 @@ public class FarmLand : MonoBehaviour, ITimeTracker
     }
     LandState landState = LandState.Dry;
     GameTimeStamp timeWatered;
-    Renderer renderer;
+    new Renderer renderer;
     private void Start()
     {
         TimeManager.Instance.RegisterTracker(this);

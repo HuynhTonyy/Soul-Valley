@@ -10,10 +10,10 @@ public class Interactor : MonoBehaviour
     FarmLand selectedLand;
     RaycastHit hit;
     StaticInventoryDisplay hotBar;
-    string tag;
+    new string tag;
     bool inRange;
     private void Start() {
-        hotBar = gameObject.GetComponentInChildren<StaticInventoryDisplay>();
+        hotBar = GameObject.FindAnyObjectByType<StaticInventoryDisplay>();
     }
     private void Update()
     {
@@ -24,7 +24,7 @@ public class Interactor : MonoBehaviour
         int selectedSlot = hotBar.selectedSlot;
         //Throw item which is selected in hot bar
         if(hotBar.GetSelectedItem(selectedSlot)  && InventoryUIControler.isClosed && Keyboard.current.qKey.wasPressedThisFrame){
-            hotBar.throwItem(selectedSlot);
+            hotBar.throwItem(transform,selectedSlot);
         }
         //In range of sight
         inRange = Physics.Raycast(cam.transform.position, cam.transform.forward, out hit, 4f);

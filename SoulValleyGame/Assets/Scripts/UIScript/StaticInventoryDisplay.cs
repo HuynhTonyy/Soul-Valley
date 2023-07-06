@@ -8,14 +8,12 @@ public class StaticInventoryDisplay : InventoryDisplay
     [SerializeField] private InventoryHolder inventoryHolder;
     [SerializeField] protected InventorySlot_UI[] slots;
     public InventorySlot InventorySlot;
-    private Transform playerTransform;
     public int selectedSlot=-1;
     protected override void Start()
     {
         base.Start();
         RefreshStaticDisplay();
         ChangedSelectedSlot(0);
-        playerTransform = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
     }
     private void OnEnable()
     {
@@ -25,17 +23,14 @@ public class StaticInventoryDisplay : InventoryDisplay
     {
         PlayerInventoryHolder.OnPlayerInventoryChanged -= RefreshStaticDisplay;
     }
-    public void throwItem(int selectedSlot)
+    public void throwItem(Transform transform,int selectedSlot)
     {
         InventorySlot_UI selectedUISlot = slots[selectedSlot];
         InventorySlot selectedSlotData = selectedUISlot.AssignInventorySlot;
         bool isShiftPress = Keyboard.current.leftShiftKey.isPressed;
-        Vector3 positionToSpawn = playerTransform.position + playerTransform.forward * 1f;
-
-        if (selectedSlotData != null && selectedSlotData.ItemData != null)
-        {
-            ItemScript itemData = selectedSlotData.ItemData;
-            GameObject itemGameObject = itemData.ItemPreFab;
+        Vector3 positionToSpawn = transform.position + transform.forward * 1f;
+        if (selectedSlotData != null && selectedSlotData.ItemData != null){
+            GameObject itemGameObject = selectedSlotData.ItemData.ItemPreFab;
             if (isShiftPress){
                 for(int i = 0; i < selectedSlotData.StackSize; i++)
                 {
@@ -56,7 +51,7 @@ public class StaticInventoryDisplay : InventoryDisplay
                 else
                 {
                     selectedSlotData.ClearSlot();
-                    Instantiate(itemData.ItemPreFab, positionToSpawn, Quaternion.identity);
+                    Instantiate(itemGameObject, positionToSpawn, Quaternion.identity);
                 }
             }
             selectedUISlot.UpdateUISlot(selectedSlotData);

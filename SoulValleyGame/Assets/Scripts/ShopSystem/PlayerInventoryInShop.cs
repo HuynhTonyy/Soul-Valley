@@ -12,7 +12,6 @@ public class PlayerInventoryInShop : MonoBehaviour
     internal static bool status = false;
     private void Start()
     {
-        playerBackpackPanel.gameObject.SetActive(false);
 
     }
     private void OnEnable()
@@ -48,10 +47,7 @@ public class PlayerInventoryInShop : MonoBehaviour
     
     void DisplayPlayerInventory(InventorySystem invDisplay, int offset)
     {
-        playerBackpackPanel.gameObject.SetActive(true);
         playerBackpackPanel.RefreshDynamicInventory(invDisplay, offset);
-        RectTransform rectTransform = playerBackpackPanel.GetComponent<RectTransform>();
-        rectTransform.anchoredPosition = Vector2.zero;
         Cursor.visible = true;
         status = true;
         Cursor.lockState = CursorLockMode.None;

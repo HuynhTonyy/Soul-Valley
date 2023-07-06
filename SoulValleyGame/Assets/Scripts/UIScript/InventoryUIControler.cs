@@ -73,7 +73,6 @@ public class InventoryUIControler : MonoBehaviour
         backGround.enabled = true;
         status = true;
         Cursor.lockState = CursorLockMode.None;
-       
     }
     void DisplayPlayerInventory(InventorySystem invDisplay, int offset)
     {
