@@ -26,7 +26,6 @@ public class InventorySystem
     }
     public bool AddToInventory(ItemScript item,int amount)
     {
-        
         if (ContainsItem(item, out List<InventorySlot> invSlot))// Check if Item exist in inventory
         {
             foreach(var slot in invSlot)
