@@ -13,7 +13,7 @@ public class PlayerSaveData : MonoBehaviour
         SaveLoad.OnSaveData += SaveMyPlayerData;
     }
     private void SaveMyPlayerData(){
-        var playerData = new PlayerData(transform.position,gameObject.GetComponentInChildren<PlayerCam>().transform.rotation,
+        var playerData = new PlayerData(transform.position,gameObject.GetComponentInChildren<Camera>().transform.rotation,
         GetComponent<PlayerInventoryHolder>().PrimaryInventorySystem);
         string playerId = GetComponent<UniqueID>().ID;
         if(SaveGameManager.data.playerData.ContainsKey(playerId)){
@@ -26,7 +26,7 @@ public class PlayerSaveData : MonoBehaviour
         if(saveData.playerData.TryGetValue(GetComponent<UniqueID>().ID,out PlayerData value))
         {
             transform.position = value.PlayerPosition;
-            gameObject.GetComponentInChildren<PlayerCam>().transform.rotation = value.PlayerRotation;
+            gameObject.GetComponentInChildren<Camera>().transform.rotation = value.PlayerRotation;
             GetComponent<PlayerInventoryHolder>().setPrimarySystem(value.PlayerInven); 
         }
     }
