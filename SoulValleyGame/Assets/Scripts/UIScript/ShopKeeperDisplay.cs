@@ -77,7 +77,6 @@ public class ShopKeeperDisplay : MonoBehaviour
         {
             Destroy(item.gameObject);
         }
-
     }
 
     private void DisplayShopInventory()
@@ -101,7 +100,7 @@ public class ShopKeeperDisplay : MonoBehaviour
     private void BuyItems()
     {
         if (PlayerStats.playerSoulCoin < (int)itemBuyPrice) return;
-        if (!_playerInventoryHolder.PrimaryInventorySystem.HasFreeSlot(out InventorySlot freeslot)) return;
+        //if (!_playerInventoryHolder.PrimaryInventorySystem.HasFreeSlot(out InventorySlot freeslot)) return;
 
         if (_shopSystem.PurchaseItem(curSelectedItemData, 1))
         {
@@ -123,7 +122,6 @@ public class ShopKeeperDisplay : MonoBehaviour
             {
                 if (_shopSystem.SellItem(curSelectedItemData, 1))
                 {
-                   
                     slot.RemoveFromStack(1);
                     if(slot.StackSize <= 0)
                     {

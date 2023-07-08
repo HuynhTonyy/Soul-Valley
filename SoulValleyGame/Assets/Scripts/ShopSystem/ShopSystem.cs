@@ -83,13 +83,12 @@ public class ShopSystem
     public bool PurchaseItem(ItemScript data, int amount)
     {
         if (!ContainsItem(data, out ShopSlot slot)) return false;
-        slot.RemoveFromStack(amount);
-        if (slot.StackSize <= 0) 
+         if (slot.StackSize <= 0) 
         {
-            slot.ClearSlot();
-            return false; 
-        }       
-        
+            //slot.ClearSlot();
+            return false;
+        } 
+        slot.RemoveFromStack(amount);
         return true;
     }
 
