@@ -18,7 +18,7 @@ public class ConnectToServerScript : MonoBehaviourPunCallbacks
         PhotonNetwork.JoinLobby();
     }
     public void LoadLobby(){
-SceneManager.LoadScene("Lobby");
+        SceneManager.LoadScene("Lobby");
     }
     
 }

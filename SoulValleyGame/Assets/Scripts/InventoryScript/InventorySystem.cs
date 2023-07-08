@@ -51,6 +51,7 @@ public class InventorySystem
         return false;
     }
 
+
     public bool ContainsItem(ItemScript item, out List<InventorySlot> invSlot)// any slot have item to add 
     {
         invSlot = inventorySlots.Where(i => i.ItemData == item).ToList(); // get the list of all of them

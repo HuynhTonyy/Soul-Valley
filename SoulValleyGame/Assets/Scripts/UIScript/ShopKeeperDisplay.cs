@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 
 public class ShopKeeperDisplay : MonoBehaviour
@@ -27,9 +28,13 @@ public class ShopKeeperDisplay : MonoBehaviour
 
     private ItemScript curSelectedItemData;
     private double itemBuyPrice;
+    private double itemSellPrice;
 
     private ShopSystem _shopSystem;
     private PlayerInventoryHolder _playerInventoryHolder;
+    private InventorySystem _invSystem;
+
+    public UnityAction OnPlayerInventoryChanged;
 
 
     public void DisplayShowWindow(ShopSystem shopSystem, PlayerInventoryHolder playerInventoryHolder)
@@ -53,6 +58,7 @@ public class ShopKeeperDisplay : MonoBehaviour
         _buyBtn.gameObject.SetActive(false);
         _sellBtn.gameObject.SetActive(false);
         _buyBtn.onClick.AddListener(BuyItems);
+        _sellBtn.onClick.AddListener(SellItems);
     }
     public void SetItemPreview(Sprite img,string itemName, string itemDes, string itemBPrice, string itemSPrice)
     {
@@ -85,10 +91,11 @@ public class ShopKeeperDisplay : MonoBehaviour
         }
     }
 
-    public void SetCurSelectedItem(ItemScript item, double buyPrice)
+    public void SetCurSelectedItem(ItemScript item, double buyPrice, double sellPrice)
     {
         curSelectedItemData = item;
         itemBuyPrice = buyPrice;
+        itemSellPrice = sellPrice;
     }
 
     private void BuyItems()
@@ -100,12 +107,38 @@ public class ShopKeeperDisplay : MonoBehaviour
         {
             _playerInventoryHolder.PrimaryInventorySystem.AddToInventory(curSelectedItemData, 1);
             PlayerStats.SpendCoin((int)itemBuyPrice);
-            _shopSystem.GainGoid((int)itemBuyPrice);
+            _shopSystem.GainGold((int)itemBuyPrice);
         };
         
         ClearSlots();
         DisplayShopInventory();
     }
 
+    private void SellItems()
+    {
+        if (_shopSystem.AvailableGold < (int)itemSellPrice) return;
+        if (_playerInventoryHolder.PrimaryInventorySystem.ContainsItem(curSelectedItemData, out List<InventorySlot> listSlot))
+        {
+            foreach(var slot in listSlot)
+            {
+                if (_shopSystem.SellItem(curSelectedItemData, 1))
+                {
+                   
+                    slot.RemoveFromStack(1);
+                    if(slot.StackSize <= 0)
+                    {
+                        slot.ClearSlot();
+                    }
+                    _shopSystem.PayGold((int)itemSellPrice);
+                    PlayerStats.GainCoin((int)itemSellPrice);
+                    _playerInventoryHolder.PrimaryInventorySystem.OnInventorySlotChanged?.Invoke(slot);
+                    break;
+                }             
+            }       
+        }
+        
+        ClearSlots();
+        DisplayShopInventory();
+    }
     
 }

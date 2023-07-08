@@ -64,7 +64,10 @@ public class InventorySlot
     public void RemoveFromStack(int amount)
     {
         stackSize -= amount;
+
     }
+
+
     public bool SplitStack(out InventorySlot splitStack)
     {
         if (StackSize <= 1)// enought to split ?

@@ -16,6 +16,8 @@ public class ShopSystem
 
     public float BuyMarkUp => _buyMarkUp;
     public float SellMarkUp => _sellMarkUp;
+
+    public float AvailableGold => _availableGold;
     public ShopSystem(int size, int gold, float buyMarkUp, float sellMarkUp)
     {
         _availableGold = gold;
@@ -91,8 +93,21 @@ public class ShopSystem
         return true;
     }
 
-    public void GainGoid(int gainAmount)
+    public bool SellItem(ItemScript data, int amount)
+    {
+        if (!ContainsItem(data, out ShopSlot slot)) return false;
+        slot.AddToStack(amount);
+        return true;
+    }
+
+
+    public void GainGold(int gainAmount)
     {
         _availableGold += gainAmount;
+    }
+
+    public void PayGold(int payAmount)
+    {
+        _availableGold -= payAmount;
     }
 }

@@ -76,10 +76,9 @@ public class ShopSlotUI : MonoBehaviour
     {
         if (_assignedItemSlot.ItemData != null)
         {
-            Debug.Log("CLicked");
             string buyStr = "Buy Price: " + BuyPrice;
             string selltr = "Sell Price: " + SellPrice;
-            ParentDisplay.SetCurSelectedItem(_assignedItemSlot.ItemData, BuyPrice);
+            ParentDisplay.SetCurSelectedItem(_assignedItemSlot.ItemData, BuyPrice, SellPrice);
             ParentDisplay.SetItemPreview(_assignedItemSlot.ItemData.icon, _assignedItemSlot.ItemData.DisplayName, _assignedItemSlot.ItemData.Description, buyStr, selltr);
         }
     }

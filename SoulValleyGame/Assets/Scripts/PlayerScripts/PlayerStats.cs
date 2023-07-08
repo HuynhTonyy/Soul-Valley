@@ -22,4 +22,9 @@ public class PlayerStats : MonoBehaviour
     {
         playerSoulCoin -= spendAmount;
     }
+
+    public static void GainCoin(int gainAmount)
+    {
+        playerSoulCoin += gainAmount;
+    }
 }

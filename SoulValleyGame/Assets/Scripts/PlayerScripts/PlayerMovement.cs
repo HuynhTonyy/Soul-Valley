@@ -116,6 +116,7 @@ public class PlayerMovement : MonoBehaviour
             state = MovementState.sprinting;
             currentSpeed = sprintSpeed;
             animator.SetBool("Running", true);
+            animator.SetBool("isJumping", false);
         }
         else if (grounded)
         {
