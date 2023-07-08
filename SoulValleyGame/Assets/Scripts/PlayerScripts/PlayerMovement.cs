@@ -1,9 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
 
 public class PlayerMovement : MonoBehaviour
 {
+    
+    private PhotonView view;
     [Header("Movement")]
     private float currentSpeed;
     public float walkSpeed;
@@ -53,6 +56,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void Start()
     {
+        view = GetComponent<PhotonView>();
         animator = GetComponent<Animator>();
         rb = GetComponent<Rigidbody>();
         rb.freezeRotation = true;
@@ -61,21 +65,26 @@ public class PlayerMovement : MonoBehaviour
 
     private void Update()
     {
-        invStatus = InventoryUIControler.status;
-        grounded = Physics.Raycast(transform.position, Vector3.down, playerHeight * 0.5f + 0.2f, whatIsGround);
+        if(view.IsMine){
+            invStatus = InventoryUIControler.status;
+            grounded = Physics.Raycast(transform.position, Vector3.down, playerHeight * 0.5f + 0.2f, whatIsGround);
 
-        MyInput();
-        StateHandler();
+            MyInput();
+            StateHandler();
 
-        if (grounded)
-            rb.drag = groundDrag;
-        else
-            rb.drag = 0;
+            if (grounded)
+                rb.drag = groundDrag;
+            else
+                rb.drag = 0;
+        }
+        
     }
 
     private void FixedUpdate()
     {
-        MovePlayer();
+        if(view.IsMine){
+            MovePlayer();
+        }
     }
 
     private void MyInput()

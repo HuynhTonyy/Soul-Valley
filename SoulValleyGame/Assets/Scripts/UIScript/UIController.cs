@@ -6,7 +6,6 @@ using UnityEngine.InputSystem;
 
 public class UIController : MonoBehaviour
 {
-
     public static bool isShopClosed = true;
     [SerializeField] public ShopKeeperDisplay _shopKeeperDisplay;
 
