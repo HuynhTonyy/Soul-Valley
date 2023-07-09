@@ -1903,43 +1903,58 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   messages:
   - actorId: 0
-    message: hey
+    message: In a small village full of misfortune, a farmer named John must face
+      his darkest hour. Having lost all his crops, he embarked on a desperate search
+      for seeds in his old barn to save what was left of his livelihood.
+  - actorId: 1
+    message: (angry) There must be something here... anything that can help me.
+  - actorId: 2
+    message: (gently) Open your book, farmer, and set me free.
   - actorId: 0
-    message: hey
+    message: With a mixture of curiosity and fear, John succumbed to the temptation
+      and opened the book, and hummed along the ancient spells in it. Unbeknownst
+      to him, these words hold the key to summoning a mighty being
   - actorId: 0
-    message: asd
+    message: "As John read from the book, a strange light filled the room, and an
+      evil aura appeared before his eyes\u2014the demon, Malachi."
+  - actorId: 3
+    message: (smiling) Ah, mortal, you summoned me out of the seal. What are you
+      looking for?
+  - actorId: 1
+    message: (worried) I... I didn't mean to call you. I'm just looking for a way
+      to save my farm.
+  - actorId: 3
+    message: '(chuckles) Desperation often leads to unintended consequences. But
+      fear not, for I can give you wealth beyond your wildest dreams.  '
   - actorId: 0
-    message: asd
+    message: '[John hesitates, realizing how tempting the demon''s offer is.]'
+  - actorId: 1
+    message: "So\u2026 so what's the price?"
+  - actorId: 3
+    message: (smiling evilly) Your soul, my dear farmer.
+  - actorId: 1
+    message: (determination) I can't give up my soul, but I'm willing to make another
+      arrangement.
+  - actorId: 3
+    message: '(satisfied laugh): An attractive proposition, farmer. Then you will
+      have to plant these soul seeds. Every month, on the first week, at midnight,
+      I''ll come get it.'
   - actorId: 0
-    message: asd
+    message: The Demon gives 1 bag of strange souls to John
+  - actorId: 3
+    message: Very well, we have a compromise. But remember, there will be consequences
+      for those who rebel against our treaty.
   - actorId: 0
-    message: sad
-  - actorId: 0
-    message: dweqw
-  - actorId: 0
-    message: dqwe
-  - actorId: 0
-    message: rwq
-  - actorId: 0
-    message: fd
-  - actorId: 0
-    message: vxc
-  - actorId: 0
-    message: vcx
-  - actorId: 0
-    message: rgfwe
-  - actorId: 0
-    message: 
-  - actorId: 0
-    message: 
+    message: From there the farmer's spiritual journey begins. Will he grow these
+      strange souls or will the Demon Malachi steal his own soul?
   actors:
-  - name: ghost
+  - name: Ghost(The Narrator)
     sprite: {fileID: 21300000, guid: 909423ac497c938419e11d79b69ed46c, type: 3}
-  - name: John
+  - name: John(The Player)
     sprite: {fileID: 21300000, guid: 2c1899a8130876941819bb95795f677f, type: 3}
-  - name: Whistle Voice
+  - name: Voice Whistle
     sprite: {fileID: 21300000, guid: 0c8ef1a8432eb1d4280b1e79eaae9fa4, type: 3}
-  - name: Demo
+  - name: Malachi (The Demo)
     sprite: {fileID: 21300000, guid: c5eb30dc2e34d4b43a1df926e1a541f2, type: 3}
 --- !u!114 &432576370
 MonoBehaviour:
