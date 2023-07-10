@@ -17,8 +17,14 @@ public class Interactor : MonoBehaviour
     }
     private void Update()
     {
+        if (Keyboard.current.kKey.wasPressedThisFrame){
+            SaveLoad.Save(SaveGameManager.data);
+        }
+        if (Keyboard.current.lKey.wasPressedThisFrame){
+            SaveLoad.Load();
+        }
         //Time skip
-        if (Input.GetKey(KeyCode.O)){
+        if (Keyboard.current.oKey.wasPressedThisFrame){
             TimeManager.Instance.Tick();
         }
         int selectedSlot = hotBar.selectedSlot;

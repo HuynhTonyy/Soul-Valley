@@ -13,8 +13,9 @@ public class PlayerSaveData : MonoBehaviour
         SaveLoad.OnSaveData += SaveMyPlayerData;
     }
     private void SaveMyPlayerData(){
-        var playerData = new PlayerData(transform.position,gameObject.GetComponentInChildren<Camera>().transform.rotation,
+        var playerData = new PlayerData(transform.position,gameObject.GetComponentInChildren<Camera>().gameObject.transform.rotation,
         GetComponent<PlayerInventoryHolder>().PrimaryInventorySystem);
+        Debug.Log(gameObject.GetComponentInChildren<Camera>().gameObject.transform.rotation.eulerAngles);
         string playerId = GetComponent<UniqueID>().ID;
         if(SaveGameManager.data.playerData.ContainsKey(playerId)){
             SaveGameManager.data.playerData[playerId] = playerData;
@@ -26,7 +27,7 @@ public class PlayerSaveData : MonoBehaviour
         if(saveData.playerData.TryGetValue(GetComponent<UniqueID>().ID,out PlayerData value))
         {
             transform.position = value.PlayerPosition;
-            gameObject.GetComponentInChildren<Camera>().transform.rotation = value.PlayerRotation;
+            GetComponentInChildren<Camera>().gameObject.transform.rotation = Quaternion.Euler(value.PlayerRotation.x,0,0);
             GetComponent<PlayerInventoryHolder>().setPrimarySystem(value.PlayerInven); 
         }
     }
@@ -36,7 +37,7 @@ public class PlayerSaveData : MonoBehaviour
 public struct PlayerData 
 {
     public Vector3 PlayerPosition;
-    public Quaternion PlayerRotation;
+    public  Quaternion PlayerRotation;
     public InventorySystem PlayerInven;
 
     public PlayerData( Vector3 _position, Quaternion _rotation, InventorySystem _playerInven)

@@ -32,6 +32,5 @@ public class UniqueID : MonoBehaviour
     {
         id = Guid.NewGuid().ToString();
         idDatabase.Add(id, this.gameObject);
-        Debug.Log(idDatabase.Count);
     }
 }

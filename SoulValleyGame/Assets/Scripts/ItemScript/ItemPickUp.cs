@@ -39,8 +39,10 @@ public class ItemPickUp : MonoBehaviour
     {
         id = GetComponent<UniqueID>().ID;
         if(SaveGameManager.data.activeItems.ContainsKey(id)){
-            SaveGameManager.data.activeItems[id]=itemSaveData;
-        }else SaveGameManager.data.activeItems.Add(id,itemSaveData);
+            SaveGameManager.data.activeItems[id] = itemSaveData;
+        }else {
+            SaveGameManager.data.activeItems.Add(id,itemSaveData);
+        }
         
     }
 
