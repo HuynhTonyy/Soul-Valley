@@ -6615,6 +6615,7 @@ MonoBehaviour:
     inventorySize: 0
     inventorySlot: []
   offset: 9
+  canvas: {fileID: 3462769171480885172}
 --- !u!114 &7909269066483446809
 MonoBehaviour:
   m_ObjectHideFlags: 0
