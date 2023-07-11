@@ -98,12 +98,12 @@ public class ItemPickUp : MonoBehaviourPun
 
             if (PhotonNetwork.IsMasterClient)
             {
-                photonView.TransferOwnership(other.transform.GetComponent<PhotonView>().Controller);
-                photonView.RPC("DestroyItem", RpcTarget.AllBuffered);
+                view.RPC("DestroyItem", RpcTarget.AllBuffered);
             }
             else
             {
-                photonView.RPC("DestroyItem", RpcTarget.MasterClient);
+                view.TransferOwnership(other.transform.GetComponent<PhotonView>().Controller);
+                view.RPC("DestroyItem", RpcTarget.MasterClient);
             }
         }
     }
