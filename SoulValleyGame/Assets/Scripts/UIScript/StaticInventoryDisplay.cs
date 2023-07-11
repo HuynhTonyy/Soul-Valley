@@ -2,11 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using Photon.Pun;
 
 public class StaticInventoryDisplay : InventoryDisplay
 {
     [SerializeField] private InventoryHolder inventoryHolder;
     [SerializeField] protected InventorySlot_UI[] slots;
+    
     public InventorySlot InventorySlot;
     public int selectedSlot=-1;
     protected override void Start()
@@ -36,7 +38,7 @@ public class StaticInventoryDisplay : InventoryDisplay
                 {
                     var position = new Vector3(Random.Range(-0.3f, -0.1f), 0, Random.Range(-0.3f, -0.1f));
                     Vector3 _dropOffset = position;
-                    Instantiate(itemGameObject, positionToSpawn + _dropOffset, Quaternion.identity);  
+                    PhotonNetwork.Instantiate(itemGameObject.name, positionToSpawn + _dropOffset, Quaternion.identity);  
                 }
                 selectedSlotData.ClearSlot();    
             }
@@ -46,12 +48,13 @@ public class StaticInventoryDisplay : InventoryDisplay
                 {
                     selectedSlotData.RemoveFromStack(1);
                     selectedUISlot.UpdateUISlot(selectedSlotData);
-                    Instantiate(itemGameObject, positionToSpawn, Quaternion.identity);
+                    PhotonNetwork.Instantiate(itemGameObject.name, positionToSpawn, Quaternion.identity);
+                    
                 }
                 else
                 {
                     selectedSlotData.ClearSlot();
-                    Instantiate(itemGameObject, positionToSpawn, Quaternion.identity);
+                    PhotonNetwork.Instantiate(itemGameObject.name, positionToSpawn, Quaternion.identity);
                 }
             }
             selectedUISlot.UpdateUISlot(selectedSlotData);

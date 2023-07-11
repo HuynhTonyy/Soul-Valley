@@ -113,7 +113,6 @@ public class ItemPickUp : MonoBehaviour
 }
 
 
-
 [System.Serializable]
 public struct ItemPickUpSaveData
 {
