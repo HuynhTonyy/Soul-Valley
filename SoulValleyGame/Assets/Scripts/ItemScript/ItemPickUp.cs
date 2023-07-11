@@ -73,14 +73,8 @@ public class ItemPickUp : MonoBehaviour
             //Destroy(this.gameObject);
             //PhotonNetwork.Destroy(this.gameObject);
             // Transfer ownership to the current player
-            if (PhotonNetwork.IsMasterClient)
-            {
-                PhotonNetwork.Destroy(gameObject);
-            }
-            else
-            {
-                view.RPC("DestroyItem", RpcTarget.MasterClient);
-            }
+         
+            view.RPC("DestroyItem", RpcTarget.All);
 
         }
     }
@@ -109,10 +103,9 @@ public class ItemPickUp : MonoBehaviour
     [PunRPC]
     private void DestroyItem()
     {
-       if (view.IsMine)
-        {
-            PhotonNetwork.Destroy(gameObject);
-        }
+
+        PhotonNetwork.Destroy(gameObject);
+
     }
 }
 
