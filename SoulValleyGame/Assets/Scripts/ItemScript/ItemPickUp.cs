@@ -1,3 +1,4 @@
+using Photon.Pun;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -14,7 +15,10 @@ public class ItemPickUp : MonoBehaviour
 
     private SphereCollider myCollider;
 
+    PhotonView view;
+
     [SerializeField] private ItemPickUpSaveData itemSaveData;
+
 
     private string id;
     float minPositionY;
@@ -36,6 +40,7 @@ public class ItemPickUp : MonoBehaviour
     }
     private void Start()
     {
+        view = GetComponent<PhotonView>();
         id = GetComponent<UniqueID>().ID;
         if(SaveGameManager.data.activeItems.ContainsKey(id))
         {
@@ -65,9 +70,20 @@ public class ItemPickUp : MonoBehaviour
             SaveGameManager.data.collectedItems.Add(id);
             SaveGameManager.data.activeItems.Remove(id);
             SaveLoad.OnLoadGame -= LoadGame;
-            Destroy(this.gameObject);
+            //Destroy(this.gameObject);
+            //PhotonNetwork.Destroy(this.gameObject);
+            // Transfer ownership to the current player
+            if (PhotonNetwork.IsMasterClient)
+            {
+                PhotonNetwork.Destroy(this.gameObject);
+            }
+            else
+            {
+                view.RPC("DestroyItem", RpcTarget.MasterClient);
+            }
         }
     }
+    
     private void Update()
     {
         transform.Rotate(Vector3.up * rotationSpeed * Time.deltaTime);
@@ -89,7 +105,14 @@ public class ItemPickUp : MonoBehaviour
         }
 
     }
+    [PunRPC]
+    private void DestroyItem()
+    {
+        PhotonNetwork.Destroy(this.gameObject);
+    }
 }
+
+
 
 [System.Serializable]
 public struct ItemPickUpSaveData
