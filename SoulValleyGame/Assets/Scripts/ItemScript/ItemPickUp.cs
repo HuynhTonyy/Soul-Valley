@@ -89,9 +89,10 @@ public class ItemPickUp : MonoBehaviourPun
         var inventory = other.transform.GetComponent<PlayerInventoryHolder>();
 
         if (!inventory) return;
-
+        gameObject.SetActive(false);
         if (inventory.AddToInventory(itemData, 1))
         {
+            
             SaveGameManager.data.collectedItems.Add(id);
             SaveGameManager.data.activeItems.Remove(id);
             SaveLoad.OnLoadGame -= LoadGame;
@@ -105,6 +106,10 @@ public class ItemPickUp : MonoBehaviourPun
                 view.TransferOwnership(other.transform.GetComponent<PhotonView>().Controller);
                 view.RPC("DestroyItem", RpcTarget.MasterClient);
             }
+        }
+        else
+        {
+            gameObject.SetActive(true);
         }
     }
 
@@ -145,7 +150,11 @@ public class ItemPickUp : MonoBehaviourPun
     [PunRPC]
     private void DestroyItem()
     {
-        PhotonNetwork.Destroy(gameObject);
+        if (view.IsMine || PhotonNetwork.IsMasterClient)
+        {
+            PhotonNetwork.Destroy(gameObject);
+        }
+        
     }
     
 }
