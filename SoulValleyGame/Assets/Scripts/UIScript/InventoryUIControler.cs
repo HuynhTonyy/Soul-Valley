@@ -8,7 +8,7 @@ using UnityEngine.Serialization;
 
 public class InventoryUIControler : MonoBehaviour
 {
-    public static bool isClosed = true;
+    public  bool isClosed = true;
     [FormerlySerializedAs("chestPanel")] public DynamicInventoryDisplay inventoryPanel;
     public DynamicInventoryDisplay playerBackpackPanel;
     public Image backGround;
@@ -19,7 +19,6 @@ public class InventoryUIControler : MonoBehaviour
         playerBackpackPanel.gameObject.SetActive(false);
         inventoryPanel.gameObject.SetActive(false);
         backGround.enabled=false;
-
     }
     private void OnEnable()
     {
@@ -30,16 +29,6 @@ public class InventoryUIControler : MonoBehaviour
     {
         InventoryHolder.OnDynamicInventoryDisplayRequested -= DisplayInventory;
         PlayerInventoryHolder.OnDynamicPlayerInventoryDisplayRequested -= DisplayPlayerInventory;
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        if (isClosed)
-        {
-            close();
-        }
-
     }
     public void close()
     {

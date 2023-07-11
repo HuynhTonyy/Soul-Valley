@@ -6,6 +6,8 @@ using UnityEngine.InputSystem;
 
 public class PlayerInventoryHolder : InventoryHolder
 {
+    InventoryUIControler inventoryUIControler;
+    UIController uIController;
     public static UnityAction OnPlayerInventoryChanged;
     public static UnityAction<InventorySystem, int> OnDynamicPlayerInventoryDisplayRequested;
 
@@ -13,29 +15,37 @@ public class PlayerInventoryHolder : InventoryHolder
         this.primaryInventorySystem = invSys;
         OnPlayerInventoryChanged?.Invoke();
     }
-    protected override void LoadInventory(SaveData data)
-    {
-    }
+    protected override void LoadInventory(SaveData data){}
 
+    private void Start(){
+        inventoryUIControler = GetComponentInChildren<InventoryUIControler>();
+        uIController = GetComponentInChildren<UIController>();
+    }
     // Update is called once per frame
     void Update()
     {
-        if (!UIController.isShopClosed && InventoryUIControler.isClosed && Keyboard.current.tabKey.wasPressedThisFrame){
+        if(Keyboard.current.tabKey.wasPressedThisFrame)
+        {
+            if(!uIController.isShopClosed)
+            {
+                uIController.close();
+                uIController.isShopClosed = true;
+            }
+            else {
+                if (!inventoryUIControler.isClosed)
+                {   
+                    inventoryUIControler.isClosed = true;
+                    inventoryUIControler.close();
+                }
+                else 
+                {
+                    OnDynamicPlayerInventoryDisplayRequested?.Invoke(primaryInventorySystem, offset);
+                    inventoryUIControler.isClosed = false;
+                }  
+            }
             
         }
-        else if (UIController.isShopClosed && InventoryUIControler.isClosed && Keyboard.current.tabKey.wasPressedThisFrame)
-        {
-
-            OnDynamicPlayerInventoryDisplayRequested?.Invoke(primaryInventorySystem, offset);
-            InventoryUIControler.isClosed = false;
-        }
-        else if (UIController.isShopClosed && !InventoryUIControler.isClosed && Keyboard.current.tabKey.wasPressedThisFrame)
-        {
-
-            InventoryUIControler.isClosed = true;
-        }
-        
-            
+       
     }
 
     public void InvokeInventory()

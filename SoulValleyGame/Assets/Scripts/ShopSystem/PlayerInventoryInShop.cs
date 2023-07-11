@@ -32,7 +32,6 @@ public class PlayerInventoryInShop : MonoBehaviour
         }
 
     }
-
     public void close()
     {      
 

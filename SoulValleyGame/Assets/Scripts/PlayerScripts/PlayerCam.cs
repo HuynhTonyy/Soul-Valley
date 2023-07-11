@@ -7,9 +7,7 @@ public class PlayerCam : MonoBehaviour
 {
     public float sensX;
     public float sensY;
-
     private PhotonView view;
-
     public Transform orientation;
     public Transform playerCam;
 
@@ -30,7 +28,6 @@ public class PlayerCam : MonoBehaviour
     {
         if(view.IsMine){
             
-
             bool invState = InventoryUIControler.status;
 
             if(!invState)

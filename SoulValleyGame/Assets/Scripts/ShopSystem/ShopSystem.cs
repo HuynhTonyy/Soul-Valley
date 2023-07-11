@@ -54,7 +54,6 @@ public class ShopSystem
         {
             shopSlot.AddToStack(amount);
         }
-
         var freeSlot = GetFreeSlot();
         freeSlot.AssignItem(data, amount);    
         // If the item does not exist or there is no free slot available, it assigns the item to a new slot with the specified amount.
@@ -82,20 +81,18 @@ public class ShopSystem
 
     public bool PurchaseItem(ItemScript data, int amount)
     {
-        if (!ContainsItem(data, out ShopSlot slot)) return false;
-         if (slot.StackSize <= 0) 
+        if (!ContainsItem(data, out ShopSlot slot)|| slot.StackSize <= 0) 
         {
-            //slot.ClearSlot();
             return false;
-        } 
-        slot.RemoveFromStack(amount);
+        }
+        slot.RemoveFromStack(1);
         return true;
     }
 
     public bool SellItem(ItemScript data, int amount)
     {
         if (!ContainsItem(data, out ShopSlot slot)) return false;
-        slot.AddToStack(amount);
+        slot.AddToStack(1);
         return true;
     }
 

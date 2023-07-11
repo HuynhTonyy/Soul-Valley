@@ -53,7 +53,7 @@ public class ChestInventory : InventoryHolder, IInteractable
     public void Interact(Interactor interactor)
     {
         OnDynamicInventoryDisplayRequested?.Invoke(primaryInventorySystem,0);
-        InventoryUIControler.isClosed = false;
+        interactor.gameObject.GetComponentInChildren<InventoryUIControler>().isClosed = false;
     }
 
     public void Destroy(){

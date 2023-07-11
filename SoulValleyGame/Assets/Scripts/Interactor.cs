@@ -29,7 +29,7 @@ public class Interactor : MonoBehaviour
         }
         int selectedSlot = hotBar.selectedSlot;
         //Throw item which is selected in hot bar
-        if(hotBar.GetSelectedItem(selectedSlot)  && InventoryUIControler.isClosed && Keyboard.current.qKey.wasPressedThisFrame){
+        if(hotBar.GetSelectedItem(selectedSlot)  && gameObject.GetComponentInChildren<InventoryUIControler>().isClosed && Keyboard.current.qKey.wasPressedThisFrame){
             hotBar.throwItem(transform,selectedSlot);
         }
         //In range of sight
@@ -47,13 +47,13 @@ public class Interactor : MonoBehaviour
                 if(Keyboard.current.eKey.wasReleasedThisFrame && farmLand.cropPlanted && farmLand.cropPlanted.cropState == CropBehaviour.CropState.Harvestable){
                     farmLand.Harvest(this.gameObject);
                 }
-            }else if(tag == "Interactable" && Mouse.current.rightButton.wasPressedThisFrame && InventoryUIControler.isClosed){
+            }else if(tag == "Interactable" && Mouse.current.rightButton.wasPressedThisFrame &&gameObject.GetComponentInChildren<InventoryUIControler>().isClosed){
                 IInteractable interactable = hit.collider.GetComponent<IInteractable>();
                 if (interactable != null) interactable.Interact(this);
             }else if(selectedLand){
                 selectedLand.Select(false);
             }
-            if(hotBar.GetSelectedItem(selectedSlot)  && InventoryUIControler.isClosed && Mouse.current.leftButton.wasPressedThisFrame){
+            if(hotBar.GetSelectedItem(selectedSlot)  && gameObject.GetComponentInChildren<InventoryUIControler>().isClosed && Mouse.current.leftButton.wasPressedThisFrame){
                 SeedData seed = hotBar.GetSeed(selectedSlot);
                 PlaceableData placeable = hotBar.GetPlaceableData(selectedSlot);
                 ToolData tool = hotBar.GetToolData(selectedSlot);

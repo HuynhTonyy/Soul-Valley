@@ -6,7 +6,7 @@ using UnityEngine.InputSystem;
 
 public class UIController : MonoBehaviour
 {
-    public static bool isShopClosed = true;
+    public bool isShopClosed = true;
     [SerializeField] public ShopKeeperDisplay _shopKeeperDisplay;
 
     private void Awake()
@@ -22,15 +22,7 @@ public class UIController : MonoBehaviour
     private void OnDisable()
     {
         ShopKeeper.OnShopWindowRequested -= DisplayShopWindow;
-        UIController.isShopClosed = false;
-    }
-
-    private void Update()
-    {
-        if (!isShopClosed && Keyboard.current.tabKey.wasPressedThisFrame)
-        {
-            close();
-        }
+        isShopClosed = false;
     }
     public void close()
     {
@@ -46,9 +38,7 @@ public class UIController : MonoBehaviour
             _shopKeeperDisplay.BuyTabDisplay.SetActive(true);
             _shopKeeperDisplay.SellTabDisplay.SetActive(false);
         }
-
     }
-
 
     private void DisplayShopWindow(ShopSystem shopSystem, PlayerInventoryHolder playerInv)
     {

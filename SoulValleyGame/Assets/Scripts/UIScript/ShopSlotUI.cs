@@ -33,7 +33,6 @@ public class ShopSlotUI : MonoBehaviour
         _itemSPrice.text = "";
         ParentDisplay = transform.parent.GetComponentInParent<ShopKeeperDisplay>();
     }
-
     public void Init(ShopSlot slot, float markUp)
     {
         _assignedItemSlot = slot;
@@ -41,12 +40,10 @@ public class ShopSlotUI : MonoBehaviour
         _tempAmount = slot.StackSize;
         UpdateUISlott();
     }
-
     public void UpdateUISlott()
     {
         if(_assignedItemSlot.ItemData != null)
         {
-            
             SellPrice = _assignedItemSlot.ItemData.Value + _assignedItemSlot.ItemData.Value * 0.25;
             BuyPrice = _assignedItemSlot.ItemData.Value + _assignedItemSlot.ItemData.Value * 0.5;
             _itemSprite.sprite = _assignedItemSlot.ItemData.icon;
@@ -67,10 +64,7 @@ public class ShopSlotUI : MonoBehaviour
             _itemBPrice.text = "";
             _itemSPrice.text = "";
         }
-        
     }
-    
-   
 
     public void OnItemClick()
     {

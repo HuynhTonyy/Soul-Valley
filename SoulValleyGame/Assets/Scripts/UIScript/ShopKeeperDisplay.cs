@@ -41,7 +41,6 @@ public class ShopKeeperDisplay : MonoBehaviour
     {
         _shopSystem = shopSystem;
         _playerInventoryHolder = playerInventoryHolder;
-
         RefreshDisplay();
         DisplayShopInventory();
     }
@@ -57,8 +56,8 @@ public class ShopKeeperDisplay : MonoBehaviour
         _itemSellPrice.SetText("");
         _buyBtn.gameObject.SetActive(false);
         _sellBtn.gameObject.SetActive(false);
-        _buyBtn.onClick.AddListener(BuyItems);
-        _sellBtn.onClick.AddListener(SellItems);
+        // _buyBtn.onClick.AddListener(BuyItems);
+        // _sellBtn.onClick.AddListener(SellItems);
     }
     public void SetItemPreview(Sprite img,string itemName, string itemDes, string itemBPrice, string itemSPrice)
     {
@@ -84,7 +83,6 @@ public class ShopKeeperDisplay : MonoBehaviour
         foreach(var item in _shopSystem.ShopInventory)
         {
             if (item.ItemData == null) continue;
-
             var shopSlot = Instantiate(_shopSlotPrefab, _itemListContentPanel.transform);
             shopSlot.Init(item, _shopSystem.BuyMarkUp);
         }
@@ -97,7 +95,7 @@ public class ShopKeeperDisplay : MonoBehaviour
         itemSellPrice = sellPrice;
     }
 
-    private void BuyItems()
+    public void BuyItems()
     {
         if (PlayerStats.playerSoulCoin < (int)itemBuyPrice) return;
         //if (!_playerInventoryHolder.PrimaryInventorySystem.HasFreeSlot(out InventorySlot freeslot)) return;
@@ -108,12 +106,11 @@ public class ShopKeeperDisplay : MonoBehaviour
             PlayerStats.SpendCoin((int)itemBuyPrice);
             _shopSystem.GainGold((int)itemBuyPrice);
         };
-        
         ClearSlots();
         DisplayShopInventory();
     }
 
-    private void SellItems()
+    public void SellItems()
     {
         if (_shopSystem.AvailableGold < (int)itemSellPrice) return;
         if (_playerInventoryHolder.PrimaryInventorySystem.ContainsItem(curSelectedItemData, out List<InventorySlot> listSlot))
