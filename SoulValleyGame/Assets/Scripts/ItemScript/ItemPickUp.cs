@@ -6,7 +6,7 @@ using UnityEngine;
 
 [RequireComponent(typeof(SphereCollider))]
 [RequireComponent(typeof(UniqueID))]
-public class ItemPickUp : MonoBehaviour
+public class ItemPickUp : MonoBehaviourPun
 {
     [SerializeField] private float rotationSpeed = 20f;
 
@@ -67,15 +67,18 @@ public class ItemPickUp : MonoBehaviour
 
         if (inventory.AddToInventory(itemData,1))
         {
+            Debug.Log(itemData.icon);
             SaveGameManager.data.collectedItems.Add(id);
             SaveGameManager.data.activeItems.Remove(id);
             SaveLoad.OnLoadGame -= LoadGame;
             //Destroy(this.gameObject);
             //PhotonNetwork.Destroy(this.gameObject);
-            // Transfer ownership to the current player
-         
-            view.RPC("DestroyItem", RpcTarget.All);
-
+            // Transfer ownership to the current player              
+            photonView.RequestOwnership();
+            if (PhotonNetwork.IsMasterClient || photonView.IsMine)
+            {
+                photonView.RPC("DestroyItem", RpcTarget.All);
+            }            
         }
     }
     
@@ -103,9 +106,10 @@ public class ItemPickUp : MonoBehaviour
     [PunRPC]
     private void DestroyItem()
     {
-
-        PhotonNetwork.Destroy(gameObject);
-
+        if (PhotonNetwork.IsMasterClient || photonView.IsMine)
+        {
+            PhotonNetwork.Destroy(gameObject);
+        }
     }
 }
 
