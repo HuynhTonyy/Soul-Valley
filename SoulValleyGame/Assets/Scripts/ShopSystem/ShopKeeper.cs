@@ -13,6 +13,7 @@ public class ShopKeeper : MonoBehaviour, IInteractable
 
     private PlayerInventoryHolder playerInv;
 
+
     public static UnityAction<ShopSystem, PlayerInventoryHolder> OnShopWindowRequested;
     public void Interact(Interactor interactor)
     {

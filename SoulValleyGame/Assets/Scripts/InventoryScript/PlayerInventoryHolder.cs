@@ -22,9 +22,8 @@ public class PlayerInventoryHolder : InventoryHolder
 
     private void Start(){
         view = GetComponent<PhotonView>();
-
         if(!view.IsMine){
-            Destroy(canvas);
+            Destroy(canvas.gameObject);
         }
         inventoryUIControler = GetComponentInChildren<InventoryUIControler>();
         uIController = GetComponentInChildren<UIController>();
@@ -55,7 +54,6 @@ public class PlayerInventoryHolder : InventoryHolder
                 }
             }
         }
-       
     }
 
     public void InvokeInventory()

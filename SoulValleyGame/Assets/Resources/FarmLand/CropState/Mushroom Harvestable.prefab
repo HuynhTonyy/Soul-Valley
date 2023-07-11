@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 7319979500176457818}
   - component: {fileID: -342265411440120211}
   - component: {fileID: 4145288363693962271}
+  - component: {fileID: 4704929737007448604}
   m_Layer: 0
   m_Name: Mushroom Harvestable
   m_TagString: Untagged
@@ -60,6 +61,28 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemData: {fileID: 11400000, guid: 610f36e588908ad43b326d4d329d9e90, type: 2}
+--- !u!114 &4704929737007448604
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1419995953428668373}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 0
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!1 &8784156050209087501
 GameObject:
   m_ObjectHideFlags: 0
