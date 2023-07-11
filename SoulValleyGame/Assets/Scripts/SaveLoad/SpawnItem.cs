@@ -14,32 +14,21 @@ public class SpawnItem : MonoBehaviour
     {
         foreach (var activeKey in data.activeItems.Keys)
         {
-            ItemPickUpSaveData item;
-            data.activeItems.TryGetValue(activeKey, out item);
+            ItemPickUpSaveData item = data.activeItems[activeKey];
             Instantiate(item.itemData.ItemPreFab, item.position, item.rotation);
         }
     }
-    
     void LoadChest(SaveData data)
     {
-        ChestInventory[] chestInventorys = FindObjectsOfType<ChestInventory>();
+        // foreach ( var chestInWorld in FindObjectsOfType<ChestInventory>()){
+
+        //     Destroy(chestInWorld.gameObject);
+        // }
         foreach (var chestKey in data.chestDictionary.Keys)
         {
-            int lenght = 1;
-            foreach (ChestInventory chestInventory in chestInventorys)
-            {
-                if(chestKey == chestInventory.gameObject.GetComponent<UniqueID>().ID)
-                {
-                    break;
-                }else if(chestKey != chestInventory.gameObject.GetComponent<UniqueID>().ID && lenght == chestInventorys.Length)
-                {
-                    data.chestDictionary.TryGetValue(chestKey, out ChestSaveData chestSaveData);
-                    GameObject chest = Instantiate(chestSaveData.ItemData.ItemPreFab, chestSaveData.Position, chestSaveData.Rotation);
-                    chest.GetComponent<ChestInventory>().LoadInventory(chestSaveData);
-                }
-                lenght++;
-            }
-            
+            ChestSaveData chestSaveData =  data.chestDictionary[chestKey];
+            GameObject chest = Instantiate(chestSaveData.ItemData.itemData.ItemPreFab, chestSaveData.Position, chestSaveData.Rotation);
+            chest.GetComponent<ChestInventory>().LoadInventory(chestSaveData);
         }
     }
 }

@@ -9,25 +9,39 @@ using Random = UnityEngine.Random;
 public class ChestInventory : InventoryHolder, IInteractable
 {
     [SerializeField] private PlaceableData itemData;
+
+    String id;
     protected override void Awake()
     {
         base.Awake();
+        id = GetComponent<UniqueID>().ID;
+        SaveLoad.OnSaveData += SaveChest;
         SaveLoad.OnLoadGame += LoadChest;
     }
-
     private void Start()
     {
         var chestSaveData = new ChestSaveData(primaryInventorySystem,transform.position,transform.rotation, itemData);
         SaveGameManager.data.chestDictionary.Add(GetComponent<UniqueID>().ID, chestSaveData);
     }
+    private void SaveChest()
+    {
+        SaveGameManager.data.chestDictionary[id] = new ChestSaveData(primaryInventorySystem,transform.position,transform.rotation, itemData);
+    }
     void LoadChest(SaveData data)
     {
-        if(!data.chestDictionary.ContainsKey(GetComponent<UniqueID>().ID)) Destroy(gameObject);
-        else
+        if(SaveGameManager.data.chestDictionary.ContainsKey(id)) 
         {
-            LoadInventory(data, GetComponent<UniqueID>().ID);
+        //     LoadInventory(data.chestDictionary[id]);
+        // }
+        // else
+        // {
+            SaveGameManager.data.chestDictionary.Remove(id);
+         
         }
-    }
+        SaveLoad.OnSaveData -= SaveChest;
+        SaveLoad.OnLoadGame -= LoadChest;
+        Destroy(gameObject);
+}
     protected override void LoadInventory(SaveData data)
     {
 
@@ -37,15 +51,7 @@ public class ChestInventory : InventoryHolder, IInteractable
             primaryInventorySystem = chestData.InvSystem;
         }*/
     }
-    public void LoadInventory(SaveData data, string ID)
-    {
-
-        // check the save data for specific chest inventory - if exist load in
-        if (data.chestDictionary.TryGetValue(ID, out ChestSaveData chestData))
-        {
-            primaryInventorySystem = chestData.InvSystem;
-        }
-    }
+    
     public void LoadInventory(ChestSaveData chestData)
     {
         primaryInventorySystem = chestData.InvSystem;
@@ -56,7 +62,7 @@ public class ChestInventory : InventoryHolder, IInteractable
         interactor.gameObject.GetComponentInChildren<InventoryUIControler>().isClosed = false;
     }
 
-    public void Destroy(){
+    public void DestroyChest(){
         Vector3 _dropOffset = new Vector3(Random.Range(-0.3f, -0.1f), .5f, Random.Range(-0.3f, -0.1f));
         foreach (InventorySlot slot in primaryInventorySystem.InventorySlots)
         {
@@ -69,6 +75,9 @@ public class ChestInventory : InventoryHolder, IInteractable
             }
         }
         Instantiate(itemData.ItemPreFab, transform.position + _dropOffset, Quaternion.identity);
+        SaveGameManager.data.chestDictionary.Remove(id);
+        SaveLoad.OnSaveData -= SaveChest;
+        SaveLoad.OnLoadGame -= LoadChest;
         Destroy(gameObject);
         
     }
@@ -80,9 +89,9 @@ public struct ChestSaveData
     public InventorySystem InvSystem;
     public Vector3 Position;
     public Quaternion Rotation;
-    public ItemScript ItemData;
+    public PlaceableData ItemData;
 
-    public ChestSaveData(InventorySystem _invSystem, Vector3 _position, Quaternion _rotation, ItemScript _itemData)
+    public ChestSaveData(InventorySystem _invSystem, Vector3 _position, Quaternion _rotation, PlaceableData _itemData)
     {
         InvSystem = _invSystem;
         Position = _position;

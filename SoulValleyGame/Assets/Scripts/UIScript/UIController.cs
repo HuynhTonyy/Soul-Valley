@@ -36,7 +36,6 @@ public class UIController : MonoBehaviour
             Cursor.visible = false;
 
             _shopKeeperDisplay.BuyTabDisplay.SetActive(true);
-            _shopKeeperDisplay.SellTabDisplay.SetActive(false);
         }
     }
 

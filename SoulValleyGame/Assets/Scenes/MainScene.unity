@@ -1132,18 +1132,6 @@ PrefabInstance:
       propertyPath: sceneViewId
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 2293833686294185539, guid: db14318a001d17941abf051ef1aee2b8, type: 3}
-      propertyPath: m_AnchorMax.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2293833686294185539, guid: db14318a001d17941abf051ef1aee2b8, type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2293833686294185539, guid: db14318a001d17941abf051ef1aee2b8, type: 3}
-      propertyPath: m_SizeDelta.x
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 2293833687814499536, guid: db14318a001d17941abf051ef1aee2b8, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0

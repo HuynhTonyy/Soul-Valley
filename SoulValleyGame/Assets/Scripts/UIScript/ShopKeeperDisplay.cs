@@ -24,8 +24,6 @@ public class ShopKeeperDisplay : MonoBehaviour
     [SerializeField] private GameObject _itemListContentPanel;
 
     public GameObject BuyTabDisplay;
-    public GameObject SellTabDisplay;
-
     private ItemScript curSelectedItemData;
     private double itemBuyPrice;
     private double itemSellPrice;

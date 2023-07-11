@@ -34,28 +34,25 @@ public class ItemPickUp : MonoBehaviour
         maxPositionY = transform.position.y + 0.1f;
         
     }
-
     private void Start()
     {
         id = GetComponent<UniqueID>().ID;
-        if(SaveGameManager.data.activeItems.ContainsKey(id)){
+        if(SaveGameManager.data.activeItems.ContainsKey(id))
+        {
             SaveGameManager.data.activeItems[id] = itemSaveData;
-        }else {
+        }
+        else 
+        {
             SaveGameManager.data.activeItems.Add(id,itemSaveData);
         }
-        
     }
 
     private void LoadGame(SaveData data)
     {
-        Destroy(gameObject);
-    }
-
-    private void OnDestroy()
-    {
-        if (SaveGameManager.data.activeItems.ContainsKey(id)) SaveGameManager.data.activeItems.Remove(id);
         SaveLoad.OnLoadGame -= LoadGame;
-    }   
+        SaveGameManager.data.activeItems.Remove(id);
+        Destroy(gameObject);
+    }  
 
     private void OnTriggerEnter(Collider other)
     {
@@ -66,6 +63,8 @@ public class ItemPickUp : MonoBehaviour
         if (inventory.AddToInventory(itemData,1))
         {
             SaveGameManager.data.collectedItems.Add(id);
+            SaveGameManager.data.activeItems.Remove(id);
+            SaveLoad.OnLoadGame -= LoadGame;
             Destroy(this.gameObject);
         }
     }

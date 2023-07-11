@@ -81,7 +81,7 @@ public class Interactor : MonoBehaviour
                         case ToolData.ToolType.Hammer:
                             if (tag == "Interactable"){
                                 ChestInventory chestGO = hit.transform.gameObject.GetComponent<ChestInventory>();
-                                chestGO.Destroy();
+                                chestGO.DestroyChest();
                             }
                             break;
                     }
