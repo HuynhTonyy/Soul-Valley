@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 148228589666457741}
   - component: {fileID: 5270079285131745568}
   m_Layer: 0
-  m_Name: Big_Chest
+  m_Name: Big_chest
   m_TagString: Interactable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
