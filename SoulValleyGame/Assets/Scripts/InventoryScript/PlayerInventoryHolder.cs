@@ -22,7 +22,6 @@ public class PlayerInventoryHolder : InventoryHolder
 
     private void Start(){
         view = GetComponent<PhotonView>();
-
         if(!view.IsMine){
             Destroy(canvas.gameObject);
         }
@@ -55,7 +54,6 @@ public class PlayerInventoryHolder : InventoryHolder
                 }
             }
         }
-       
     }
 
     public void InvokeInventory()
