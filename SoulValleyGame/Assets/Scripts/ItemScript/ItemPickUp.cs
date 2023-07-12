@@ -1,5 +1,4 @@
 using Photon.Pun;
-using Photon.Realtime;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -43,7 +42,6 @@ public class ItemPickUp : MonoBehaviourPun
     {
         view = GetComponent<PhotonView>();
         id = GetComponent<UniqueID>().ID;
-        PhotonNetwork.AddCallbackTarget(this);
         if(SaveGameManager.data.activeItems.ContainsKey(id))
         {
             SaveGameManager.data.activeItems[id] = itemSaveData;
@@ -66,7 +64,7 @@ public class ItemPickUp : MonoBehaviourPun
         var inventory = other.transform.GetComponent<PlayerInventoryHolder>();
 
         if (!inventory) return;
-        photonView.RequestOwnership();
+
         if (inventory.AddToInventory(itemData,1))
         {
             Debug.Log(itemData.icon);
@@ -76,27 +74,14 @@ public class ItemPickUp : MonoBehaviourPun
             //Destroy(this.gameObject);
             //PhotonNetwork.Destroy(this.gameObject);
             // Transfer ownership to the current player              
-            
-            
+            photonView.RequestOwnership();
             if (PhotonNetwork.IsMasterClient || photonView.IsMine)
             {
                 photonView.RPC("DestroyItem", RpcTarget.All);
             }            
         }
     }
-    private void OnOwnershipRequest(PhotonView targetView, Player requestingPlayer)
-    {
-        if (targetView != photonView) return;
-
-        // Accept the ownership request from the requesting player
-        targetView.TransferOwnership(requestingPlayer);
-    }
-    private void OnDestroy()
-    {
-        PhotonNetwork.RemoveCallbackTarget(this);
-    }
-
-
+    
     private void Update()
     {
         transform.Rotate(Vector3.up * rotationSpeed * Time.deltaTime);
@@ -126,7 +111,6 @@ public class ItemPickUp : MonoBehaviourPun
             PhotonNetwork.Destroy(gameObject);
         }
     }
-    
 }
 
 
