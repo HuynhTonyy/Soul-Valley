@@ -43,7 +43,7 @@ public class ItemPickUp : MonoBehaviourPun
     {
         view = GetComponent<PhotonView>();
         id = GetComponent<UniqueID>().ID;
-        /*PhotonNetwork.AddCallbackTarget(this);*/
+        PhotonNetwork.AddCallbackTarget(this);
         if(SaveGameManager.data.activeItems.ContainsKey(id))
         {
             SaveGameManager.data.activeItems[id] = itemSaveData;
@@ -59,9 +59,9 @@ public class ItemPickUp : MonoBehaviourPun
         SaveLoad.OnLoadGame -= LoadGame;
         SaveGameManager.data.activeItems.Remove(id);
         Destroy(gameObject);
-    }
+    }  
 
-    /*private void OnTriggerEnter(Collider other)
+    private void OnTriggerEnter(Collider other)
     {
         var inventory = other.transform.GetComponent<PlayerInventoryHolder>();
 
@@ -83,32 +83,8 @@ public class ItemPickUp : MonoBehaviourPun
                 photonView.RPC("DestroyItem", RpcTarget.All);
             }            
         }
-    }*/
-    private void OnTriggerEnter(Collider other)
-    {
-        var inventory = other.transform.GetComponent<PlayerInventoryHolder>();
-
-        if (!inventory) return;
-
-        if (inventory.AddToInventory(itemData, 1))
-        {
-            SaveGameManager.data.collectedItems.Add(id);
-            SaveGameManager.data.activeItems.Remove(id);
-            SaveLoad.OnLoadGame -= LoadGame;
-
-            if (PhotonNetwork.IsMasterClient)
-            {
-                photonView.TransferOwnership(other.transform.GetComponent<PhotonView>().Controller);
-                photonView.RPC("DestroyItem", RpcTarget.AllBuffered);
-            }
-            else
-            {
-                photonView.RPC("DestroyItem", RpcTarget.MasterClient);
-            }
-        }
     }
-
-    /*private void OnOwnershipRequest(PhotonView targetView, Player requestingPlayer)
+    private void OnOwnershipRequest(PhotonView targetView, Player requestingPlayer)
     {
         if (targetView != photonView) return;
 
@@ -118,7 +94,7 @@ public class ItemPickUp : MonoBehaviourPun
     private void OnDestroy()
     {
         PhotonNetwork.RemoveCallbackTarget(this);
-    }*/
+    }
 
 
     private void Update()
@@ -145,7 +121,10 @@ public class ItemPickUp : MonoBehaviourPun
     [PunRPC]
     private void DestroyItem()
     {
-        PhotonNetwork.Destroy(gameObject);
+        if (PhotonNetwork.IsMasterClient || photonView.IsMine)
+        {
+            PhotonNetwork.Destroy(gameObject);
+        }
     }
     
 }
