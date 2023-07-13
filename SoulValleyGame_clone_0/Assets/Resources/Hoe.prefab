@@ -130,6 +130,9 @@ MonoBehaviour:
   rotationSpeed: 50
   PickUpRadius: 0.5
   itemData: {fileID: 11400000, guid: 4a953ac1320f56640b779983a59f138e, type: 2}
+  whatIsGround:
+    serializedVersion: 2
+    m_Bits: 64
   itemSaveData:
     itemData: {fileID: 0}
     position: {x: 0, y: 0, z: 0}
@@ -204,5 +207,5 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 90
+  m_Constraints: 80
   m_CollisionDetection: 0

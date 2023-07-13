@@ -6,6 +6,7 @@ using Photon.Pun;
 
 public class StaticInventoryDisplay : InventoryDisplay
 {
+    GameObject crosshair;
     [SerializeField] private InventoryHolder inventoryHolder;
     [SerializeField] protected InventorySlot_UI[] slots;
     
@@ -30,7 +31,7 @@ public class StaticInventoryDisplay : InventoryDisplay
         InventorySlot_UI selectedUISlot = slots[selectedSlot];
         InventorySlot selectedSlotData = selectedUISlot.AssignInventorySlot;
         bool isShiftPress = Keyboard.current.leftShiftKey.isPressed;
-        Vector3 positionToSpawn = transform.position + transform.forward * 1f;
+        Vector3 positionToSpawn = new Vector3(transform.position.x,transform.position.y+.25f,transform.position.z) + transform.forward * 1f;
         if (selectedSlotData != null && selectedSlotData.ItemData != null){
             GameObject itemGameObject = selectedSlotData.ItemData.ItemPreFab;
             if (isShiftPress){
@@ -38,8 +39,8 @@ public class StaticInventoryDisplay : InventoryDisplay
                 {
                     var position = new Vector3(Random.Range(-0.3f, -0.1f), 0, Random.Range(-0.3f, -0.1f));
                     Vector3 _dropOffset = position;
-                    GameObject a = PhotonNetwork.Instantiate(itemGameObject.name, positionToSpawn + _dropOffset, Quaternion.identity);
-                    
+                    GameObject newObject = PhotonNetwork.Instantiate(itemGameObject.name, positionToSpawn + _dropOffset, Quaternion.identity);
+                    newObject.GetComponent<Rigidbody>().AddForce(transform.forward * 5,ForceMode.Impulse);
                 }
                 selectedSlotData.ClearSlot();    
             }
@@ -49,13 +50,15 @@ public class StaticInventoryDisplay : InventoryDisplay
                 {
                     selectedSlotData.RemoveFromStack(1);
                     selectedUISlot.UpdateUISlot(selectedSlotData);
-                    PhotonNetwork.Instantiate(itemGameObject.name, positionToSpawn, Quaternion.identity);
+                    GameObject newObject = PhotonNetwork.Instantiate(itemGameObject.name, positionToSpawn, Quaternion.identity);
+                    newObject.GetComponent<Rigidbody>().AddForce(transform.forward * 5,ForceMode.Impulse);
                     
                 }
                 else
                 {
                     selectedSlotData.ClearSlot();
-                    PhotonNetwork.Instantiate(itemGameObject.name, positionToSpawn, Quaternion.identity);
+                    GameObject newObject = PhotonNetwork.Instantiate(itemGameObject.name, positionToSpawn, Quaternion.identity);
+                    newObject.GetComponent<Rigidbody>().AddForce(transform.forward * 5,ForceMode.Impulse);
                 }
             }
             selectedUISlot.UpdateUISlot(selectedSlotData);

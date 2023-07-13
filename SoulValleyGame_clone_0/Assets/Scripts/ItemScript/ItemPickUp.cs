@@ -5,10 +5,11 @@ using System.Collections.Generic;
 using UnityEngine;
 [RequireComponent(typeof(SphereCollider))]
 [RequireComponent(typeof(UniqueID))]
+[RequireComponent(typeof(Rigidbody))]
 public class ItemPickUp : MonoBehaviour
 {
     [SerializeField] private float rotationSpeed = 20f;
-
+    float groundRadius = .25f;
     public float PickUpRadius = 1f;
     public ItemScript itemData;
 
@@ -18,15 +19,17 @@ public class ItemPickUp : MonoBehaviour
     [SerializeField] private LayerMask whatIsGround;
 
     [SerializeField] private ItemPickUpSaveData itemSaveData;
-
+    Rigidbody rb;
     bool avaible = true;
     private string id;
     float minPositionY;
     float maxPositionY;
     bool isMax = false;
-
+    bool isSet = false;
+    bool isGround = false;
     private void Awake()
     {
+        rb = GetComponent<Rigidbody>();
         SaveLoad.OnLoadGame += LoadGame;
         itemSaveData = new ItemPickUpSaveData(itemData, transform.position, transform.rotation);
 
@@ -34,9 +37,6 @@ public class ItemPickUp : MonoBehaviour
         myCollider.isTrigger = true;
         myCollider.radius = PickUpRadius;
         myCollider.center = new Vector3(0, PickUpRadius/2, 0);
-        minPositionY = transform.position.y;
-        maxPositionY = transform.position.y + 0.1f;
-        
     }
     private void Start()
     {
@@ -80,16 +80,26 @@ public class ItemPickUp : MonoBehaviour
 
     private void Update()
     {
-        idle();
-        Collider[] colliders = Physics.OverlapSphere(transform.position,PickUpRadius, whatIsGround);
-        foreach (var item in colliders)
-        {
-            // if(){
-    
-            // }
+        if(!isGround){
+            Collider[] colliders = Physics.OverlapSphere(transform.position,groundRadius, whatIsGround);
+            if(colliders.Length != 0){
+                rb.useGravity = false;
+                rb.velocity = Vector3.zero;
+                rb.angularVelocity = Vector3.zero;
+                isGround = true;
+            }
+        }else{
+            idle();
         }
+        
     }
+    
     void idle(){
+        if(!isSet){
+            minPositionY = transform.position.y;
+            maxPositionY = transform.position.y + 0.1f;
+            isSet = true;
+        }
         transform.Rotate(Vector3.up * rotationSpeed * Time.deltaTime);
         if (!isMax)
         {
@@ -107,6 +117,10 @@ public class ItemPickUp : MonoBehaviour
                 isMax = false;
             }
         }
+    }
+    private  void OnDrawGizmosSelected() {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position,groundRadius);
     }
     [PunRPC]
     private void DestroyItem()
