@@ -9,9 +9,16 @@ public class CreateAndJoinRoom : MonoBehaviourPunCallbacks
 {
     public TMP_InputField createField,joinField;
 
+
+    private void Awake()
+    {
+        PhotonNetwork.AutomaticallySyncScene = true;
+    }
+
     public void CreateRoom(){
 
         PhotonNetwork.CreateRoom(createField.text);
+        //(,new RoomOptions{MaxPlayer = 4})
     }
     public void JoinRoom(){
 
@@ -19,8 +26,11 @@ public class CreateAndJoinRoom : MonoBehaviourPunCallbacks
     }
     public override void OnJoinedRoom()
     {
-        PhotonNetwork.LoadLevel("MainScene");
+        if(PhotonNetwork.IsMasterClient){
+            PhotonNetwork.LoadLevel("MainScene");
+        }
     }
+
 
     
 }
