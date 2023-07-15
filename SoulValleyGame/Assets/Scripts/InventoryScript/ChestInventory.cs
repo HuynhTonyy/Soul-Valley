@@ -13,6 +13,8 @@ public class ChestInventory : InventoryHolder, IInteractable
 
     String id;
     PhotonView view;
+
+    public InventorySystem getChestInventory(){ return primaryInventorySystem;}
     protected override void Awake()
     {
         base.Awake();
@@ -60,7 +62,7 @@ public class ChestInventory : InventoryHolder, IInteractable
     }
     public void Interact(Interactor interactor)
     {
-        OnDynamicInventoryDisplayRequested?.Invoke(primaryInventorySystem,0);
+        OnDynamicInventoryDisplayRequested?.Invoke(primaryInventorySystem,0,interactor.gameObject.GetComponent<PlayerInventoryHolder>().PrimaryInventorySystem,9);
         interactor.gameObject.GetComponentInChildren<InventoryUIControler>().isClosed = false;
     }
 

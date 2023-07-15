@@ -13,6 +13,7 @@ public class InventoryUIControler : MonoBehaviour
     public DynamicInventoryDisplay playerBackpackPanel;
     public Image backGround;
 
+
     internal static bool status = false;
     private void Start()
     {
@@ -51,11 +52,13 @@ public class InventoryUIControler : MonoBehaviour
             Cursor.visible = false;
         }
     }
-    void DisplayInventory(InventorySystem invDisplay,int offset)
+    void DisplayInventory(InventorySystem invDisplay,int offset, InventorySystem invDisplayBackPack,int offsetBackpack)
     {
+        
         inventoryPanel.gameObject.SetActive(true);
         inventoryPanel.RefreshDynamicInventory(invDisplay,offset);
         playerBackpackPanel.gameObject.SetActive(true);
+        playerBackpackPanel.RefreshDynamicInventory(invDisplayBackPack, offsetBackpack);
         RectTransform rectTransform = playerBackpackPanel.GetComponent<RectTransform>();
         rectTransform.anchoredPosition = new Vector2(0,-88f);
         Cursor.visible = true;

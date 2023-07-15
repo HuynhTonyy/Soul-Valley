@@ -11,7 +11,7 @@ public class Interactor : MonoBehaviour
     [SerializeField] LayerMask whatIsGround;
     FarmLand selectedLand;
     RaycastHit hit;
-
+    public GameObject chest;
     PhotonView view;
     StaticInventoryDisplay hotBar;
     new string tag;
@@ -20,8 +20,6 @@ public class Interactor : MonoBehaviour
     GameObject itemBP = null;
     private void Start() {
         view = GetComponent<PhotonView>();
-        
-
         hotBar = GetComponentInChildren<StaticInventoryDisplay>();
     }
     private void Update()
@@ -34,7 +32,7 @@ public class Interactor : MonoBehaviour
                 SaveLoad.Load();
             }
             //Time skip
-            if (Keyboard.current.oKey.wasPressedThisFrame){
+            if (Keyboard.current.oKey.isPressed){
                 TimeManager.Instance.Tick();
             }
             int selectedSlot = hotBar.selectedSlot;
@@ -60,6 +58,7 @@ public class Interactor : MonoBehaviour
                 }else if(tag == "Interactable" && Mouse.current.rightButton.wasPressedThisFrame &&gameObject.GetComponentInChildren<InventoryUIControler>().isClosed){
                     IInteractable interactable = hit.collider.GetComponent<IInteractable>();
                     if (interactable != null) interactable.Interact(this);
+                    chest = hit.transform.gameObject;
                 }else if(selectedLand){
                     selectedLand.Select(false);
                 }
@@ -70,9 +69,14 @@ public class Interactor : MonoBehaviour
                     if (placeable && tag == "Placeable"){
                         if(!itemBP){
                             itemBP = Instantiate(placeable.itemBP,hit.point,Quaternion.identity);
-                            itemBP.transform.RotateAround(transform.position,Vector3.up,90);
                         }else{
-                            itemBP.transform.position = hit.point;
+                            if(placeable.itemBP.name == itemBP.name.Substring(0,itemBP.name.Length-7)) 
+                                itemBP.transform.position = hit.point;
+                            else
+                            {
+                                Destroy(itemBP);
+                                itemBP = Instantiate(placeable.itemBP,hit.point,Quaternion.identity);
+                            }
                             if(Keyboard.current.rKey.wasPressedThisFrame){
                                 itemBP.transform.Rotate(new Vector3(0,90,0));
                             }
