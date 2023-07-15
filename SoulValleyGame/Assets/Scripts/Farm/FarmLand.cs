@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
 
-public class FarmLand : MonoBehaviour, ITimeTracker, IPunObservable
+public class FarmLand : MonoBehaviour, ITimeTracker
 {
     public GameObject select;
     [Header("Crop")]
@@ -142,24 +142,24 @@ public class FarmLand : MonoBehaviour, ITimeTracker, IPunObservable
         }
     }
 
-    public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
-    {
-        if(stream.IsWriting){
-            stream.SendNext(cropPlanted.seedToGrow);
-            stream.SendNext(cropPlanted.growth);
-            stream.SendNext(cropPlanted.cropState);
-            stream.SendNext(timeWatered);
-            stream.SendNext(landState);
-        }
-        else if(stream.IsReading)
-        {
-            cropPlanted.seedToGrow = (SeedData)stream.ReceiveNext();
-            cropPlanted.growth = (int)stream.ReceiveNext();
-            cropPlanted.cropState = (CropBehaviour.CropState)stream.ReceiveNext();
-            timeWatered = (GameTimeStamp)stream.ReceiveNext();
-            landState = (FarmLand.LandState)stream.ReceiveNext();
-        }
-    }
+    // public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+    // {
+    //     if(stream.IsWriting){
+    //         stream.SendNext(cropPlanted.seedToGrow);
+    //         stream.SendNext(cropPlanted.growth);
+    //         stream.SendNext(cropPlanted.cropState);
+    //         stream.SendNext(timeWatered);
+    //         stream.SendNext(landState);
+    //     }
+    //     else if(stream.IsReading)
+    //     {
+    //         cropPlanted.seedToGrow = (SeedData)stream.ReceiveNext();
+    //         cropPlanted.growth = (int)stream.ReceiveNext();
+    //         cropPlanted.cropState = (CropBehaviour.CropState)stream.ReceiveNext();
+    //         timeWatered = (GameTimeStamp)stream.ReceiveNext();
+    //         landState = (FarmLand.LandState)stream.ReceiveNext();
+    //     }
+    // }
 }
 
 [System.Serializable]
