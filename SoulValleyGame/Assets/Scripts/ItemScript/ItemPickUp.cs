@@ -74,8 +74,6 @@ public class ItemPickUp : MonoBehaviour
                 avaible = true;
             }
         }
-        
-        
     }
 
     private void Update()
@@ -118,7 +116,7 @@ public class ItemPickUp : MonoBehaviour
             }
         }
     }
-    private  void OnDrawGizmosSelected() {
+    private void OnDrawGizmosSelected() {
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position,groundRadius);
     }

@@ -9,7 +9,6 @@ public class InventorySlot
 {
     [SerializeField] private ItemScript itemData; // reference to the data
     [SerializeField] private int stackSize; // Current stack size
-
     public ItemScript ItemData => itemData;
     public int StackSize => stackSize;
     public int GetCurrentStackSize()

@@ -5,8 +5,9 @@ using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using TMPro;
 using System;
+using UnityEngine.Events;
 
-public class InventorySlot_UI : MonoBehaviour
+public class InventorySlot_UI : MonoBehaviour,IPointerClickHandler
 {
     [SerializeField] private Image itemSprite;
     [SerializeField] private TextMeshProUGUI itemCount;
@@ -16,9 +17,11 @@ public class InventorySlot_UI : MonoBehaviour
     public InventorySlot AssignInventorySlot => assignInventorySlot;
     public InventoryDisplay ParentDisplay {get;private set;}
 
-  
     public Image image;
     public Color selectedColor, notSelectedColor;
+    public UnityEvent onLeftClick;
+    public UnityEvent onRightClick;
+    public UnityEvent onMiddleClick;
     public void Selected()
     {
         image.color = selectedColor;
@@ -35,8 +38,9 @@ public class InventorySlot_UI : MonoBehaviour
 
         itemSprite.preserveAspect = true;
 
-        btn = GetComponent<Button>();
-        btn?.onClick.AddListener(OnUISlotClick);
+        // btn = GetComponent<Button>();
+
+        // btn?.onClick.AddListener(OnUISlotClick);
 
         ParentDisplay = transform.parent.GetComponent<InventoryDisplay>(); 
 
@@ -77,10 +81,22 @@ public class InventorySlot_UI : MonoBehaviour
         itemSprite.color = Color.clear;
         itemCount.text = "";
     }
-    public void OnUISlotClick()
+    public void OnUISlotClick(int num)
     {
         // access display class function
-        ParentDisplay?.SlotCliked(this);
+        ParentDisplay?.SlotCliked(this,num);
     }
 
+    public void OnPointerClick(PointerEventData eventData)
+    {
+        if (eventData.button == PointerEventData.InputButton.Left)
+        {
+            OnUISlotClick(0);
+        }
+        else if (eventData.button == PointerEventData.InputButton.Right)
+        {
+          
+            OnUISlotClick(1);
+        }
+    }
 }

@@ -64,7 +64,6 @@ public class MouseItemData : MonoBehaviour
                 {
                     ClearSlot();
                 }
-                
             }
 
         }
