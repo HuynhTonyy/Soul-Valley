@@ -8,6 +8,7 @@ using Photon.Pun;
 public class Interactor : MonoBehaviour
 {
     [SerializeField] Transform cam;
+    [SerializeField] LayerMask whatIsGround;
     FarmLand selectedLand;
     RaycastHit hit;
 
@@ -15,6 +16,8 @@ public class Interactor : MonoBehaviour
     StaticInventoryDisplay hotBar;
     new string tag;
     bool inRange;
+    bool inBPMode = false;
+    GameObject itemBP = null;
     private void Start() {
         view = GetComponent<PhotonView>();
         
@@ -35,7 +38,7 @@ public class Interactor : MonoBehaviour
                 TimeManager.Instance.Tick();
             }
             int selectedSlot = hotBar.selectedSlot;
-            inRange = Physics.Raycast(cam.transform.position, cam.transform.forward, out hit, 4f);
+            inRange = Physics.Raycast(cam.transform.position, cam.transform.forward, out hit, 4f,whatIsGround,QueryTriggerInteraction.Ignore);
             //Throw item which is selected in hot bar
             if(hotBar.GetSelectedItem(selectedSlot)  && GetComponentInChildren<InventoryUIControler>().isClosed && Keyboard.current.qKey.wasPressedThisFrame){
                 hotBar.throwItem(transform,selectedSlot);
@@ -60,43 +63,68 @@ public class Interactor : MonoBehaviour
                 }else if(selectedLand){
                     selectedLand.Select(false);
                 }
-                if(hotBar.GetSelectedItem(selectedSlot)  && gameObject.GetComponentInChildren<InventoryUIControler>().isClosed && Mouse.current.leftButton.wasPressedThisFrame){
+                if(hotBar.GetSelectedItem(selectedSlot)  && gameObject.GetComponentInChildren<InventoryUIControler>().isClosed){
                     SeedData seed = hotBar.GetSeed(selectedSlot);
                     PlaceableData placeable = hotBar.GetPlaceableData(selectedSlot);
                     ToolData tool = hotBar.GetToolData(selectedSlot);
-                    if (seed && selectedLand && selectedLand.Plant(seed)){
-                        hotBar.UseItem(selectedSlot);
-                    }   
-                    else if (placeable && tag == "Placeable" ){
-                        GameObject spawn = Instantiate(placeable.itemData.ItemPreFab, hit.point,Quaternion.identity);
-                        hotBar.UseItem(selectedSlot);
-                    }
-                    else if (tool){
-                        switch (tool.toolType){
-                            case ToolData.ToolType.WateringCan:
-                                if (tag == "FarmLand"){
-                                    FarmLand farmLand = hit.transform.GetComponent<FarmLand>();
-                                    farmLand.Water();
-                                }
-                                break;
-                            case ToolData.ToolType.Hoe:
-                                if (tag == "FarmLand"){
-                                    FarmLand farmLand = hit.transform.GetComponent<FarmLand>();
-                                    farmLand.Till();
-                                }
-                                break;
-                            case ToolData.ToolType.Hammer:
-                                if (tag == "Interactable"){
-                                    ChestInventory chestGO = hit.transform.gameObject.GetComponent<ChestInventory>();
-                                    chestGO.DestroyChest();
-                                }
-                                break;
+                    if (placeable && tag == "Placeable"){
+                        if(!itemBP){
+                            itemBP = Instantiate(placeable.itemBP,hit.point,Quaternion.identity);
+                            itemBP.transform.RotateAround(transform.position,Vector3.up,90);
+                        }else{
+                            itemBP.transform.position = hit.point;
+                            if(Keyboard.current.rKey.wasPressedThisFrame){
+                                itemBP.transform.Rotate(new Vector3(0,90,0));
+                            }
                         }
-                    }         
+                    }else{
+                        Destroy(itemBP);
+                        itemBP = null;
+                    }
+                    if(Mouse.current.leftButton.wasPressedThisFrame){
+                        if (seed && selectedLand && selectedLand.Plant(seed)){
+                            hotBar.UseItem(selectedSlot);
+                        }   
+                        else if (placeable && tag == "Placeable" && itemBP.GetComponent<Blueprint>().isPlaceable){
+                            PhotonNetwork.Instantiate(placeable.itemData.ItemPreFab.name, hit.point,itemBP.transform.rotation);
+                            hotBar.UseItem(selectedSlot);
+                            Destroy(itemBP);
+                            itemBP = null;
+                        }
+                        else if (tool){
+                            switch (tool.toolType){
+                                case ToolData.ToolType.WateringCan:
+                                    if (tag == "FarmLand"){
+                                        FarmLand farmLand = hit.transform.GetComponent<FarmLand>();
+                                        farmLand.Water();
+                                    }
+                                    break;
+                                case ToolData.ToolType.Hoe:
+                                    if (tag == "FarmLand"){
+                                        FarmLand farmLand = hit.transform.GetComponent<FarmLand>();
+                                        farmLand.Till();
+                                    }
+                                    break;
+                                case ToolData.ToolType.Hammer:
+                                    if (tag == "Interactable"){
+                                        ChestInventory chestGO = hit.transform.gameObject.GetComponent<ChestInventory>();
+                                        chestGO.DestroyChest();
+                                    }
+                                    break;
+                            }
+                        }         
+                    }
                 }
-            }else if(selectedLand){
-                selectedLand.Select(false);
+            }else{
+                if(selectedLand){
+                    selectedLand.Select(false);
+                }
+                if(itemBP){
+                    Destroy(itemBP);
+                    itemBP = null;
+                }
             }
+            
         }
     }
 }

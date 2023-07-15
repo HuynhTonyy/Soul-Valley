@@ -12,12 +12,14 @@ public class ChestInventory : InventoryHolder, IInteractable
     [SerializeField] private PlaceableData itemData;
 
     String id;
+    PhotonView view;
     protected override void Awake()
     {
         base.Awake();
         id = GetComponent<UniqueID>().ID;
         SaveLoad.OnSaveData += SaveChest;
         SaveLoad.OnLoadGame += LoadChest;
+        view = GetComponent<PhotonView>();
     }
     private void Start()
     {
@@ -70,18 +72,23 @@ public class ChestInventory : InventoryHolder, IInteractable
                 for(int i = 0; i < slot.StackSize; i++)
                 {
                     _dropOffset = new Vector3(Random.Range(-0.3f, -0.1f), .5f, Random.Range(-0.3f, -0.1f));
-                    Instantiate(slot.ItemData.ItemPreFab, transform.position + _dropOffset, Quaternion.identity);
+                    PhotonNetwork.Instantiate(slot.ItemData.ItemPreFab.name, transform.position + _dropOffset, Quaternion.identity);
                 }
             }
         }
-        Instantiate(itemData.ItemPreFab, transform.position + _dropOffset, Quaternion.identity);
+        PhotonNetwork.Instantiate(itemData.ItemPreFab.name, transform.position + _dropOffset, Quaternion.identity);
         SaveGameManager.data.chestDictionary.Remove(id);
         SaveLoad.OnSaveData -= SaveChest;
         SaveLoad.OnLoadGame -= LoadChest;
-        Destroy(gameObject);
-        
+        view.RPC("DestroyItem", RpcTarget.AllBufferedViaServer);
+    }
+    [PunRPC]
+    private void DestroyItem()
+    {
+        PhotonNetwork.Destroy(gameObject);
     }
 }
+
 [System.Serializable]
 public struct ChestSaveData
 {

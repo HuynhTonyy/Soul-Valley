@@ -57,13 +57,6 @@ public class PlayerInventoryHolder : InventoryHolder
             }
         }
     }
-
-    public void InvokeInventory()
-    {
-        OnDynamicPlayerInventoryDisplayRequested?.Invoke(primaryInventorySystem, offset);
-        Cursor.visible = true;
-        Cursor.lockState = CursorLockMode.None;
-    }
     public bool AddToInventory(ItemScript item, int amount)
     {
         if (primaryInventorySystem.AddToInventory(item, amount))

@@ -28,7 +28,6 @@ public abstract class InventoryDisplay : MonoBehaviour
     public void SlotCliked(InventorySlot_UI clickedUISlot, int mouseNumPress)
     {
         bool isShiftPress = Keyboard.current.leftShiftKey.isPressed;
-
         switch (mouseNumPress){
             case 0: 
                 // Clicked slot has an item - mouse doesn't have an item - pick up item
@@ -101,58 +100,47 @@ public abstract class InventoryDisplay : MonoBehaviour
                 }   
                 break;
             case 1:
-                AutoCombineSlot(clickedUISlot);
-
-        
-            
+                InventorySlot thisSlot = clickedUISlot.AssignInventorySlot;
+                List <InventorySlot> slots = playerInventory.PrimaryInventorySystem.InventorySlots;
+                if(slots.IndexOf(thisSlot) <= 8){ 
+                    //slot in hotbar
+                    moveItem(clickedUISlot,thisSlot,slots,9,slots.Count); // move item from hot bar to backpack
+                }else{
+                    // slot in backpack
+                    moveItem(clickedUISlot,thisSlot,slots,0,9);// move item from backpack to hot bar
+                }
                 break;
         }  
     }
-
-    private void AutoCombineSlot(InventorySlot_UI clickedUISlot){
-
+    void moveItem(InventorySlot_UI clickedUISlot,InventorySlot thisSlot,List<InventorySlot> slots,int start, int end){
         bool isAdded = false;
-        List <InventorySlot> slots = playerInventory.PrimaryInventorySystem.InventorySlots;
-
-        // for(int i = 9; i<slots.Count;i++)
-        // {   
-        //     // if both are the same && enought room - combine
-        //     if (slots[i].ItemData == clickedUISlot.AssignInventorySlot.ItemData)
-        //     {
-        //         if(slots[i].EnoughRoomLeftInStack(clickedUISlot.AssignInventorySlot.StackSize))
-        //         {
-        //             slots[i] = (clickedUISlot.AssignInventorySlot);
-        //             clickedUISlot.UpdateUISlot();
-        //             slots[i].ClearSlot();
-                  
-        //         }
-        //         else if (!slots[i].RoomLeftInStack(clickedUISlot.AssignInventorySlot.StackSize, out int leftInStack))
-        //         {
-        //             int remainOnOriginSlot = clickedUISlot.AssignInventorySlot.StackSize - leftInStack;
-        //             slots[i].AddToStack(leftInStack);
-
-        //             clickedUISlot.UpdateUISlot();
-        //             slots[i].ClearSlot();
-        //         }
-        //         isAdded = true;
-        //         break;
-        //     }
-        // }
-        if(!isAdded)
-        {
-            for(int i = 9; i<slots.Count;i++)
-            {
-                Debug.Log(i);
-                if(slots[i].ItemData == null)
-                {
-                    //slots[i] = clickedUISlot.AssignInventorySlot;
-                    slots[i].UpdateInventorySlot(clickedUISlot.AssignInventorySlot.ItemData,clickedUISlot.AssignInventorySlot.StackSize);
-                    playerInventory.PrimaryInventorySystem.OnInventorySlotChanged?.Invoke(slots[i]);
-                    clickedUISlot.ClearSlot();
-                    break;
+        for(int i = start; i < end; i++){
+                if (slots[i].ItemData == thisSlot.ItemData){// check same item to merge
+                    if(slots[i].EnoughRoomLeftInStack(thisSlot.StackSize)){
+                        slots[i].AddToStack(thisSlot.StackSize);
+                        playerInventory.PrimaryInventorySystem.OnInventorySlotChanged?.Invoke(slots[i]);
+                        clickedUISlot.ClearSlot();
+                        isAdded = true;
+                        break;
+                    }else if (!slots[i].RoomLeftInStack(thisSlot.StackSize, out int amountToAdd) && amountToAdd != 0){
+                        slots[i].AddToStack(amountToAdd);
+                        thisSlot.RemoveFromStack(amountToAdd);
+                        playerInventory.PrimaryInventorySystem.OnInventorySlotChanged?.Invoke(slots[i]);
+                        clickedUISlot.UpdateUISlot();
+                        break;
+                    }
                 }
             }
-        }
+            if(!isAdded){ // whether this had
+                for(int i = start; i < end; i++){
+                    if(slots[i].ItemData == null){
+                        slots[i].UpdateInventorySlot(thisSlot.ItemData,thisSlot.StackSize);
+                        playerInventory.PrimaryInventorySystem.OnInventorySlotChanged?.Invoke(slots[i]);
+                        clickedUISlot.ClearSlot();
+                        break;
+                    }
+                }
+            }
     }
 
     private void SwapSlot(InventorySlot_UI clickedUISlot)

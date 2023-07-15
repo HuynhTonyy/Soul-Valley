@@ -6629,6 +6629,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cam: {fileID: 7909269066770405387}
+  whatIsGround:
+    serializedVersion: 2
+    m_Bits: 4294967295
 --- !u!114 &7909269066483446808
 MonoBehaviour:
   m_ObjectHideFlags: 0

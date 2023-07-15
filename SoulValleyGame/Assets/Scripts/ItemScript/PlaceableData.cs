@@ -5,6 +5,7 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Inventory System/Placeable")]
 public class PlaceableData : ItemScript
 {
+    public GameObject itemBP;
     public ItemScript itemData;
 
 }
