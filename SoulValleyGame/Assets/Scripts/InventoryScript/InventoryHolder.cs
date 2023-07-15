@@ -15,7 +15,7 @@ public abstract class InventoryHolder : MonoBehaviourPun,IPunObservable
 
     public InventorySystem PrimaryInventorySystem => primaryInventorySystem;
 
-    public static UnityAction<InventorySystem,int> OnDynamicInventoryDisplayRequested;
+    public static UnityAction<InventorySystem,int,InventorySystem,int> OnDynamicInventoryDisplayRequested;
 
     protected virtual void Awake()
     {

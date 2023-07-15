@@ -11,9 +11,14 @@ public abstract class InventoryDisplay : MonoBehaviour
     public InventorySystem InventorySystem => inventorySystem;
     public Dictionary<InventorySlot_UI, InventorySlot> SlotDictionary => slotDictionary;
     private PlayerInventoryHolder playerInventory;
+    private ChestInventory chestInventory;
+    private InventoryUIControler inventory;
+    
     protected virtual void Start(){
         playerInventory = GetComponentInParent<PlayerInventoryHolder>();
+        inventory = GetComponentInParent<InventoryUIControler>();
     }
+   
     public abstract void AssignSlot(InventorySystem invDisplay,int offset);// implement in child class
     protected virtual void UpdateSLot(InventorySlot updatedSlot)
     {
@@ -27,6 +32,7 @@ public abstract class InventoryDisplay : MonoBehaviour
     }
     public void SlotCliked(InventorySlot_UI clickedUISlot, int mouseNumPress)
     {
+        
         bool isShiftPress = Keyboard.current.leftShiftKey.isPressed;
         switch (mouseNumPress){
             case 0: 
@@ -102,17 +108,31 @@ public abstract class InventoryDisplay : MonoBehaviour
             case 1:
                 InventorySlot thisSlot = clickedUISlot.AssignInventorySlot;
                 List <InventorySlot> slots = playerInventory.PrimaryInventorySystem.InventorySlots;
-                if(slots.IndexOf(thisSlot) <= 8){ 
+                if(!inventory.inventoryPanel.isActiveAndEnabled)
+                {
+                    if(slots.IndexOf(thisSlot) <= 8){ 
                     //slot in hotbar
-                    moveItem(clickedUISlot,thisSlot,slots,9,slots.Count); // move item from hot bar to backpack
-                }else{
-                    // slot in backpack
-                    moveItem(clickedUISlot,thisSlot,slots,0,9);// move item from backpack to hot bar
+                    moveItemInBackpackOnPlayer(clickedUISlot,thisSlot,slots,9,slots.Count); // move item from hot bar to backpack
+                    }else{
+                        // slot in backpack
+                        moveItemInBackpackOnPlayer(clickedUISlot,thisSlot,slots,0,9);// move item from backpack to hot bar
+                    }
+                }
+                else{
+                    if(slots.Contains(thisSlot))
+                    {
+                        chestInventory = GetComponentInParent<Interactor>().chest.GetComponent<ChestInventory>();
+                        List <InventorySlot> chestSlots = chestInventory.PrimaryInventorySystem.InventorySlots;
+                        moveItemInBackpackOnChest(clickedUISlot,thisSlot,chestSlots,0,chestSlots.Count);
+                    }
+                    else{
+                        moveItemInBackpackOnPlayer(clickedUISlot,thisSlot,slots,0,slots.Count);
+                    }
                 }
                 break;
         }  
     }
-    void moveItem(InventorySlot_UI clickedUISlot,InventorySlot thisSlot,List<InventorySlot> slots,int start, int end){
+    void moveItemInBackpackOnPlayer(InventorySlot_UI clickedUISlot,InventorySlot thisSlot,List<InventorySlot> slots,int start, int end){
         bool isAdded = false;
         for(int i = start; i < end; i++){
                 if (slots[i].ItemData == thisSlot.ItemData){// check same item to merge
@@ -141,6 +161,38 @@ public abstract class InventoryDisplay : MonoBehaviour
                     }
                 }
             }
+    }
+    void moveItemInBackpackOnChest(InventorySlot_UI clickedUISlot,InventorySlot thisSlot,List<InventorySlot> chestSlots,int start, int end)
+    {
+        bool isAdded = false;
+        for(int i = start; i < end; i++)
+        {
+            if (chestSlots[i].ItemData == thisSlot.ItemData){// check same item to merge
+                if(chestSlots[i].EnoughRoomLeftInStack(thisSlot.StackSize)){
+                    chestSlots[i].AddToStack(thisSlot.StackSize);
+                    chestInventory.PrimaryInventorySystem.OnInventorySlotChanged?.Invoke(chestSlots[i]);
+                    clickedUISlot.ClearSlot();
+                    isAdded = true;
+                    break;
+                }else if (!chestSlots[i].RoomLeftInStack(thisSlot.StackSize, out int amountToAdd) && amountToAdd != 0){
+                    chestSlots[i].AddToStack(amountToAdd);
+                    thisSlot.RemoveFromStack(amountToAdd);
+                    chestInventory.PrimaryInventorySystem.OnInventorySlotChanged?.Invoke(chestSlots[i]);
+                    clickedUISlot.UpdateUISlot();
+                    break;
+                }
+            }
+        }
+        if(!isAdded){ // whether this had
+            for(int i = start; i < end; i++){
+                if(chestSlots[i].ItemData == null){
+                    chestSlots[i].UpdateInventorySlot(thisSlot.ItemData,thisSlot.StackSize);
+                    chestInventory.PrimaryInventorySystem.OnInventorySlotChanged?.Invoke(chestSlots[i]);
+                    clickedUISlot.ClearSlot();
+                    break;
+                }
+            }
+        }
     }
 
     private void SwapSlot(InventorySlot_UI clickedUISlot)

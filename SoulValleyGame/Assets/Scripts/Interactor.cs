@@ -11,7 +11,7 @@ public class Interactor : MonoBehaviour
     [SerializeField] LayerMask whatIsGround;
     FarmLand selectedLand;
     RaycastHit hit;
-
+    public GameObject chest;
     PhotonView view;
     StaticInventoryDisplay hotBar;
     new string tag;
@@ -20,8 +20,6 @@ public class Interactor : MonoBehaviour
     GameObject itemBP = null;
     private void Start() {
         view = GetComponent<PhotonView>();
-        
-
         hotBar = GetComponentInChildren<StaticInventoryDisplay>();
     }
     private void Update()
@@ -60,6 +58,7 @@ public class Interactor : MonoBehaviour
                 }else if(tag == "Interactable" && Mouse.current.rightButton.wasPressedThisFrame &&gameObject.GetComponentInChildren<InventoryUIControler>().isClosed){
                     IInteractable interactable = hit.collider.GetComponent<IInteractable>();
                     if (interactable != null) interactable.Interact(this);
+                    chest = hit.transform.gameObject;
                 }else if(selectedLand){
                     selectedLand.Select(false);
                 }
