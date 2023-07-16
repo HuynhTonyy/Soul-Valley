@@ -6,23 +6,23 @@ using TMPro;
 
 public class DialogueManager : MonoBehaviour
 {
-    public Image actorImage; // Reference to the Image component used to display the actor's image
-    public TMPro.TextMeshProUGUI actorName; // Reference to the TextMeshProUGUI component used to display the actor's name
-    public TMPro.TextMeshProUGUI MessageText; // Reference to the TextMeshProUGUI component used to display the message text
-    public RectTransform backgroundBox; // Reference to the RectTransform component used to control the background box appearance
+    public Image actorImage;
+    public TMPro.TextMeshProUGUI actorName; 
+    public TMPro.TextMeshProUGUI MessageText;
+    public RectTransform backgroundBox; 
 
-    Message[] currentMessages; // Array to store the current set of messages
-    Actor[] currentActors; // Array to store the current set of actors
+    Message[] currentMessages;
+    Actor[] currentActors; 
     int activeMessage = 0; // Index of the currently displayed message
     public static bool isActive = false; // Indicates if the dialogue is currently active
 
     public void OpenDialogue(Message[] messages, Actor[] actors)
     {
-        currentMessages = messages; // Assign the passed-in messages to the currentMessages array
-        currentActors = actors; // Assign the passed-in actors to the currentActors array
-        activeMessage = 0; // Reset the active message index to 0
-        isActive = true; // Set isActive to true, indicating that the dialogue is active
-        Debug.Log("Strarted conversation! Loaded messages: " + messages.Length); // Log a debug message
+        currentMessages = messages;
+        currentActors = actors; 
+        activeMessage = 0; 
+        isActive = true; 
+        Debug.Log("Strarted conversation! Loaded messages: " + messages.Length);
         DisplayMessage(); // Display the first message
         backgroundBox.LeanScale(Vector3.one, 0.5f);
     }
@@ -41,14 +41,14 @@ public class DialogueManager : MonoBehaviour
 
     public void NextMessage()
     {
-        activeMessage++; // Increment the active message index
-        if (activeMessage < currentMessages.Length) // Check if there are more messages to display
+        activeMessage++;
+        if (activeMessage < currentMessages.Length) 
         {
             DisplayMessage(); // Display the next message
         }
         else
         {
-            Debug.Log("Conversation ended"); // Log a debug message indicating the conversation has ended
+            Debug.Log("Conversation ended");
             backgroundBox.LeanScale(Vector3.zero, 0.5f).setEaseInOutExpo(); // Animate the background box to scale to zero
             isActive = false; // Set isActive to false, indicating that the dialogue has ended
         }

@@ -1839,6 +1839,7 @@ MonoBehaviour:
   whatIsGround:
     serializedVersion: 2
     m_Bits: 4294967295
+  chest: {fileID: 0}
 --- !u!114 &3461338962827183309
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5899,7 +5900,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 110.748535, y: -30}
+  m_AnchoredPosition: {x: 97, y: -20}
   m_SizeDelta: {x: -282.50293, y: -78}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7524455426763589971
@@ -5958,8 +5959,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 36
-  m_fontSizeBase: 36
+  m_fontSize: 34
+  m_fontSizeBase: 34
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -6035,8 +6036,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
-  m_AnchoredPosition: {x: 352, y: 56}
-  m_SizeDelta: {x: 200, y: 50}
+  m_AnchoredPosition: {x: 563.91, y: 88.4}
+  m_SizeDelta: {x: 651.3199, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7524455426925137925
 CanvasRenderer:
@@ -6173,7 +6174,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -442.99994, y: -173}
+  m_AnchoredPosition: {x: -439, y: -152}
   m_SizeDelta: {x: 160, y: 60}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7524455427161819428
@@ -6324,7 +6325,8 @@ MonoBehaviour:
     message: Very well, we have a compromise. But remember, there will be consequences
       for those who rebel against our treaty.
   - actorId: 0
-    message: 
+    message: From there the farmer's spiritual journey begins. Will he grow these
+      strange souls or will the Demon Malachi steal his own soul?
   actors:
   - name: Narrator(The Ghost)
     sprite: {fileID: 21300000, guid: ab7d3c3bf78ff3f438b47383e1109815, type: 3}
@@ -6374,7 +6376,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 0}
   m_AnchoredPosition: {x: 120, y: 218}
-  m_SizeDelta: {x: -620, y: 200}
+  m_SizeDelta: {x: -620, y: 240}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7524455427205476164
 CanvasRenderer:
@@ -6466,7 +6468,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
   m_AnchoredPosition: {x: 125, y: -1}
-  m_SizeDelta: {x: 180, y: 180}
+  m_SizeDelta: {x: 200, y: 200}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7524455428085487855
 CanvasRenderer:
