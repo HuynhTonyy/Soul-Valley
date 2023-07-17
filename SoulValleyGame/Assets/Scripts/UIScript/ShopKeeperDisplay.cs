@@ -95,7 +95,7 @@ public class ShopKeeperDisplay : MonoBehaviour
 
     public void BuyItems()
     {
-        if (PlayerStats.playerSoulCoin < (int)itemBuyPrice) return;
+        if (PlayerStats.gold < (int)itemBuyPrice) return;
         //if (!_playerInventoryHolder.PrimaryInventorySystem.HasFreeSlot(out InventorySlot freeslot)) return;
 
         if (_shopSystem.PurchaseItem(curSelectedItemData, 1))

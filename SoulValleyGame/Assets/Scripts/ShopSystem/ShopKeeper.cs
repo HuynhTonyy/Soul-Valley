@@ -6,7 +6,7 @@ using UnityEngine.InputSystem;
 
 [RequireComponent(typeof(UniqueID))]
 
-public class ShopKeeper : MonoBehaviour, IInteractable
+public class ShopKeeper : MonoBehaviour, IIntractable
 {
     [SerializeField] private ShopItemList _shopItemsHeld;
     [SerializeField] private ShopSystem _shopSystem;

@@ -7,7 +7,7 @@ using UnityEngine.Events;
 using Random = UnityEngine.Random;
 
 [RequireComponent(typeof(UniqueID))]
-public class ChestInventory : InventoryHolder, IInteractable
+public class ChestInventory : InventoryHolder, IIntractable
 {
     [SerializeField] private PlaceableData itemData;
 

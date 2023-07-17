@@ -16,7 +16,6 @@ public class Interactor : MonoBehaviour
     StaticInventoryDisplay hotBar;
     new string tag;
     bool inRange;
-    bool inBPMode = false;
     GameObject itemBP = null;
     private void Start() {
         view = GetComponent<PhotonView>();
@@ -55,8 +54,8 @@ public class Interactor : MonoBehaviour
                     if(Keyboard.current.eKey.wasReleasedThisFrame && farmLand.cropPlanted && farmLand.cropPlanted.cropState == CropBehaviour.CropState.Harvestable){
                         farmLand.Harvest(this.gameObject);
                     }
-                }else if(tag == "Interactable" && Mouse.current.rightButton.wasPressedThisFrame &&gameObject.GetComponentInChildren<InventoryUIControler>().isClosed){
-                    IInteractable interactable = hit.collider.GetComponent<IInteractable>();
+                }else if(tag == "Interactable" && Mouse.current.rightButton.wasPressedThisFrame && GetComponentInChildren<InventoryUIControler>().isClosed){
+                    IIntractable interactable = hit.collider.GetComponent<IIntractable>();
                     if (interactable != null) interactable.Interact(this);
                     chest = hit.transform.gameObject;
                 }else if(selectedLand){

@@ -10,15 +10,9 @@ public class CurrencySystem : MonoBehaviour
 
     public TextMeshProUGUI souldCoinValues;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-    }
-
-    // Update is called once per frame
     void Update()
     {
-        soulCoin = PlayerStats.playerSoulCoin;
+        soulCoin = PlayerStats.gold;
         souldCoinValues.SetText("Currency: " + soulCoin);
     }
 }
