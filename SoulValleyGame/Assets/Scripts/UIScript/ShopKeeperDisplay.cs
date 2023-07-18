@@ -95,13 +95,13 @@ public class ShopKeeperDisplay : MonoBehaviour
 
     public void BuyItems()
     {
-        if (PlayerStats.gold < (int)itemBuyPrice) return;
+        if (CurrencySystem.gold < (int)itemBuyPrice) return;
         //if (!_playerInventoryHolder.PrimaryInventorySystem.HasFreeSlot(out InventorySlot freeslot)) return;
 
         if (_shopSystem.PurchaseItem(curSelectedItemData, 1))
         {
             _playerInventoryHolder.PrimaryInventorySystem.AddToInventory(curSelectedItemData, 1);
-            PlayerStats.SpendCoin((int)itemBuyPrice);
+            CurrencySystem.SpendCoin((int)itemBuyPrice);
             _shopSystem.GainGold((int)itemBuyPrice);
         };
         ClearSlots();
@@ -123,7 +123,7 @@ public class ShopKeeperDisplay : MonoBehaviour
                         slot.ClearSlot();
                     }
                     _shopSystem.PayGold((int)itemSellPrice);
-                    PlayerStats.GainCoin((int)itemSellPrice);
+                    CurrencySystem.GainCoin((int)itemSellPrice);
                     _playerInventoryHolder.PrimaryInventorySystem.OnInventorySlotChanged?.Invoke(slot);
                     break;
                 }             

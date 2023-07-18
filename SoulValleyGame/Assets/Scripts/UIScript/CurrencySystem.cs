@@ -2,17 +2,37 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
-
-public class CurrencySystem : MonoBehaviour
+using Photon.Pun;
+public class CurrencySystem : MonoBehaviour,IPunObservable
 {
-
-    public int soulCoin;
 
     public TextMeshProUGUI souldCoinValues;
 
+    public static int gold = 500;
+
+    public static void SpendCoin(int spendAmount)
+    {
+        gold -= spendAmount;
+    }
+
+    public static void GainCoin(int gainAmount)
+    {
+        gold += gainAmount;
+    }
+
     void Update()
     {
-        soulCoin = PlayerStats.gold;
-        souldCoinValues.SetText("Currency: " + soulCoin);
+        souldCoinValues.SetText("Currency: " + gold);
+    }
+
+    public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+    {
+        if(stream.IsWriting)
+        {
+            stream.SendNext(gold);
+        }
+        else{
+            gold = (int)stream.ReceiveNext();
+        }
     }
 }

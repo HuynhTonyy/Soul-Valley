@@ -38,7 +38,6 @@ public class TimeManager : MonoBehaviour, IPunObservable
     }
     public void Tick()
     {
-        Debug.Log("Tick");
         timeStamp.UpdateClock();
         foreach(ITimeTracker listener in listeners)
         {
