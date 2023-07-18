@@ -30,14 +30,15 @@ public class QuestManager : MonoBehaviour
         quest.state = state;
         GameEventManager.instance.questEvent.QuestStateChange(quest);
     }
-    Quest GetQuestByID(string id){
+    public Quest GetQuestByID(string id){
         return questMap[id];
     }
     void StartQuest(string id){
         Quest quest = GetQuestByID(id);
         quest.InstantiateCurrentQuestStep(this.transform);
         ChangeQuestState(id,QuestState.In_Progress);
-    }void AdvanceQuest(string id){
+    }
+    void AdvanceQuest(string id){
         Quest quest = GetQuestByID(id);
         quest.MoveToNextStep();
         if(quest.CurrentStepExists()) 

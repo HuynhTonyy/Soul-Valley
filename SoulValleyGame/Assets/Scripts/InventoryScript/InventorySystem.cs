@@ -34,6 +34,7 @@ public class InventorySystem
                 {
                     slot.AddToStack(amount);
                     OnInventorySlotChanged?.Invoke(slot);
+                    GameEventManager.instance.inventoryEvent.AddItem(item,amount);
                     return true;
                 }
             }  
@@ -44,6 +45,7 @@ public class InventorySystem
             {
                 freeSlot.UpdateInventorySlot(item, amount);
                 OnInventorySlotChanged?.Invoke(freeSlot);
+                GameEventManager.instance.inventoryEvent.AddItem(item,amount);
                 return true;
             }
         }

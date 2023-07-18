@@ -6,9 +6,11 @@ public class GameEventManager : MonoBehaviour
 {
     public static GameEventManager instance {get; private set;} 
     public QuestEvent questEvent;
+    public InventoryEvent inventoryEvent;
     void Awake()
     {
         instance = this;
         questEvent = new QuestEvent();
+        inventoryEvent = new InventoryEvent();
     }
 }
