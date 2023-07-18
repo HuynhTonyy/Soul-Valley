@@ -1,8 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
 
-public class TimeManager : MonoBehaviour
+public class TimeManager : MonoBehaviour, IPunObservable
 {
     public static TimeManager Instance { get; private set; }
     [Header("Internal clock")]
@@ -69,5 +70,14 @@ public class TimeManager : MonoBehaviour
     }
     void LoadTimeData(SaveData data){
         Instance.timeStamp = data.timeData;
+    }
+
+    public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+    {
+        if(stream.IsWriting){
+            stream.SendNext(timeStamp);
+        }else{
+            this.timeStamp = (GameTimeStamp) stream.ReceiveNext();
+        }
     }
 }
