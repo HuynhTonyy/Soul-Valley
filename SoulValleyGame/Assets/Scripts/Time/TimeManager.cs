@@ -75,9 +75,17 @@ public class TimeManager : MonoBehaviour, IPunObservable
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
     {
         if(stream.IsWriting){
-            stream.SendNext(timeStamp);
+            stream.SendNext(timeStamp.year);
+            stream.SendNext(timeStamp.season);
+            stream.SendNext(timeStamp.day);
+            stream.SendNext(timeStamp.hour);
+            stream.SendNext(timeStamp.minute);
         }else{
-            this.timeStamp = (GameTimeStamp) stream.ReceiveNext();
+            this.timeStamp.year = (int) stream.ReceiveNext();
+            this.timeStamp.season = (GameTimeStamp.Season) stream.ReceiveNext();
+            this.timeStamp.day = (int) stream.ReceiveNext();
+            this.timeStamp.hour = (int) stream.ReceiveNext();
+            this.timeStamp.minute = (int) stream.ReceiveNext();
         }
     }
 }
