@@ -29,10 +29,10 @@ public class CurrencySystem : MonoBehaviour,IPunObservable
     {
         if(stream.IsWriting)
         {
-            stream.SendNext(gold);
+            stream.SendNext(this.gold);
         }
         else{
-            gold = (int)stream.ReceiveNext();
+            this.gold = (int)stream.ReceiveNext();
         }
     }
 }
