@@ -2,14 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class LoadScene : MonoBehaviour, ITimeTracker
+public class LoadScene : MonoBehaviour
 {
-    private void Start() {
-        TimeManager.Instance.RegisterTracker(this);
-    }
-    public void ClockUpdate(GameTimeStamp timeStamp)
+    private void Start()
     {
-        TimeManager.Instance.UnregisterTracker(this);
+        StartCoroutine(TimeUpdate());
+    }
+    IEnumerator TimeUpdate()
+    {
+        yield return new WaitForSeconds(1/1);
         Destroy(gameObject);
     }
 }
