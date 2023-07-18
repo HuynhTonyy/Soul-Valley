@@ -8,14 +8,14 @@ public class CurrencySystem : MonoBehaviour,IPunObservable
 
     public TextMeshProUGUI souldCoinValues;
 
-    public static int gold = 500;
+    public int gold = 500;
 
-    public static void SpendCoin(int spendAmount)
+    public void SpendCoin(int spendAmount)
     {
         gold -= spendAmount;
     }
 
-    public static void GainCoin(int gainAmount)
+    public void GainCoin(int gainAmount)
     {
         gold += gainAmount;
     }

@@ -22,6 +22,7 @@ public class ShopKeeperDisplay : MonoBehaviour
     [SerializeField] private TextMeshProUGUI _itemSellPrice;
 
     [SerializeField] private GameObject _itemListContentPanel;
+    CurrencySystem currencySystem;
 
     public GameObject BuyTabDisplay;
     private ItemScript curSelectedItemData;
@@ -95,13 +96,13 @@ public class ShopKeeperDisplay : MonoBehaviour
 
     public void BuyItems()
     {
-        if (CurrencySystem.gold < (int)itemBuyPrice) return;
+        if (currencySystem.gold < (int)itemBuyPrice) return;
         //if (!_playerInventoryHolder.PrimaryInventorySystem.HasFreeSlot(out InventorySlot freeslot)) return;
 
         if (_shopSystem.PurchaseItem(curSelectedItemData, 1))
         {
             _playerInventoryHolder.PrimaryInventorySystem.AddToInventory(curSelectedItemData, 1);
-            CurrencySystem.SpendCoin((int)itemBuyPrice);
+            currencySystem.SpendCoin((int)itemBuyPrice);
             _shopSystem.GainGold((int)itemBuyPrice);
         };
         ClearSlots();
@@ -123,7 +124,7 @@ public class ShopKeeperDisplay : MonoBehaviour
                         slot.ClearSlot();
                     }
                     _shopSystem.PayGold((int)itemSellPrice);
-                    CurrencySystem.GainCoin((int)itemSellPrice);
+                    currencySystem.GainCoin((int)itemSellPrice);
                     _playerInventoryHolder.PrimaryInventorySystem.OnInventorySlotChanged?.Invoke(slot);
                     break;
                 }             
@@ -133,5 +134,7 @@ public class ShopKeeperDisplay : MonoBehaviour
         ClearSlots();
         DisplayShopInventory();
     }
-    
+    private void Start() {
+        currencySystem = GameObject.FindFirstObjectByType<CurrencySystem>();
+    }
 }
