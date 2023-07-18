@@ -29,8 +29,10 @@ public class QuestPoint : MonoBehaviour, IIntractable
         if(CheckQuestExists()){
             return;// refesh on the next day
         }
-        if(currentQuestState.Equals(QuestState.Can_Start) && startPoint)
+        if(currentQuestState.Equals(QuestState.Can_Start) && startPoint){
             GameEventManager.instance.questEvent.StartQuest(questDatas[questIndex].id);
+        }
+            
         else if(currentQuestState.Equals(QuestState.Can_Finish) && finishPoint){
             GameEventManager.instance.questEvent.FinishQuest(questDatas[questIndex].id);
             questIndex++;

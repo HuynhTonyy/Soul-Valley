@@ -6,6 +6,7 @@ public class QuestEvent
     public event Action<String> onAdvanceQuest;
     public event Action<String> onFinishQuest;
     public event Action<Quest> onQuestStateChange;
+    public event Action<ItemScript,int> onStartQuestStep;
     public void StartQuest(string id){
         if(onStartQuest != null){
             onStartQuest(id);
@@ -24,6 +25,11 @@ public class QuestEvent
     public void QuestStateChange(Quest quest){
         if(onQuestStateChange != null){
             onQuestStateChange(quest);
+        }
+    }
+    public void StartQuestStep(ItemScript item,int amount){
+        if(onStartQuestStep != null){
+            onStartQuestStep(item,amount);
         }
     }
 }

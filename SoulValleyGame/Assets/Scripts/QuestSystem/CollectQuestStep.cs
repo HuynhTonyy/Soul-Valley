@@ -12,14 +12,18 @@ public class CollectQuestStep : QuestStep
     private void OnDisable() {
         GameEventManager.instance.inventoryEvent.onAddItem -= Collected;
     }
-    void Collected(ItemScript itemData, int amount){
+    void Collected(ItemScript itemData, int amountCollect){
         if(this.itemData == itemData){
-            if(amount +  currentAmount >= amountRequire){
+            if(currentAmount + amountCollect >= amountRequire){
+                GameEventManager.instance.inventoryEvent.RemoveItem(itemData,amountRequire - currentAmount);
                 currentAmount = amountRequire;
+            }else{
+                currentAmount += amountCollect;
+                GameEventManager.instance.inventoryEvent.RemoveItem(itemData,amountCollect);
+            }
+            if(currentAmount == amountRequire){
                 FinishQuestStep();
             }
-            else 
-                currentAmount += amount;
         }
     }
 }

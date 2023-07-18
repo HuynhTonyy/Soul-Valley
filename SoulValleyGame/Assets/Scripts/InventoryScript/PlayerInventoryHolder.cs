@@ -65,6 +65,28 @@ public class PlayerInventoryHolder : InventoryHolder
         }
         return false;
     }
+    void RemoveFromInventory(ItemScript item, int amount)
+    {
+        foreach (InventorySlot inventorySlot in primaryInventorySystem.InventorySlots)
+        {
+            if(inventorySlot.ItemData == item){
+                if(inventorySlot.StackSize == amount){
+                    inventorySlot.ClearSlot();
+                    primaryInventorySystem.OnInventorySlotChanged?.Invoke(inventorySlot);
+                    break;
+                }else if(inventorySlot.StackSize > amount){
+                    inventorySlot.RemoveFromStack(amount);
+                    break;
+                }
+            }
+        }
+    }
 
-    
+    private void OnEnable() {
+        GameEventManager.instance.inventoryEvent.onRemoveItem += RemoveFromInventory;
+    }
+    private void OnDisable() {
+        GameEventManager.instance.inventoryEvent.onRemoveItem -= RemoveFromInventory;
+    }
+
 }
