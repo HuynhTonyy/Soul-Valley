@@ -814,7 +814,8 @@ namespace Photon.Pun
                     return true;
                 }
 
-                return NetworkingClient.CurrentRoom != null && NetworkingClient.CurrentRoom.MasterClientId == LocalPlayer.ActorNumber;  // TODO: implement MasterClient shortcut in LBC?
+                return NetworkingClient.CurrentRoom != null && NetworkingClient.CurrentRoom.MasterClientId == LocalPlayer.ActorNumber;  
+                // TODO: implement MasterClient shortcut in LBC?
             }
         }
 

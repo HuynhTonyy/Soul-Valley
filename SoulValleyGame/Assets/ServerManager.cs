@@ -7,10 +7,11 @@ using UnityEngine;
 public class ServerManager : MonoBehaviourPunCallbacks
 {
     private bool isMasterLeaving = false;
-
+    PhotonView view;
     private void Start()
     {
-        if (PhotonNetwork.IsMasterClient)
+        view = GetComponent<PhotonView>();
+        if (view.IsMine && PhotonNetwork.IsMasterClient)
         {
             // Nếu là Master Client, gán giá trị true cho custom property "IsMaster"
             ExitGames.Client.Photon.Hashtable hashTable = new ExitGames.Client.Photon.Hashtable();
@@ -24,7 +25,6 @@ public class ServerManager : MonoBehaviourPunCallbacks
         isMasterLeaving = PhotonNetwork.IsMasterClient;
         PhotonNetwork.LeaveRoom();
     }
-    
     public override void OnLeftRoom()
     {
         // Xử lý việc rời phòng
@@ -33,7 +33,6 @@ public class ServerManager : MonoBehaviourPunCallbacks
             // Nếu Master Client rời phòng, thì tất cả các người chơi khác cũng rời phòng
             foreach (var player in PhotonNetwork.PlayerListOthers)
             {
-                player.SetCustomProperties(new ExitGames.Client.Photon.Hashtable());
                 player.SetCustomProperties(null);
                 player.NickName = "Unknown Player"; // Đặt tên cho người chơi là "Unknown Player" sau khi rời phòng
                 PhotonNetwork.LeaveRoom();
@@ -43,10 +42,11 @@ public class ServerManager : MonoBehaviourPunCallbacks
         {
             // Nếu không phải Master Client rời phòng, chỉ cần đồng bộ hóa custom property của người chơi
             PhotonNetwork.LocalPlayer.SetCustomProperties(new ExitGames.Client.Photon.Hashtable());
+            Debug.Log("rời phòng");
         }
 
         // Thực hiện các tác vụ khác sau khi rời phòng (nếu cần)
-        Debug.Log("Bạn đã rời phòng");
+       
     }
 
     public override void OnPlayerPropertiesUpdate(Player targetPlayer, ExitGames.Client.Photon.Hashtable changedProps)

@@ -11,7 +11,6 @@ public class CreateAndJoinRoom : MonoBehaviourPunCallbacks
     public TMP_InputField createField,joinField;
     private bool isMasterLeaving = false;   
 
-  
     private void Awake()
     {
         PhotonNetwork.AutomaticallySyncScene = true;
