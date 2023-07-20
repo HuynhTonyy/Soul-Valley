@@ -7,12 +7,11 @@ using UnityEngine.SceneManagement;
 public class ConnectToServerScript : MonoBehaviourPunCallbacks
 {
     // TODO Create a Login Lobby Scence   
-
+    private bool isMasterLeaving = false;
     void Start()
     {
         PhotonNetwork.ConnectUsingSettings();
     }
-
     // Update is called once per frame
     public override void OnConnectedToMaster()
     {
@@ -22,4 +21,5 @@ public class ConnectToServerScript : MonoBehaviourPunCallbacks
         SceneManager.LoadScene("Lobby");
     }
     
+
 }
