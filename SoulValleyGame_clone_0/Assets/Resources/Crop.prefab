@@ -45,7 +45,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 630d8931f897edd4ea8dac3c09aaadeb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  seedToGrow: {fileID: 0}
   cropState: 0
   growth: 1
 --- !u!114 &6704538212392981004

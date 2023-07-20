@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
 
-public class FarmLand : MonoBehaviour, ITimeTracker, IPunObservable
+public class FarmLand : MonoBehaviourPunCallbacks, ITimeTracker, IPunObservable
 
 {
     public GameObject select;
@@ -35,9 +35,13 @@ public class FarmLand : MonoBehaviour, ITimeTracker, IPunObservable
     {
         if(cropPlanted == null && landState == LandState.Tilled && seed != null)
         {
-            GameObject cropObject = Instantiate(cropPrefab,transform);
+            GameObject cropObject = PhotonNetwork.Instantiate(cropPrefab.name,transform.position,Quaternion.identity);
+            cropObject.transform.SetParent(gameObject.transform);
             cropObject.transform.localPosition = new Vector3(0, 0.5f, 0);
             cropPlanted = cropObject.GetComponent<CropBehaviour>();
+            if(!PhotonNetwork.IsMasterClient){
+                photonView.RPC("SetParentForCropObject", RpcTarget.MasterClient, cropObject.GetComponent<PhotonView>().ViewID);
+            }
             cropPlanted.PLant(seed);
             return true;
         }
@@ -68,6 +72,13 @@ public class FarmLand : MonoBehaviour, ITimeTracker, IPunObservable
         {
             SwitchLandState(LandState.Watered);
             timeWatered = TimeManager.Instance.GetTimeStamp();
+            if (!PhotonNetwork.IsMasterClient)
+            {
+                // Ensure only non-master clients call this method
+                photonView.RPC("UpdateTimeWatered", RpcTarget.MasterClient,
+                            timeWatered.year, (int)timeWatered.season, timeWatered.day,
+                            timeWatered.hour, timeWatered.minute);
+            }
         }
 
     }
@@ -76,6 +87,11 @@ public class FarmLand : MonoBehaviour, ITimeTracker, IPunObservable
         if (landState == LandState.Dry && cropPlanted == null)
         {
             SwitchLandState(LandState.Tilled);
+            if (!PhotonNetwork.IsMasterClient)
+            {
+                // Ensure only non-master clients call this method
+                photonView.RPC("UpdateLandState", RpcTarget.MasterClient,landState);
+            }
         }
 
     }
@@ -112,7 +128,6 @@ public class FarmLand : MonoBehaviour, ITimeTracker, IPunObservable
         int growth = 1;
         CropBehaviour.CropState CropState = CropBehaviour.CropState.Seed;
         if(cropPlanted != null){
-            seed = cropPlanted.seedToGrow;
             growth = cropPlanted.growth;
             CropState = cropPlanted.cropState;
         }
@@ -143,24 +158,76 @@ public class FarmLand : MonoBehaviour, ITimeTracker, IPunObservable
         }
     }
 
+
+    // Method to update the timeWatered data
+    [PunRPC]
+    public void UpdateTimeWatered(int year, int season, int day, int hour, int minute)
+    {
+        timeWatered = new GameTimeStamp(year, (GameTimeStamp.Season)season, day, hour, minute);
+    }
+    [PunRPC]
+    public void UpdateLandState(LandState landState)
+    {
+        SwitchLandState(landState);
+    }
+    [PunRPC]
+    public void SetParentForCropObject(int ViewID)
+    {
+        // Set the parent for the instantiated GameObject on non-master clients
+        GameObject cropObject = PhotonView.Find(ViewID).gameObject;
+        cropObject.transform.SetParent(transform);
+        cropObject.transform.localPosition = new Vector3(0, 0.5f, 0);
+        cropPlanted = cropObject.GetComponent<CropBehaviour>();
+        
+    }
+
+
+
+
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
     {
         if (stream.IsWriting){
+            //Send the land state 
             stream.SendNext(landState);
+            //Send the time watered
+            if(timeWatered != null){
+                stream.SendNext(timeWatered.year);
+                stream.SendNext(timeWatered.season);
+                stream.SendNext(timeWatered.day);
+                stream.SendNext(timeWatered.hour);
+                stream.SendNext(timeWatered.minute);
+            }else{
+                stream.SendNext(0);
+                stream.SendNext((int)GameTimeStamp.Season.Spring);
+                stream.SendNext(0);
+                stream.SendNext(0);
+                stream.SendNext(0);
+            }
+            // stream.SendNext(cropPlanted);
         }
         else if(stream.IsReading)
         {
+            //Set the land state 
             switch((LandState)stream.ReceiveNext()){
                 case LandState.Dry:
-                    landState = LandState.Dry;
+                    SwitchLandState(LandState.Dry);
                     break;
                 case LandState.Tilled:
-                    landState = LandState.Tilled;
+                    SwitchLandState(LandState.Tilled);
                     break;
                 case LandState.Watered:
-                    landState = LandState.Watered;
+                    SwitchLandState(LandState.Watered);
                     break;
             }
+            //Set the time watered
+            timeWatered = new GameTimeStamp(
+                (int)stream.ReceiveNext(),
+                (GameTimeStamp.Season)stream.ReceiveNext(),
+                (int)stream.ReceiveNext(),
+                (int)stream.ReceiveNext(),
+                (int)stream.ReceiveNext());
+            
+            
         }
     }
 
