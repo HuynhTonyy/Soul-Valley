@@ -24,14 +24,14 @@ public class Interactor : MonoBehaviour
     private void Update()
     {
         if(view.IsMine){
-            if (Keyboard.current.kKey.wasPressedThisFrame){
+            if (Keyboard.current.kKey.wasPressedThisFrame && PhotonNetwork.IsMasterClient){
                 SaveLoad.Save(SaveGameManager.data);
             }
-            if (Keyboard.current.lKey.wasPressedThisFrame){
+            if (Keyboard.current.lKey.wasPressedThisFrame && PhotonNetwork.IsMasterClient){
                 SaveLoad.Load();
             }
             //Time skip
-            if (Keyboard.current.oKey.isPressed){
+            if (Keyboard.current.oKey.isPressed && PhotonNetwork.IsMasterClient){
                 TimeManager.Instance.Tick();
             }
             int selectedSlot = hotBar.selectedSlot;
