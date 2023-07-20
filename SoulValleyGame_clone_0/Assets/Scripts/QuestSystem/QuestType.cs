@@ -1,0 +1,6 @@
+
+
+public enum QuestType
+{
+    collect
+}
