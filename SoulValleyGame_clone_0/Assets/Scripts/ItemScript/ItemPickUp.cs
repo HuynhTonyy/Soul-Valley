@@ -67,7 +67,6 @@ public class ItemPickUp : MonoBehaviour
                 SaveGameManager.data.collectedItems.Add(id);
                 SaveGameManager.data.activeItems.Remove(id);
                 SaveLoad.OnLoadGame -= LoadGame;
-                view.TransferOwnership(other.gameObject.GetComponent<PhotonView>().Owner.ActorNumber);
                 view.RPC("DestroyItem", RpcTarget.AllBufferedViaServer);
             }
         }
@@ -120,7 +119,7 @@ public class ItemPickUp : MonoBehaviour
     [PunRPC]
     private void DestroyItem()
     {
-        PhotonNetwork.Destroy(gameObject);
+        Destroy(gameObject);
     }
 }
 

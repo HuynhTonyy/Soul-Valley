@@ -102,7 +102,6 @@ public class FarmLand : MonoBehaviourPunCallbacks, ITimeTracker
     }
     public void ClockUpdate(GameTimeStamp timeStamp)
     {
-        Debug.Log("ClockUpdate");
         if(landState == LandState.Watered)
         {
             cropPlanted.Grow();
