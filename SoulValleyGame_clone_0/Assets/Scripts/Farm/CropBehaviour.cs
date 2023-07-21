@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
-public class CropBehaviour : MonoBehaviourPunCallbacks, IPunObservable
+public class CropBehaviour : MonoBehaviourPunCallbacks
 {
     [Header("Stage of life")]
     private GameObject seed;
@@ -20,21 +20,12 @@ public class CropBehaviour : MonoBehaviourPunCallbacks, IPunObservable
         seed = PhotonNetwork.Instantiate(seedToGrow.seed.name,transform.position,Quaternion.identity);
         seedling = PhotonNetwork.Instantiate(seedToGrow.seedling.name,transform.position,Quaternion.identity);
         harvestable = PhotonNetwork.Instantiate(seedToGrow.harvestable.name,transform.position,Quaternion.identity);
-        seed.transform.SetParent(transform);
-        seedling.transform.SetParent(transform);
-        harvestable.transform.SetParent(transform);
-        maxGrowth = GameTimeStamp.HoursToMinutes(GameTimeStamp.DaysToHours(seedToGrow.DayToGrow));
-        SwitchCropState(CropState.Seed);
-        if(!PhotonNetwork.IsMasterClient){
-            photonView.RPC("SetParentForObject", RpcTarget.MasterClient, 
-            seed.GetPhotonView().ViewID,
-            seedling.GetPhotonView().ViewID,
-            harvestable.GetPhotonView().ViewID,
-            maxGrowth,
-            (int)cropState);
-        
-        }
-        
+        photonView.RPC("SetParentForObject", RpcTarget.AllBufferedViaServer, 
+                seed.GetComponent<PhotonView>().ViewID,
+                seedling.GetComponent<PhotonView>().ViewID,
+                harvestable.GetComponent<PhotonView>().ViewID,
+                GameTimeStamp.HoursToMinutes(GameTimeStamp.DaysToHours(seedToGrow.DayToGrow)));
+        photonView.RPC("UpdateCropState", RpcTarget.AllBufferedViaServer, CropState.Seed);
     }
 
     public void Grow()
@@ -42,10 +33,10 @@ public class CropBehaviour : MonoBehaviourPunCallbacks, IPunObservable
         growth++;
         if(growth >= maxGrowth / 2 && cropState == CropState.Seed)
         {
-            SwitchCropState(CropState.Seedling);
+            photonView.RPC("UpdateCropState", RpcTarget.AllBufferedViaServer, CropState.Seedling);
         }else if(growth >= maxGrowth && cropState == CropState.Seedling)
         {
-            SwitchCropState(CropState.Harvestable);
+            photonView.RPC("UpdateCropState", RpcTarget.AllBufferedViaServer, CropState.Harvestable);
         }
     }
     public void SwitchCropState(CropState stateToSwitch)
@@ -66,22 +57,9 @@ public class CropBehaviour : MonoBehaviourPunCallbacks, IPunObservable
                 harvestable.SetActive(true);
                 break;
         }
-        cropState = stateToSwitch;
-
-    }
-
-    public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
-    {
-        // if(stream.IsWriting){
-        //     stream.SendNext(maxGrowth);
-        //     stream.SendNext(cropState);
-        // }else{
-        //     maxGrowth = (int) stream.ReceiveNext();
-        //     SwitchCropState((CropState)stream.ReceiveNext());
-        // }
     }
     [PunRPC]
-    public void SetParentForObject(int seedViewID,int seedlingViewID,int harvestableViewID, int maxGrowth, int cropState)
+    public void SetParentForObject(int seedViewID,int seedlingViewID,int harvestableViewID, int maxGrowth)
     {
         // Set the parent for the instantiated GameObject on non-master clients
         seed = PhotonView.Find(seedViewID).gameObject;
@@ -90,8 +68,15 @@ public class CropBehaviour : MonoBehaviourPunCallbacks, IPunObservable
         seed.transform.SetParent(transform);
         seedling.transform.SetParent(transform);
         harvestable.transform.SetParent(transform);
-        this.maxGrowth = maxGrowth;
-        SwitchCropState((CropState)cropState);
-        
+        seed.transform.localPosition = new Vector3(0, 0, 0);
+        seedling.transform.localPosition = new Vector3(0, 0, 0);
+        harvestable.transform.localPosition = new Vector3(0, 0, 0);
+        // this.maxGrowth = maxGrowth;
+        this.maxGrowth = 16;
+    }
+    [PunRPC]
+    public void UpdateCropState(CropState cropState)
+    {
+        SwitchCropState(cropState);
     }
 }

@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c12c8eabc27d966459cd06b42ef3d23f, type: 3}
+  m_Name: Blue_Soul
+  m_EditorClassIdentifier: 
+  Id: 0
+  DisplayName: 
+  MaxStackSize: 10
+  icon: {fileID: 21300000, guid: b76f57e85ab701c46b3940658b45f53e, type: 3}
+  ItemPreFab: {fileID: 4657629630689755781, guid: e5ae47cfb55f0e846b6b0e313cc7c32e, type: 3}
+  DayToGrow: 0
+  seedling: {fileID: 8333869302400229472, guid: 5bd155a55131e74429ab14965c294c85, type: 3}
+  seed: {fileID: 0}
+  seedHover: {fileID: 0}
+  CropToYeild: {fileID: 0}
