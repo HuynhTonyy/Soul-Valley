@@ -5,8 +5,9 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
+using Photon.Pun;
 
-public class ShopKeeperDisplay : MonoBehaviour
+public class ShopKeeperDisplay : MonoBehaviourPunCallbacks
 {
     [SerializeField] private ShopSlotUI _shopSlotPrefab;
 
@@ -32,7 +33,6 @@ public class ShopKeeperDisplay : MonoBehaviour
     private ShopSystem _shopSystem;
     private PlayerInventoryHolder _playerInventoryHolder;
     private InventorySystem _invSystem;
-
     public UnityAction OnPlayerInventoryChanged;
 
 
@@ -94,6 +94,7 @@ public class ShopKeeperDisplay : MonoBehaviour
         itemSellPrice = sellPrice;
     }
 
+
     public void BuyItems()
     {
         if (currencySystem.gold < (int)itemBuyPrice) return;
@@ -103,10 +104,24 @@ public class ShopKeeperDisplay : MonoBehaviour
         {
             _playerInventoryHolder.PrimaryInventorySystem.AddToInventory(curSelectedItemData, 1);
             currencySystem.SpendCoin((int)itemBuyPrice);
-            _shopSystem.GainGold((int)itemBuyPrice);
+            photonView.RPC("UpdateOnPlayerBuy", RpcTarget.AllBufferedViaServer,(int)itemBuyPrice,curSelectedItemData);
+
         };
         ClearSlots();
         DisplayShopInventory();
+    }
+
+    [PunRPC]
+    public void UpdateOnPlayerBuy(int gold, ItemScript item)
+    {
+        _shopSystem.GainGold(gold);
+        _shopSystem.PurchaseItem(item, 1);
+    }
+    [PunRPC]
+    public void UpdateOnPlayerSell(int gold, ItemScript item)
+    {
+        _shopSystem.PayGold(gold);
+        _shopSystem.SellItem(item, 1);
     }
 
     public void SellItems()
@@ -123,8 +138,7 @@ public class ShopKeeperDisplay : MonoBehaviour
                     {
                         slot.ClearSlot();
                     }
-                    _shopSystem.PayGold((int)itemSellPrice);
-                    currencySystem.GainCoin((int)itemSellPrice);
+                    photonView.RPC("UpdateOnPlayerSell", RpcTarget.AllBufferedViaServer,(int)itemBuyPrice,curSelectedItemData);
                     _playerInventoryHolder.PrimaryInventorySystem.OnInventorySlotChanged?.Invoke(slot);
                     break;
                 }             
@@ -137,4 +151,6 @@ public class ShopKeeperDisplay : MonoBehaviour
     private void Start() {
         currencySystem = GameObject.FindFirstObjectByType<CurrencySystem>();
     }
+
+    
 }

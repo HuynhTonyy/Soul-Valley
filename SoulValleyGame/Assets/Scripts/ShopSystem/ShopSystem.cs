@@ -88,6 +88,7 @@ public class ShopSystem
         slot.RemoveFromStack(1);
         return true;
     }
+    
 
     public bool SellItem(ItemScript data, int amount)
     {

@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
 
+
 [RequireComponent(typeof(UniqueID))]
 
 public class ShopKeeper : MonoBehaviour, IIntractable
@@ -12,7 +13,6 @@ public class ShopKeeper : MonoBehaviour, IIntractable
     [SerializeField] private ShopSystem _shopSystem;
 
     private PlayerInventoryHolder playerInv;
-
 
     public static UnityAction<ShopSystem, PlayerInventoryHolder> OnShopWindowRequested;
     public void Interact(Interactor interactor)
@@ -36,5 +36,7 @@ public class ShopKeeper : MonoBehaviour, IIntractable
         }
 
     }
+    
 
 }
+
