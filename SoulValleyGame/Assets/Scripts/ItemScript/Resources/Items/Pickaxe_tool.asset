@@ -12,8 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a30545f24b025247a4363717c05ce8e, type: 3}
   m_Name: Pickaxe_tool
   m_EditorClassIdentifier: 
-  Id: 0
+  <Id>k__BackingField: Pickaxe_tool
   DisplayName: Pick Axe
-  Description: 
   MaxStackSize: 1
+  Value: 0
+  Description: 
   icon: {fileID: 21300000, guid: 9613a0a392101064cb93d4a01fef704a, type: 3}
+  ItemPreFab: {fileID: 0}

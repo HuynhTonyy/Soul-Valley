@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 812de23d1f143a24b88ea70ee21ce480, type: 3}
   m_Name: Small_Chest_Placeable
   m_EditorClassIdentifier: 
-  Id: 0
+  <Id>k__BackingField: Small_Chest_Placeable
   DisplayName: Small chest
   MaxStackSize: 1
   Value: 0

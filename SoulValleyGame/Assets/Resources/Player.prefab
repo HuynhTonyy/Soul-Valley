@@ -884,6 +884,7 @@ GameObject:
   m_Component:
   - component: {fileID: 696120407547412144}
   - component: {fileID: 696120407547412147}
+  - component: {fileID: 2210804296139849371}
   m_Layer: 5
   m_Name: ShopUIController
   m_TagString: Untagged
@@ -935,6 +936,28 @@ MonoBehaviour:
   _itemSellPrice: {fileID: 696120408729919273}
   _itemListContentPanel: {fileID: 696120409120151505}
   BuyTabDisplay: {fileID: 696120408541389673}
+--- !u!114 &2210804296139849371
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 696120407547412145}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 0
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!1 &696120407730335743
 GameObject:
   m_ObjectHideFlags: 0

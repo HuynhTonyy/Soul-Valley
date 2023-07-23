@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c12c8eabc27d966459cd06b42ef3d23f, type: 3}
   m_Name: Mushroom Seed
   m_EditorClassIdentifier: 
-  Id: 0
+  <Id>k__BackingField: Mushroom Seed
   DisplayName: Mushroom  seed
   MaxStackSize: 4
   Value: 50

@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d3320f7a7af246c4281b8f10406b9e77, type: 3}
   m_Name: Hammer
   m_EditorClassIdentifier: 
-  Id: 0
+  <Id>k__BackingField: Hammer
   DisplayName: Hammer
   MaxStackSize: 1
   Value: 50

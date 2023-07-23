@@ -104,24 +104,39 @@ public class ShopKeeperDisplay : MonoBehaviourPunCallbacks
         {
             _playerInventoryHolder.PrimaryInventorySystem.AddToInventory(curSelectedItemData, 1);
             currencySystem.SpendCoin((int)itemBuyPrice);
-            photonView.RPC("UpdateOnPlayerBuy", RpcTarget.AllBufferedViaServer,(int)itemBuyPrice,curSelectedItemData);
-
+            _shopSystem.GainGold((int)itemBuyPrice);
+            photonView.RPC("UpdateOnPlayerBuy", RpcTarget.OthersBuffered,(int)itemBuyPrice,curSelectedItemData.Id);
         };
         ClearSlots();
         DisplayShopInventory();
     }
 
     [PunRPC]
-    public void UpdateOnPlayerBuy(int gold, ItemScript item)
+    public void UpdateOnPlayerBuy(int gold, string itemID)
     {
         _shopSystem.GainGold(gold);
-        _shopSystem.PurchaseItem(item, 1);
+        foreach(var item in _shopSystem.ShopInventory)
+        {
+            if (item.ItemData.Id == itemID)
+            {
+                _shopSystem.PurchaseItem(item.ItemData, 1);
+                break;
+            }
+        }
+        
     }
     [PunRPC]
-    public void UpdateOnPlayerSell(int gold, ItemScript item)
+    public void UpdateOnPlayerSell(int gold, string itemID)
     {
         _shopSystem.PayGold(gold);
-        _shopSystem.SellItem(item, 1);
+        foreach(var item in _shopSystem.ShopInventory)
+        {
+            if (item.ItemData.Id == itemID)
+            {
+                _shopSystem.SellItem(item.ItemData, 1);
+                break;
+            }
+        }
     }
 
     public void SellItems()
@@ -138,7 +153,9 @@ public class ShopKeeperDisplay : MonoBehaviourPunCallbacks
                     {
                         slot.ClearSlot();
                     }
-                    photonView.RPC("UpdateOnPlayerSell", RpcTarget.AllBufferedViaServer,(int)itemBuyPrice,curSelectedItemData);
+                    _shopSystem.PayGold((int)itemSellPrice);
+                    currencySystem.GainCoin((int)itemSellPrice);
+                    photonView.RPC("UpdateOnPlayerSell", RpcTarget.OthersBuffered,(int)itemSellPrice,curSelectedItemData.Id);
                     _playerInventoryHolder.PrimaryInventorySystem.OnInventorySlotChanged?.Invoke(slot);
                     break;
                 }             
