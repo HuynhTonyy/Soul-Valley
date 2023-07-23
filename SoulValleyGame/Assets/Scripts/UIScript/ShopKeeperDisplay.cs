@@ -99,46 +99,14 @@ public class ShopKeeperDisplay : MonoBehaviourPunCallbacks
     {
         if (currencySystem.gold < (int)itemBuyPrice) return;
         //if (!_playerInventoryHolder.PrimaryInventorySystem.HasFreeSlot(out InventorySlot freeslot)) return;
-
-        if (_shopSystem.PurchaseItem(curSelectedItemData, 1))
+        ShopSlot slot = _shopSystem.PurchaseItem(curSelectedItemData, 1);
+        if (slot != null)
         {
             _playerInventoryHolder.PrimaryInventorySystem.AddToInventory(curSelectedItemData, 1);
             currencySystem.SpendCoin((int)itemBuyPrice);
-            _shopSystem.GainGold((int)itemBuyPrice);
-            photonView.RPC("UpdateOnPlayerBuy", RpcTarget.OthersBuffered,(int)itemBuyPrice,curSelectedItemData.Id);
+            photonView.RPC("UpdateOnPlayerBuy", RpcTarget.AllBufferedViaServer,(int)itemBuyPrice,curSelectedItemData.Id,_shopSystem.GetIndexSlot(slot));
         };
-        ClearSlots();
-        DisplayShopInventory();
     }
-
-    [PunRPC]
-    public void UpdateOnPlayerBuy(int gold, string itemID)
-    {
-        _shopSystem.GainGold(gold);
-        foreach(var item in _shopSystem.ShopInventory)
-        {
-            if (item.ItemData.Id == itemID)
-            {
-                _shopSystem.PurchaseItem(item.ItemData, 1);
-                break;
-            }
-        }
-        
-    }
-    [PunRPC]
-    public void UpdateOnPlayerSell(int gold, string itemID)
-    {
-        _shopSystem.PayGold(gold);
-        foreach(var item in _shopSystem.ShopInventory)
-        {
-            if (item.ItemData.Id == itemID)
-            {
-                _shopSystem.SellItem(item.ItemData, 1);
-                break;
-            }
-        }
-    }
-
     public void SellItems()
     {
         if (_shopSystem.AvailableGold < (int)itemSellPrice) return;
@@ -165,6 +133,44 @@ public class ShopKeeperDisplay : MonoBehaviourPunCallbacks
         ClearSlots();
         DisplayShopInventory();
     }
+    
+    [PunRPC]
+    public void UpdateOnPlayerBuy(int gold, string itemID,int indexSlot)
+    {
+        _shopSystem.GainGold(gold);
+        ShopSlot slot = _shopSystem.ShopInventory[indexSlot];
+        slot.RemoveFromStack(1);
+        ClearSlots();
+        DisplayShopInventory();
+        // foreach(var item in _shopSystem.ShopInventory)
+        // {
+        //     if (item.ItemData.Id == itemID)
+        //     {
+        //         Debug.Log("hehe");
+        //         _shopSystem.PurchaseItem(item.ItemData, 1);
+        //         ClearSlots();
+        //         DisplayShopInventory();
+        //         break;
+        //     }
+        // }    
+    }
+    
+    [PunRPC]
+    public void UpdateOnPlayerSell(int gold, string itemID)
+    {
+        _shopSystem.PayGold(gold);
+        foreach(var item in _shopSystem.ShopInventory)
+        {
+            if (item.ItemData.Id == itemID)
+            {
+                _shopSystem.SellItem(item.ItemData, 1);
+                ClearSlots();
+                DisplayShopInventory();
+                break;
+            }
+        }
+    }
+    
     private void Start() {
         currencySystem = GameObject.FindFirstObjectByType<CurrencySystem>();
     }

@@ -79,14 +79,18 @@ public class ShopSystem
         return shopSlot != null;
     }
 
-    public bool PurchaseItem(ItemScript data, int amount)
+    public int GetIndexSlot(ShopSlot slot)
+    {
+        return _shopInventory.IndexOf(slot);
+    }
+
+    public ShopSlot PurchaseItem(ItemScript data, int amount)
     {
         if (!ContainsItem(data, out ShopSlot slot)|| slot.StackSize <= 0) 
         {
-            return false;
+            return null;
         }
-        slot.RemoveFromStack(1);
-        return true;
+        return slot;
     }
     
 
@@ -107,4 +111,5 @@ public class ShopSystem
     {
         _availableGold -= payAmount;
     }
+    
 }
