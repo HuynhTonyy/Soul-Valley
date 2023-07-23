@@ -131,6 +131,7 @@ public class ShopKeeperDisplay : MonoBehaviourPunCallbacks
                     ClearSlots();
                     DisplayShopInventory();
                     ShopKeeper.OnShopChanged?.Invoke(_shopSystem.GetIndexSlot(s),s.StackSize,(int)_shopSystem.AvailableGold);
+                    _playerInventoryHolder.PrimaryInventorySystem.OnInventorySlotChanged?.Invoke(slot);
                     break;
                 }             
             }       
