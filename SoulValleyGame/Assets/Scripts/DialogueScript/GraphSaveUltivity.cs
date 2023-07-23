@@ -12,6 +12,9 @@ public class GraphSaveUtility {
     private DialogueContainer _containerCache;
     private List<UnityEditor.Experimental.GraphView.Edge> Edges => _targetGraphView.edges.ToList();
     private List<DialogueGraphNode> Nodes => _targetGraphView.nodes.ToList().Cast<DialogueGraphNode>().ToList();
+
+    public object ExposedProperties { get; private set; }
+
     public static GraphSaveUtility GetInstance(DialogueGraphView targetGraphView)
     {
         return new GraphSaveUtility
@@ -22,9 +25,27 @@ public class GraphSaveUtility {
 
     public void SaveGraph(string fileName)
     {
-        if (!Edges.Any()) return; //if there are no edges(no connections) then return
-
         var dialogueContainer = ScriptableObject.CreateInstance<DialogueContainer>();
+        if (!SaveNodes(dialogueContainer)) return;
+        SaveExposedProperties(dialogueContainer);
+        //Auto create resources folder if not exist
+        if (!AssetDatabase.IsValidFolder("Assets/Scripts/DialogueScript/Resources"))
+            AssetDatabase.CreateFolder("Assets/Scripts/DialogueScript", "check Resources");
+        Debug.Log("save ok");
+        AssetDatabase.CreateAsset(dialogueContainer, $"Assets/Scripts/DialogueScript/Resources/{fileName}.asset");
+        AssetDatabase.SaveAssets();
+    }
+
+    private void SaveExposedProperties(DialogueContainer dialogueContainer)
+    {
+        dialogueContainer.ExposedPropertises.AddRange(_targetGraphView.ExposedPropertises);   
+    }
+
+    private bool SaveNodes(DialogueContainer dialogueContainer)
+    {
+
+        if (!Edges.Any()) return false; //if there are no edges(no connections) then return
+
 
         var connectedPorts = Edges.Where(x => x.input.node != null).ToArray();
         for (var i = 0; i < connectedPorts.Length; i++)
@@ -42,18 +63,14 @@ public class GraphSaveUtility {
 
         foreach (var dialogueNode in Nodes.Where(node => !node.EntryPoint))
         {
-            dialogueContainer.DialogueNodeDatas.Add(new DialogueNodeData {
+            dialogueContainer.DialogueNodeDatas.Add(new DialogueNodeData
+            {
                 Guid = dialogueNode.GUID,
                 DialogueText = dialogueNode.DialogueText,
                 Position = dialogueNode.GetPosition().position
             });
         }
-
-        if (!AssetDatabase.IsValidFolder("Assets/Scripts/DialogueScript/Resources"))
-            AssetDatabase.CreateFolder("Assets/Scripts/DialogueScript", "check Resources");
-        Debug.Log("save ok");
-        AssetDatabase.CreateAsset(dialogueContainer, $"Assets/Scripts/DialogueScript/Resources/{fileName}.asset");
-        AssetDatabase.SaveAssets();
+        return true;
     }
 
     public void LoadGraph(string fileName)
@@ -65,11 +82,22 @@ public class GraphSaveUtility {
             EditorUtility.DisplayDialog("File not Found", "Target dialogue graph file does not exist", "OK");
             return;
         }
-
-
+        
         ClearGraph();
         CreateNodes();
         ConnectNodes();
+        CreateExposedProperties();
+    }
+
+    private void CreateExposedProperties()
+    {
+        //Clear existing properties on hot-reload
+        _targetGraphView.ClearBlackBoardAndExposeProperties();
+        //Add properties from data
+        foreach (var exposedProperty in _containerCache.ExposedPropertises){
+            _targetGraphView.AddPropertyToBlackboard(exposedProperty);
+
+        }
     }
 
     private void ConnectNodes()
@@ -108,7 +136,8 @@ public class GraphSaveUtility {
     {
            foreach(var nodeData in _containerCache.DialogueNodeDatas)
         {
-            var tempNode = _targetGraphView.CreateDialogueNode(nodeData.DialogueText);
+            // We pass position later on, so we can just use vec2 zero for now as position while loading nodes
+            var tempNode = _targetGraphView.CreateDialogueNode(nodeData.DialogueText, Vector2.zero);
             tempNode.GUID = nodeData.Guid;
             _targetGraphView.AddElement(tempNode);
 

@@ -13,16 +13,25 @@ MonoBehaviour:
   m_Name: New Narrative
   m_EditorClassIdentifier: 
   NodeLinks:
-  - BaseNodeGuid: b8e20eea-83cc-495a-b30c-2e43b8ed3e08
+  - BaseNodeGuid: 2927a668-558a-46b1-9c19-ac910578e2bb
     PortName: Next
-    TargetNodeGuid: ed295a23-2ca6-45b8-896e-4298fbe44b88
-  - BaseNodeGuid: ed295a23-2ca6-45b8-896e-4298fbe44b88
-    PortName: Choice 1
-    TargetNodeGuid: 04b19be1-0d6e-4f4b-a171-44624a9b47f2
+    TargetNodeGuid: c3a5bbaf-71e6-4189-9ed1-759c6bd07095
+  - BaseNodeGuid: c3a5bbaf-71e6-4189-9ed1-759c6bd07095
+    PortName: ok
+    TargetNodeGuid: e41eb44c-d539-4e76-b580-b26234ea0625
+  - BaseNodeGuid: c3a5bbaf-71e6-4189-9ed1-759c6bd07095
+    PortName: soul
+    TargetNodeGuid: 32308856-71c1-452e-97f8-88ed2cb58465
   DialogueNodeDatas:
-  - Guid: ed295a23-2ca6-45b8-896e-4298fbe44b88
-    DialogueText: Dialogue Node
-    Position: {x: 255, y: 140}
-  - Guid: 04b19be1-0d6e-4f4b-a171-44624a9b47f2
-    DialogueText: Dialogue Node
-    Position: {x: 578, y: 86}
+  - Guid: e41eb44c-d539-4e76-b580-b26234ea0625
+    DialogueText: ok!!
+    Position: {x: 523, y: 116}
+  - Guid: 32308856-71c1-452e-97f8-88ed2cb58465
+    DialogueText: Are you serious!!
+    Position: {x: 523, y: 276}
+  - Guid: c3a5bbaf-71e6-4189-9ed1-759c6bd07095
+    DialogueText: which one??
+    Position: {x: 258, y: 200}
+  ExposedPropertises:
+  - PropertyName: Username
+    PropertyValue: Daisy
