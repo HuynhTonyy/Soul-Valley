@@ -79,6 +79,7 @@ public class ShopKeeperDisplay : MonoBehaviourPunCallbacks
     }
     private void loadShop(int arg0, int arg1, int arg2)
     {
+        Debug.Log("heh");
         photonView.RPC("UpdateShop", RpcTarget.AllBufferedViaServer);
     }
     private void OnEnable()
@@ -149,12 +150,9 @@ public class ShopKeeperDisplay : MonoBehaviourPunCallbacks
                 }             
             }       
         }
-        
         ClearSlots();
         DisplayShopInventory();
     }
-    
-
     
     private void Start() {
         currencySystem = GameObject.FindFirstObjectByType<CurrencySystem>();
@@ -163,6 +161,7 @@ public class ShopKeeperDisplay : MonoBehaviourPunCallbacks
     [PunRPC]
     public void UpdateShop()
     {
+        Debug.Log("mmmm");
         ClearSlots();
         DisplayShopInventory();
     }
