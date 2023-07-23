@@ -51,6 +51,8 @@ MonoBehaviour:
   - UpdateShop
   - UpdateOnPlayerBuy
   - UpdateOnPlayerSell
+  - AddGold
+  - RemoveGold
   DisableAutoOpenWizard: 1
   ShowSettings: 0
   DevRegionSetOnce: 1
