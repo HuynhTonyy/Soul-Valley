@@ -17,6 +17,11 @@ public class ItemSlot : ISerializationCallbackReceiver
         stackSize = -1;
     }
 
+
+    public void setStackSize(int stackSize)
+    {
+        this.stackSize = stackSize;
+    }
     public void AssignItem(InventorySlot invSlot) // assign Item to slot
     {
         if (itemData == invSlot.ItemData) AddToStack(invSlot.StackSize);// check the same item or not

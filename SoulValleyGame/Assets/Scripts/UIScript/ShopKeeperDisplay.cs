@@ -6,6 +6,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
 using Photon.Pun;
+using System;
 
 public class ShopKeeperDisplay : MonoBehaviourPunCallbacks
 {
@@ -93,20 +94,22 @@ public class ShopKeeperDisplay : MonoBehaviourPunCallbacks
         itemBuyPrice = buyPrice;
         itemSellPrice = sellPrice;
     }
-
-
+   
     public void BuyItems()
     {
         if (currencySystem.gold < (int)itemBuyPrice) return;
         //if (!_playerInventoryHolder.PrimaryInventorySystem.HasFreeSlot(out InventorySlot freeslot)) return;
-        ShopSlot slot = _shopSystem.PurchaseItem(curSelectedItemData, 1);
-        if (slot != null)
+        ShopSlot slot = _shopSystem.GetSlotByItemScript(curSelectedItemData);
+        if (_shopSystem.PurchaseItem(curSelectedItemData, 1))
         {
             _playerInventoryHolder.PrimaryInventorySystem.AddToInventory(curSelectedItemData, 1);
+            slot.RemoveFromStack(1);
             currencySystem.SpendCoin((int)itemBuyPrice);
-            photonView.RPC("UpdateOnPlayerBuy", RpcTarget.AllBufferedViaServer,(int)itemBuyPrice,_shopSystem.GetIndexSlot(slot)); 
+            _shopSystem.GainGold((int)itemBuyPrice);
+            ClearSlots();
+            DisplayShopInventory();
+            ShopKeeper.OnShopChanged?.Invoke(_shopSystem.GetIndexSlot(slot),slot.StackSize,(int)_shopSystem.AvailableGold);
         }
-        Debug.Log("Exit");
     }
     public void SellItems()
     {
@@ -117,15 +120,17 @@ public class ShopKeeperDisplay : MonoBehaviourPunCallbacks
             {
                 if (_shopSystem.SellItem(curSelectedItemData, 1))
                 {
+                    ShopSlot s = _shopSystem.GetSlotByItemScript(curSelectedItemData);
                     slot.RemoveFromStack(1);
                     if(slot.StackSize <= 0)
                     {
                         slot.ClearSlot();
                     }
-                    _shopSystem.PayGold((int)itemSellPrice);
                     currencySystem.GainCoin((int)itemSellPrice);
-                    photonView.RPC("UpdateOnPlayerSell", RpcTarget.OthersBuffered,(int)itemSellPrice,curSelectedItemData.Id);
-                    _playerInventoryHolder.PrimaryInventorySystem.OnInventorySlotChanged?.Invoke(slot);
+                    _shopSystem.PayGold((int)itemSellPrice);
+                    ClearSlots();
+                    DisplayShopInventory();
+                    ShopKeeper.OnShopChanged?.Invoke(_shopSystem.GetIndexSlot(s),s.StackSize,(int)_shopSystem.AvailableGold);
                     break;
                 }             
             }       
@@ -135,43 +140,7 @@ public class ShopKeeperDisplay : MonoBehaviourPunCallbacks
         DisplayShopInventory();
     }
     
-    [PunRPC]
-    public void UpdateOnPlayerBuy(int gold, int indexSlot)
-    {
-        _shopSystem.GainGold(gold);
-        ShopSlot slot = _shopSystem.ShopInventory[indexSlot];
-        slot.RemoveFromStack(1);
-        ClearSlots();
-        DisplayShopInventory();
-        Debug.Log("In");
-        // foreach(var item in _shopSystem.ShopInventory)
-        // {
-        //     if (item.ItemData.Id == itemID)
-        //     {
-        //         Debug.Log("hehe");
-        //         _shopSystem.PurchaseItem(item.ItemData, 1);
-        //         ClearSlots();
-        //         DisplayShopInventory();
-        //         break;
-        //     }
-        // }    
-    }
-    
-    [PunRPC]
-    public void UpdateOnPlayerSell(int gold, string itemID)
-    {
-        _shopSystem.PayGold(gold);
-        foreach(var item in _shopSystem.ShopInventory)
-        {
-            if (item.ItemData.Id == itemID)
-            {
-                _shopSystem.SellItem(item.ItemData, 1);
-                ClearSlots();
-                DisplayShopInventory();
-                break;
-            }
-        }
-    }
+
     
     private void Start() {
         currencySystem = GameObject.FindFirstObjectByType<CurrencySystem>();

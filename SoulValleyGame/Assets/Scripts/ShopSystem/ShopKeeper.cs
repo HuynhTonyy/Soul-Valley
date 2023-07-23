@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
-
+using Photon.Pun;
 
 [RequireComponent(typeof(UniqueID))]
 
-public class ShopKeeper : MonoBehaviour, IIntractable
+public class ShopKeeper : MonoBehaviourPunCallbacks, IIntractable
 {
     [SerializeField] private ShopItemList _shopItemsHeld;
     [SerializeField] private ShopSystem _shopSystem;
@@ -15,6 +15,7 @@ public class ShopKeeper : MonoBehaviour, IIntractable
     private PlayerInventoryHolder playerInv;
 
     public static UnityAction<ShopSystem, PlayerInventoryHolder> OnShopWindowRequested;
+    public static UnityAction<int,int,int> OnShopChanged;
     public void Interact(Interactor interactor)
     {
         playerInv = interactor.GetComponent<PlayerInventoryHolder>();
@@ -23,6 +24,17 @@ public class ShopKeeper : MonoBehaviour, IIntractable
         {
             OnShopWindowRequested?.Invoke(_shopSystem, playerInv);
         }
+    }
+    
+
+    private void OnEnable()
+    {
+        ShopKeeper.OnShopChanged += ShopChanged;
+    }
+
+    private void OnDisable()
+    {
+        ShopKeeper.OnShopChanged -= ShopChanged;
     }
     
     private void Awake()
@@ -36,6 +48,19 @@ public class ShopKeeper : MonoBehaviour, IIntractable
         }
 
     }
+    private void ShopChanged(int index,int amount,int gold)
+    {
+        photonView.RPC("UpdateShop", RpcTarget.AllBufferedViaServer,index,amount,gold);
+    }
+
+    [PunRPC]
+    public void UpdateShop(int index,int amount,int gold )
+    {
+       _shopSystem.ShopInventory[index].setStackSize(amount);
+       _shopSystem.setGold(gold);
+
+    }
+
     
 
 }

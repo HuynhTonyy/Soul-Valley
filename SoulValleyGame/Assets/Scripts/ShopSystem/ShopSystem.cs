@@ -18,6 +18,11 @@ public class ShopSystem
     public float SellMarkUp => _sellMarkUp;
 
     public float AvailableGold => _availableGold;
+
+    public void setGold(int gold)
+    {
+        this._availableGold=gold;
+    }
     public ShopSystem(int size, int gold, float buyMarkUp, float sellMarkUp)
     {
         _availableGold = gold;
@@ -84,16 +89,26 @@ public class ShopSystem
         return _shopInventory.IndexOf(slot);
     }
 
-    public ShopSlot PurchaseItem(ItemScript data, int amount)
+    public bool PurchaseItem(ItemScript data, int amount)
     {
         if (!ContainsItem(data, out ShopSlot slot)|| slot.StackSize <= 0) 
         {
-            return null;
+            return false;
         }
-        return slot;
+        return true;
+    }
+    public ShopSlot GetSlotByItemScript(ItemScript item)
+    {
+        foreach (var slot in ShopInventory)
+        {
+            if(slot.ItemData.Id==item.Id)
+            {
+                return slot;
+            }
+        }
+        return null;
     }
     
-
     public bool SellItem(ItemScript data, int amount)
     {
         if (!ContainsItem(data, out ShopSlot slot)) return false;
