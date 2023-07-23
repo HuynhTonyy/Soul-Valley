@@ -13,7 +13,6 @@ public class CurrencySystem : MonoBehaviourPunCallbacks
     {
         photonView.RPC("RemoveGold", RpcTarget.AllBufferedViaServer,(int)spendAmount);
     }
-
     public void GainCoin(int gainAmount)
     {
         photonView.RPC("AddGold", RpcTarget.AllBufferedViaServer,(int)gainAmount);
@@ -34,5 +33,6 @@ public class CurrencySystem : MonoBehaviourPunCallbacks
     {
         this.gold -= gold;  
     }
+    
     
 }

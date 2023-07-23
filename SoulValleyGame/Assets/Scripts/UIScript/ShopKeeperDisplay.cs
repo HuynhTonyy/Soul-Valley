@@ -104,8 +104,9 @@ public class ShopKeeperDisplay : MonoBehaviourPunCallbacks
         {
             _playerInventoryHolder.PrimaryInventorySystem.AddToInventory(curSelectedItemData, 1);
             currencySystem.SpendCoin((int)itemBuyPrice);
-            photonView.RPC("UpdateOnPlayerBuy", RpcTarget.AllBufferedViaServer,(int)itemBuyPrice,curSelectedItemData.Id,_shopSystem.GetIndexSlot(slot));
-        };
+            photonView.RPC("UpdateOnPlayerBuy", RpcTarget.AllBufferedViaServer,(int)itemBuyPrice,_shopSystem.GetIndexSlot(slot)); 
+        }
+        Debug.Log("Exit");
     }
     public void SellItems()
     {
@@ -135,13 +136,14 @@ public class ShopKeeperDisplay : MonoBehaviourPunCallbacks
     }
     
     [PunRPC]
-    public void UpdateOnPlayerBuy(int gold, string itemID,int indexSlot)
+    public void UpdateOnPlayerBuy(int gold, int indexSlot)
     {
         _shopSystem.GainGold(gold);
         ShopSlot slot = _shopSystem.ShopInventory[indexSlot];
         slot.RemoveFromStack(1);
         ClearSlots();
         DisplayShopInventory();
+        Debug.Log("In");
         // foreach(var item in _shopSystem.ShopInventory)
         // {
         //     if (item.ItemData.Id == itemID)
