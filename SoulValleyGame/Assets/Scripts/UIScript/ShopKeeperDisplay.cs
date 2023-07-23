@@ -70,7 +70,7 @@ public class ShopKeeperDisplay : MonoBehaviourPunCallbacks
         _buyBtn.gameObject.SetActive(true);
         _sellBtn.gameObject.SetActive(true);
     }
-    private void ClearSlots()
+    public void ClearSlots()
     {
         foreach(var item in _itemListContentPanel.transform.Cast<Transform>())
         {
@@ -78,7 +78,7 @@ public class ShopKeeperDisplay : MonoBehaviourPunCallbacks
         }
     }
 
-    private void DisplayShopInventory()
+    public void DisplayShopInventory()
     {
         foreach(var item in _shopSystem.ShopInventory)
         {
@@ -136,9 +136,6 @@ public class ShopKeeperDisplay : MonoBehaviourPunCallbacks
                 }             
             }       
         }
-        
-        ClearSlots();
-        DisplayShopInventory();
     }
     
 

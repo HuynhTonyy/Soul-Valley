@@ -14,6 +14,7 @@ public class ShopKeeper : MonoBehaviourPunCallbacks, IIntractable
 
     private PlayerInventoryHolder playerInv;
 
+    ShopKeeperDisplay shopKeeperDisplay;
     public static UnityAction<ShopSystem, PlayerInventoryHolder> OnShopWindowRequested;
     public static UnityAction<int,int,int> OnShopChanged;
     public void Interact(Interactor interactor)
@@ -25,8 +26,6 @@ public class ShopKeeper : MonoBehaviourPunCallbacks, IIntractable
             OnShopWindowRequested?.Invoke(_shopSystem, playerInv);
         }
     }
-    
-
     private void OnEnable()
     {
         ShopKeeper.OnShopChanged += ShopChanged;
@@ -58,6 +57,8 @@ public class ShopKeeper : MonoBehaviourPunCallbacks, IIntractable
     {
        _shopSystem.ShopInventory[index].setStackSize(amount);
        _shopSystem.setGold(gold);
+       shopKeeperDisplay.ClearSlots();
+       shopKeeperDisplay.DisplayShopInventory();
 
     }
 
