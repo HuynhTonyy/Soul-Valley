@@ -1,5 +1,6 @@
 
 using UnityEngine;
+using Photon.Pun;
 
 public class CollectQuestStep : QuestStep
 {
@@ -16,14 +17,21 @@ public class CollectQuestStep : QuestStep
         if(this.itemData == itemData){
             if(currentAmount + amountCollect >= amountRequire){
                 GameEventManager.instance.inventoryEvent.RemoveItem(itemData,amountRequire - currentAmount);
-                currentAmount = amountRequire;
+                photonView.RPC("updateCurrent",RpcTarget.AllBufferedViaServer,amountRequire);
+
             }else{
-                currentAmount += amountCollect;
                 GameEventManager.instance.inventoryEvent.RemoveItem(itemData,amountCollect);
+                photonView.RPC("updateCurrent",RpcTarget.AllBufferedViaServer,currentAmount + amountCollect);
             }
             if(currentAmount == amountRequire){
                 FinishQuestStep();
             }
         }
+    }
+
+    [PunRPC]
+    public void updateCurrent(int amount)
+    {
+        currentAmount = amount;
     }
 }
