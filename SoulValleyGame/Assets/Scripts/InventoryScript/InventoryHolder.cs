@@ -5,7 +5,7 @@ using UnityEngine.Events;
 using Photon.Pun;
 
 [System.Serializable]
-public abstract class InventoryHolder : MonoBehaviourPun,IPunObservable
+public abstract class InventoryHolder : MonoBehaviourPun
 {
     [SerializeField] private int inventorySize;
     [SerializeField] protected InventorySystem primaryInventorySystem;
@@ -24,15 +24,7 @@ public abstract class InventoryHolder : MonoBehaviourPun,IPunObservable
     }
 
     protected abstract void LoadInventory(SaveData saveData);
-    public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
-    {
-        // if(stream.IsWriting){
-        //     stream.SendNext(primaryInventorySystem.inventorySlot);
-        // }else if(stream.IsReading){
-        //     Debug.Log((List<InventorySlot>)stream.ReceiveNext());
-        //     // primaryInventorySystem = (InventorySystem) stream.ReceiveNext();
-        // }
-    }
+    
 }
 
 [System.Serializable]

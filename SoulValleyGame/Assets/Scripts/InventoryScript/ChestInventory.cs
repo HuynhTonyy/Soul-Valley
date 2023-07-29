@@ -14,6 +14,8 @@ public class ChestInventory : InventoryHolder, IIntractable
     String id;
     PhotonView view;
 
+    List<ItemScript> listOfItem = new List<ItemScript>();
+
     public InventorySystem getChestInventory(){ return primaryInventorySystem;}
     protected override void Awake()
     {
@@ -25,6 +27,7 @@ public class ChestInventory : InventoryHolder, IIntractable
     }
     private void Start()
     {
+        listOfItem = getAllItem();
         var chestSaveData = new ChestSaveData(primaryInventorySystem,transform.position,transform.rotation, itemData);
         SaveGameManager.data.chestDictionary.Add(GetComponent<UniqueID>().ID, chestSaveData);
     }
@@ -48,12 +51,6 @@ public class ChestInventory : InventoryHolder, IIntractable
 }
     protected override void LoadInventory(SaveData data)
     {
-
-        // check the save data for specific chest inventory - if exist load in
-        /*if(data.chestDictionary.TryGetValue(GetComponent<UniqueID>().ID, out ChestSaveData chestData))
-        {
-            primaryInventorySystem = chestData.InvSystem;
-        }*/
     }
     
     public void LoadInventory(ChestSaveData chestData)
@@ -64,8 +61,35 @@ public class ChestInventory : InventoryHolder, IIntractable
     {
         OnDynamicInventoryDisplayRequested?.Invoke(primaryInventorySystem,0,interactor.gameObject.GetComponent<PlayerInventoryHolder>().PrimaryInventorySystem,9);
         interactor.gameObject.GetComponentInChildren<InventoryUIControler>().isClosed = false;
-    }
 
+        List<string> listItemID = new List<string>();
+        foreach (InventorySlot item in primaryInventorySystem.InventorySlots)
+        {
+            if(item.ItemData)
+            {
+                listItemID.Add(item.ItemData.Id);
+            }
+            else
+            {
+                listItemID.Add(null);
+            }
+        }
+
+        List<int> listItemAmount = new List<int>();
+        foreach (InventorySlot item in primaryInventorySystem.InventorySlots)
+        {
+            if(item.ItemData)
+            {
+                listItemAmount.Add(item.StackSize);
+            }
+            else
+            {
+                listItemAmount.Add(-1);
+            }
+            
+        }
+        photonView.RPC("updateChest",RpcTarget.AllBufferedViaServer,listItemID,listItemAmount);
+    }
     public void DestroyChest(){
         Vector3 _dropOffset = new Vector3(Random.Range(-0.3f, -0.1f), .5f, Random.Range(-0.3f, -0.1f));
         foreach (InventorySlot slot in primaryInventorySystem.InventorySlots)
@@ -87,8 +111,49 @@ public class ChestInventory : InventoryHolder, IIntractable
     [PunRPC]
     private void DestroyItem()
     {
-        PhotonNetwork.Destroy(gameObject);
+        Destroy(gameObject);
     }
+
+    List<ItemScript> getAllItem()
+    {
+        ItemScript[] allItem = Resources.LoadAll<ItemScript>("Items"); 
+        List<ItemScript> listItem = new List<ItemScript>();
+        foreach(ItemScript item in allItem)
+        {
+            listItem.Add(item);
+        }
+        return listItem;
+    }
+
+    [PunRPC]
+    private void updateChest(List<string> listItemID , List<int> itemAmount)
+    {
+        List<InventorySlot> inventorySlots = new List<InventorySlot>();
+        for (int i = 0 ; i < listItemID.Count;i++)
+        {
+            InventorySlot inventorySlot = new InventorySlot();
+            bool check = true;
+            
+            foreach(ItemScript item in listOfItem)
+            {
+                if(item.Id == listItemID[i])
+                {
+                    inventorySlot.setItemData(item);
+                    inventorySlot.setItemStack(itemAmount[i]);
+                    check = false;
+                    break;
+                }
+            }
+            if(check)
+            {
+                inventorySlot.setItemData(null);
+                inventorySlot.setItemStack(-1);
+            }
+            inventorySlots.Add(inventorySlot);
+        }
+        primaryInventorySystem.setInventorySlots(inventorySlots);
+    }
+
 }
 
 [System.Serializable]

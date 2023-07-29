@@ -9,9 +9,13 @@ public class InventorySystem
 {
     [SerializeField] private List<InventorySlot> inventorySlots;
     [SerializeField] private int inventorySize;
-    
-    public List<InventorySlot> InventorySlots => inventorySlots;
     public InventorySlot_UI[] inventorySlot;
+
+    public void setInventorySlots(List<InventorySlot> inventorySlots)
+    {
+        this.inventorySlots = inventorySlots;
+    }
+    public List<InventorySlot> InventorySlots => inventorySlots;
     public int InventorySize => InventorySlots.Count;
 
     public UnityAction<InventorySlot> OnInventorySlotChanged;
