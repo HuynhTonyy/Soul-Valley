@@ -28,6 +28,11 @@ public class InventorySystem
             inventorySlots.Add(new InventorySlot());
         }
     }
+
+    public void AssignItemBySlotIndex(ItemScript item, int amount ,int index)
+    {
+        inventorySlots[index] = new InventorySlot(item,amount);
+    }
     public bool AddToInventory(ItemScript item,int amount)
     {
         if (ContainsItem(item, out List<InventorySlot> invSlot))// Check if Item exist in inventory

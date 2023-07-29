@@ -13,6 +13,7 @@ public class ChestInventory : InventoryHolder, IIntractable
 
     String id;
     PhotonView view;
+    public bool isUsed = false;
 
     List<ItemScript> listOfItem = new List<ItemScript>();
 
@@ -59,9 +60,19 @@ public class ChestInventory : InventoryHolder, IIntractable
     }
     public void Interact(Interactor interactor)
     {
+        if(isUsed)
+        {
+            return;
+        }
+        isUsed = true;
+
         OnDynamicInventoryDisplayRequested?.Invoke(primaryInventorySystem,0,interactor.gameObject.GetComponent<PlayerInventoryHolder>().PrimaryInventorySystem,9);
         interactor.gameObject.GetComponentInChildren<InventoryUIControler>().isClosed = false;
+ 
+    }
 
+    public void syncChest()
+    {
         List<string> listItemID = new List<string>();
         foreach (InventorySlot item in primaryInventorySystem.InventorySlots)
         {
@@ -74,7 +85,6 @@ public class ChestInventory : InventoryHolder, IIntractable
                 listItemID.Add(null);
             }
         }
-
         List<int> listItemAmount = new List<int>();
         foreach (InventorySlot item in primaryInventorySystem.InventorySlots)
         {
@@ -86,9 +96,30 @@ public class ChestInventory : InventoryHolder, IIntractable
             {
                 listItemAmount.Add(-1);
             }
-            
         }
-        photonView.RPC("updateChest",RpcTarget.AllBufferedViaServer,listItemID,listItemAmount);
+        
+        for (int i = 0 ; i < listItemID.Count;i++)
+        {
+            InventorySlot inventorySlot = new InventorySlot();
+            bool check = true;
+            
+            foreach(ItemScript item in listOfItem)
+            {
+                if(item.Id == listItemID[i])
+                {
+                    inventorySlot.setItemData(item);
+                    inventorySlot.setItemStack(listItemAmount[i]);
+                    check = false;
+                    break;
+                }
+            }
+            if(check)
+            {
+                inventorySlot.setItemData(null);
+                inventorySlot.setItemStack(-1);
+            }
+            photonView.RPC("updateChest",RpcTarget.AllBufferedViaServer,inventorySlot.ItemData.Id,inventorySlot.StackSize,i);
+        }
     }
     public void DestroyChest(){
         Vector3 _dropOffset = new Vector3(Random.Range(-0.3f, -0.1f), .5f, Random.Range(-0.3f, -0.1f));
@@ -126,34 +157,24 @@ public class ChestInventory : InventoryHolder, IIntractable
     }
 
     [PunRPC]
-    private void updateChest(List<string> listItemID , List<int> itemAmount)
+    private void updateChest(string itemId , int itemAmount , int index)
     {
-        List<InventorySlot> inventorySlots = new List<InventorySlot>();
-        for (int i = 0 ; i < listItemID.Count;i++)
+        bool check = true;
+        foreach(ItemScript item in listOfItem)
         {
-            InventorySlot inventorySlot = new InventorySlot();
-            bool check = true;
-            
-            foreach(ItemScript item in listOfItem)
-            {
-                if(item.Id == listItemID[i])
-                {
-                    inventorySlot.setItemData(item);
-                    inventorySlot.setItemStack(itemAmount[i]);
-                    check = false;
-                    break;
-                }
-            }
-            if(check)
-            {
-                inventorySlot.setItemData(null);
-                inventorySlot.setItemStack(-1);
-            }
-            inventorySlots.Add(inventorySlot);
-        }
-        primaryInventorySystem.setInventorySlots(inventorySlots);
-    }
 
+            if(item.Id == itemId)
+            {
+                primaryInventorySystem.AssignItemBySlotIndex(item,itemAmount,index);
+                check = false;
+                break;
+            }
+        }
+        if(check)
+        {
+            primaryInventorySystem.AssignItemBySlotIndex(null,itemAmount,index);
+        }
+    }
 }
 
 [System.Serializable]

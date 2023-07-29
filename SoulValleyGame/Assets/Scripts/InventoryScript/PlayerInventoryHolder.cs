@@ -55,6 +55,13 @@ public class PlayerInventoryHolder : InventoryHolder
                     else 
                     {
                         OnDynamicPlayerInventoryDisplayRequested?.Invoke(primaryInventorySystem, offset);
+                        GameObject chest = this.gameObject.GetComponent<Interactor>().chest;
+                        if(chest)
+                        {
+                            chest.GetComponent<ChestInventory>().isUsed = false;
+                            chest.GetComponent<ChestInventory>().syncChest();
+                        }
+                        
                         inventoryUIControler.isClosed = false;
                     }  
                 }
