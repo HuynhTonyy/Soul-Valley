@@ -23,15 +23,16 @@ public class CollectQuestStep : QuestStep
                 GameEventManager.instance.inventoryEvent.RemoveItem(itemData,amountCollect);
                 photonView.RPC("updateCurrent",RpcTarget.AllBufferedViaServer,currentAmount + amountCollect);
             }
-            if(currentAmount == amountRequire){
-                FinishQuestStep();
-            }
         }
     }
 
     [PunRPC]
     public void updateCurrent(int amount)
     {
+        
         currentAmount = amount;
+        if(currentAmount == amountRequire){
+            FinishQuestStep();
+        }
     }
 }

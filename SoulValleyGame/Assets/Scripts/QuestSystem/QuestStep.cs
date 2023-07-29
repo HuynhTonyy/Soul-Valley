@@ -15,7 +15,7 @@ public abstract class QuestStep :MonoBehaviourPunCallbacks
         if(!isFinished){
             isFinished = true;
             GameEventManager.instance.questEvent.AdvanceQuest(questID);
-            PhotonNetwork.Destroy(this.gameObject);
+            Destroy(this.gameObject);
         }
     }
     
