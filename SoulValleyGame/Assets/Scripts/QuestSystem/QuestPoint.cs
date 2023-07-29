@@ -18,7 +18,7 @@ public class QuestPoint : MonoBehaviourPunCallbacks, IIntractable
     
     void QuestStateChange(Quest quest){
         if(quest.data.id.Equals(questDatas[questIndex].id)){
-            photonView.RPC("updateQuest",RpcTarget.AllBufferedViaServer,(int)quest.state,questIndex);
+            photonView.RPC("updateQuestState",RpcTarget.AllBufferedViaServer,(int)quest.state);
         }
     }
     bool CheckQuestExists(){
@@ -35,17 +35,24 @@ public class QuestPoint : MonoBehaviourPunCallbacks, IIntractable
             
         else if(currentQuestState.Equals(QuestState.Can_Finish) && finishPoint){
             GameEventManager.instance.questEvent.FinishQuest(questDatas[questIndex].id);
-            questIndex++;
+            photonView.RPC("updateQuestIndex",RpcTarget.AllBufferedViaServer,questIndex++);
             if(!CheckQuestExists()){
-                currentQuestState = GameObject.FindWithTag("QuestManager").GetComponent<QuestManager>().GetQuestByID(questDatas[questIndex].id).state;
+                photonView.RPC("updateQuestState",RpcTarget.AllBufferedViaServer,
+                    GameObject.FindWithTag("QuestManager").GetComponent<QuestManager>().GetQuestByID(questDatas[questIndex].id).state);
             }
+            
         } 
     }
     
     [PunRPC]
-    public void updateQuest(int state,int index)
+    public void updateQuestState(int state)
     {
         currentQuestState = (QuestState)state;
+      
+    }
+    [PunRPC]
+    public void updateQuestIndex(int index)
+    {
         questIndex = index;
     }
 }
