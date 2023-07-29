@@ -26,11 +26,12 @@ public class Quest
             questStep.InstantiateQuestStep(data.id);
         }
     }
-    GameObject GetCurrentQuestStepPrefab(){
+    public GameObject GetCurrentQuestStepPrefab(){
         GameObject currentStepPrefab = null;
         if(CurrentStepExists()){
             currentStepPrefab = data.questStepPrefabs[currentQuestStepIndex];
         }
         return currentStepPrefab;
     }
+
 }

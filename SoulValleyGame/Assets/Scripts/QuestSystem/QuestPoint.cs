@@ -1,7 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-public class QuestPoint : MonoBehaviour, IIntractable
+using Photon.Pun;
+public class QuestPoint : MonoBehaviourPunCallbacks, IIntractable
 {
     [SerializeField] QuestData[] questDatas;
     QuestState currentQuestState;
@@ -15,7 +16,6 @@ public class QuestPoint : MonoBehaviour, IIntractable
         GameEventManager.instance.questEvent.onQuestStateChange -= QuestStateChange;
     }
     
-
     void QuestStateChange(Quest quest){
         if(quest.data.id.Equals(questDatas[questIndex].id)){
             currentQuestState = quest.state;

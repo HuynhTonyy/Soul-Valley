@@ -1,8 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
 
-public class QuestManager : MonoBehaviour
+
+public class QuestManager : MonoBehaviourPunCallbacks
 {
     Dictionary<string,Quest> questMap;
     int playerCurrentGold;
@@ -35,16 +37,29 @@ public class QuestManager : MonoBehaviour
     }
     void StartQuest(string id){
         Quest quest = GetQuestByID(id);
-        quest.InstantiateCurrentQuestStep(this.transform);
+        GameObject questStepPrefab = quest.GetCurrentQuestStepPrefab();
+        if(questStepPrefab != null){
+            GameObject questStep = PhotonNetwork.Instantiate(questStepPrefab.name,transform.position,Quaternion.identity);
+            photonView.RPC("SetUpQuestStep", RpcTarget.AllBufferedViaServer, 
+                    questStep.GetComponent<PhotonView>().ViewID, gameObject.GetComponent<PhotonView>().ViewID,id);
+        }
         ChangeQuestState(id,QuestState.In_Progress);
     }
     void AdvanceQuest(string id){
         Quest quest = GetQuestByID(id);
         quest.MoveToNextStep();
         if(quest.CurrentStepExists()) 
-            quest.InstantiateCurrentQuestStep(this.transform);
+        {
+            GameObject questStepPrefab = quest.GetCurrentQuestStepPrefab();
+            if(questStepPrefab != null){
+                GameObject questStep = PhotonNetwork.Instantiate(questStepPrefab.name,transform.position,Quaternion.identity);
+                photonView.RPC("SetUpQuestStep", RpcTarget.AllBufferedViaServer, 
+                        questStep.GetComponent<PhotonView>().ViewID, gameObject.GetComponent<PhotonView>().ViewID,id);
+            }
+        }
         else
             ChangeQuestState(id,QuestState.Can_Finish);
+
     }
     void FinishQuest(string id){
         Quest quest = GetQuestByID(id);
@@ -85,5 +100,15 @@ public class QuestManager : MonoBehaviour
             }
         }
     }
+    [PunRPC]
+    public void SetUpQuestStep(int ViewID,int ViewIDTranform, string questID)
+    {
+        // Set the parent for the instantiated GameObject on non-master clients
+        GameObject questStep = PhotonView.Find(ViewID).gameObject;
+        questStep.GetComponent<QuestStep>().InstantiateQuestStep(questID);
+        questStep.transform.SetParent(PhotonView.Find(ViewIDTranform).transform);
+        
+    }
+    
 }
 
