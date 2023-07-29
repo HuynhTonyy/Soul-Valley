@@ -64,7 +64,7 @@ public class ChestInventory : InventoryHolder, IIntractable
         {
             return;
         }
-        isUsed = true;
+        photonView.RPC("chestState",RpcTarget.AllBufferedViaServer);
 
         OnDynamicInventoryDisplayRequested?.Invoke(primaryInventorySystem,0,interactor.gameObject.GetComponent<PlayerInventoryHolder>().PrimaryInventorySystem,9);
         interactor.gameObject.GetComponentInChildren<InventoryUIControler>().isClosed = false;
@@ -118,14 +118,9 @@ public class ChestInventory : InventoryHolder, IIntractable
                 inventorySlot.setItemStack(-1);
                 photonView.RPC("updateChest",RpcTarget.AllBufferedViaServer,inventorySlot.ItemData,inventorySlot.StackSize,i);
             }
-             
             else
             {
-                Debug.Log(inventorySlot.ItemData.Id);
-            Debug.Log(inventorySlot.StackSize);
-            Debug.Log(i);
                 photonView.RPC("updateChest",RpcTarget.AllBufferedViaServer,inventorySlot.ItemData.Id,inventorySlot.StackSize,i);
-           
             }
             
         }
@@ -182,6 +177,11 @@ public class ChestInventory : InventoryHolder, IIntractable
         {
             primaryInventorySystem.AssignItemBySlotIndex(null,itemAmount,index);
         }
+    }
+    [PunRPC]
+    private void chestState()
+    {
+        isUsed = true;
     }
 }
 

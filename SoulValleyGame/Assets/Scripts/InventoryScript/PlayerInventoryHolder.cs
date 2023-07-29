@@ -50,7 +50,6 @@ public class PlayerInventoryHolder : InventoryHolder
                     {   
                         inventoryUIControler.close();
                         inventoryUIControler.isClosed = true;
-
                         GameObject chest = this.gameObject.GetComponent<Interactor>().chest;
                         
                         if(chest)
