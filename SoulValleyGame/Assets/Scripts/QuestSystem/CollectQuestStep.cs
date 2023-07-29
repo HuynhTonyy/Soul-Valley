@@ -5,8 +5,8 @@ using Photon.Pun;
 public class CollectQuestStep : QuestStep
 {
     [SerializeField] ItemScript itemData;
-    int amountRequire = 5;
-    int currentAmount = 0;
+    [SerializeField] int amountRequire = 2;
+    [SerializeField] int currentAmount = 0;
     private void OnEnable() {
         GameEventManager.instance.inventoryEvent.onAddItem += Collected;
     }

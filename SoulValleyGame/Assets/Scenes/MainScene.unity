@@ -749,6 +749,7 @@ MonoBehaviour:
   questDatas:
   - {fileID: 11400000, guid: ffb1521d47806034db03dbfd6efeb2b0, type: 2}
   - {fileID: 11400000, guid: e8a394d58fcfaef4bac1b027fc64c875, type: 2}
+  - {fileID: 11400000, guid: ffb1521d47806034db03dbfd6efeb2b0, type: 2}
   startPoint: 1
   finishPoint: 1
 --- !u!4 &735289450
