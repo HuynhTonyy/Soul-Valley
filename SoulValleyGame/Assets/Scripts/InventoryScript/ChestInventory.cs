@@ -68,7 +68,6 @@ public class ChestInventory : InventoryHolder, IIntractable
 
         OnDynamicInventoryDisplayRequested?.Invoke(primaryInventorySystem,0,interactor.gameObject.GetComponent<PlayerInventoryHolder>().PrimaryInventorySystem,9);
         interactor.gameObject.GetComponentInChildren<InventoryUIControler>().isClosed = false;
- 
     }
 
     public void syncChest()
@@ -162,7 +161,6 @@ public class ChestInventory : InventoryHolder, IIntractable
         bool check = true;
         foreach(ItemScript item in listOfItem)
         {
-
             if(item.Id == itemId)
             {
                 primaryInventorySystem.AssignItemBySlotIndex(item,itemAmount,index);

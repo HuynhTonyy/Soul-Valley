@@ -24,6 +24,7 @@ public class PlayerInventoryHolder : InventoryHolder
     private void Start(){
         playerId = GetComponent<UniqueID>().ID;
         view = GetComponent<PhotonView>();
+
         if(!view.IsMine){
             Destroy(canvas.gameObject);
         }
@@ -41,27 +42,23 @@ public class PlayerInventoryHolder : InventoryHolder
                 {
                     uIController.close();
                     uIController.isShopClosed = true;
-                    this.gameObject.GetComponent<Interactor>().shopKeeper.GetComponent<ShopKeeper>().isInAction = false;
                     photonView.RPC("UpdateShopState", RpcTarget.AllBufferedViaServer,
                         this.gameObject.GetComponent<Interactor>().shopKeeper.GetComponent<PhotonView>().ViewID);
-
                 }
                 else {
                     if (!inventoryUIControler.isClosed)
                     {   
                         inventoryUIControler.isClosed = true;
+
+                        photonView.RPC("UpdateChest", RpcTarget.AllBufferedViaServer,
+                            this.gameObject.GetComponent<Interactor>().chest.GetComponent<PhotonView>().ViewID);
+
+                        this.gameObject.GetComponent<Interactor>().chest.GetComponent<ChestInventory>().syncChest();
                         inventoryUIControler.close();
                     }
                     else 
                     {
                         OnDynamicPlayerInventoryDisplayRequested?.Invoke(primaryInventorySystem, offset);
-                        GameObject chest = this.gameObject.GetComponent<Interactor>().chest;
-                        if(chest)
-                        {
-                            chest.GetComponent<ChestInventory>().isUsed = false;
-                            chest.GetComponent<ChestInventory>().syncChest();
-                        }
-                        
                         inventoryUIControler.isClosed = false;
                     }  
                 }
@@ -104,6 +101,12 @@ public class PlayerInventoryHolder : InventoryHolder
     public void UpdateShopState(int npcID)
     {
         PhotonView.Find(npcID).GetComponent<ShopKeeper>().isInAction = false;
+    }
+
+    [PunRPC]
+    public void UpdateChest(int chestId)
+    {
+        PhotonView.Find(chestId).GetComponent<ChestInventory>().isUsed = false;
     }
 
 

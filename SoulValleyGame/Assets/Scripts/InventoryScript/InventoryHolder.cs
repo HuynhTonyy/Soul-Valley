@@ -5,7 +5,7 @@ using UnityEngine.Events;
 using Photon.Pun;
 
 [System.Serializable]
-public abstract class InventoryHolder : MonoBehaviourPun
+public abstract class InventoryHolder : MonoBehaviourPunCallbacks
 {
     [SerializeField] private int inventorySize;
     [SerializeField] protected InventorySystem primaryInventorySystem;
