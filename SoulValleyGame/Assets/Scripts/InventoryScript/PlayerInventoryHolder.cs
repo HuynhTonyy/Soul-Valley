@@ -42,7 +42,8 @@ public class PlayerInventoryHolder : InventoryHolder
                     uIController.close();
                     uIController.isShopClosed = true;
                     this.gameObject.GetComponent<Interactor>().shopKeeper.GetComponent<ShopKeeper>().isInAction = false;
-                    photonView.RPC("UpdateShopState", RpcTarget.AllBufferedViaServer,this.gameObject.GetComponent<Interactor>().shopKeeper);
+                    photonView.RPC("UpdateShopState", RpcTarget.AllBufferedViaServer,
+                        this.gameObject.GetComponent<Interactor>().shopKeeper.GetComponent<PhotonView>().ViewID);
 
                 }
                 else {
@@ -93,10 +94,9 @@ public class PlayerInventoryHolder : InventoryHolder
     }
 
     [PunRPC]
-    public void UpdateShopState(GameObject npc)
+    public void UpdateShopState(int npcID)
     {
-        npc.GetComponent<ShopKeeper>().isInAction = false;
-       
+        PhotonView.Find(npcID).GetComponent<ShopKeeper>().isInAction = false;
     }
 
 
