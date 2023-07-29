@@ -68,6 +68,18 @@ public class StaticInventoryDisplay : InventoryDisplay
         }
     }
 
+    public static void mouseThrow(Transform transform, InventorySlot slot)
+    {
+        Vector3 positionToSpawn = new Vector3(transform.position.x,transform.position.y+.25f,transform.position.z) + transform.forward * 1f;
+        for(int i = 0; i < slot.StackSize; i++)
+        {
+            Vector3 _dropOffset = new Vector3(Random.Range(-0.1f, 0.1f), 0, Random.Range(-0.1f, 0.1f));
+            GameObject newObject = PhotonNetwork.Instantiate(slot.ItemData.ItemPreFab.name, positionToSpawn + _dropOffset, Quaternion.identity);
+            newObject.GetComponent<Rigidbody>().AddForce(transform.forward * 5,ForceMode.Impulse);
+        }
+        slot.ClearSlot();    
+    }
+
     public void UseItem(int selectedSlot)
     {
         InventorySlot_UI selectedUISlot = slots[selectedSlot];

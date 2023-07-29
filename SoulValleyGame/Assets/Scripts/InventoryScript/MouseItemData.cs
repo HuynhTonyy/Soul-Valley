@@ -14,7 +14,7 @@ public class MouseItemData : MonoBehaviour
     public InventorySlot AssignInventorySlot;
     public float dropOffset = 3f;
     private Transform playerTransform;
-
+    public int previousIndex;
 
     public void Awake()
     {
@@ -53,7 +53,8 @@ public class MouseItemData : MonoBehaviour
             {
                 if(AssignInventorySlot.ItemData.ItemPreFab != null)
                 {
-                    Instantiate(AssignInventorySlot.ItemData.ItemPreFab, playerTransform.position+ playerTransform.forward * dropOffset, Quaternion.identity);
+                    Instantiate(AssignInventorySlot.ItemData.ItemPreFab, 
+                        playerTransform.position + playerTransform.forward * dropOffset, Quaternion.identity);
                 }
                 if (AssignInventorySlot.StackSize > 1)
                 {

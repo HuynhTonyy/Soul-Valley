@@ -10,10 +10,10 @@ public class PlayerInventoryHolder : InventoryHolder
     private string playerId;
     [SerializeField] private Canvas canvas;
     InventoryUIControler inventoryUIControler;
+    MouseItemData mouse;
     UIController uIController;
     public static UnityAction OnPlayerInventoryChanged;
     public static UnityAction<InventorySystem, int> OnDynamicPlayerInventoryDisplayRequested;
-
     PhotonView view;
     public void setPrimarySystem(InventorySystem invSys){
         this.primaryInventorySystem = invSys;
@@ -24,6 +24,7 @@ public class PlayerInventoryHolder : InventoryHolder
     private void Start(){
         playerId = GetComponent<UniqueID>().ID;
         view = GetComponent<PhotonView>();
+        mouse = GetComponentInChildren<MouseItemData>();
 
         if(!view.IsMine){
             Destroy(canvas.gameObject);
@@ -58,6 +59,15 @@ public class PlayerInventoryHolder : InventoryHolder
                             photonView.RPC("UpdateChest", RpcTarget.AllBufferedViaServer,chest.GetComponent<PhotonView>().ViewID);
                             chest.GetComponent<ChestInventory>().syncChest();
                         }  
+                        
+                        if(mouse.AssignInventorySlot.ItemData != null)
+                        {
+                            Debug.Log(this.transform);
+                            StaticInventoryDisplay.mouseThrow(this.transform,mouse.AssignInventorySlot);
+                            mouse.ClearSlot();
+                        }
+
+
                     }
                     else 
                     {

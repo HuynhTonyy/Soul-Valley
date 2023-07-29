@@ -4598,6 +4598,7 @@ MonoBehaviour:
     itemData: {fileID: 0}
     stackSize: -1
   dropOffset: 3
+  previousIndex: 0
 --- !u!1 &2770402546951793090
 GameObject:
   m_ObjectHideFlags: 0
