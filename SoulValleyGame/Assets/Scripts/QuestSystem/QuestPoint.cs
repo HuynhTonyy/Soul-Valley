@@ -35,24 +35,21 @@ public class QuestPoint : MonoBehaviourPunCallbacks, IIntractable
             
         else if(currentQuestState.Equals(QuestState.Can_Finish) && finishPoint){
             GameEventManager.instance.questEvent.FinishQuest(questDatas[questIndex].id);
-
             photonView.RPC("updateQuestIndex",RpcTarget.AllBufferedViaServer,questIndex+1);
-            if(!CheckQuestExists()){
-                Debug.Log(GameObject.FindWithTag("QuestManager").GetComponent<QuestManager>().GetQuestByID(questDatas[questIndex].id).data.displayName.ToString());
-                photonView.RPC("updateQuestState",RpcTarget.AllBufferedViaServer,
-                    GameObject.FindWithTag("QuestManager").GetComponent<QuestManager>().GetQuestByID(questDatas[questIndex+1].id).state);
-            }
         } 
     }
     [PunRPC]
     public void updateQuestState(int state)
     {
         currentQuestState = (QuestState)state;
-      
     }
     [PunRPC]
     public void updateQuestIndex(int index)
     {
         questIndex = index;
+        if(!CheckQuestExists()){
+            photonView.RPC("updateQuestState",RpcTarget.AllBufferedViaServer,
+                GameObject.FindWithTag("QuestManager").GetComponent<QuestManager>().GetQuestByID(questDatas[questIndex].id).state);
+        }
     }
 }
