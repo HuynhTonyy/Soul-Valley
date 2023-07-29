@@ -7927,6 +7927,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 4294967295
   chest: {fileID: 0}
+  shopKeeper: {fileID: 0}
 --- !u!114 &8916870013705482636
 MonoBehaviour:
   m_ObjectHideFlags: 0

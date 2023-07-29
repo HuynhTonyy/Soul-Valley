@@ -14,13 +14,17 @@ public class ShopKeeper : MonoBehaviourPunCallbacks, IIntractable
     private PlayerInventoryHolder playerInv;
     public static UnityAction<ShopSystem, PlayerInventoryHolder> OnShopWindowRequested;
     public static UnityAction<int,int,int> OnShopChanged;
+    public bool isInAction = false;
+
     public void Interact(Interactor interactor)
     {
         playerInv = interactor.GetComponent<PlayerInventoryHolder>();
 
-        if (playerInv != null)
+        if (playerInv != null && !isInAction)
         {
+            interactor.shopKeeper= this.gameObject;
             OnShopWindowRequested?.Invoke(_shopSystem, playerInv);
+            photonView.RPC("UpdateShopState", RpcTarget.AllBufferedViaServer);
         }
     }
     private void OnEnable()
@@ -54,6 +58,12 @@ public class ShopKeeper : MonoBehaviourPunCallbacks, IIntractable
     {
        _shopSystem.ShopInventory[index].setStackSize(amount);
        _shopSystem.setGold(gold);
+    }
+
+    [PunRPC]
+    public void UpdateShopState()
+    {
+       this.isInAction = true;
     }
 
     

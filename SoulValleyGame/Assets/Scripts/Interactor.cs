@@ -17,6 +17,7 @@ public class Interactor : MonoBehaviour
     new string tag;
     bool inRange;
     GameObject itemBP = null;
+    public GameObject shopKeeper;
     private void Start() {
         view = GetComponent<PhotonView>();
         hotBar = GetComponentInChildren<StaticInventoryDisplay>();

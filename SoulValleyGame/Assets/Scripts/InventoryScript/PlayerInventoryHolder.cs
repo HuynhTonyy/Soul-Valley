@@ -41,6 +41,9 @@ public class PlayerInventoryHolder : InventoryHolder
                 {
                     uIController.close();
                     uIController.isShopClosed = true;
+                    this.gameObject.GetComponent<Interactor>().shopKeeper.GetComponent<ShopKeeper>().isInAction = false;
+                    photonView.RPC("UpdateShopState", RpcTarget.AllBufferedViaServer,this.gameObject.GetComponent<Interactor>().shopKeeper);
+
                 }
                 else {
                     if (!inventoryUIControler.isClosed)
@@ -88,5 +91,13 @@ public class PlayerInventoryHolder : InventoryHolder
     private void OnDisable() {
         GameEventManager.instance.inventoryEvent.onRemoveItem -= RemoveFromInventory;
     }
+
+    [PunRPC]
+    public void UpdateShopState(GameObject npc)
+    {
+        npc.GetComponent<ShopKeeper>().isInAction = false;
+       
+    }
+
 
 }
