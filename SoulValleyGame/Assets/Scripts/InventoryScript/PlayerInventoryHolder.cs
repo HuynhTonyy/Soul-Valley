@@ -48,13 +48,17 @@ public class PlayerInventoryHolder : InventoryHolder
                 else {
                     if (!inventoryUIControler.isClosed)
                     {   
+                        inventoryUIControler.close();
                         inventoryUIControler.isClosed = true;
 
-                        photonView.RPC("UpdateChest", RpcTarget.AllBufferedViaServer,
-                            this.gameObject.GetComponent<Interactor>().chest.GetComponent<PhotonView>().ViewID);
-
-                        this.gameObject.GetComponent<Interactor>().chest.GetComponent<ChestInventory>().syncChest();
-                        inventoryUIControler.close();
+                        GameObject chest = this.gameObject.GetComponent<Interactor>().chest;
+                        
+                        if(chest)
+                        {
+                            this.gameObject.GetComponent<Interactor>().chest = null;
+                            photonView.RPC("UpdateChest", RpcTarget.AllBufferedViaServer,chest.GetComponent<PhotonView>().ViewID);
+                            chest.GetComponent<ChestInventory>().syncChest();
+                        }  
                     }
                     else 
                     {

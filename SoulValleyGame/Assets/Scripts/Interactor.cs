@@ -57,7 +57,10 @@ public class Interactor : MonoBehaviour
                 }else if(tag == "Interactable" && Mouse.current.rightButton.wasPressedThisFrame && GetComponentInChildren<InventoryUIControler>().isClosed){
                     IIntractable interactable = hit.collider.GetComponent<IIntractable>();
                     if (interactable != null) interactable.Interact(this);
-                    chest = hit.transform.gameObject;
+                    if(hit.transform.gameObject.GetComponent<ChestInventory>())
+                    {
+                        chest = hit.transform.gameObject;
+                    }
                 }else if(selectedLand){
                     selectedLand.Select(false);
                 }

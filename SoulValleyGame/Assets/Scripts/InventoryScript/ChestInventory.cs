@@ -116,8 +116,18 @@ public class ChestInventory : InventoryHolder, IIntractable
             {
                 inventorySlot.setItemData(null);
                 inventorySlot.setItemStack(-1);
+                photonView.RPC("updateChest",RpcTarget.AllBufferedViaServer,inventorySlot.ItemData,inventorySlot.StackSize,i);
             }
-            photonView.RPC("updateChest",RpcTarget.AllBufferedViaServer,inventorySlot.ItemData.Id,inventorySlot.StackSize,i);
+             
+            else
+            {
+                Debug.Log(inventorySlot.ItemData.Id);
+            Debug.Log(inventorySlot.StackSize);
+            Debug.Log(i);
+                photonView.RPC("updateChest",RpcTarget.AllBufferedViaServer,inventorySlot.ItemData.Id,inventorySlot.StackSize,i);
+           
+            }
+            
         }
     }
     public void DestroyChest(){
