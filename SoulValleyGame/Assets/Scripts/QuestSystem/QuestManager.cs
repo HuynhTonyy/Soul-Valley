@@ -67,7 +67,8 @@ public class QuestManager : MonoBehaviourPunCallbacks
         ChangeQuestState(id,QuestState.Finished);
     }
     void ClaimReward(Quest quest){
-        Debug.Log("Congrate! U earn "+ quest.data.goldReward+" gold.");
+        GameObject.FindFirstObjectByType<CurrencySystem>().GainCoin((int)quest.data.goldReward);
+        
     }
     bool checkRequirements(Quest quest){
         bool meetRequirement = true;
