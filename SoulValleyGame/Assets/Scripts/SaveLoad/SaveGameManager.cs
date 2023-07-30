@@ -3,11 +3,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using Photon.Pun
 
 public class SaveGameManager : MonoBehaviour
 {
     public static SaveData data;
 
+    PhotonView
     private void Awake()
     {
         data = new SaveData();
