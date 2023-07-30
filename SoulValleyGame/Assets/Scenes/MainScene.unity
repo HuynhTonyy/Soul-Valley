@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.17306644, g: 0.21630163, b: 0.29830188, a: 1}
+  m_IndirectSpecularColor: {r: 0.1730649, g: 0.21630043, b: 0.29830068, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -3318,6 +3318,7 @@ GameObject:
   m_Component:
   - component: {fileID: 743436735429847295}
   - component: {fileID: 743436735429847294}
+  - component: {fileID: 743436735429847296}
   m_Layer: 5
   m_Name: SaveLoadButton
   m_TagString: Untagged
@@ -3337,6 +3338,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ffc44cc30853e4d498b00d2be18195de, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  btnSave: {fileID: 743436734983843651}
+  btnLoad: {fileID: 743436736732776209}
 --- !u!224 &743436735429847295
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3359,6 +3362,28 @@ RectTransform:
   m_AnchoredPosition: {x: 83.22266, y: -50}
   m_SizeDelta: {x: 166.4453, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &743436735429847296
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 743436735429847292}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 33
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!224 &743436735962900678
 RectTransform:
   m_ObjectHideFlags: 0
