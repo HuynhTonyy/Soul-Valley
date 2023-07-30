@@ -22,6 +22,7 @@ public class PlayerMovement : MonoBehaviour
 
     [Header("Keybinds")]
 
+    public KeyCode throwKey = KeyCode.Q;
     public KeyCode jumpKey = KeyCode.Space;
     public KeyCode sprintKey = KeyCode.LeftShift;
 
@@ -106,6 +107,10 @@ public class PlayerMovement : MonoBehaviour
             readyToJump = false;
             Jump();
             Invoke(nameof(ResetJump), jumpColdown);
+        }
+        if (Input.GetKey(throwKey) && grounded && !invStatus)
+        {
+            animator.SetTrigger("Throwing");
         }
     }
 

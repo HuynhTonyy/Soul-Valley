@@ -65,8 +65,12 @@ public class InventorySystem
     public bool ContainsItem(ItemScript item, out List<InventorySlot> invSlot)// any slot have item to add 
     {
         invSlot = inventorySlots.Where(i => i.ItemData == item).ToList(); // get the list of all of them
-        //Debug.Log(invSlot.Count);
         return invSlot == null ? false : true;
+    }
+    public bool ContainSpecificItem(ItemScript item, out List<InventorySlot> invSlot)// any slot have item to add 
+    {
+        invSlot = inventorySlots.Where(i => i.ItemData == item).ToList(); // get the list of all of them\
+        return invSlot.Count == 0  ? false : true;
     }
     public bool HasFreeSlot(out InventorySlot freeSlot)
     {

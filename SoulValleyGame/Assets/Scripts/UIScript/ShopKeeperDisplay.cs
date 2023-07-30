@@ -27,6 +27,10 @@ public class ShopKeeperDisplay : MonoBehaviourPunCallbacks
     CurrencySystem currencySystem;
 
     public GameObject BuyTabDisplay;
+
+    public Animator errorBoxAnimator;
+    public TextMeshProUGUI errText;
+
     private ItemScript curSelectedItemData;
     private double itemBuyPrice;
     private double itemSellPrice;
@@ -111,25 +115,55 @@ public class ShopKeeperDisplay : MonoBehaviourPunCallbacks
    
     public void BuyItems()
     {
-        if (currencySystem.gold < (int)itemBuyPrice) return;
+        if (currencySystem.gold < (int)itemBuyPrice)
+        {
+            errText.SetText("You don't have enough money, go get some!");
+            errorBoxAnimator.SetTrigger("showTrig");
+
+            return;
+        }
+
+            
         //if (!_playerInventoryHolder.PrimaryInventorySystem.HasFreeSlot(out InventorySlot freeslot)) return;
         ShopSlot slot = _shopSystem.GetSlotByItemScript(curSelectedItemData);
-        if (_shopSystem.PurchaseItem(curSelectedItemData, 1))
+        if(slot.StackSize == 0)
         {
-            _playerInventoryHolder.PrimaryInventorySystem.AddToInventory(curSelectedItemData, 1);
-            slot.RemoveFromStack(1);
-            currencySystem.SpendCoin((int)itemBuyPrice);
-            _shopSystem.GainGold((int)itemBuyPrice);
-            ClearSlots();
-            DisplayShopInventory();
-            ShopKeeper.OnShopChanged?.Invoke(_shopSystem.GetIndexSlot(slot),slot.StackSize,(int)_shopSystem.AvailableGold);
+            errText.SetText("Ran out of stock, comeback tomorow!");
+            errorBoxAnimator.SetTrigger("showTrig");
+            return;
         }
+        else
+        {
+            if (_shopSystem.PurchaseItem(curSelectedItemData, 1))
+            {
+                _playerInventoryHolder.PrimaryInventorySystem.AddToInventory(curSelectedItemData, 1);
+                slot.RemoveFromStack(1);
+                currencySystem.SpendCoin((int)itemBuyPrice);
+                _shopSystem.GainGold((int)itemBuyPrice);
+                ClearSlots();
+                DisplayShopInventory();
+                ShopKeeper.OnShopChanged?.Invoke(_shopSystem.GetIndexSlot(slot), slot.StackSize, (int)_shopSystem.AvailableGold);
+            }
+        }
+        
     }
     public void SellItems()
     {
-        if (_shopSystem.AvailableGold < (int)itemSellPrice) return;
+        if (_shopSystem.AvailableGold < (int)itemSellPrice)
+        {
+            errText.SetText("I ran out of money, comeback tomorow!");
+            errorBoxAnimator.SetTrigger("showTrig");
+            return;
+        }
+        if (!_playerInventoryHolder.PrimaryInventorySystem.ContainSpecificItem(curSelectedItemData, out List<InventorySlot> listSlot1))
+        {
+            errText.SetText("You don't have any spare of this item!");
+            errorBoxAnimator.SetTrigger("showTrig");
+            return;      
+        }
         if (_playerInventoryHolder.PrimaryInventorySystem.ContainsItem(curSelectedItemData, out List<InventorySlot> listSlot))
         {
+            
             foreach(var slot in listSlot)
             {
                 if (_shopSystem.SellItem(curSelectedItemData, 1))
@@ -148,10 +182,10 @@ public class ShopKeeperDisplay : MonoBehaviourPunCallbacks
                     _playerInventoryHolder.PrimaryInventorySystem.OnInventorySlotChanged?.Invoke(slot);
                     break;
                 }             
-            }       
+            }
         }
-        ClearSlots();
-        DisplayShopInventory();
+        
+        
     }
     
     private void Start() {
