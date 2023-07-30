@@ -151,8 +151,6 @@ MonoBehaviour:
   _itemSprite: {fileID: 5324789553540020868}
   _itemName: {fileID: 3059101569684300804}
   _itemCount: {fileID: 3054012050908474568}
-  _itemBPrice: {fileID: 3961319919867395824}
-  _itemSPrice: {fileID: 8152292219306328632}
   _assignedItemSlot:
     itemData: {fileID: 0}
     stackSize: -1
@@ -203,8 +201,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 497, y: -53}
-  m_SizeDelta: {x: 144.0779, y: 50}
+  m_AnchoredPosition: {x: 492.33, y: -53.5}
+  m_SizeDelta: {x: 206.67, y: 93}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4548148153904333127
 CanvasRenderer:
@@ -234,9 +232,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Buy Price
-
-'
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -340,8 +336,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 267, y: -32}
-  m_SizeDelta: {x: 244, y: 50}
+  m_AnchoredPosition: {x: 267, y: -33.614014}
+  m_SizeDelta: {x: 244, y: 53.228}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &612662090887646917
 CanvasRenderer:
@@ -400,7 +396,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 39.25
+  m_fontSize: 42.1
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -477,8 +473,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 19.400002, y: 0}
-  m_SizeDelta: {x: 100, y: 100}
+  m_AnchoredPosition: {x: -0.000022888, y: 0}
+  m_SizeDelta: {x: 138.63, y: 100}
   m_Pivot: {x: 0, y: 1}
 --- !u!222 &6454585973365029217
 CanvasRenderer:
@@ -553,8 +549,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 701, y: -53}
-  m_SizeDelta: {x: 144.0779, y: 50}
+  m_AnchoredPosition: {x: 698.49, y: -51.299988}
+  m_SizeDelta: {x: 205.64, y: 88.6}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8485010942056178303
 CanvasRenderer:
@@ -584,7 +580,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Sell Price
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -688,8 +684,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 228.9, y: -76.6}
-  m_SizeDelta: {x: 168.1607, y: 38}
+  m_AnchoredPosition: {x: 266.91, y: -78.8}
+  m_SizeDelta: {x: 244.18, y: 42.4}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &9126013004893649437
 CanvasRenderer:

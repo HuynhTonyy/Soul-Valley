@@ -6,24 +6,21 @@ using UnityEngine.Events;
 [RequireComponent(typeof(UniqueID))]
 public class PlayerSaveData : MonoBehaviour
 {
-
     private void Start()
     {
-        SaveLoad.OnLoadGame += LoadMyPlayerData;
-        SaveLoad.OnSaveData += SaveMyPlayerData;
+        SaveLoad.OnLoadGame += LoadPlayerData;
+        SaveLoad.OnSaveData += SavePlayerData;
     }
-    private void SaveMyPlayerData(){
+    private void SavePlayerData(){
         var playerData = new PlayerData(transform.position,gameObject.GetComponentInChildren<Camera>().gameObject.transform.rotation,
-        GetComponent<PlayerInventoryHolder>().PrimaryInventorySystem);
-        Debug.Log(gameObject.GetComponentInChildren<Camera>().gameObject.transform.rotation.eulerAngles);
+        gameObject.GetComponent<PlayerInventoryHolder>().PrimaryInventorySystem);
         string playerId = GetComponent<UniqueID>().ID;
-        if(SaveGameManager.data.playerData.ContainsKey(playerId)){
+        if(SaveGameManager.data.playerData.ContainsKey(playerId))
             SaveGameManager.data.playerData[playerId] = playerData;
-        }
-        else SaveGameManager.data.playerData.Add(playerId,playerData);
-        
+        else 
+            SaveGameManager.data.playerData.Add(playerId,playerData);
     }
-    private void LoadMyPlayerData(SaveData saveData){
+    private void LoadPlayerData(SaveData saveData){
         if(saveData.playerData.TryGetValue(GetComponent<UniqueID>().ID,out PlayerData value))
         {
             transform.position = value.PlayerPosition;

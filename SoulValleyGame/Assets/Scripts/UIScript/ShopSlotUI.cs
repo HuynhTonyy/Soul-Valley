@@ -10,8 +10,6 @@ public class ShopSlotUI : MonoBehaviour
     [SerializeField] private Image _itemSprite;
     [SerializeField] private TextMeshProUGUI _itemName;
     [SerializeField] private TextMeshProUGUI _itemCount;
-    [SerializeField] private TextMeshProUGUI _itemBPrice;
-    [SerializeField] private TextMeshProUGUI _itemSPrice;
     [SerializeField] private ShopSlot _assignedItemSlot;
     public ShopKeeperDisplay ParentDisplay { get; private set; }
 
@@ -29,8 +27,6 @@ public class ShopSlotUI : MonoBehaviour
         _itemSprite.color = Color.clear;
         _itemName.text = "";
         _itemCount.text = "";
-        _itemBPrice.text = "";
-        _itemSPrice.text = "";
         ParentDisplay = transform.parent.GetComponentInParent<ShopKeeperDisplay>();
     }
     public void Init(ShopSlot slot, float markUp)
@@ -50,8 +46,6 @@ public class ShopSlotUI : MonoBehaviour
             _itemSprite.color = Color.white;
             _itemCount.text = 'x' + _assignedItemSlot.StackSize.ToString();
             _itemName.text = _assignedItemSlot.ItemData.DisplayName;
-            _itemSPrice.text = SellPrice.ToString();
-            _itemBPrice.text = BuyPrice.ToString();
             
         }
         else
@@ -61,8 +55,6 @@ public class ShopSlotUI : MonoBehaviour
             _itemSprite.color = Color.clear;
             _itemName.text = "";
             _itemCount.text = "";
-            _itemBPrice.text = "";
-            _itemSPrice.text = "";
         }
     }
 

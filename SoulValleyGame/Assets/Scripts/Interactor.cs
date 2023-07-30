@@ -25,6 +25,7 @@ public class Interactor : MonoBehaviour
     private void Update()
     {
         if(view.IsMine){
+            
             if (Keyboard.current.kKey.wasPressedThisFrame && PhotonNetwork.IsMasterClient){
                 SaveLoad.Save(SaveGameManager.data);
             }

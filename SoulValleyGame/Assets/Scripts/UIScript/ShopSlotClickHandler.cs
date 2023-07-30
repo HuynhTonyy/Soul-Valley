@@ -16,5 +16,4 @@ public class ShopSlotClickHandler : MonoBehaviour, IPointerClickHandler
     {
         _shopSlotUI.OnItemClick();
     }
-   
 }
