@@ -13,7 +13,8 @@ public class PlayerSaveData : MonoBehaviourPunCallbacks
     }
     private void SavePlayerData(){
         if(PhotonNetwork.IsMasterClient){
-            photonView.RPC("SavePlayer",RpcTarget.AllBufferedViaServer);
+            SavePlayer();
+            photonView.RPC("SaveAllPlayer",RpcTarget.OthersBuffered);
         }else if(photonView.IsMine){
             SavePlayer();
         }
@@ -27,17 +28,19 @@ public class PlayerSaveData : MonoBehaviourPunCallbacks
         }
     }
     [PunRPC]
-    private void SaveAllPlayer(){
-        SavePlayer();
+    public void SaveAllPlayer(){
+        SaveLoad.OnSaveData?.Invoke();
     }
     private void SavePlayer(){
-        var playerData = new PlayerData(transform.position,gameObject.GetComponentInChildren<Camera>().gameObject.transform.rotation,
+        PlayerData playerData = new PlayerData(transform.position,
+        gameObject.GetComponentInChildren<Camera>().gameObject.transform.rotation,
         gameObject.GetComponent<PlayerInventoryHolder>().PrimaryInventorySystem);
         string playerId = GetComponent<UniqueID>().ID;
         if(SaveGameManager.data.playerData.ContainsKey(playerId))
             SaveGameManager.data.playerData[playerId] = playerData;
         else 
             SaveGameManager.data.playerData.Add(playerId,playerData);
+        
     }
 }
 
