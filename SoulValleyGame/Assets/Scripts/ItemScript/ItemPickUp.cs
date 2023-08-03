@@ -29,7 +29,8 @@ public class ItemPickUp : MonoBehaviourPunCallbacks
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
-        SaveLoad.OnLoadGame += LoadGame;
+        if(PhotonNetwork.IsMasterClient)
+            SaveLoad.OnLoadGame += LoadGame;
         itemSaveData = new ItemPickUpSaveData(itemData, transform.position, transform.rotation);
 
         myCollider = GetComponent<SphereCollider>();
@@ -47,6 +48,7 @@ public class ItemPickUp : MonoBehaviourPunCallbacks
     private void LoadGame(SaveData data)
     {
         if(!PhotonNetwork.IsMasterClient) return;
+        SaveLoad.OnLoadGame -= LoadGame;
         photonView.RPC("CallMasterOnDestroy",RpcTarget.MasterClient,view.ViewID);
         view.RPC("DestroyItem", RpcTarget.AllBufferedViaServer,view.ViewID);
     }  
@@ -57,6 +59,8 @@ public class ItemPickUp : MonoBehaviourPunCallbacks
         if(inventory){
             if(inventory.AddToInventory(itemData,1)){
                 // SaveGameManager.data.collectedItems.Add(id);
+                if(PhotonNetwork.IsMasterClient)
+                    SaveLoad.OnLoadGame -= LoadGame;
                 photonView.RPC("CallMasterOnDestroy",RpcTarget.MasterClient,view.ViewID);
                 view.RPC("DestroyItem", RpcTarget.AllBufferedViaServer,view.ViewID);
             }
@@ -118,7 +122,6 @@ public class ItemPickUp : MonoBehaviourPunCallbacks
         string id = PhotonView.Find(viewID).gameObject.GetComponent<UniqueID>().ID;
         if(SaveGameManager.data.activeItems.ContainsKey(id))
         {
-            SaveLoad.OnLoadGame -= LoadGame;
             SaveGameManager.data.activeItems.Remove(id);
         }
     }
