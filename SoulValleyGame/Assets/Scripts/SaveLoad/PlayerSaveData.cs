@@ -35,8 +35,14 @@ public class PlayerSaveData : MonoBehaviourPunCallbacks
             SaveGameManager.data.playerData.Add(playerId,playerData);
     }
     [PunRPC]
-    public void SaveAllPlayer(){
-        SavePlayer();
+    public void SaveOtherPlayer(){
+        
+        SaveLoad.OnSaveData?.Invoke();
+        SaveGameManager.data.collectedItems = new List<string>();
+        SaveGameManager.data.activeItems = new SerializableDictionary<string, ItemPickUpSaveData>();
+        SaveGameManager.data.chestDictionary = new SerializableDictionary<string, ChestSaveData>();
+        SaveGameManager.data.farmDictionary = new SerializableDictionary<string, FarmSaveData>();
+        SaveGameManager.data.timeData = null;
         string dir = Application.persistentDataPath + SaveLoad.directory;
 
         GUIUtility.systemCopyBuffer = dir; 
@@ -48,7 +54,8 @@ public class PlayerSaveData : MonoBehaviourPunCallbacks
 
         string json = JsonUtility.ToJson(SaveGameManager.data, true);
         File.WriteAllText(dir + SaveLoad.fileName, json);
-        Debug.Log("Saving game");
+
+        Debug.Log("Saving client player");
     }
     [PunRPC]
     public void LoadAllPlayer(){
