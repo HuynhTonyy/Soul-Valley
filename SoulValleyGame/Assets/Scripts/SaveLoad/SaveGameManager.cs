@@ -19,7 +19,7 @@ public class SaveGameManager : MonoBehaviour
         SaveLoad.OnLoadGame += LoadData;
         if(!PhotonNetwork.IsMasterClient){
             btnSave.gameObject.SetActive(false);
-            btnLoad.gameObject.SetActive(false);
+            // btnLoad.gameObject.SetActive(false);
         }
     }
 
