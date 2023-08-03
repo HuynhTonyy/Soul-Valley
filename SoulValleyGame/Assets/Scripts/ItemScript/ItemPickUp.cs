@@ -60,6 +60,7 @@ public class ItemPickUp : MonoBehaviourPunCallbacks
                 // SaveGameManager.data.collectedItems.Add(id);
                 if(PhotonNetwork.IsMasterClient)
                     SaveLoad.OnLoadGame -= LoadGame;
+                AudioManager.instance.PlayOneShot(FMODEvents.instance.itemCollected, this.transform.position);
                 photonView.RPC("CallMasterOnDestroy",RpcTarget.MasterClient,view.ViewID);
                 view.RPC("DestroyItem", RpcTarget.AllBufferedViaServer,view.ViewID);
             }
