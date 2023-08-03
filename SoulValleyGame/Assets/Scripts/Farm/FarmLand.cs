@@ -98,7 +98,7 @@ public class FarmLand : MonoBehaviourPunCallbacks, ITimeTracker
     }
     public void ClockUpdate(GameTimeStamp timeStamp)
     {
-        if(landState == LandState.Watered && PhotonNetwork.IsMasterClient)
+        if(landState == LandState.Watered)
         {
             cropPlanted.Grow();
             if(GameTimeStamp.CompareTimeStamp(timeWatered, timeStamp, false) >= 24 * 60)
@@ -131,19 +131,17 @@ public class FarmLand : MonoBehaviourPunCallbacks, ITimeTracker
             }
             landState = LandState.Dry;
             cropPlanted = null;
-            if(!land.SeedData){
+            if(land.SeedData == null){
                 photonView.RPC("UpdateLandState",RpcTarget.AllBufferedViaServer,land.LandState);
                 timeWatered = new GameTimeStamp(0,(int)GameTimeStamp.Season.Spring,0,0,0);
-            }
-            else{
+            }else{
                 landState = LandState.Tilled;
                 if(Plant(land.SeedData)){
                     timeWatered = land.TimeWatered;
-                    photonView.RPC("UpdateLandState",RpcTarget.AllBufferedViaServer,LandState.Watered);
+                    photonView.RPC("UpdateLandState",RpcTarget.AllBufferedViaServer,landState);
                     cropPlanted.seedData = land.SeedData;
                     cropPlanted.growth = land.Growth;
-                    cropPlanted.photonView.RPC("UpdateCropState", RpcTarget.AllBufferedViaServer, land.CropState);
-                    
+                    cropPlanted.photonView.RPC("UpdateCropState", RpcTarget.AllBufferedViaServer, land.CropState); 
                 }
             }
         }

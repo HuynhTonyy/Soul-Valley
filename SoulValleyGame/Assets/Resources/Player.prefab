@@ -8025,7 +8025,7 @@ MonoBehaviour:
     SynchronizeType: 1
     Name: isJumping
   - Type: 9
-    SynchronizeType: 0
+    SynchronizeType: 1
     Name: Throwing
   m_SynchronizeLayers:
   - SynchronizeType: 0
