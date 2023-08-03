@@ -111,9 +111,10 @@ public class ChestInventory : InventoryHolder, IIntractable, IPunObservable
             }
         }
         PhotonNetwork.Instantiate(itemData.ItemPreFab.name, transform.position + _dropOffset, Quaternion.identity);
-        if(SaveGameManager.data.chestDictionary.ContainsKey(id))
-            SaveGameManager.data.chestDictionary.Remove(id);
-        SaveLoad.OnSaveData -= SaveChest;
+        photonView.RPC("a",RpcTarget.MasterClient,view.ViewID);
+        if(PhotonNetwork.IsMasterClient){
+            SaveLoad.OnSaveData -= SaveChest;
+        }
         view.RPC("DestroyItem", RpcTarget.AllBufferedViaServer);
     }
     [PunRPC]
@@ -166,7 +167,11 @@ public class ChestInventory : InventoryHolder, IIntractable, IPunObservable
         GameObject chest = PhotonView.Find(viewID).gameObject;
         chest.transform.rotation = new Quaternion(x,y,z,w);
     }
-
+    [PunRPC]
+    public void a(int viewID){
+        string id = PhotonView.Find(viewID).GetComponent<UniqueID>().ID;
+        SaveGameManager.data.chestDictionary.Remove(id);
+    }
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
     {
         return;

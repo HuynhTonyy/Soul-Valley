@@ -34,8 +34,9 @@ public class SpawnItem : MonoBehaviourPunCallbacks
             ChestSaveData chestSaveData =  data.chestDictionary[chestKey];
             GameObject chest = PhotonNetwork.Instantiate(chestSaveData.ItemData.itemData.ItemPreFab.name, chestSaveData.Position, chestSaveData.Rotation);
             chest.GetComponent<ChestInventory>().LoadInventory(chestSaveData);
-            Debug.Log(chest.gameObject.GetComponent<UniqueID>().ID);
+            Debug.Log(chest.GetComponent<UniqueID>().ID);
             chest.GetComponent<ChestInventory>().syncChest();
+            Debug.Log("after sync chest: "+chest.GetComponent<ChestInventory>().PrimaryInventorySystem.InventorySlots[0].ItemData);
             Vector3 position = chestSaveData.Position;
             Quaternion rotation = chestSaveData.Rotation;
             chest.GetPhotonView().RPC("LoadChestPosition", RpcTarget.AllBufferedViaServer,
