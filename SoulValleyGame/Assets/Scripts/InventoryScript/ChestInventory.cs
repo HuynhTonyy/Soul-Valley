@@ -34,16 +34,16 @@ public class ChestInventory : InventoryHolder, IIntractable
     }
     private void SaveChest()
     {
-        SaveGameManager.data.chestDictionary[id] = new ChestSaveData(primaryInventorySystem,transform.position,transform.rotation, itemData);
+        if(!SaveGameManager.data.chestDictionary.ContainsKey(id)){
+            SaveGameManager.data.chestDictionary.Add(id,new ChestSaveData(primaryInventorySystem,transform.position,transform.rotation, itemData));
+        }else{
+            SaveGameManager.data.chestDictionary[id] = new ChestSaveData(primaryInventorySystem,transform.position,transform.rotation, itemData);
+        }
     }
     void LoadChest(SaveData data)
     {
         if(SaveGameManager.data.chestDictionary.ContainsKey(id)) 
         {
-        //     LoadInventory(data.chestDictionary[id]);
-        // }
-        // else
-        // {
             SaveGameManager.data.chestDictionary.Remove(id);
         }
         SaveLoad.OnSaveData -= SaveChest;

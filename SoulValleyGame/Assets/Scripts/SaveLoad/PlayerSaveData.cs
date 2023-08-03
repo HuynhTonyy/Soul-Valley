@@ -17,7 +17,7 @@ public class PlayerSaveData : MonoBehaviourPunCallbacks
         if(photonView.IsMine){
             SavePlayer();
             if(PhotonNetwork.IsMasterClient){
-                photonView.RPC("SaveAllPlayer",RpcTarget.OthersBuffered);
+                photonView.RPC("SaveOtherPlayer",RpcTarget.OthersBuffered);
             }   
         }
     }
