@@ -10,8 +10,8 @@ public static class SaveLoad
     public static UnityAction OnSaveData; 
     public static UnityAction<SaveData> OnLoadGame;
 
-    private static string directory = "/SaveData/";
-    private static string fileName = "SaveGame.svg";
+    public static string directory = "/SaveData/";
+    public static string fileName = "SaveGame.svg";
 
     
     public static bool Save(SaveData data)

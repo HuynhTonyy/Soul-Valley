@@ -7,7 +7,7 @@ using UnityEngine.Events;
 using Random = UnityEngine.Random;
 
 [RequireComponent(typeof(UniqueID))]
-public class ChestInventory : InventoryHolder, IIntractable, IObservable
+public class ChestInventory : InventoryHolder, IIntractable
 {
     [SerializeField] private PlaceableData itemData;
 
@@ -48,7 +48,7 @@ public class ChestInventory : InventoryHolder, IIntractable, IObservable
         }
         SaveLoad.OnSaveData -= SaveChest;
         SaveLoad.OnLoadGame -= LoadChest;
-        Destroy(gameObject);
+        view.RPC("DestroyItem", RpcTarget.AllBufferedViaServer);
 }
     protected override void LoadInventory(SaveData data)
     {
@@ -183,11 +183,18 @@ public class ChestInventory : InventoryHolder, IIntractable, IObservable
     {
         isUsed = true;
     }
+    [PunRPC]
+    public void LoadChestPosition(int viewID, float x,float y,float z){
+        GameObject chest = PhotonView.Find(viewID).gameObject;
+        chest.transform.position = new Vector3(x,y,z);
+    }
+    [PunRPC]
+    public void LoadChestRotation(int viewID, float x,float y,float z , float w){
+        GameObject chest = PhotonView.Find(viewID).gameObject;
+        chest.transform.rotation = new Quaternion(x,y,z,w);
+    }
 }
 
-internal interface IObservable
-{
-}
 
 [System.Serializable]
 public struct ChestSaveData
