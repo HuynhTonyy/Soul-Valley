@@ -42,6 +42,7 @@ public class ChestInventory : InventoryHolder, IIntractable
     }
     void LoadChest(SaveData data)
     {
+        if(!PhotonNetwork.IsMasterClient) return;
         if(SaveGameManager.data.chestDictionary.ContainsKey(id)) 
         {
             SaveGameManager.data.chestDictionary.Remove(id);
@@ -49,11 +50,7 @@ public class ChestInventory : InventoryHolder, IIntractable
         SaveLoad.OnSaveData -= SaveChest;
         SaveLoad.OnLoadGame -= LoadChest;
         view.RPC("DestroyItem", RpcTarget.AllBufferedViaServer);
-}
-    protected override void LoadInventory(SaveData data)
-    {
     }
-    
     public void LoadInventory(ChestSaveData chestData)
     {
         primaryInventorySystem = chestData.InvSystem;

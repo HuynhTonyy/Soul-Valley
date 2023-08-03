@@ -53,6 +53,7 @@ public class ItemPickUp : MonoBehaviour
 
     private void LoadGame(SaveData data)
     {
+        if(!PhotonNetwork.IsMasterClient) return;
         SaveLoad.OnLoadGame -= LoadGame;
         SaveGameManager.data.activeItems.Remove(id);
         view.RPC("DestroyItem", RpcTarget.AllBufferedViaServer);

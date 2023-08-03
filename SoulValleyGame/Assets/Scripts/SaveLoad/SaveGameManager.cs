@@ -36,6 +36,7 @@ public class SaveGameManager : MonoBehaviour
 
     public static void LoadData(SaveData _data)
     {
+        if(!PhotonNetwork.IsMasterClient) return;
         data = _data;
     }
     public static void TryLoadData()

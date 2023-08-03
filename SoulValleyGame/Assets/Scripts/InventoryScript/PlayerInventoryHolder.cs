@@ -19,8 +19,6 @@ public class PlayerInventoryHolder : InventoryHolder
         this.primaryInventorySystem = invSys;
         OnPlayerInventoryChanged?.Invoke();
     }
-    protected override void LoadInventory(SaveData data){}
-
     private void Start(){
         playerId = GetComponent<UniqueID>().ID;
         view = GetComponent<PhotonView>();

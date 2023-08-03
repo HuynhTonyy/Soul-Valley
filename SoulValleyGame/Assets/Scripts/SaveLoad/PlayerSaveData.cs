@@ -22,6 +22,7 @@ public class PlayerSaveData : MonoBehaviourPunCallbacks
         }
     }
     private void LoadPlayerData(SaveData saveData){
+        if(!PhotonNetwork.IsMasterClient) return;
         photonView.RPC("LoadAllPlayer",RpcTarget.AllBufferedViaServer);
     }
     private void SavePlayer(){

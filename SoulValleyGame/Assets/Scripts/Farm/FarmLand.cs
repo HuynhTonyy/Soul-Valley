@@ -127,6 +127,7 @@ public class FarmLand : MonoBehaviourPunCallbacks, ITimeTracker
         }
     }
     void LoadFarmData(SaveData data){
+        if(!PhotonNetwork.IsMasterClient) return;
         if(data.farmDictionary.TryGetValue(GetComponent<UniqueID>().ID,out FarmSaveData land)){
             if(GetComponentInChildren<CropBehaviour>() != null){
                 Destroy(GetComponentInChildren<CropBehaviour>().gameObject);

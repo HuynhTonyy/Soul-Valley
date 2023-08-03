@@ -19,11 +19,8 @@ public abstract class InventoryHolder : MonoBehaviourPunCallbacks
 
     protected virtual void Awake()
     {
-        SaveLoad.OnLoadGame += LoadInventory;
         primaryInventorySystem = new InventorySystem(inventorySize);
     }
-
-    protected abstract void LoadInventory(SaveData saveData);
     
 }
 

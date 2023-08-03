@@ -13,6 +13,7 @@ public class SpawnItem : MonoBehaviourPunCallbacks
 
     void LoadItem(SaveData data)
     {
+        if(!PhotonNetwork.IsMasterClient) return;
         foreach (var activeKey in data.activeItems.Keys)
         {
             ItemPickUpSaveData item = data.activeItems[activeKey];
@@ -21,6 +22,7 @@ public class SpawnItem : MonoBehaviourPunCallbacks
     }
     void LoadChest(SaveData data)
     {
+        if(!PhotonNetwork.IsMasterClient) return;
         foreach (var chestKey in data.chestDictionary.Keys)
         {
             ChestSaveData chestSaveData =  data.chestDictionary[chestKey];

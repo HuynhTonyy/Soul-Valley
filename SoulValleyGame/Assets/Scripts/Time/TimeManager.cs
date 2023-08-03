@@ -69,6 +69,7 @@ public class TimeManager : MonoBehaviour, IPunObservable
         SaveGameManager.data.timeData = Instance.timeStamp;
     }
     void LoadTimeData(SaveData data){
+        if(!PhotonNetwork.IsMasterClient) return;
         Instance.timeStamp = data.timeData;
     }
 
