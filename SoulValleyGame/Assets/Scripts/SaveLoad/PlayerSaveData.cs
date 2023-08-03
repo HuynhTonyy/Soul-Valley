@@ -65,7 +65,6 @@ public class PlayerSaveData : MonoBehaviourPunCallbacks
         {
             string json = File.ReadAllText(fullPath);
             data = JsonUtility.FromJson<SaveData>(json);
-            Debug.Log("Loading player data");
             if(data.playerData.TryGetValue(GetComponent<UniqueID>().ID,out PlayerData value))
             {
                 transform.position = value.PlayerPosition;
