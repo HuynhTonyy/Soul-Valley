@@ -133,18 +133,20 @@ public class FarmLand : MonoBehaviourPunCallbacks, ITimeTracker
             if(GetComponentInChildren<CropBehaviour>() != null){
                 PhotonNetwork.Destroy(GetComponentInChildren<CropBehaviour>().gameObject);
             }
+            photonView.RPC("UpdateLandState",RpcTarget.AllBufferedViaServer,LandState.Dry);
             photonView.RPC("SetCropPlantedNull",RpcTarget.AllBufferedViaServer);
             if(land.SeedData == null){
                 photonView.RPC("UpdateLandState",RpcTarget.AllBufferedViaServer,land.LandState);
-            }else{
-                photonView.RPC("UpdateLandState",RpcTarget.AllBufferedViaServer,LandState.Tilled);
                 photonView.RPC("UpdateTimeWatered",RpcTarget.AllBufferedViaServer,
                     null,
                     null,
                     null,
                     null,
                     null);
+            }else{
+                photonView.RPC("UpdateLandState",RpcTarget.AllBufferedViaServer,LandState.Tilled);
                 if(Plant(land.SeedData)){
+                    Debug.Log("Plant success "+ land.LandState);
                     photonView.RPC("UpdateGrowth",RpcTarget.AllBufferedViaServer,land.Growth);
                     cropPlanted.photonView.RPC("UpdateCropState", RpcTarget.AllBufferedViaServer, land.CropState);
                     photonView.RPC("UpdateTimeWatered",RpcTarget.AllBufferedViaServer,
@@ -153,6 +155,7 @@ public class FarmLand : MonoBehaviourPunCallbacks, ITimeTracker
                     land.TimeWatered.day,
                     land.TimeWatered.hour,
                     land.TimeWatered.minute);
+                    photonView.RPC("UpdateLandState",RpcTarget.AllBufferedViaServer,land.LandState);
                 }
             }
         }

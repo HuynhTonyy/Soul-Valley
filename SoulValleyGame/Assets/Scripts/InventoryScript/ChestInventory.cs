@@ -60,7 +60,6 @@ public class ChestInventory : InventoryHolder, IIntractable, IPunObservable
         List<string> listItemID = new List<string>();
         List<int> listItemAmount = new List<int>();
         foreach (InventorySlot item in primaryInventorySystem.InventorySlots){
-            Debug.Log(item.ItemData);
             if(item.ItemData){
                 listItemID.Add(item.ItemData.Id);
                 listItemAmount.Add(item.StackSize);
@@ -78,7 +77,6 @@ public class ChestInventory : InventoryHolder, IIntractable, IPunObservable
             {
                 if(item.Id == listItemID[i])
                 {
-                    Debug.Log(item.name);
                     inventorySlot.setItemData(item);
                     inventorySlot.setItemStack(listItemAmount[i]);
                     check = false;
