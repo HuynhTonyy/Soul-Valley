@@ -6,7 +6,7 @@ using UnityEngine;
 [RequireComponent(typeof(SphereCollider))]
 [RequireComponent(typeof(UniqueID))]
 [RequireComponent(typeof(Rigidbody))]
-public class ItemPickUp : MonoBehaviour
+public class ItemPickUp : MonoBehaviourPunCallbacks
 {
     [SerializeField] private float rotationSpeed = 20f;
     float groundRadius = .25f;
@@ -41,21 +41,14 @@ public class ItemPickUp : MonoBehaviour
     {
         view = GetComponent<PhotonView>();
         id = GetComponent<UniqueID>().ID;
-        if(SaveGameManager.data.activeItems.ContainsKey(id))
-        {
-            SaveGameManager.data.activeItems[id] = itemSaveData;
-        }
-        else 
-        {
-            SaveGameManager.data.activeItems.Add(id,itemSaveData);
-        }
+        photonView.RPC("CallMasterOnStart",RpcTarget.MasterClient,photonView.ViewID);
     }
 
     private void LoadGame(SaveData data)
     {
         if(!PhotonNetwork.IsMasterClient) return;
         SaveLoad.OnLoadGame -= LoadGame;
-        SaveGameManager.data.activeItems.Remove(id);
+        photonView.RPC("CallMasterOnDestroy",RpcTarget.MasterClient,photonView.ViewID);
         view.RPC("DestroyItem", RpcTarget.AllBufferedViaServer,view.ViewID);
     }  
 
@@ -64,9 +57,8 @@ public class ItemPickUp : MonoBehaviour
         var inventory = other.transform.GetComponent<PlayerInventoryHolder>();
         if(inventory){
             if(inventory.AddToInventory(itemData,1)){
-                
-                SaveGameManager.data.collectedItems.Add(id);
-                SaveGameManager.data.activeItems.Remove(id);
+                // SaveGameManager.data.collectedItems.Add(id);
+                photonView.RPC("CallMasterOnDestroy",RpcTarget.MasterClient,photonView.ViewID);
                 SaveLoad.OnLoadGame -= LoadGame;
                 view.RPC("DestroyItem", RpcTarget.AllBufferedViaServer,view.ViewID);
             }
@@ -121,6 +113,26 @@ public class ItemPickUp : MonoBehaviour
     private void DestroyItem(int viewID)
     {
         Destroy(PhotonView.Find(viewID).gameObject);
+    }
+    [PunRPC]
+    private void CallMasterOnDestroy(int viewID)
+    {
+        string id = PhotonView.Find(viewID).gameObject.GetComponent<UniqueID>().ID;
+        SaveGameManager.data.activeItems.Remove(id);
+    }
+    [PunRPC]
+    private void CallMasterOnStart(int viewID)
+    {
+        string id = PhotonView.Find(viewID).gameObject.GetComponent<UniqueID>().ID;
+        ItemPickUpSaveData itemSaveData = PhotonView.Find(viewID).gameObject.GetComponent<ItemPickUp>().itemSaveData;
+        if(SaveGameManager.data.activeItems.ContainsKey(id))
+        {
+            SaveGameManager.data.activeItems[id] = itemSaveData;
+        }
+        else 
+        {
+            SaveGameManager.data.activeItems.Add(id,itemSaveData);
+        }
     }
 }
 
