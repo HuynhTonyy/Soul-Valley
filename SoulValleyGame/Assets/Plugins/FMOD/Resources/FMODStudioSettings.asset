@@ -484,8 +484,8 @@ MonoBehaviour:
   switchSettingsMigration: 1
   HasSourceProject: 1
   HasPlatforms: 1
-  sourceProjectPath: ../../../FMOD Studio/SoulValleyFMOD/SoulValleyFMOD.fspro
-  sourceBankPath: ../../../FMOD Studio/SoulValleyFMOD/Build
+  sourceProjectPath: Assets/AudioSrc/SoulValleyFMOD.fspro
+  sourceBankPath: Assets/AudioSrc/Build
   sourceBankPathUnformatted: 
   BankRefreshCooldown: 5
   ShowBankRefreshWindow: 1

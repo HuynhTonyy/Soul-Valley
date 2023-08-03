@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="AudioFile" id="{b75b669f-2df4-457a-844c-d9c7395b0327}">
+		<property name="assetPath">
+			<value>SFX/wood03.ogg</value>
+		</property>
+		<property name="frequencyInKHz">
+			<value>44.0999985</value>
+		</property>
+		<property name="channelCount">
+			<value>2</value>
+		</property>
+		<property name="length">
+			<value>0.3179138321995465</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{724e656c-511b-4969-b03d-22e4bc11de6b}</destination>
+		</relationship>
+	</object>
+</objects>

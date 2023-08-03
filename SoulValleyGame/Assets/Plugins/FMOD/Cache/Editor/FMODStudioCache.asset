@@ -19,15 +19,35 @@ MonoBehaviour:
     Data3: 939760286
     Data4: -1824608098
   Banks:
-  - {fileID: 5993415591021577155}
+  - {fileID: 999089864123402435}
   IsStream: 0
   Is3D: 1
   IsOneShot: 1
   Parameters: []
   MinDistance: 1
   MaxDistance: 20
-  Length: 600
---- !u!114 &-6104164999223609613
+  Length: 90
+--- !u!114 &-4168122095708158088
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: bank:/Master.strings.bank
+  m_EditorClassIdentifier: 
+  Path: Assets/AudioSrc/Build/Desktop/Master.strings.bank
+  Name: Master.strings
+  StudioPath: bank:/Master.strings
+  lastModified: 638266901347111294
+  FileSizes:
+  - Name: Desktop
+    Value: 864
+  Exists: 1
+--- !u!114 &-3607531824279114934
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -39,7 +59,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
   m_Name: bank:/Master.bank
   m_EditorClassIdentifier: 
-  Path: ../../../FMOD Studio/SoulValleyFMOD/Build/Desktop/Master.bank
+  Path: Assets/AudioSrc/Build/Desktop/Master.bank
   Name: Master
   StudioPath: bank:/Master
   lastModified: 638266901347091306
@@ -60,20 +80,20 @@ MonoBehaviour:
   m_Name: FMODStudioCache
   m_EditorClassIdentifier: 
   EditorBanks:
-  - {fileID: 335175442051883657}
-  - {fileID: -6104164999223609613}
-  - {fileID: 5993415591021577155}
+  - {fileID: -4168122095708158088}
+  - {fileID: -3607531824279114934}
+  - {fileID: 999089864123402435}
   EditorEvents:
   - {fileID: 4475441255398515354}
   - {fileID: -6421518698587566786}
   EditorParameters: []
   MasterBanks:
-  - {fileID: -6104164999223609613}
+  - {fileID: -3607531824279114934}
   StringsBanks:
-  - {fileID: 335175442051883657}
-  cacheTime: 638266901347658761
+  - {fileID: -4168122095708158088}
+  cacheTime: 638266910596330669
   cacheVersion: 131605
---- !u!114 &335175442051883657
+--- !u!114 &999089864123402435
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -83,15 +103,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
-  m_Name: bank:/Master.strings.bank
+  m_Name: bank:/SFX.bank
   m_EditorClassIdentifier: 
-  Path: ../../../FMOD Studio/SoulValleyFMOD/Build/Desktop/Master.strings.bank
-  Name: Master.strings
-  StudioPath: bank:/Master.strings
-  lastModified: 638266901347111294
+  Path: Assets/AudioSrc/Build/Desktop/SFX.bank
+  Name: SFX
+  StudioPath: bank:/SFX
+  lastModified: 638266910596330669
   FileSizes:
   - Name: Desktop
-    Value: 864
+    Value: 25344
   Exists: 1
 --- !u!114 &4475441255398515354
 MonoBehaviour:
@@ -112,7 +132,7 @@ MonoBehaviour:
     Data3: -1481684831
     Data4: -1310846912
   Banks:
-  - {fileID: 5993415591021577155}
+  - {fileID: 999089864123402435}
   IsStream: 0
   Is3D: 1
   IsOneShot: 0
@@ -120,23 +140,3 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 500
---- !u!114 &5993415591021577155
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
-  m_Name: bank:/SFX.bank
-  m_EditorClassIdentifier: 
-  Path: ../../../FMOD Studio/SoulValleyFMOD/Build/Desktop/SFX.bank
-  Name: SFX
-  StudioPath: bank:/SFX
-  lastModified: 638266901347658761
-  FileSizes:
-  - Name: Desktop
-    Value: 25344
-  Exists: 1
