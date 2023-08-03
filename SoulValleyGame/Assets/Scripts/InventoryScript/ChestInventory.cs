@@ -56,21 +56,19 @@ public class ChestInventory : InventoryHolder, IIntractable, IPunObservable
     }
     public void syncChest()
     {
+        listOfItem = getAllItem();
         List<string> listItemID = new List<string>();
-        foreach (InventorySlot item in primaryInventorySystem.InventorySlots){
-            if(item.ItemData)
-                listItemID.Add(item.ItemData.Id);
-            else
-                listItemID.Add(null);
-        }
         List<int> listItemAmount = new List<int>();
         foreach (InventorySlot item in primaryInventorySystem.InventorySlots){
-            if(item.ItemData)
+            Debug.Log(item.ItemData);
+            if(item.ItemData){
+                listItemID.Add(item.ItemData.Id);
                 listItemAmount.Add(item.StackSize);
-            else
+            }else{
+                listItemID.Add(null);
                 listItemAmount.Add(-1);
+            }
         }
-        
         for (int i = 0 ; i < listItemID.Count;i++)
         {
             InventorySlot inventorySlot = new InventorySlot();
@@ -91,11 +89,11 @@ public class ChestInventory : InventoryHolder, IIntractable, IPunObservable
             {
                 inventorySlot.setItemData(null);
                 inventorySlot.setItemStack(-1);
-                photonView.RPC("updateChest",RpcTarget.AllBufferedViaServer,inventorySlot.ItemData,inventorySlot.StackSize,i,view.ViewID);
+                photonView.RPC("updateChest",RpcTarget.AllBufferedViaServer,inventorySlot.ItemData,inventorySlot.StackSize,i,gameObject.GetComponent<PhotonView>().ViewID);
             }
             else
             {
-                photonView.RPC("updateChest",RpcTarget.AllBufferedViaServer,inventorySlot.ItemData.Id,inventorySlot.StackSize,i,view.ViewID);
+                photonView.RPC("updateChest",RpcTarget.AllBufferedViaServer,inventorySlot.ItemData.Id,inventorySlot.StackSize,i, gameObject.GetComponent<PhotonView>().ViewID);
             }
         }
     }
