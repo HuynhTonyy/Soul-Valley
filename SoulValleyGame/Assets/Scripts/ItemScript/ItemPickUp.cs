@@ -47,9 +47,8 @@ public class ItemPickUp : MonoBehaviourPunCallbacks
 
     private void LoadGame(SaveData data)
     {
-        if(!PhotonNetwork.IsMasterClient) return;
         SaveLoad.OnLoadGame -= LoadGame;
-        photonView.RPC("CallMasterOnDestroy",RpcTarget.MasterClient,view.ViewID);
+        SaveGameManager.data.activeItems.Remove(id);
         view.RPC("DestroyItem", RpcTarget.AllBufferedViaServer,view.ViewID);
     }  
 
@@ -121,9 +120,7 @@ public class ItemPickUp : MonoBehaviourPunCallbacks
     {
         string id = PhotonView.Find(viewID).gameObject.GetComponent<UniqueID>().ID;
         if(SaveGameManager.data.activeItems.ContainsKey(id))
-        {
             SaveGameManager.data.activeItems.Remove(id);
-        }
     }
     [PunRPC]
     private void CallMasterOnStart(int viewID)
