@@ -48,7 +48,7 @@ public class ChestInventory : InventoryHolder, IIntractable
         }
         SaveLoad.OnSaveData -= SaveChest;
         SaveLoad.OnLoadGame -= LoadChest;
-        Destroy(gameObject);
+        view.RPC("DestroyItem", RpcTarget.AllBufferedViaServer);
 }
     protected override void LoadInventory(SaveData data)
     {
