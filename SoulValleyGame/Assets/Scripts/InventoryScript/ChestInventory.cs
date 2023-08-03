@@ -80,6 +80,7 @@ public class ChestInventory : InventoryHolder, IIntractable, IPunObservable
             {
                 if(item.Id == listItemID[i])
                 {
+                    Debug.Log(item.name);
                     inventorySlot.setItemData(item);
                     inventorySlot.setItemStack(listItemAmount[i]);
                     check = false;
@@ -90,11 +91,11 @@ public class ChestInventory : InventoryHolder, IIntractable, IPunObservable
             {
                 inventorySlot.setItemData(null);
                 inventorySlot.setItemStack(-1);
-                photonView.RPC("updateChest",RpcTarget.AllBufferedViaServer,inventorySlot.ItemData,inventorySlot.StackSize,i);
+                photonView.RPC("updateChest",RpcTarget.AllBufferedViaServer,inventorySlot.ItemData,inventorySlot.StackSize,i,view.ViewID);
             }
             else
             {
-                photonView.RPC("updateChest",RpcTarget.AllBufferedViaServer,inventorySlot.ItemData.Id,inventorySlot.StackSize,i);
+                photonView.RPC("updateChest",RpcTarget.AllBufferedViaServer,inventorySlot.ItemData.Id,inventorySlot.StackSize,i,view.ViewID);
             }
         }
     }
@@ -135,21 +136,22 @@ public class ChestInventory : InventoryHolder, IIntractable, IPunObservable
     }
 
     [PunRPC]
-    private void updateChest(string itemId , int itemAmount , int index)
+    private void updateChest(string itemId , int itemAmount , int index, int viewID)
     {
+        ChestInventory chest = PhotonView.Find(viewID).GetComponent<ChestInventory>();
         bool check = true;
         foreach(ItemScript item in listOfItem)
         {
             if(item.Id == itemId)
             {
-                primaryInventorySystem.AssignItemBySlotIndex(item,itemAmount,index);
+                chest.primaryInventorySystem.AssignItemBySlotIndex(item,itemAmount,index);
                 check = false;
                 break;
             }
         }
         if(check)
         {
-            primaryInventorySystem.AssignItemBySlotIndex(null,itemAmount,index);
+            chest.primaryInventorySystem.AssignItemBySlotIndex(null,itemAmount,index);
         }
     }
     [PunRPC]
