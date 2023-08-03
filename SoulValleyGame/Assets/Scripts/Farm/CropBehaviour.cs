@@ -81,15 +81,4 @@ public class CropBehaviour : MonoBehaviourPunCallbacks
     {
         SwitchCropState(cropState);
     }
-    [PunRPC]
-    public void SetSeedData(string id)
-    {
-        ItemScript[] allSeed = Resources.LoadAll<SeedData>("Items"); 
-        foreach(SeedData seed in allSeed)
-        {
-            if(seed.Id == id){
-                seedData = seed;
-            }
-        }
-    }
 }
