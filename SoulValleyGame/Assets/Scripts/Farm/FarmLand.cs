@@ -117,6 +117,7 @@ public class FarmLand : MonoBehaviourPunCallbacks, ITimeTracker
         int growth = 1;
         CropBehaviour.CropState CropState = CropBehaviour.CropState.Seed;
         if(cropPlanted != null){
+            seed = cropPlanted.seedData;
             growth = cropPlanted.growth;
             CropState = cropPlanted.cropState;
         }
@@ -137,6 +138,12 @@ public class FarmLand : MonoBehaviourPunCallbacks, ITimeTracker
                 photonView.RPC("UpdateLandState",RpcTarget.AllBufferedViaServer,land.LandState);
             }else{
                 photonView.RPC("UpdateLandState",RpcTarget.AllBufferedViaServer,LandState.Tilled);
+                photonView.RPC("UpdateTimeWatered",RpcTarget.AllBufferedViaServer,
+                    null,
+                    null,
+                    null,
+                    null,
+                    null);
                 if(Plant(land.SeedData)){
                     photonView.RPC("UpdateGrowth",RpcTarget.AllBufferedViaServer,land.Growth);
                     cropPlanted.photonView.RPC("UpdateCropState", RpcTarget.AllBufferedViaServer, land.CropState);

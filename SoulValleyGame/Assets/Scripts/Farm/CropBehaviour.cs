@@ -15,8 +15,10 @@ public class CropBehaviour : MonoBehaviourPunCallbacks
     public CropState cropState;
     public int growth = 1;
     int maxGrowth;
+    public SeedData seedData;
     public void PLant(SeedData seedToGrow)
     {
+        seedData = seedToGrow;
         seed = PhotonNetwork.Instantiate(seedToGrow.seed.name,transform.position,Quaternion.identity);
         seedling = PhotonNetwork.Instantiate(seedToGrow.seedling.name,transform.position,Quaternion.identity);
         harvestable = PhotonNetwork.Instantiate(seedToGrow.harvestable.name,transform.position,Quaternion.identity);
