@@ -23,13 +23,13 @@ public class ChestInventory : InventoryHolder, IIntractable, IPunObservable
     }
     private void Start() {
         id = GetComponent<UniqueID>().ID;
-        SaveLoad.OnSaveData += SaveChest;
+        if(PhotonNetwork.IsMasterClient)    
+            SaveLoad.OnSaveData += SaveChest;
         view = GetComponent<PhotonView>();
         listOfItem = getAllItem();
     }
     private void SaveChest()
     {
-        Debug.Log(id);
         if(!SaveGameManager.data.chestDictionary.ContainsKey(id)){
             SaveGameManager.data.chestDictionary.Add(id,new ChestSaveData(primaryInventorySystem,transform.position,transform.rotation, itemData));
         }else{
