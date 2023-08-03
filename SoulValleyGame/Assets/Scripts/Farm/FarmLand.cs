@@ -35,10 +35,7 @@ public class FarmLand : MonoBehaviourPunCallbacks, ITimeTracker
     }
     public bool Plant(SeedData seed)
     {
-        Debug.Log(cropPlanted);
-        Debug.Log(landState);
-        Debug.Log(seed);
-        if(cropPlanted == null && landState == LandState.Tilled && seed != null)
+        if(!cropPlanted && landState == LandState.Tilled && seed)
         {
             GameObject cropObject = PhotonNetwork.Instantiate(cropPrefab.name,transform.position,Quaternion.identity);
             photonView.RPC("SetParentForCropObject", RpcTarget.AllBufferedViaServer, cropObject.GetComponent<PhotonView>().ViewID);
@@ -92,12 +89,7 @@ public class FarmLand : MonoBehaviourPunCallbacks, ITimeTracker
     {
         var inventory = player.GetComponent<PlayerInventoryHolder>();
         if (!inventory) return;
-        List<Transform> children = new List<Transform>();
-        foreach(Transform child in cropPlanted.transform)
-        {
-            children.Add(child);
-        }
-        if (inventory.AddToInventory(children[children.Count - 1].GetComponent<CropHarvest>().itemData, 1))
+        if (inventory.AddToInventory(GetComponentInChildren<CropHarvest>().itemData, 1))
         {
             photonView.RPC("DestroyObject", RpcTarget.AllBufferedViaServer);
             photonView.RPC("UpdateLandState", RpcTarget.AllBufferedViaServer, LandState.Dry);
@@ -106,11 +98,12 @@ public class FarmLand : MonoBehaviourPunCallbacks, ITimeTracker
     }
     public void ClockUpdate(GameTimeStamp timeStamp)
     {
-        if(landState == LandState.Watered)
+        if(landState == LandState.Watered && PhotonNetwork.IsMasterClient)
         {
             cropPlanted.Grow();
             if(GameTimeStamp.CompareTimeStamp(timeWatered, timeStamp, false) >= 24 * 60)
             {
+                Debug.Log(GameTimeStamp.CompareTimeStamp(timeWatered, timeStamp, false));
                 photonView.RPC("UpdateLandState", RpcTarget.AllBufferedViaServer, LandState.Tilled);
             }
         }
@@ -133,33 +126,23 @@ public class FarmLand : MonoBehaviourPunCallbacks, ITimeTracker
     }
     void LoadFarmData(SaveData data){
         if(data.farmDictionary.TryGetValue(GetComponent<UniqueID>().ID,out FarmSaveData land)){
-            if(GetComponentInChildren<CropBehaviour>() != null){
+            if(GetComponentInChildren<CropBehaviour>()){
                 PhotonNetwork.Destroy(GetComponentInChildren<CropBehaviour>().gameObject);
             }
-            photonView.RPC("UpdateLandState",RpcTarget.AllBufferedViaServer,LandState.Dry);
+            landState = LandState.Dry;
             cropPlanted = null;
-            if(land.SeedData == null){
+            if(!land.SeedData){
                 photonView.RPC("UpdateLandState",RpcTarget.AllBufferedViaServer,land.LandState);
-                photonView.RPC("UpdateTimeWatered",RpcTarget.AllBufferedViaServer,
-                    0,
-                    GameTimeStamp.Season.Spring,
-                    0,
-                    0,
-                    0);
+                timeWatered = new GameTimeStamp(0,(int)GameTimeStamp.Season.Spring,0,0,0);
             }
             else{
-                photonView.RPC("UpdateLandState",RpcTarget.AllBufferedViaServer,LandState.Tilled);
+                landState = LandState.Tilled;
                 if(Plant(land.SeedData)){
-                    photonView.RPC("UpdateLandState",RpcTarget.AllBufferedViaServer,land.LandState);
-                    cropPlanted.photonView.RPC("SetSeedData", RpcTarget.AllBufferedViaServer, land.SeedData.Id);
-                    photonView.RPC("UpdateGrowth",RpcTarget.AllBufferedViaServer,land.Growth);
+                    timeWatered = land.TimeWatered;
+                    photonView.RPC("UpdateLandState",RpcTarget.AllBufferedViaServer,LandState.Watered);
+                    cropPlanted.seedData = land.SeedData;
+                    cropPlanted.growth = land.Growth;
                     cropPlanted.photonView.RPC("UpdateCropState", RpcTarget.AllBufferedViaServer, land.CropState);
-                    photonView.RPC("UpdateTimeWatered",RpcTarget.AllBufferedViaServer,
-                    land.TimeWatered.year,
-                    land.TimeWatered.season,
-                    land.TimeWatered.day,
-                    land.TimeWatered.hour,
-                    land.TimeWatered.minute);
                     
                 }
             }
@@ -171,11 +154,6 @@ public class FarmLand : MonoBehaviourPunCallbacks, ITimeTracker
     public void UpdateTimeWatered(int year, int season, int day, int hour, int minute)
     {
         timeWatered = new GameTimeStamp(year, (GameTimeStamp.Season)season, day, hour, minute);
-    }
-    [PunRPC]
-    public void UpdateGrowth(int growth)
-    {
-        cropPlanted.growth = growth;
     }
     [PunRPC]
     public void UpdateLandState(LandState landState)
