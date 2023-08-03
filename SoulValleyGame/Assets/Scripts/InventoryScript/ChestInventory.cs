@@ -7,7 +7,7 @@ using UnityEngine.Events;
 using Random = UnityEngine.Random;
 
 [RequireComponent(typeof(UniqueID))]
-public class ChestInventory : InventoryHolder, IIntractable, IObservable
+public class ChestInventory : InventoryHolder, IIntractable
 {
     [SerializeField] private PlaceableData itemData;
 
@@ -185,9 +185,6 @@ public class ChestInventory : InventoryHolder, IIntractable, IObservable
     }
 }
 
-internal interface IObservable
-{
-}
 
 [System.Serializable]
 public struct ChestSaveData
