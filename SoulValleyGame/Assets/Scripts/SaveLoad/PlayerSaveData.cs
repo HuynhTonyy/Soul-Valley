@@ -39,7 +39,6 @@ public class PlayerSaveData : MonoBehaviourPunCallbacks
     public void SaveOtherPlayer(){
         
         SaveLoad.OnSaveData?.Invoke();
-        SaveGameManager.data.collectedItems = new List<string>();
         SaveGameManager.data.activeItems = new SerializableDictionary<string, ItemPickUpSaveData>();
         SaveGameManager.data.chestDictionary = new SerializableDictionary<string, ChestSaveData>();
         SaveGameManager.data.farmDictionary = new SerializableDictionary<string, FarmSaveData>();

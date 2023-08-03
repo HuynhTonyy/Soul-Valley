@@ -94,7 +94,6 @@ public class FarmLand : MonoBehaviourPunCallbacks, ITimeTracker
         }
         if (inventory.AddToInventory(children[children.Count - 1].GetComponent<CropHarvest>().itemData, 1))
         {
-            SaveGameManager.data.collectedItems.Add(children[children.Count - 1].GetComponent<UniqueID>().ID);
             photonView.RPC("DestroyObject", RpcTarget.AllBufferedViaServer);
             photonView.RPC("UpdateLandState", RpcTarget.AllBufferedViaServer, LandState.Dry);
             

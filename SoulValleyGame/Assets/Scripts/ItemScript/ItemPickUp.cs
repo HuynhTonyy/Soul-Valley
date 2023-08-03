@@ -113,7 +113,7 @@ public class ItemPickUp : MonoBehaviourPunCallbacks
     [PunRPC]
     private void DestroyItem(int viewID)
     {
-        Destroy(PhotonView.Find(viewID).gameObject);
+        Destroy(gameObject);
     }
     [PunRPC]
     private void CallMasterOnDestroy(int viewID)
