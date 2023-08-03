@@ -7,91 +7,68 @@ using UnityEngine.Events;
 using Random = UnityEngine.Random;
 
 [RequireComponent(typeof(UniqueID))]
-public class ChestInventory : InventoryHolder, IIntractable
+public class ChestInventory : InventoryHolder, IIntractable, IPunObservable
 {
     [SerializeField] private PlaceableData itemData;
 
-    String id;
+    string id;
     PhotonView view;
     public bool isUsed = false;
 
     List<ItemScript> listOfItem = new List<ItemScript>();
-
-    public InventorySystem getChestInventory(){ return primaryInventorySystem;}
     protected override void Awake()
     {
         base.Awake();
+        
+    }
+    private void Start() {
         id = GetComponent<UniqueID>().ID;
         SaveLoad.OnSaveData += SaveChest;
-        SaveLoad.OnLoadGame += LoadChest;
         view = GetComponent<PhotonView>();
-    }
-    private void Start()
-    {
         listOfItem = getAllItem();
-        var chestSaveData = new ChestSaveData(primaryInventorySystem,transform.position,transform.rotation, itemData);
-        SaveGameManager.data.chestDictionary.Add(GetComponent<UniqueID>().ID, chestSaveData);
     }
     private void SaveChest()
     {
+        Debug.Log(id);
         if(!SaveGameManager.data.chestDictionary.ContainsKey(id)){
             SaveGameManager.data.chestDictionary.Add(id,new ChestSaveData(primaryInventorySystem,transform.position,transform.rotation, itemData));
         }else{
             SaveGameManager.data.chestDictionary[id] = new ChestSaveData(primaryInventorySystem,transform.position,transform.rotation, itemData);
         }
     }
-    void LoadChest(SaveData data)
+    public void DestroyChestOnLoad()
     {
-        if(!PhotonNetwork.IsMasterClient) return;
-        if(SaveGameManager.data.chestDictionary.ContainsKey(id)) 
-        {
-            SaveGameManager.data.chestDictionary.Remove(id);
-        }
         SaveLoad.OnSaveData -= SaveChest;
-        SaveLoad.OnLoadGame -= LoadChest;
         view.RPC("DestroyItem", RpcTarget.AllBufferedViaServer);
     }
     public void LoadInventory(ChestSaveData chestData)
     {
         primaryInventorySystem = chestData.InvSystem;
+        Debug.Log(primaryInventorySystem.InventorySlots.Count);
+        Debug.Log(primaryInventorySystem.InventorySlots[0].StackSize);
     }
     public void Interact(Interactor interactor)
     {
-        if(isUsed)
-        {
-            return;
-        }
+        if(isUsed) return;
         photonView.RPC("chestState",RpcTarget.AllBufferedViaServer);
-
         OnDynamicInventoryDisplayRequested?.Invoke(primaryInventorySystem,0,interactor.gameObject.GetComponent<PlayerInventoryHolder>().PrimaryInventorySystem,9);
         interactor.gameObject.GetComponentInChildren<InventoryUIControler>().isClosed = false;
     }
-
     public void syncChest()
     {
         List<string> listItemID = new List<string>();
-        foreach (InventorySlot item in primaryInventorySystem.InventorySlots)
-        {
+        foreach (InventorySlot item in primaryInventorySystem.InventorySlots){
             if(item.ItemData)
-            {
                 listItemID.Add(item.ItemData.Id);
-            }
             else
-            {
                 listItemID.Add(null);
-            }
         }
         List<int> listItemAmount = new List<int>();
-        foreach (InventorySlot item in primaryInventorySystem.InventorySlots)
-        {
+        foreach (InventorySlot item in primaryInventorySystem.InventorySlots){
             if(item.ItemData)
-            {
                 listItemAmount.Add(item.StackSize);
-            }
             else
-            {
                 listItemAmount.Add(-1);
-            }
         }
         
         for (int i = 0 ; i < listItemID.Count;i++)
@@ -119,10 +96,9 @@ public class ChestInventory : InventoryHolder, IIntractable
             {
                 photonView.RPC("updateChest",RpcTarget.AllBufferedViaServer,inventorySlot.ItemData.Id,inventorySlot.StackSize,i);
             }
-            
         }
     }
-    public void DestroyChest(){
+    public void DestroyChestByPlayer(){
         Vector3 _dropOffset = new Vector3(Random.Range(-0.3f, -0.1f), .5f, Random.Range(-0.3f, -0.1f));
         foreach (InventorySlot slot in primaryInventorySystem.InventorySlots)
         {
@@ -135,9 +111,9 @@ public class ChestInventory : InventoryHolder, IIntractable
             }
         }
         PhotonNetwork.Instantiate(itemData.ItemPreFab.name, transform.position + _dropOffset, Quaternion.identity);
-        SaveGameManager.data.chestDictionary.Remove(id);
+        if(SaveGameManager.data.chestDictionary.ContainsKey(id))
+            SaveGameManager.data.chestDictionary.Remove(id);
         SaveLoad.OnSaveData -= SaveChest;
-        SaveLoad.OnLoadGame -= LoadChest;
         view.RPC("DestroyItem", RpcTarget.AllBufferedViaServer);
     }
     [PunRPC]
@@ -189,6 +165,11 @@ public class ChestInventory : InventoryHolder, IIntractable
     public void LoadChestRotation(int viewID, float x,float y,float z , float w){
         GameObject chest = PhotonView.Find(viewID).gameObject;
         chest.transform.rotation = new Quaternion(x,y,z,w);
+    }
+
+    public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+    {
+        return;
     }
 }
 

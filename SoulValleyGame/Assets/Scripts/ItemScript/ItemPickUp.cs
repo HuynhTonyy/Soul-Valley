@@ -56,7 +56,7 @@ public class ItemPickUp : MonoBehaviour
         if(!PhotonNetwork.IsMasterClient) return;
         SaveLoad.OnLoadGame -= LoadGame;
         SaveGameManager.data.activeItems.Remove(id);
-        view.RPC("DestroyItem", RpcTarget.AllBufferedViaServer);
+        view.RPC("DestroyItem", RpcTarget.AllBufferedViaServer,view.ViewID);
     }  
 
     private void OnTriggerEnter(Collider other)
@@ -68,7 +68,7 @@ public class ItemPickUp : MonoBehaviour
                 SaveGameManager.data.collectedItems.Add(id);
                 SaveGameManager.data.activeItems.Remove(id);
                 SaveLoad.OnLoadGame -= LoadGame;
-                view.RPC("DestroyItem", RpcTarget.AllBufferedViaServer);
+                view.RPC("DestroyItem", RpcTarget.AllBufferedViaServer,view.ViewID);
             }
         }
     }
@@ -118,9 +118,9 @@ public class ItemPickUp : MonoBehaviour
         Gizmos.DrawWireSphere(transform.position,groundRadius);
     }
     [PunRPC]
-    private void DestroyItem()
+    private void DestroyItem(int viewID)
     {
-        Destroy(gameObject);
+        Destroy(PhotonView.Find(viewID).gameObject);
     }
 }
 

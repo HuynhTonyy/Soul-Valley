@@ -20,7 +20,13 @@ public class SpawnItem : MonoBehaviourPunCallbacks
             PhotonNetwork.Instantiate(item.itemData.ItemPreFab.name, item.position, item.rotation);
         }
     }
-    void LoadChest(SaveData data)
+    void LoadChest(SaveData data){
+        foreach(ChestInventory chest in GameObject.FindObjectsOfType<ChestInventory>()){
+            chest.DestroyChestOnLoad();
+        }
+        uploadChest(data);
+    }
+    void uploadChest(SaveData data)
     {
         if(!PhotonNetwork.IsMasterClient) return;
         foreach (var chestKey in data.chestDictionary.Keys)

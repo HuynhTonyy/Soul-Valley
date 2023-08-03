@@ -116,7 +116,7 @@ public class Interactor : MonoBehaviour
                                     if (tag == "Interactable"){
                                         ChestInventory chestGO = hit.transform.gameObject.GetComponent<ChestInventory>();
                                         if(chestGO)
-                                            chestGO.DestroyChest();
+                                            chestGO.DestroyChestByPlayer();
                                     }
                                     break;
                             }

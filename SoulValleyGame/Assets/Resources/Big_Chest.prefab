@@ -120,6 +120,7 @@ MonoBehaviour:
     inventorySlot: []
   offset: 9
   itemData: {fileID: 11400000, guid: 01eaa4830c22f514d872a1b52a27939c, type: 2}
+  isUsed: 0
 --- !u!114 &148228589666457741
 MonoBehaviour:
   m_ObjectHideFlags: 0
