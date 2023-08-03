@@ -183,6 +183,16 @@ public class ChestInventory : InventoryHolder, IIntractable
     {
         isUsed = true;
     }
+    [PunRPC]
+    public void LoadChestPosition(int viewID, float x,float y,float z){
+        GameObject chest = PhotonView.Find(viewID).gameObject;
+        chest.transform.position = new Vector3(x,y,z);
+    }
+    [PunRPC]
+    public void LoadChestRotation(int viewID, float x,float y,float z , float w){
+        GameObject chest = PhotonView.Find(viewID).gameObject;
+        chest.transform.rotation = new Quaternion(x,y,z,w);
+    }
 }
 
 

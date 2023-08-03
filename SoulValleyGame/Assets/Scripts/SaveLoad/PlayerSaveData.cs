@@ -36,7 +36,19 @@ public class PlayerSaveData : MonoBehaviourPunCallbacks
     }
     [PunRPC]
     public void SaveAllPlayer(){
-        SaveLoad.Save(SaveGameManager.data);
+        SavePlayer();
+        string dir = Application.persistentDataPath + SaveLoad.directory;
+
+        GUIUtility.systemCopyBuffer = dir; 
+
+        if (!Directory.Exists(dir))
+        {
+            Directory.CreateDirectory(dir);
+        }
+
+        string json = JsonUtility.ToJson(SaveGameManager.data, true);
+        File.WriteAllText(dir + SaveLoad.fileName, json);
+        Debug.Log("Saving game");
     }
     [PunRPC]
     public void LoadAllPlayer(){

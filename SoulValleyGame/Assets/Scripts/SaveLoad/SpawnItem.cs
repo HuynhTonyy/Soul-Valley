@@ -37,14 +37,5 @@ public class SpawnItem : MonoBehaviourPunCallbacks
             rotation.x, rotation.y, rotation.z, rotation.w);
         }
     }
-    [PunRPC]
-    public void LoadChestPosition(int viewID, float x,float y,float z){
-        GameObject chest = PhotonView.Find(viewID).gameObject;
-        chest.transform.position = new Vector3(x,y,z);
-    }
-    [PunRPC]
-    public void LoadChestRotation(int viewID, float x,float y,float z , float w){
-        GameObject chest = PhotonView.Find(viewID).gameObject;
-        chest.transform.rotation = new Quaternion(x,y,z,w);
-    }
+    
 }
