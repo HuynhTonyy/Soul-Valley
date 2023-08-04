@@ -2,8 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using Photon.Pun;
 
-public class QuestDisplay : MonoBehaviour
+public class QuestDisplay : MonoBehaviourPunCallbacks
 {
     public TextMeshProUGUI title, detail;
     Dictionary<string, Quest> idToQuestMap = new Dictionary<string, Quest>();
@@ -33,15 +34,14 @@ public class QuestDisplay : MonoBehaviour
     
     void SpawnQuest(string ids)
     {
-        Debug.Log(ids);
         this.id = ids;
         SetQuestDisplay();
-        animator.SetTrigger("start");
+        photonView.RPC("TriggerAnim",RpcTarget.AllBufferedViaServer,"start");
     }
     void finishQuest(string id)
     {
-        animator.SetTrigger("finish");
-        current = 0;
+        photonView.RPC("TriggerAnim",RpcTarget.AllBufferedViaServer,"finish");
+        photonView.RPC("SetCurrent",RpcTarget.AllBufferedViaServer,0);
     }
 
     void SetQuestDisplay(){
@@ -51,7 +51,15 @@ public class QuestDisplay : MonoBehaviour
         detail.SetText("Progress "+current.ToString()+" / "+max.ToString());
     }
     void SetCurrentAmount(int amount){
-        current = amount;
+        photonView.RPC("SetCurrent",RpcTarget.AllBufferedViaServer,amount);
         SetQuestDisplay();
+    }
+    [PunRPC]
+    private void TriggerAnim(string trigger){
+        animator.SetTrigger(trigger);
+    }
+    [PunRPC]
+    private void SetCurrent(int current){
+        this.current = current;
     }
 }
