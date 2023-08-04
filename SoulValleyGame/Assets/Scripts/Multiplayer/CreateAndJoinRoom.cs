@@ -27,7 +27,7 @@ public class CreateAndJoinRoom : MonoBehaviourPunCallbacks
         errorBoxAnimator.SetTrigger("showTrig");
     }
     public void CreateRoom(){
-        if(PhotonNetwork.CurrentRoom.Name != createField.text ){
+        if(PhotonNetwork.CurrentRoom == null || PhotonNetwork.CurrentRoom.Name != createField.text ){
             RoomOptions roomOptions = new RoomOptions();
             roomOptions.MaxPlayers = 1;
             PhotonNetwork.CreateRoom(createField.text,roomOptions);

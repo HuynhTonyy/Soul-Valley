@@ -115,6 +115,7 @@ public class ShopKeeperDisplay : MonoBehaviourPunCallbacks
    
     public void BuyItems()
     {
+        AudioManager.instance.PlayOneShot(FMODEvents.instance.clickedSound, this.transform.position);
         if (currencySystem.gold < (int)itemBuyPrice)
         {
             errText.SetText("You don't have enough money, go get some!");
@@ -149,6 +150,7 @@ public class ShopKeeperDisplay : MonoBehaviourPunCallbacks
     }
     public void SellItems()
     {
+        AudioManager.instance.PlayOneShot(FMODEvents.instance.clickedSound, this.transform.position);
         if (_shopSystem.AvailableGold < (int)itemSellPrice)
         {
             errText.SetText("I ran out of money, comeback tomorow!");

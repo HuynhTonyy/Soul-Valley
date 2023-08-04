@@ -8,7 +8,7 @@
 			<value>2</value>
 		</property>
 		<relationship name="folder">
-			<destination>{9a3b0d5f-e582-4f73-94f2-1bfa3f9c47f9}</destination>
+			<destination>{dae88b7b-970b-4345-81d0-fda9f250d365}</destination>
 		</relationship>
 		<relationship name="mixer">
 			<destination>{44a6a918-eb2d-4d3c-b456-289c353e72eb}</destination>
@@ -95,6 +95,9 @@
 		<property name="length">
 			<value>0.5</value>
 		</property>
+		<property name="delayType">
+			<value>0</value>
+		</property>
 		<relationship name="sounds">
 			<destination>{b446d01f-5954-4cbd-9997-dc0efdf2f704}</destination>
 			<destination>{92671e33-6a8a-46e2-bad1-0e9bb5af42bf}</destination>
@@ -102,6 +105,9 @@
 		</relationship>
 	</object>
 	<object class="EventMixerGroup" id="{aa0346c1-27a2-4e01-a32a-628ed970c7d5}">
+		<property name="volume">
+			<value>-3</value>
+		</property>
 		<property name="name">
 			<value>Audio 1</value>
 		</property>
@@ -120,7 +126,7 @@
 			<value>0</value>
 		</property>
 		<property name="length">
-			<value>0.45000000000000001</value>
+			<value>0.70000000000000007</value>
 		</property>
 		<relationship name="timeline">
 			<destination>{3a5a8d62-f301-442d-b26d-a63960d81ec9}</destination>
