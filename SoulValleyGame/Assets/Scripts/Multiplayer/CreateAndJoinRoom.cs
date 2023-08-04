@@ -27,10 +27,14 @@ public class CreateAndJoinRoom : MonoBehaviourPunCallbacks
         errorBoxAnimator.SetTrigger("showTrig");
     }
     public void CreateRoom(){
-        RoomOptions roomOptions = new RoomOptions();
-        roomOptions.MaxPlayers = 1;
-        PhotonNetwork.CreateRoom(createField.text,roomOptions);
-        //(,new RoomOptions{MaxPlayer = 4})
+        if(PhotonNetwork.CurrentRoom.Name != createField.text ){
+            RoomOptions roomOptions = new RoomOptions();
+            roomOptions.MaxPlayers = 1;
+            PhotonNetwork.CreateRoom(createField.text,roomOptions);
+        }else{
+            errText.SetText("Room exists!");
+            errorBoxAnimator.SetTrigger("showTrig");
+        }
     }
     public void JoinRoom(){
         if(joinField.text.Length == 0){
