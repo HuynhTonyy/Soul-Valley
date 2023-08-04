@@ -15,6 +15,10 @@ public class Blueprint : MonoBehaviour
         isPlaceable = false;
         renderer.material = matDisable;
     }
+    private void OnTriggerStay(Collider other) {
+        isPlaceable = false;
+        renderer.material = matDisable;
+    }
     private void OnTriggerExit(Collider other) {
         isPlaceable = true;
         renderer.material = matEnable;

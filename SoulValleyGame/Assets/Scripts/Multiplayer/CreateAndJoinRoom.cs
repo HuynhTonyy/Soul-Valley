@@ -30,7 +30,7 @@ List<RoomInfo> roomList = new List<RoomInfo>();
     }
     public override void OnJoinRoomFailed(short returnCode,string asdasd)
     {
-        ErrorMessage("Room not exists!");
+        ErrorMessage("Room not exists or full!");
     }
     public override void OnRoomListUpdate(List<RoomInfo> roomList)
     {
@@ -39,7 +39,7 @@ List<RoomInfo> roomList = new List<RoomInfo>();
     public void CreateRoom(){
         if(createField.text.Length > 0){
             RoomOptions roomOptions = new RoomOptions();
-            roomOptions.MaxPlayers = 1;
+            roomOptions.MaxPlayers = 4;
             bool isExists = false;
             foreach(RoomInfo roomInfo in roomList){
                 if(createField.text == roomInfo.Name && roomInfo.MaxPlayers > 0){
