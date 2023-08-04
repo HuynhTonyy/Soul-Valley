@@ -13,6 +13,7 @@ public class SaveGameManager : MonoBehaviour
 
     [SerializeField] Button btnSave, btnLoad, btnExit;
     PhotonView view;
+    bool isEscape = false;
 
     private void Awake()
     {
@@ -24,22 +25,34 @@ public class SaveGameManager : MonoBehaviour
             // btnLoad.gameObject.SetActive(false);
         }
     }
-    // void Start()
-    // {
-    //     btnSave.SetActive(false);
-    //     btnLoad.SetActive(false);
-    //     btnExit.SetActive(false);
-    // }
-    // void Update()
-    // {
-    //     if(In)
-    //     {
-    //         btnSave.SetActive(true);
-    //         btnLoad.SetActive(true);
-    //         btnExit.SetActive(true);
+    void Start()
+    {
+        btnSave.gameObject.SetActive(false);
+        btnLoad.gameObject.SetActive(false);
+        btnExit.gameObject.SetActive(false);
+    }
+    void Update()
+    {
+        if(Keyboard.current.escapeKey.wasPressedThisFrame)
+        {
+            if(isEscape){
+                isEscape = false;
+                Cursor.visible = false;
+                Cursor.lockState = CursorLockMode.Locked;
+                btnSave.gameObject.SetActive(false);
+                btnLoad.gameObject.SetActive(false);
+                btnExit.gameObject.SetActive(false);
+            }else{
+                isEscape = true;
+                Cursor.visible = true;
+                Cursor.lockState = CursorLockMode.None;
+                btnSave.gameObject.SetActive(true);
+                btnLoad.gameObject.SetActive(true);
+                btnExit.gameObject.SetActive(true);
+            }
             
-    //     }
-    // }
+        }
+    }
     public void LeaveCurrentRoom()
     {
         PhotonNetwork.LeaveRoom();

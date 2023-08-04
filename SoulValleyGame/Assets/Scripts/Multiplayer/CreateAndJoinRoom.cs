@@ -17,8 +17,9 @@ public class CreateAndJoinRoom : MonoBehaviourPunCallbacks
     }
 
     public void CreateRoom(){
-
-        PhotonNetwork.CreateRoom(createField.text);
+        RoomOptions roomOptions = new RoomOptions();
+        roomOptions.MaxPlayers = 1;
+        PhotonNetwork.CreateRoom(createField.text,roomOptions);
         //(,new RoomOptions{MaxPlayer = 4})
     }
     public void JoinRoom(){
@@ -31,5 +32,7 @@ public class CreateAndJoinRoom : MonoBehaviourPunCallbacks
             PhotonNetwork.LoadLevel("MainScene");
         }
     }
-    
+    public void ReturnToMenu(){
+        PhotonNetwork.LoadLevel("MainMenu");
+    }
 }

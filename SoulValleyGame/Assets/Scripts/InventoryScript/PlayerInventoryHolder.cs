@@ -60,7 +60,6 @@ public class PlayerInventoryHolder : InventoryHolder
                         
                         if(mouse.AssignInventorySlot.ItemData != null)
                         {
-                            Debug.Log(this.transform);
                             StaticInventoryDisplay.mouseThrow(this.transform,mouse.AssignInventorySlot);
                             mouse.ClearSlot();
                         }
