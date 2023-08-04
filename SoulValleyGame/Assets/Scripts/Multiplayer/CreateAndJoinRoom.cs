@@ -30,7 +30,7 @@ public class CreateAndJoinRoom : MonoBehaviourPunCallbacks
     }
     public override void OnJoinRoomFailed(short returnCode,string asdasd)
     {
-        ErrorMessage("Room not exists!");
+        ErrorMessage("Room not exists or full!");
     }
     public override void OnRoomListUpdate(List<RoomInfo> roomList)
     {
