@@ -20,6 +20,9 @@ public class ConnectToServerScript : MonoBehaviourPunCallbacks
     public void LoadLobby(){
         SceneManager.LoadScene("Lobby");
     }
-    
+    public void LeaveGame(){
+        Debug.Log("Quit");
+        Application.Quit();
+    }
 
 }

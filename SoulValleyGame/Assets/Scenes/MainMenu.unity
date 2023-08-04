@@ -573,7 +573,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 2009508069}
         m_TargetAssemblyTypeName: ConnectToServerScript, Assembly-CSharp
-        m_MethodName: LoadLobby
+        m_MethodName: LeaveGame
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

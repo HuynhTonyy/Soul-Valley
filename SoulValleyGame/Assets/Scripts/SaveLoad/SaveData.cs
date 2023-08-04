@@ -13,7 +13,8 @@ public class SaveData
 
     public SerializableDictionary<string,PlayerData> playerData;
 
-    public GameTimeStamp timeData ;
+    public GameTimeStamp timeData;
+    public int moneyData;
 
     public SaveData()
     {
