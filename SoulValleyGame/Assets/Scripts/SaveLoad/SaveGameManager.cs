@@ -6,12 +6,14 @@ using UnityEngine.InputSystem;
 using Photon.Pun;
 using UnityEngine.UI;
 using TMPro;
+
 public class SaveGameManager : MonoBehaviour
 {
     public static SaveData data;
 
-    [SerializeField] Button btnSave, btnLoad;
+    [SerializeField] Button btnSave, btnLoad, btnExit;
     PhotonView view;
+
     private void Awake()
     {
         view = GetComponent<PhotonView>();
@@ -21,6 +23,27 @@ public class SaveGameManager : MonoBehaviour
             btnSave.gameObject.SetActive(false);
             // btnLoad.gameObject.SetActive(false);
         }
+    }
+    // void Start()
+    // {
+    //     btnSave.SetActive(false);
+    //     btnLoad.SetActive(false);
+    //     btnExit.SetActive(false);
+    // }
+    // void Update()
+    // {
+    //     if(In)
+    //     {
+    //         btnSave.SetActive(true);
+    //         btnLoad.SetActive(true);
+    //         btnExit.SetActive(true);
+            
+    //     }
+    // }
+    public void LeaveCurrentRoom()
+    {
+        PhotonNetwork.LeaveRoom();
+        PhotonNetwork.LoadLevel("Lobby");
     }
 
     public void DeleteData()
