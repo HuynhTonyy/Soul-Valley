@@ -11,15 +11,16 @@ public class LoadScene : MonoBehaviourPunCallbacks
 
     private void Start()
     {
-        StartCoroutine(TimeUpdate());
+        /*StartCoroutine(TimeUpdate());*/
+        Destroy(gameObject);
     }
-    IEnumerator TimeUpdate()
+    /*IEnumerator TimeUpdate()
     {
-        if(Keyboard.current.EnterKet.isPressed && playerName.text.Length >0)
+        if (Keyboard.current.EnterKet.isPressed && playerName.text.Length > 0)
         {
             PhotonNetwork.NickName = playerName.text;
             Destroy(gameObject);
         }
-        
-    }
+
+    }*/
 }
