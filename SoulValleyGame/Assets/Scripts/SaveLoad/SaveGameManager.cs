@@ -5,19 +5,17 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using Photon.Pun;
 using UnityEngine.UI;
+using Photon.Realtime;
 using TMPro;
 
-public class SaveGameManager : MonoBehaviour
+public class SaveGameManager : MonoBehaviourPunCallbacks
 {
     public static SaveData data;
-
     [SerializeField] Button btnSave, btnLoad, btnExit;
-    PhotonView view;
     bool isEscape = false;
 
     private void Awake()
     {
-        view = GetComponent<PhotonView>();
         data = new SaveData();
         SaveLoad.OnLoadGame += LoadData;
         if(!PhotonNetwork.IsMasterClient){
@@ -33,8 +31,7 @@ public class SaveGameManager : MonoBehaviour
     }
     void Update()
     {
-        if(Keyboard.current.escapeKey.wasPressedThisFrame)
-        {
+        if(Keyboard.current.escapeKey.wasPressedThisFrame){
             if(isEscape){
                 isEscape = false;
                 Cursor.visible = false;
@@ -50,7 +47,6 @@ public class SaveGameManager : MonoBehaviour
                 btnLoad.gameObject.SetActive(true);
                 btnExit.gameObject.SetActive(true);
             }
-            
         }
     }
     public void LeaveCurrentRoom()
@@ -58,7 +54,6 @@ public class SaveGameManager : MonoBehaviour
         PhotonNetwork.LeaveRoom();
         PhotonNetwork.LoadLevel("Lobby");
     }
-
     public void DeleteData()
     {
         SaveLoad.DeleteSaveData();
