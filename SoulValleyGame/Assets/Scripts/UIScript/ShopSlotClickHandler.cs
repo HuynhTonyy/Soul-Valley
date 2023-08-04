@@ -14,6 +14,7 @@ public class ShopSlotClickHandler : MonoBehaviour, IPointerClickHandler
 
     public void OnPointerClick(PointerEventData eventData)
     {
+        AudioManager.instance.PlayOneShot(FMODEvents.instance.clickedSound, this.transform.position);
         _shopSlotUI.OnItemClick();
     }
 }

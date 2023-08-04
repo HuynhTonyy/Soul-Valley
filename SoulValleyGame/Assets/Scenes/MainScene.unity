@@ -226,7 +226,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 300052776}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: -21.64, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -3125,13 +3125,48 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2c1002800b2902d418516bbef44f689d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  <music>k__BackingField:
+    Guid:
+      Data1: -1204451827
+      Data2: 1111360631
+      Data3: 306644410
+      Data4: -373802848
+    Path: event:/Music/BackgroundMusic
+  <music2D>k__BackingField:
+    Guid:
+      Data1: 994816299
+      Data2: 1287842912
+      Data3: -1297933404
+      Data4: 160176787
+    Path: event:/Music/Background2D
   <itemCollected>k__BackingField:
     Guid:
       Data1: 912699160
       Data2: 1133920930
       Data3: 939760286
       Data4: -1824608098
-    Path: event:/PickedUpItem
+    Path: event:/SFX/PickedUpItem
+  <clickedSound>k__BackingField:
+    Guid:
+      Data1: -32905634
+      Data2: 1254591000
+      Data3: -16412788
+      Data4: -1667954967
+    Path: event:/SFX/ClickedSound
+  <footSteps>k__BackingField:
+    Guid:
+      Data1: 1871086970
+      Data2: 1327430692
+      Data3: -1481684831
+      Data4: -1310846912
+    Path: event:/SFX/PlayerFootsteps
+  <footStepsSprint>k__BackingField:
+    Guid:
+      Data1: 1580223185
+      Data2: 1226679248
+      Data3: -1398666311
+      Data4: 168595896
+    Path: event:/SFX/PlayerFootstepsSprint
 --- !u!1 &1792285279
 GameObject:
   m_ObjectHideFlags: 0

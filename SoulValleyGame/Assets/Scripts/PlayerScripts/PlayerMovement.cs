@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
 using UnityEngine.InputSystem;
+using FMOD.Studio;
+using FMODUnity;
+
 public class PlayerMovement : MonoBehaviour
 {
     
@@ -48,8 +51,14 @@ public class PlayerMovement : MonoBehaviour
     private bool invStatus;
 
     public MovementState state;
+
+    private EventInstance playerFootSteps;
+    private EventInstance playerFootStepsSprint;
+    FMOD.ATTRIBUTES_3D attributes;
+    bool isPlayingSprinting = false;
     public enum MovementState
     {
+        idle,
         walking,
         sprinting,
         air
@@ -64,6 +73,17 @@ public class PlayerMovement : MonoBehaviour
         view = GetComponent<PhotonView>();
         animator = GetComponent<Animator>();
         rb = GetComponent<Rigidbody>();
+        attributes = new FMOD.ATTRIBUTES_3D();
+        attributes.position = RuntimeUtils.ToFMODVector(transform.position); // Set the position in 3D space
+        attributes.velocity = RuntimeUtils.ToFMODVector(Vector3.zero); // Set the velocity (optional)
+        attributes.forward = RuntimeUtils.ToFMODVector(orientation.forward); // Set the forward vector (optional)
+        attributes.up = RuntimeUtils.ToFMODVector(orientation.up);
+        playerFootSteps = AudioManager.instance.CreateInstance(FMODEvents.instance.footSteps);
+        playerFootSteps.setVolume(0.5f);
+        playerFootStepsSprint = AudioManager.instance.CreateInstance(FMODEvents.instance.footStepsSprint);
+        playerFootStepsSprint.setVolume(0.5f);
+        playerFootSteps.set3DAttributes(attributes);
+        playerFootStepsSprint.set3DAttributes(attributes);
         rb.freezeRotation = true;
         ResetJump();
     }
@@ -73,10 +93,10 @@ public class PlayerMovement : MonoBehaviour
         if(view.IsMine){
             invStatus = InventoryUIControler.status;
             grounded = Physics.Raycast(transform.position, Vector3.down, playerHeight * 0.5f + 0.2f, whatIsGround);
-
-            MyInput();
+            UpdateSound();
+            MyInput();           
             StateHandler();
-
+            
             if (grounded)
                 rb.drag = groundDrag;
             else
@@ -105,6 +125,14 @@ public class PlayerMovement : MonoBehaviour
             horizontalInput = Input.GetAxisRaw("Horizontal");
             verticalInput = Input.GetAxisRaw("Vertical");
         }
+        if(horizontalInput == 0 && verticalInput == 0)
+        {
+            state = MovementState.idle;
+        }
+        else
+        {
+            state = MovementState.walking;
+        }
         //Jump trigger
         if (Input.GetKey(jumpKey) && readyToJump && grounded && !invStatus)
         {
@@ -122,14 +150,19 @@ public class PlayerMovement : MonoBehaviour
     {
         if(grounded && Input.GetButton("Sprint"))
         {
+            isPlayingSprinting = true;
             state = MovementState.sprinting;
             currentSpeed = sprintSpeed;
             animator.SetBool("Running", true);
             animator.SetBool("isJumping", false);
         }
+        else if (state == MovementState.idle)
+        {
+            currentSpeed = walkSpeed;
+        }
         else if (grounded)
         {
-
+            isPlayingSprinting = false;
             state = MovementState.walking;
             currentSpeed = walkSpeed;
             animator.SetBool("Running", false);
@@ -140,7 +173,6 @@ public class PlayerMovement : MonoBehaviour
         {
             animator.SetBool("isJumping", true);
             state = MovementState.air;
-            
         }
     }
 
@@ -166,6 +198,54 @@ public class PlayerMovement : MonoBehaviour
     private void ResetJump()
     {
         readyToJump = true;
+    }
+
+    private void UpdateSound()
+    {
+        attributes.position = RuntimeUtils.ToFMODVector(transform.position); // Set the position in 3D space
+        attributes.velocity = RuntimeUtils.ToFMODVector(Vector3.zero); // Set the velocity (optional)
+        attributes.forward = RuntimeUtils.ToFMODVector(orientation.forward); // Set the forward vector (optional)
+        attributes.up = RuntimeUtils.ToFMODVector(orientation.up);
+        playerFootSteps.set3DAttributes(attributes);
+        playerFootStepsSprint.set3DAttributes(attributes);
+        if(isPlayingSprinting == true)
+        {
+            if (state == MovementState.sprinting && currentSpeed == sprintSpeed)
+            {
+                PLAYBACK_STATE playbackState;
+                playerFootStepsSprint.getPlaybackState(out playbackState);
+                if (playbackState.Equals(PLAYBACK_STATE.STOPPED))
+                {
+                    playerFootStepsSprint.start();
+                    playerFootSteps.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
+                }
+            }
+            else
+            {
+                
+                playerFootStepsSprint.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
+            }
+        }
+        else
+        {
+            if (state == MovementState.walking && currentSpeed == walkSpeed)
+            {
+                PLAYBACK_STATE playbackState;
+                playerFootSteps.getPlaybackState(out playbackState);
+                if (playbackState.Equals(PLAYBACK_STATE.STOPPED))
+                {
+                    playerFootSteps.start();
+                    playerFootStepsSprint.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
+                }
+            }
+            else
+            {
+                playerFootSteps.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
+            }
+        }
+        
+        
+        
     }
 
 }
