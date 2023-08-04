@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 2823956498609710168}
   m_Layer: 0
   m_Name: CollectMushroomSeed
-  m_TagString: Untagged
+  m_TagString: Quest
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -46,6 +46,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemData: {fileID: 11400000, guid: fcda694406921e14b83e43c7799fd9e9, type: 2}
+  amountRequire: 2
+  currentAmount: 0
 --- !u!114 &2823956498609710168
 MonoBehaviour:
   m_ObjectHideFlags: 0

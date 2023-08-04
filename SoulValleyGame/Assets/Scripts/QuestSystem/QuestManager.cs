@@ -59,7 +59,6 @@ public class QuestManager : MonoBehaviourPunCallbacks
         }
         else
             ChangeQuestState(id,QuestState.Can_Finish);
-
     }
     void FinishQuest(string id){
         Quest quest = GetQuestByID(id);

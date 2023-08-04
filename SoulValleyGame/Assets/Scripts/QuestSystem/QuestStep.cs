@@ -6,10 +6,11 @@ using Photon.Pun;
 public abstract class QuestStep :MonoBehaviourPunCallbacks
 {
     bool isFinished = false;
-    string questID;
+    protected string questID;
 
     public void InstantiateQuestStep(string questID){
         this.questID = questID;
+        GameEventManager.instance.questEvent.SpawnQuest(questID);
     } 
     protected void FinishQuestStep(){
         if(!isFinished){
