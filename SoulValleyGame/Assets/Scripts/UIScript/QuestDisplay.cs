@@ -17,7 +17,6 @@ public class QuestDisplay : MonoBehaviourPunCallbacks
         foreach(QuestData questData in allQuests){
             idToQuestMap.Add(questData.id,new Quest(questData));
         }
-
     }
     void OnEnable()
     {
@@ -36,12 +35,17 @@ public class QuestDisplay : MonoBehaviourPunCallbacks
     {
         this.id = ids;
         SetQuestDisplay();
-        photonView.RPC("TriggerAnim",RpcTarget.AllBufferedViaServer,"start");
+        animator.SetTrigger("start");
+    }
+    void SetCurrentAmount(int amount){
+        current = amount;
+        SetQuestDisplay();
     }
     void finishQuest(string id)
     {
-        photonView.RPC("TriggerAnim",RpcTarget.AllBufferedViaServer,"finish");
-        photonView.RPC("SetCurrent",RpcTarget.AllBufferedViaServer,0);
+        animator.SetTrigger("finish");
+        // photonView.RPC("TriggerAnim",RpcTarget.AllBufferedViaServer,"finish");
+        current = 0;
     }
 
     void SetQuestDisplay(){
@@ -50,16 +54,9 @@ public class QuestDisplay : MonoBehaviourPunCallbacks
         title.SetText(quest.data.displayName);
         detail.SetText("Progress "+current.ToString()+" / "+max.ToString());
     }
-    void SetCurrentAmount(int amount){
-        photonView.RPC("SetCurrent",RpcTarget.AllBufferedViaServer,amount);
-        SetQuestDisplay();
-    }
+    
     [PunRPC]
     private void TriggerAnim(string trigger){
         animator.SetTrigger(trigger);
-    }
-    [PunRPC]
-    private void SetCurrent(int current){
-        this.current = current;
     }
 }
