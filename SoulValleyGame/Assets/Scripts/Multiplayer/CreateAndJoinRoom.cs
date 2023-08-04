@@ -11,7 +11,7 @@ public class CreateAndJoinRoom : MonoBehaviourPunCallbacks
     public TMP_InputField createField,joinField; 
     public Animator errorBoxAnimator;
     public TextMeshProUGUI errText;
-List<RoomInfo> roomList = new List<RoomInfo>();
+    List<RoomInfo> roomList = new List<RoomInfo>();
     private void Awake()
     {
         PhotonNetwork.AutomaticallySyncScene = true;
@@ -39,7 +39,7 @@ List<RoomInfo> roomList = new List<RoomInfo>();
     public void CreateRoom(){
         if(createField.text.Length > 0){
             RoomOptions roomOptions = new RoomOptions();
-            roomOptions.MaxPlayers = 1;
+            roomOptions.MaxPlayers = 4;
             bool isExists = false;
             foreach(RoomInfo roomInfo in roomList){
                 if(createField.text == roomInfo.Name && roomInfo.MaxPlayers > 0){
