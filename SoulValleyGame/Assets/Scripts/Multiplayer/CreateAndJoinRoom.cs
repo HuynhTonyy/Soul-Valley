@@ -8,14 +8,24 @@ using Photon.Realtime;
 
 public class CreateAndJoinRoom : MonoBehaviourPunCallbacks
 {
-    public TMP_InputField createField,joinField;
-    private bool isMasterLeaving = false;   
+    public TMP_InputField createField,joinField; 
+    public Animator errorBoxAnimator;
+    public TextMeshProUGUI errText;
 
     private void Awake()
     {
         PhotonNetwork.AutomaticallySyncScene = true;
     }
-
+    void Start()
+    {
+        PhotonNetwork.ConnectUsingSettings();
+    }
+    public override void OnJoinRoomFailed(short returnCode,string asdasd)
+    {
+        Debug.Log("JoinRoom fail");
+        errText.SetText("Room not exists!");
+        errorBoxAnimator.SetTrigger("showTrig");
+    }
     public void CreateRoom(){
         RoomOptions roomOptions = new RoomOptions();
         roomOptions.MaxPlayers = 1;
@@ -23,14 +33,18 @@ public class CreateAndJoinRoom : MonoBehaviourPunCallbacks
         //(,new RoomOptions{MaxPlayer = 4})
     }
     public void JoinRoom(){
-
+        if(joinField.text.Length == 0){
+            errText.SetText("Enter room name!");
+            errorBoxAnimator.SetTrigger("showTrig");
+            return;
+        }
         PhotonNetwork.JoinRoom(joinField.text);
     }
     public override void OnJoinedRoom()
     {
         if(PhotonNetwork.IsMasterClient){
-            PhotonNetwork.LoadLevel("MainScene");
-        }
+                PhotonNetwork.LoadLevel("MainScene");
+            }
     }
     public void ReturnToMenu(){
         PhotonNetwork.LoadLevel("MainMenu");
