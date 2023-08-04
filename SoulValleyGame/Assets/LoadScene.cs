@@ -7,19 +7,20 @@ using UnityEngine.InputSystem;
 
 public class LoadScene : MonoBehaviourPunCallbacks
 {
-    public TMP_InputField playerName;
+    // public TMP_InputField playerName;
 
     private void Start()
     {
-        StartCoroutine(TimeUpdate());
+        // StartCoroutine(TimeUpdate());
+        Destroy(gameObject);
     }
-    IEnumerator TimeUpdate()
-    {
-        if(Keyboard.current.EnterKet.isPressed && playerName.text.Length >0)
-        {
-            PhotonNetwork.NickName = playerName.text;
-            Destroy(gameObject);
-        }
+    // IEnumerator TimeUpdate()
+    // {
+    //     if(Keyboard.current.EnterKet.isPressed && playerName.text.Length >0)
+    //     {
+    //         PhotonNetwork.NickName = playerName.text;
+    //         Destroy(gameObject);
+    //     }
         
-    }
+    // }
 }

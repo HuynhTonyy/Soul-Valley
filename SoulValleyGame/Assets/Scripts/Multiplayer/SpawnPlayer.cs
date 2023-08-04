@@ -11,7 +11,7 @@ public class SpawnPlayer : MonoBehaviour
 
     private void Start(){
         Vector3 ramdonPosition = new Vector3(Random.Range(maxX,minX),transform.position.y,Random.Range(maxZ,minZ));
-        playerPrefab.playerName.SetText="Hello";
+        // playerPrefab.playerName.SetText="Hello";
         PhotonNetwork.Instantiate(playerPrefab.name,ramdonPosition,Quaternion.identity);
         
     }

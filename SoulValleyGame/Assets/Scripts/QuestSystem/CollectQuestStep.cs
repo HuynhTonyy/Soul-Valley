@@ -5,8 +5,8 @@ using Photon.Pun;
 public class CollectQuestStep : QuestStep
 {
     [SerializeField] ItemScript itemData;
-    int amountRequire = 2;
-    int currentAmount = 0;
+    public int amountRequire = 2;
+    public int currentAmount = 0;
     private void OnEnable() {
         GameEventManager.instance.inventoryEvent.onAddItem += Collected;
     }
@@ -21,7 +21,6 @@ public class CollectQuestStep : QuestStep
             }else{
                 photonView.RPC("updateCurrent",RpcTarget.AllBufferedViaServer,currentAmount + amountCollect);
                 GameEventManager.instance.inventoryEvent.RemoveItem(itemData,amountCollect);
-                
             }
         }
     }
@@ -30,6 +29,7 @@ public class CollectQuestStep : QuestStep
     public void updateCurrent(int amount)
     {
         currentAmount = amount;
+        GameEventManager.instance.questEvent.ImproveQuest(currentAmount);
         if(currentAmount == amountRequire){
             FinishQuestStep();
         }
