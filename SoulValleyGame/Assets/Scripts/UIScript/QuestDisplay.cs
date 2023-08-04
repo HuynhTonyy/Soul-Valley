@@ -45,7 +45,7 @@ public class QuestDisplay : MonoBehaviourPunCallbacks
     {
         animator.SetTrigger("finish");
         // photonView.RPC("TriggerAnim",RpcTarget.AllBufferedViaServer,"finish");
-        current = 0;
+        photonView.RPC("ResetCurrent",RpcTarget.AllBufferedViaServer);
     }
 
     void SetQuestDisplay(){
@@ -58,5 +58,9 @@ public class QuestDisplay : MonoBehaviourPunCallbacks
     [PunRPC]
     private void TriggerAnim(string trigger){
         animator.SetTrigger(trigger);
+    }
+    [PunRPC]
+    private void ResetCurrent(){
+        current = 0;
     }
 }
