@@ -11,6 +11,7 @@ public class LoadScene : MonoBehaviourPunCallbacks
 
     private void Start()
     {
+       
         /*StartCoroutine(TimeUpdate());*/
         Destroy(gameObject);
     }

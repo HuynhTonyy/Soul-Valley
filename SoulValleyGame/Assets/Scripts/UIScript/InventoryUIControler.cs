@@ -13,7 +13,6 @@ public class InventoryUIControler : MonoBehaviour
     public DynamicInventoryDisplay playerBackpackPanel;
     public Image backGround;
 
-
     internal static bool status = false;
     private void Start()
     {

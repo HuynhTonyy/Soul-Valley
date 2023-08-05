@@ -8,6 +8,7 @@ public class UIController : MonoBehaviour
 {
     public bool isShopClosed = true;
     [SerializeField] public ShopKeeperDisplay _shopKeeperDisplay;
+  
 
     private void Awake()
     {

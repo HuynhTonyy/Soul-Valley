@@ -13,6 +13,7 @@ public class SaveGameManager : MonoBehaviourPunCallbacks
     public static SaveData data;
     [SerializeField] Button btnSave, btnLoad, btnExit;
     bool isEscape = false;
+    public Image backGround;
 
     private void Awake()
     {
@@ -25,6 +26,7 @@ public class SaveGameManager : MonoBehaviourPunCallbacks
     }
     void Start()
     {
+        backGround.gameObject.SetActive(false);
         btnSave.gameObject.SetActive(false);
         btnLoad.gameObject.SetActive(false);
         btnExit.gameObject.SetActive(false);
@@ -36,6 +38,7 @@ public class SaveGameManager : MonoBehaviourPunCallbacks
                 isEscape = false;
                 Cursor.visible = false;
                 Cursor.lockState = CursorLockMode.Locked;
+                backGround.gameObject.SetActive(false);
                 btnSave.gameObject.SetActive(false);
                 btnLoad.gameObject.SetActive(false);
                 btnExit.gameObject.SetActive(false);
@@ -43,6 +46,7 @@ public class SaveGameManager : MonoBehaviourPunCallbacks
                 isEscape = true;
                 Cursor.visible = true;
                 Cursor.lockState = CursorLockMode.None;
+                backGround.gameObject.SetActive(true);
                 btnSave.gameObject.SetActive(true);
                 btnLoad.gameObject.SetActive(true);
                 btnExit.gameObject.SetActive(true);
