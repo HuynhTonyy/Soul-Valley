@@ -4,6 +4,8 @@ public class QuestEvent
 {
     public event Action<String> onStartQuest;
     public event Action<String> onAdvanceQuest;
+    public event Action<String> onSpawnQuest;
+    public event Action<int> onImproveQuest;
     public event Action<String> onFinishQuest;
     public event Action<Quest> onQuestStateChange;
     public event Action<ItemScript,int> onStartQuestStep;
@@ -30,6 +32,20 @@ public class QuestEvent
     public void StartQuestStep(ItemScript item,int amount){
         if(onStartQuestStep != null){
             onStartQuestStep(item,amount);
+        }
+    }
+    public void SpawnQuest(string id)
+    {
+        if (onSpawnQuest != null)
+        {
+            onSpawnQuest(id);
+        }
+    }
+    public void ImproveQuest(int id)
+    {
+        if (onImproveQuest != null)
+        {
+            onImproveQuest(id);
         }
     }
 }

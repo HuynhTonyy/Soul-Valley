@@ -1,59 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &-6336649601844165802
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/Music/Background2D
-  m_EditorClassIdentifier: 
-  Path: event:/Music/Background2D
-  Guid:
-    Data1: 994816299
-    Data2: 1287842912
-    Data3: -1297933404
-    Data4: 160176787
-  Banks:
-  - {fileID: 3393763272333148074}
-  IsStream: 1
-  Is3D: 0
-  IsOneShot: 0
-  Parameters: []
-  MinDistance: 1
-  MaxDistance: 20
-  Length: 3626370
---- !u!114 &-5824561806158087769
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/SFX/PlayerFootsteps
-  m_EditorClassIdentifier: 
-  Path: event:/SFX/PlayerFootsteps
-  Guid:
-    Data1: 1871086970
-    Data2: 1327430692
-    Data3: -1481684831
-    Data4: -1310846912
-  Banks:
-  - {fileID: 999089864123402435}
-  IsStream: 0
-  Is3D: 1
-  IsOneShot: 0
-  Parameters: []
-  MinDistance: 1
-  MaxDistance: 20
-  Length: 700
 --- !u!114 &-4168122095708158088
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -69,10 +15,10 @@ MonoBehaviour:
   Path: Assets/AudioSrc/Build/Desktop/Master.strings.bank
   Name: Master.strings
   StudioPath: bank:/Master.strings
-  lastModified: 638267641688088751
+  lastModified: 638266901347111294
   FileSizes:
   - Name: 
-    Value: 1128
+    Value: 864
   Exists: 1
 --- !u!114 &-3607531824279114934
 MonoBehaviour:
@@ -89,10 +35,10 @@ MonoBehaviour:
   Path: Assets/AudioSrc/Build/Desktop/Master.bank
   Name: Master
   StudioPath: bank:/Master
-  lastModified: 638267641688078761
+  lastModified: 638266901347091306
   FileSizes: []
   Exists: 1
---- !u!114 &-2250495066068599130
+--- !u!114 &-266296148101747357
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -102,23 +48,23 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/Music/BackgroundMusic
+  m_Name: event:/PlayerFootsteps
   m_EditorClassIdentifier: 
-  Path: event:/Music/BackgroundMusic
+  Path: event:/PlayerFootsteps
   Guid:
-    Data1: -1204451827
-    Data2: 1111360631
-    Data3: 306644410
-    Data4: -373802848
+    Data1: 1871086970
+    Data2: 1327430692
+    Data3: -1481684831
+    Data4: -1310846912
   Banks:
-  - {fileID: 3393763272333148074}
-  IsStream: 1
+  - {fileID: 999089864123402435}
+  IsStream: 0
   Is3D: 1
   IsOneShot: 0
   Parameters: []
   MinDistance: 1
   MaxDistance: 20
-  Length: 3626370
+  Length: 500
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -135,20 +81,15 @@ MonoBehaviour:
   - {fileID: -4168122095708158088}
   - {fileID: -3607531824279114934}
   - {fileID: 999089864123402435}
-  - {fileID: 3393763272333148074}
   EditorEvents:
-  - {fileID: -2250495066068599130}
-  - {fileID: -6336649601844165802}
-  - {fileID: 8089861300168215829}
-  - {fileID: -5824561806158087769}
-  - {fileID: 7188336507317952046}
-  - {fileID: 4839031353759360943}
+  - {fileID: 2040360946451742165}
+  - {fileID: -266296148101747357}
   EditorParameters: []
   MasterBanks:
   - {fileID: -3607531824279114934}
   StringsBanks:
   - {fileID: -4168122095708158088}
-  cacheTime: 638267641688861527
+  cacheTime: 638266910596330669
   cacheVersion: 131605
 --- !u!114 &999089864123402435
 MonoBehaviour:
@@ -165,28 +106,10 @@ MonoBehaviour:
   Path: Assets/AudioSrc/Build/Desktop/SFX.bank
   Name: SFX
   StudioPath: bank:/SFX
-  lastModified: 638267641688861527
+  lastModified: 638266910596330669
   FileSizes: []
   Exists: 1
---- !u!114 &3393763272333148074
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
-  m_Name: bank:/Music.bank
-  m_EditorClassIdentifier: 
-  Path: Assets/AudioSrc/Build/Desktop/Music.bank
-  Name: Music
-  StudioPath: bank:/Music
-  lastModified: 638267607778523366
-  FileSizes: []
-  Exists: 1
---- !u!114 &4839031353759360943
+--- !u!114 &2040360946451742165
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -196,63 +119,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/SFX/ClickedSound
+  m_Name: event:/PickedUpItem
   m_EditorClassIdentifier: 
-  Path: event:/SFX/ClickedSound
-  Guid:
-    Data1: -32905634
-    Data2: 1254591000
-    Data3: -16412788
-    Data4: -1667954967
-  Banks:
-  - {fileID: 999089864123402435}
-  IsStream: 0
-  Is3D: 0
-  IsOneShot: 1
-  Parameters: []
-  MinDistance: 1
-  MaxDistance: 20
-  Length: 203
---- !u!114 &7188336507317952046
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/SFX/PlayerFootstepsSprint
-  m_EditorClassIdentifier: 
-  Path: event:/SFX/PlayerFootstepsSprint
-  Guid:
-    Data1: 1580223185
-    Data2: 1226679248
-    Data3: -1398666311
-    Data4: 168595896
-  Banks:
-  - {fileID: 999089864123402435}
-  IsStream: 0
-  Is3D: 1
-  IsOneShot: 0
-  Parameters: []
-  MinDistance: 1
-  MaxDistance: 20
-  Length: 500
---- !u!114 &8089861300168215829
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/SFX/PickedUpItem
-  m_EditorClassIdentifier: 
-  Path: event:/SFX/PickedUpItem
+  Path: event:/PickedUpItem
   Guid:
     Data1: 912699160
     Data2: 1133920930

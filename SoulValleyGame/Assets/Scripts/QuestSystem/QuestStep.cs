@@ -10,6 +10,7 @@ public abstract class QuestStep :MonoBehaviourPunCallbacks
 
     public void InstantiateQuestStep(string questID){
         this.questID = questID;
+        GameEventManager.instance.questEvent.SpawnQuest(questID);
     } 
     protected void FinishQuestStep(){
         if(!isFinished){

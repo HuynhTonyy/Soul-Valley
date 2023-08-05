@@ -63,11 +63,7 @@ public class PlayerMovement : MonoBehaviour
         sprinting,
         air
     }
-    private void OnCollisionEnter(Collision other) {
-        if(other.gameObject.tag == "KnockBack"){
-            rb.AddForce(Vector3.back * jumpForce, ForceMode.Impulse);
-        }
-    }
+    
     private void Start()
     {
         view = GetComponent<PhotonView>();
