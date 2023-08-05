@@ -16,14 +16,19 @@ public class CollectQuestStep : QuestStep
         if(this.itemData == itemData){
             if(currentAmount + amountCollect >= amountRequire){
                 GameEventManager.instance.inventoryEvent.RemoveItem(itemData, amountRequire - currentAmount);
+                GameEventManager.instance.questEvent.ImproveQuest(amountRequire);
+                 currentAmount = amountRequire;
                 photonView.RPC("updateCurrent", RpcTarget.AllBufferedViaServer, amountRequire);
             }
             else{
                 GameEventManager.instance.inventoryEvent.RemoveItem(itemData, amountCollect);
-                photonView.RPC("updateCurrent", RpcTarget.AllBufferedViaServer, currentAmount + amountCollect);
+                GameEventManager.instance.questEvent.ImproveQuest(currentAmount + amountCollect);
+                currentAmount += amountCollect;
+                photonView.RPC("updateCurrent", RpcTarget.AllBufferedViaServer, currentAmount);
             }
         }
     }
+
     [PunRPC]
     public void updateCurrent(int amount)
     {
@@ -31,11 +36,10 @@ public class CollectQuestStep : QuestStep
     }
     void SetCurrentCheckFinish(int amount)
     {
-        currentAmount = amount;
-        GameEventManager.instance.inventoryEvent.onAddItem -= Collected;
-        GameEventManager.instance.questEvent.ImproveQuest(currentAmount);
+        currentAmount = amount;  
         if (currentAmount == amountRequire)
         {
+            GameEventManager.instance.inventoryEvent.onAddItem -= Collected;
             FinishQuestStep();
         }
     }

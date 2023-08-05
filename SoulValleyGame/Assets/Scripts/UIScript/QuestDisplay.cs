@@ -36,13 +36,13 @@ public class QuestDisplay : MonoBehaviourPunCallbacks
     void SpawnQuest(string ids)
     {
         this.id = ids;
-        SetQuestDisplay();
+        photonView.RPC("SetQuestDisplay", RpcTarget.AllBufferedViaServer);
         animator.SetTrigger("Start");
     }
     void SetCurrentAmount(int amount)
     {
         current = amount;
-        SetQuestDisplay();
+        photonView.RPC("SetQuestDisplay", RpcTarget.AllBufferedViaServer);
     }
     void finishQuest(string id)
     {
@@ -52,6 +52,7 @@ public class QuestDisplay : MonoBehaviourPunCallbacks
         photonView.RPC("ResetCurrent", RpcTarget.AllBufferedViaServer);
     }
 
+    [PunRPC]
     void SetQuestDisplay()
     {
         Quest quest = idToQuestMap[id];
