@@ -11,13 +11,12 @@ public class CollectQuestStep : QuestStep
     private void OnEnable() {
         GameEventManager.instance.inventoryEvent.onAddItem += Collected;
     }
- 
     void Collected(ItemScript itemData, int amountCollect){
         if(this.itemData == itemData){
             if(currentAmount + amountCollect >= amountRequire){
                 GameEventManager.instance.inventoryEvent.RemoveItem(itemData, amountRequire - currentAmount);
                 GameEventManager.instance.questEvent.ImproveQuest(amountRequire);
-                 currentAmount = amountRequire;
+                currentAmount = amountRequire;
                 photonView.RPC("updateCurrent", RpcTarget.AllBufferedViaServer, amountRequire);
             }
             else{
