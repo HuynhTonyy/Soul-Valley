@@ -36,13 +36,13 @@ public class QuestDisplay : MonoBehaviourPunCallbacks
     void SpawnQuest(string ids)
     {
         this.id = ids;
-        photonView.RPC("SetQuestDisplay", RpcTarget.AllBufferedViaServer);
+        photonView.RPC("SetQuestDisplay", RpcTarget.AllBufferedViaServer,current);
         animator.SetTrigger("Start");
     }
     void SetCurrentAmount(int amount)
     {
         current = amount;
-        photonView.RPC("SetQuestDisplay", RpcTarget.AllBufferedViaServer);
+        photonView.RPC("SetQuestDisplay", RpcTarget.AllBufferedViaServer,current);
     }
     void finishQuest(string id)
     {
@@ -53,8 +53,9 @@ public class QuestDisplay : MonoBehaviourPunCallbacks
     }
 
     [PunRPC]
-    void SetQuestDisplay()
+    void SetQuestDisplay(int amount)
     {
+        current = amount;
         Quest quest = idToQuestMap[id];
         max = quest.GetCurrentQuestStepPrefab().GetComponent<CollectQuestStep>().amountRequire;
         title.SetText(quest.data.displayName);
