@@ -7,9 +7,10 @@ using Photon.Pun;
 
 [RequireComponent(typeof(UniqueID))]
 
-public class ShopKeeper : MonoBehaviourPunCallbacks, IIntractable
+public class ShopKeeper : MonoBehaviourPunCallbacks, IIntractable, ITimeTracker
 {
     [SerializeField] private ShopItemList _shopItemsHeld;
+    private ShopItemList _shopItemsHeldClone;
     [SerializeField] private ShopSystem _shopSystem;
     private PlayerInventoryHolder playerInv;
     public static UnityAction<ShopSystem, PlayerInventoryHolder> OnShopWindowRequested;
@@ -41,8 +42,8 @@ public class ShopKeeper : MonoBehaviourPunCallbacks, IIntractable
     {
         
         _shopSystem = new ShopSystem(_shopItemsHeld.Items.Count, _shopItemsHeld.MaxAllowedGold, _shopItemsHeld.BuyMarkUp, _shopItemsHeld.SellMarkUp);
-
-        foreach(var items in _shopItemsHeld.Items)
+        _shopItemsHeldClone = _shopItemsHeld;
+        foreach (var items in _shopItemsHeld.Items)
         {
             //Debug.Log($"{items.itemData.DisplayName}: {items.Amount}");
             _shopSystem.AddToShop(items.itemData, items.Amount);
@@ -50,7 +51,9 @@ public class ShopKeeper : MonoBehaviourPunCallbacks, IIntractable
     }
     private void ShopChanged(int index,int amount,int gold)
     {
+        
         photonView.RPC("UpdateShop", RpcTarget.AllBufferedViaServer,index,amount,gold);
+
     }
 
     [PunRPC]
@@ -66,7 +69,23 @@ public class ShopKeeper : MonoBehaviourPunCallbacks, IIntractable
        this.isInAction = true;
     }
 
-    
+    public void ClockUpdate(GameTimeStamp timeStamp)
+    {
+        throw new System.NotImplementedException();
+    }
 
+    [PunRPC]
+    private void RefreshShop()
+    {
+        int index = 0;
+        foreach (var items in _shopItemsHeld.Items)
+        {
+            Debug.Log(items.Amount);
+            _shopSystem.ShopInventory[index].setStackSize(items.Amount);
+            index += 1;
+        }
+    }
+
+    
 }
 

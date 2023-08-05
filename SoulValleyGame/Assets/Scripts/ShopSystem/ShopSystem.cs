@@ -64,6 +64,18 @@ public class ShopSystem
         // If the item does not exist or there is no free slot available, it assigns the item to a new slot with the specified amount.
     }
 
+    public void ResetShop(ItemScript data, int amount)
+    {
+        // If the item already exists in the shop, it replace the quantity of the item by the specified amount.
+        if (ContainsItem(data, out ShopSlot shopSlot))
+        {
+            shopSlot.setStackSize(amount);
+        }
+        var freeSlot = GetFreeSlot();
+        freeSlot.AssignItem(data, amount);
+        // If the item does not exist or there is no free slot available, it assigns the item to a new slot with the specified amount.
+    }
+
     private ShopSlot GetFreeSlot()
     {
         var freeSlot = _shopInventory.FirstOrDefault(i => i.ItemData == null); // find the first slot where the slots data == null

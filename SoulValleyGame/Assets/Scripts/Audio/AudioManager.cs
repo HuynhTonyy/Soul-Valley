@@ -3,14 +3,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using FMOD.Studio;
+using UnityEngine.SceneManagement;
 
 public class AudioManager : MonoBehaviour
 {
     public static AudioManager instance { get; private set; }
 
-    private List<EventInstance> eventInstancesList;
+    private static List<EventInstance> eventInstancesList = new List<EventInstance>();
 
     private EventInstance musicEventInstance;
+    static bool isMusicPlaying = false;
+    int sceneIndex;
     // Start is called before the first frame update
     void Awake()
     {
@@ -19,11 +22,11 @@ public class AudioManager : MonoBehaviour
             Debug.LogError("Found more than one Audio Manager");
         }
         instance = this;
-        eventInstancesList = new List<EventInstance>();
     }
     private void Start()
     {
-        InitializeMusic2D(FMODEvents.instance.music2D);
+        
+        sceneIndex = SceneManager.GetActiveScene().buildIndex;
     }
 
     // Update is called once per frame
@@ -51,7 +54,29 @@ public class AudioManager : MonoBehaviour
         musicEventInstance.start();
         
     }*/
+    private void HandleBackgroundMusic()
+    {
+        
 
+        if (sceneIndex == 0 || sceneIndex == 1)
+        {
+            if (!isMusicPlaying)
+            {
+                InitializeMusic2D(FMODEvents.instance.music2D);
+                isMusicPlaying = true;
+            }
+            else
+            {
+                // If the music is already playing, do nothing.
+            }
+        }
+        else if (sceneIndex == 2)
+        {
+            CleanUp();
+            /*InitializeMusic2D(FMODEvents.instance.musicScene3);*/
+            isMusicPlaying = false;
+        }
+    }
     private void InitializeMusic2D(EventReference musicEventReference)
     {
         musicEventInstance = CreateInstance(musicEventReference);
@@ -60,9 +85,10 @@ public class AudioManager : MonoBehaviour
 
     }
 
+
     private void CleanUp()
     {
-        foreach(EventInstance eventInstance in eventInstancesList)
+        foreach (EventInstance eventInstance in eventInstancesList)
         {
             eventInstance.stop(FMOD.Studio.STOP_MODE.IMMEDIATE);
             eventInstance.release();
@@ -70,8 +96,28 @@ public class AudioManager : MonoBehaviour
 
     }
 
+
     private void OnDestroy()
-    {
-        CleanUp();
+    {       
+         /*CleanUp(); */  
     }
+
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        // Update the sceneIndex variable when a new scene is loaded.
+        sceneIndex = scene.buildIndex;
+        // Handle background music based on the loaded scene.
+        HandleBackgroundMusic();
+    }
+
+    private void OnEnable()
+    {
+        SceneManager.sceneLoaded += OnSceneLoaded;
+    }
+
+    private void OnDisable()
+    {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
+
 }
