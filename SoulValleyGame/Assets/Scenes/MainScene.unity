@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.17306644, g: 0.21630163, b: 0.29830188, a: 1}
+  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -3043,7 +3043,7 @@ MonoBehaviour:
       Data2: 1133920930
       Data3: 939760286
       Data4: -1824608098
-    Path: event:/PickedUpItem
+    Path: event:/SFX/PickedUpItem
   <clickedSound>k__BackingField:
     Guid:
       Data1: -32905634
@@ -3057,7 +3057,7 @@ MonoBehaviour:
       Data2: 1327430692
       Data3: -1481684831
       Data4: -1310846912
-    Path: event:/PlayerFootsteps
+    Path: event:/SFX/PlayerFootsteps
   <footStepsSprint>k__BackingField:
     Guid:
       Data1: 1580223185
