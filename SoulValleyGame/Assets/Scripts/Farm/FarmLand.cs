@@ -41,6 +41,7 @@ public class FarmLand : MonoBehaviourPunCallbacks, ITimeTracker
         attributes.up = RuntimeUtils.ToFMODVector(transform.up);
         hoeingSound.set3DAttributes(attributes);
         wateringSound.set3DAttributes(attributes);
+        harvestSound.set3DAttributes(attributes);
         TimeManager.Instance.RegisterTracker(this);
         renderer = GetComponent<Renderer>();
         if(PhotonNetwork.IsMasterClient){
