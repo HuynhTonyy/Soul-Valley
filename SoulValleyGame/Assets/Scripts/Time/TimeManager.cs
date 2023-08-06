@@ -65,6 +65,10 @@ public class TimeManager : MonoBehaviour, IPunObservable
     {
         return new GameTimeStamp(timeStamp);
     }
+    public void SetTimeStamp(GameTimeStamp newTimeStamp)
+    {
+        timeStamp = new GameTimeStamp(newTimeStamp);
+    }
     void SaveTimeData(){
         SaveGameManager.data.timeData = Instance.timeStamp;
     }

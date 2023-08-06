@@ -95,7 +95,6 @@ public class FarmLand : MonoBehaviourPunCallbacks, ITimeTracker
         {
             photonView.RPC("DestroyObject", RpcTarget.AllBufferedViaServer);
             photonView.RPC("UpdateLandState", RpcTarget.AllBufferedViaServer, LandState.Dry);
-            PhotonNetwork.Destroy(crop.gameObject);
         }
     }
     public void ClockUpdate(GameTimeStamp timeStamp)

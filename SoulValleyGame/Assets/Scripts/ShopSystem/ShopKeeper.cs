@@ -82,7 +82,6 @@ public class ShopKeeper : MonoBehaviourPunCallbacks, IIntractable, ITimeTracker
         int index = 0;
         foreach (var items in _shopItemsHeld.Items)
         {
-            Debug.Log(items.Amount);
             _shopSystem.ShopInventory[index].setStackSize(items.Amount);
             index += 1;
         }

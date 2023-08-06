@@ -18,14 +18,21 @@ public class Interactor : MonoBehaviour
     bool inRange;
     GameObject itemBP = null;
     public GameObject shopKeeper;
+    public House house;
+    public bool isInAction = false;
     private void Start() {
         view = GetComponent<PhotonView>();
         hotBar = GetComponentInChildren<StaticInventoryDisplay>();
+        house = GameObject.FindObjectOfType<House>();
     }
     private void Update()
     {
+        
         if(view.IsMine){
-            
+            if (isInAction && Keyboard.current.anyKey.isPressed) 
+            {
+                house.QuitQueue(gameObject);
+            }
             if (Keyboard.current.kKey.wasPressedThisFrame && PhotonNetwork.IsMasterClient){
                 SaveLoad.Save(SaveGameManager.data);
             }
