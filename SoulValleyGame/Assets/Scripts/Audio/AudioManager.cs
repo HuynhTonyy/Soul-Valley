@@ -62,7 +62,8 @@ public class AudioManager : MonoBehaviour
         {
             if (!isMusicPlaying)
             {
-                InitializeMusic2D(FMODEvents.instance.music2D);
+                CleanUp();
+                InitializeMusic2D(FMODEvents.instance.lobbymusic2D);
                 isMusicPlaying = true;
             }
             else
@@ -73,7 +74,7 @@ public class AudioManager : MonoBehaviour
         else if (sceneIndex == 2)
         {
             CleanUp();
-            /*InitializeMusic2D(FMODEvents.instance.musicScene3);*/
+            InitializeMusic2D(FMODEvents.instance.music2D);
             isMusicPlaying = false;
         }
     }
