@@ -90,6 +90,13 @@ MonoBehaviour:
       Data3: -1297933404
       Data4: 160176787
     Path: event:/Music/Background2D
+  <lobbymusic2D>k__BackingField:
+    Guid:
+      Data1: -1392118334
+      Data2: 1128957120
+      Data3: -2012661583
+      Data4: -578934227
+    Path: event:/Music/LobbyMusic
   <itemCollected>k__BackingField:
     Guid:
       Data1: 912699160
@@ -118,6 +125,34 @@ MonoBehaviour:
       Data3: -1398666311
       Data4: 168595896
     Path: event:/SFX/PlayerFootstepsSprint
+  <hoeingSound>k__BackingField:
+    Guid:
+      Data1: -1876886022
+      Data2: 1273665097
+      Data3: 1531851166
+      Data4: -1089500404
+    Path: event:/SFX/HoeingSound
+  <wateringSound>k__BackingField:
+    Guid:
+      Data1: 1355843230
+      Data2: 1230735282
+      Data3: -2033602165
+      Data4: -312879297
+    Path: event:/SFX/WaterSound
+  <harvestSound>k__BackingField:
+    Guid:
+      Data1: -1834259817
+      Data2: 1222085681
+      Data3: -1399486586
+      Data4: -963282647
+    Path: event:/SFX/HarvestSound
+  <tabSound>k__BackingField:
+    Guid:
+      Data1: -311363557
+      Data2: 1278388532
+      Data3: -1041938779
+      Data4: 945174961
+    Path: event:/SFX/TabOpenSound
 --- !u!1 &7176866739886624156
 GameObject:
   m_ObjectHideFlags: 0

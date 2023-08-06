@@ -18,9 +18,11 @@ public class ConnectToServerScript : MonoBehaviourPunCallbacks
         PhotonNetwork.JoinLobby();
     }
     public void LoadLobby(){
+        AudioManager.instance.PlayOneShot(FMODEvents.instance.clickedSound, this.transform.position);
         SceneManager.LoadScene("Lobby");
     }
     public void LeaveGame(){
+        AudioManager.instance.PlayOneShot(FMODEvents.instance.clickedSound, this.transform.position);
         Debug.Log("Quit");
         Application.Quit();
     }

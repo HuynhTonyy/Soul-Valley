@@ -68,6 +68,7 @@ public class PlayerInventoryHolder : InventoryHolder
                     }
                     else 
                     {
+                        AudioManager.instance.PlayOneShot(FMODEvents.instance.tabSound, this.transform.position);
                         OnDynamicPlayerInventoryDisplayRequested?.Invoke(primaryInventorySystem, offset);
                         inventoryUIControler.isClosed = false;
                     }  

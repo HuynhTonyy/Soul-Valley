@@ -34,6 +34,7 @@ public class SaveGameManager : MonoBehaviourPunCallbacks
     void Update()
     {
         if(Keyboard.current.escapeKey.wasPressedThisFrame){
+            AudioManager.instance.PlayOneShot(FMODEvents.instance.clickedSound, this.transform.position);
             if(isEscape){
                 isEscape = false;
                 Cursor.visible = false;
@@ -75,7 +76,12 @@ public class SaveGameManager : MonoBehaviourPunCallbacks
         data = _data;
     }
     public static void TryLoadData()
-    {
+    {       
         SaveLoad.Load();
+    }
+    
+    public void PlayClickedSound()
+    {
+        AudioManager.instance.PlayOneShot(FMODEvents.instance.clickedSound, this.transform.position);
     }
 }

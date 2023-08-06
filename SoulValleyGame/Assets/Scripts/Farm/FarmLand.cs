@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
+using FMOD.Studio;
+using FMODUnity;
 
 public class FarmLand : MonoBehaviourPunCallbacks, ITimeTracker
 
@@ -10,6 +12,10 @@ public class FarmLand : MonoBehaviourPunCallbacks, ITimeTracker
     [Header("Crop")]
     public GameObject cropPrefab;
     public CropBehaviour cropPlanted = null;
+    private EventInstance hoeingSound;
+    private EventInstance wateringSound;
+    private EventInstance harvestSound;
+    FMOD.ATTRIBUTES_3D attributes;
     [SerializeField] Material dryMat, tilledMat, wateredMat;
     public enum LandState
     {
@@ -22,6 +28,20 @@ public class FarmLand : MonoBehaviourPunCallbacks, ITimeTracker
     new Renderer renderer;
     private void Start()
     {
+        hoeingSound = AudioManager.instance.CreateInstance(FMODEvents.instance.hoeingSound);
+        wateringSound = AudioManager.instance.CreateInstance(FMODEvents.instance.wateringSound);
+        harvestSound = AudioManager.instance.CreateInstance(FMODEvents.instance.harvestSound);
+        hoeingSound.setVolume(0.5f);
+        wateringSound.setVolume(0.5f);
+        harvestSound.setVolume(0.5f);
+        attributes = new FMOD.ATTRIBUTES_3D();
+        attributes.position = RuntimeUtils.ToFMODVector(transform.position); // Set the position in 3D space
+        attributes.velocity = RuntimeUtils.ToFMODVector(Vector3.zero); // Set the velocity (optional)
+        attributes.forward = RuntimeUtils.ToFMODVector(transform.forward); // Set the forward vector (optional)
+        attributes.up = RuntimeUtils.ToFMODVector(transform.up);
+        hoeingSound.set3DAttributes(attributes);
+        wateringSound.set3DAttributes(attributes);
+        harvestSound.set3DAttributes(attributes);
         TimeManager.Instance.RegisterTracker(this);
         renderer = GetComponent<Renderer>();
         if(PhotonNetwork.IsMasterClient){
@@ -35,7 +55,8 @@ public class FarmLand : MonoBehaviourPunCallbacks, ITimeTracker
     }
     public bool Plant(SeedData seed)
     {
-        if(!cropPlanted && landState == LandState.Tilled && seed)
+        
+        if (!cropPlanted && landState == LandState.Tilled && seed)
         {
             GameObject cropObject = PhotonNetwork.Instantiate(cropPrefab.name,transform.position,Quaternion.identity);
             photonView.RPC("SetParentForCropObject", RpcTarget.AllBufferedViaServer, cropObject.GetComponent<PhotonView>().ViewID);
@@ -68,6 +89,7 @@ public class FarmLand : MonoBehaviourPunCallbacks, ITimeTracker
     {
         if(landState == LandState.Tilled && cropPlanted != null && cropPlanted.cropState != CropBehaviour.CropState.Harvestable)
         {
+            wateringSound.start();
             photonView.RPC("UpdateTimeWatered", RpcTarget.AllBufferedViaServer,
                             TimeManager.Instance.GetTimeStamp().year, 
                             (int)TimeManager.Instance.GetTimeStamp().season, 
@@ -81,6 +103,7 @@ public class FarmLand : MonoBehaviourPunCallbacks, ITimeTracker
     {
         if (landState == LandState.Dry && cropPlanted == null)
         {
+            hoeingSound.start();
             photonView.RPC("UpdateLandState", RpcTarget.AllBufferedViaServer,LandState.Tilled);
         }
 
@@ -93,6 +116,7 @@ public class FarmLand : MonoBehaviourPunCallbacks, ITimeTracker
         int random = Random.Range(1, crop.seedData.amountToYield);
         if (inventory.AddToInventory(crop.seedData.CropToYield,random));
         {
+            harvestSound.start();
             photonView.RPC("DestroyObject", RpcTarget.AllBufferedViaServer);
             photonView.RPC("UpdateLandState", RpcTarget.AllBufferedViaServer, LandState.Dry);
         }

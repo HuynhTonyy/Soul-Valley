@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="EncodableAsset" id="{7338b7c0-3df0-46a1-899b-4f54f0535fb8}">
+		<property name="assetPath">
+			<value>SFX/TabSound/</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{724e656c-511b-4969-b03d-22e4bc11de6b}</destination>
+		</relationship>
+	</object>
+</objects>

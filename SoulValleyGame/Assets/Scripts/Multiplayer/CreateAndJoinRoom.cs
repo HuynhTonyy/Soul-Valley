@@ -37,7 +37,8 @@ public class CreateAndJoinRoom : MonoBehaviourPunCallbacks
         this.roomList = roomList;
     }
     public void CreateRoom(){
-        if(createField.text.Length > 0){
+        AudioManager.instance.PlayOneShot(FMODEvents.instance.clickedSound, this.transform.position);
+        if (createField.text.Length > 0){
             RoomOptions roomOptions = new RoomOptions();
             roomOptions.MaxPlayers = 4;
             bool isExists = false;
@@ -60,7 +61,8 @@ public class CreateAndJoinRoom : MonoBehaviourPunCallbacks
             errorBoxAnimator.SetTrigger("showTrig");
     }
     public void JoinRoom(){
-        if(joinField.text.Length == 0){
+        AudioManager.instance.PlayOneShot(FMODEvents.instance.clickedSound, this.transform.position);
+        if (joinField.text.Length == 0){
             ErrorMessage("Enter room name!");
             return;
         }
@@ -73,6 +75,12 @@ public class CreateAndJoinRoom : MonoBehaviourPunCallbacks
         }
     }
     public void ReturnToMenu(){
+        AudioManager.instance.PlayOneShot(FMODEvents.instance.clickedSound, this.transform.position);
         PhotonNetwork.LoadLevel("MainMenu");
+    }
+
+    public void PlayClickSound()
+    {
+        AudioManager.instance.PlayOneShot(FMODEvents.instance.clickedSound, this.transform.position);
     }
 }
