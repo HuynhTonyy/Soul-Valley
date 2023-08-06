@@ -217,7 +217,7 @@ MonoBehaviour:
   Parameters: []
   MinDistance: 1
   MaxDistance: 20
-  Length: 500
+  Length: 3626370
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0

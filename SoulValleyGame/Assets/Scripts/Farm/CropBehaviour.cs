@@ -19,9 +19,10 @@ public class CropBehaviour : MonoBehaviourPunCallbacks
     public void PLant(SeedData seedToGrow)
     {
         seedData = seedToGrow;
-        seed = PhotonNetwork.Instantiate(seedToGrow.seed.name,transform.position,Quaternion.identity);
-        seedling = PhotonNetwork.Instantiate(seedToGrow.seedling.name,transform.position,Quaternion.identity);
-        harvestable = PhotonNetwork.Instantiate(seedToGrow.harvestable.name,transform.position,Quaternion.identity);
+        Quaternion quaternion = Quaternion.Euler(0, Random.Range(0, 360), 0);
+        seed = PhotonNetwork.Instantiate(seedToGrow.seed.name, transform.position, quaternion);
+        seedling = PhotonNetwork.Instantiate(seedToGrow.seedling.name, transform.position, quaternion);
+        harvestable = PhotonNetwork.Instantiate(seedToGrow.harvestable.name, transform.position, quaternion);
         photonView.RPC("SetParentForObject", RpcTarget.AllBufferedViaServer, 
                 seed.GetComponent<PhotonView>().ViewID,
                 seedling.GetComponent<PhotonView>().ViewID,
