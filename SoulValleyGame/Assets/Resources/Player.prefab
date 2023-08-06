@@ -3971,7 +3971,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isShopClosed: 1
   _shopKeeperDisplay: {fileID: 696120407547412147}
-  loadScene: {fileID: 0}
 --- !u!1 &2770402547580395501
 GameObject:
   m_ObjectHideFlags: 0

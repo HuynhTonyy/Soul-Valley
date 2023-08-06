@@ -41,6 +41,7 @@ public class CropBehaviour : MonoBehaviourPunCallbacks
             photonView.RPC("UpdateCropState", RpcTarget.AllBufferedViaServer, CropState.Harvestable);
         }
     }
+
     public void SwitchCropState(CropState stateToSwitch)
     {
         seed.SetActive(false);
@@ -60,6 +61,7 @@ public class CropBehaviour : MonoBehaviourPunCallbacks
                 break;
         }
     }
+
     [PunRPC]
     public void SetParentForObject(int seedViewID,int seedlingViewID,int harvestableViewID, int maxGrowth)
     {

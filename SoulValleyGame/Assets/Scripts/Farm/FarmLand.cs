@@ -89,11 +89,13 @@ public class FarmLand : MonoBehaviourPunCallbacks, ITimeTracker
     {
         var inventory = player.GetComponent<PlayerInventoryHolder>();
         if (!inventory) return;
-        if (inventory.AddToInventory(GetComponentInChildren<CropHarvest>().itemData, 1))
+        CropBehaviour crop = GetComponentInChildren<CropBehaviour>();
+        int random = Random.Range(1, crop.seedData.amountToYield);
+        if (inventory.AddToInventory(crop.seedData.CropToYield,random));
         {
             photonView.RPC("DestroyObject", RpcTarget.AllBufferedViaServer);
             photonView.RPC("UpdateLandState", RpcTarget.AllBufferedViaServer, LandState.Dry);
-            PhotonNetwork.Destroy(GetComponentInChildren<CropBehaviour>().gameObject);
+            PhotonNetwork.Destroy(crop.gameObject);
         }
     }
     public void ClockUpdate(GameTimeStamp timeStamp)

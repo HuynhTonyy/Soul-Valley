@@ -38,9 +38,9 @@ public class ShopKeeper : MonoBehaviourPunCallbacks, IIntractable, ITimeTracker
         ShopKeeper.OnShopChanged -= ShopChanged;
     }
     
-    private void Awake()
+    private void Start()
     {
-        
+        TimeManager.Instance.RegisterTracker(this);
         _shopSystem = new ShopSystem(_shopItemsHeld.Items.Count, _shopItemsHeld.MaxAllowedGold, _shopItemsHeld.BuyMarkUp, _shopItemsHeld.SellMarkUp);
         _shopItemsHeldClone = _shopItemsHeld;
         foreach (var items in _shopItemsHeld.Items)
@@ -71,10 +71,12 @@ public class ShopKeeper : MonoBehaviourPunCallbacks, IIntractable, ITimeTracker
 
     public void ClockUpdate(GameTimeStamp timeStamp)
     {
-        throw new System.NotImplementedException();
+        if(timeStamp.hour == 10)
+        {
+            RefreshShop();
+        }
     }
 
-    [PunRPC]
     private void RefreshShop()
     {
         int index = 0;
