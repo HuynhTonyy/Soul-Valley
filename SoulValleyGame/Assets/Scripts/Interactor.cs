@@ -18,6 +18,7 @@ public class Interactor : MonoBehaviour
     bool inRange;
     GameObject itemBP = null;
     public GameObject shopKeeper;
+    Outline interactGO;
     public House house;
     public bool isInAction = false;
     private void Start() {
@@ -62,15 +63,23 @@ public class Interactor : MonoBehaviour
                     if(Keyboard.current.eKey.wasReleasedThisFrame && farmLand.cropPlanted && farmLand.cropPlanted.cropState == CropBehaviour.CropState.Harvestable){
                         farmLand.Harvest(this.gameObject);
                     }
-                }else if(tag == "Interactable" && Mouse.current.rightButton.wasPressedThisFrame && GetComponentInChildren<InventoryUIControler>().isClosed){
-                    IIntractable interactable = hit.collider.GetComponent<IIntractable>();
-                    if (interactable != null) interactable.Interact(this);
-                    if(hit.transform.gameObject.GetComponent<ChestInventory>())
-                    {
-                        chest = hit.transform.gameObject;
+                }else if(tag == "Interactable"){
+                    if(hit.transform.gameObject.TryGetComponent<Outline>(out interactGO)){
+                        interactGO.enabled = true;
+                    }
+                    if(Mouse.current.rightButton.wasPressedThisFrame && GetComponentInChildren<InventoryUIControler>().isClosed){
+                        IIntractable interactable = hit.collider.GetComponent<IIntractable>();
+                        if (interactable != null) interactable.Interact(this);
+                        if(hit.transform.gameObject.GetComponent<ChestInventory>())
+                        {
+                            chest = hit.transform.gameObject;
+                        }
                     }
                 }else if(selectedLand){
                     selectedLand.Select(false);
+                }else if(interactGO){
+                    interactGO.enabled = false;
+                    interactGO = null;
                 }
                 if(hotBar.GetSelectedItem(selectedSlot)  && gameObject.GetComponentInChildren<InventoryUIControler>().isClosed){
                     SeedData seed = hotBar.GetSeed(selectedSlot);
@@ -139,6 +148,10 @@ public class Interactor : MonoBehaviour
             else{
                 if(selectedLand){
                     selectedLand.Select(false);
+                }
+                if(interactGO){
+                    interactGO.enabled = false;
+                    interactGO = null;
                 }
                 if(itemBP){
                     Destroy(itemBP);

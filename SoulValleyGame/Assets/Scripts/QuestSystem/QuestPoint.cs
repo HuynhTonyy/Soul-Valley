@@ -22,7 +22,7 @@ public class QuestPoint : MonoBehaviourPunCallbacks, IIntractable
         }
     }
     bool CheckQuestExists(){
-        return (questIndex >= questDatas.Length);
+        return questIndex >= questDatas.Length;
     }
     public void Interact(Interactor interactor)
     {

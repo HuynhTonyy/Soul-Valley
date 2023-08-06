@@ -20,7 +20,8 @@ MonoBehaviour:
   icon: {fileID: 21300000, guid: b76f57e85ab701c46b3940658b45f53e, type: 3}
   ItemPreFab: {fileID: 4657629630689755781, guid: e5ae47cfb55f0e846b6b0e313cc7c32e, type: 3}
   DayToGrow: 0
-  seedling: {fileID: 8333869302400229472, guid: 5bd155a55131e74429ab14965c294c85, type: 3}
   seed: {fileID: 0}
+  seedling: {fileID: 8333869302400229472, guid: 5bd155a55131e74429ab14965c294c85, type: 3}
   harvestable: {fileID: 0}
-  CropToYeild: {fileID: 0}
+  CropToYield: {fileID: 0}
+  amountToYield: 0

@@ -16,8 +16,9 @@ public class LoadScene : MonoBehaviourPunCallbacks
     {
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
-        /*playerPrefab.GetComponent<PlayerCam>().gameObject.SetActive(false);
-        playerPrefab.GetComponent<PlayerMovement>().gameObject.SetActive(false);*/
+        playerPrefab.GetComponent<PlayerCam>().enabled = false;
+        playerPrefab.GetComponent<PlayerMovement>().enabled = false;
+        playerPrefab.GetComponent<PlayerInventoryHolder>().enabled = false;
         /*StartCoroutine(TimeUpdate());*/
         /* Destroy(gameObject);*/
     }
@@ -30,12 +31,13 @@ public class LoadScene : MonoBehaviourPunCallbacks
     }
     public void SetPlayerName()
     {
-        playerNameDisplay.GetComponent<TextMeshProUGUI>().SetText(playerName.ToString());
-        playerPrefab.GetComponent<PlayerCam>().gameObject.SetActive(true);
-        playerPrefab.GetComponent<PlayerMovement>().gameObject.SetActive(true);
+        playerNameDisplay.GetComponent<TextMeshPro>().SetText(playerName.text.ToString());
+        playerPrefab.GetComponent<PlayerCam>().enabled = true;
+        playerPrefab.GetComponent<PlayerMovement>().enabled = true;
+        playerPrefab.GetComponent<PlayerInventoryHolder>().enabled = true;
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
-        Destroy(this.gameObject);
+        gameObject.SetActive(false);
         
     }
 }

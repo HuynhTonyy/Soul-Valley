@@ -7187,7 +7187,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8916870013421460892}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.6, z: 0.525}
+  m_LocalPosition: {x: 0, y: 0.6, z: 0.45}
   m_LocalScale: {x: 0.85550505, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -7428,7 +7428,7 @@ CapsuleCollider:
   m_Radius: 0.5
   m_Height: 1.8780546
   m_Direction: 1
-  m_Center: {x: -0.0037841734, y: 0.06097269, z: 0}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!54 &8916870013705482631
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -7442,7 +7442,7 @@ Rigidbody:
   m_AngularDrag: 0.05
   m_UseGravity: 1
   m_IsKinematic: 0
-  m_Interpolate: 1
+  m_Interpolate: 0
   m_Constraints: 80
   m_CollisionDetection: 1
 --- !u!114 &8916870013705482628
@@ -7531,6 +7531,8 @@ MonoBehaviour:
     m_Bits: 4294967295
   chest: {fileID: 0}
   shopKeeper: {fileID: 0}
+  house: {fileID: 0}
+  isInAction: 0
 --- !u!114 &8916870013705482636
 MonoBehaviour:
   m_ObjectHideFlags: 0
