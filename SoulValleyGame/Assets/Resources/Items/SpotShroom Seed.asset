@@ -21,7 +21,7 @@ MonoBehaviour:
   ItemPreFab: {fileID: 5200681163900939743, guid: ad283829bf77c6640bbe14a72671e174, type: 3}
   DayToGrow: 2
   seed: {fileID: 8885799355948067417, guid: 635b51e6db10c7f448950efc3eabb512, type: 3}
-  seedling: {fileID: 6904791752684956332, guid: b68bfdc0c08ac5743881e1f48d694dc5, type: 3}
+  seedling: {fileID: 4736637242831547837, guid: db51d471f84685a48a2831508bc4b033, type: 3}
   harvestable: {fileID: 6127577382695157084, guid: 8360ec857b23a784693b2fa3a13467e6, type: 3}
   CropToYield: {fileID: 11400000, guid: 0518946cd195356499e142a324e74944, type: 2}
   amountToYield: 3
