@@ -94,7 +94,11 @@ public class PlayerMovement : MonoBehaviour
             StateHandler();
             
             if (grounded)
+            {
                 rb.drag = groundDrag;
+                animator.SetBool("isJumping", false);
+            }
+                
             else
                 rb.drag = 0;
         }
@@ -150,11 +154,22 @@ public class PlayerMovement : MonoBehaviour
             state = MovementState.sprinting;
             currentSpeed = sprintSpeed;
             animator.SetBool("Running", true);
-            animator.SetBool("isJumping", false);
+            if (Input.GetKey(jumpKey))
+            {
+                animator.SetBool("isJumping", true);
+                state = MovementState.air;
+            }
         }
         else if (state == MovementState.idle)
         {
+            
             currentSpeed = walkSpeed;
+            if (Input.GetKey(jumpKey))
+            {
+                animator.SetBool("isJumping", true);
+                state = MovementState.air;
+            }
+            
         }
         else if (grounded)
         {
@@ -162,14 +177,18 @@ public class PlayerMovement : MonoBehaviour
             state = MovementState.walking;
             currentSpeed = walkSpeed;
             animator.SetBool("Running", false);
-            animator.SetBool("isJumping", false);
+            if (Input.GetKey(jumpKey))
+            {
+                animator.SetBool("isJumping", true);
+                state = MovementState.air;
+            }
 
         }
         else
         {
-            animator.SetBool("isJumping", true);
-            state = MovementState.air;
+
         }
+        
     }
 
     private void MovePlayer()
@@ -186,9 +205,8 @@ public class PlayerMovement : MonoBehaviour
     private void Jump()
     {
         rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
-
-        
         rb.AddForce(Vector3.up * gravity, ForceMode.Acceleration);
+       
     }
     
     private void ResetJump()

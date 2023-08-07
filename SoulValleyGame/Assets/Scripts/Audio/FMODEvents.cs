@@ -36,6 +36,18 @@ public class FMODEvents : MonoBehaviour
 
     [field: Header("TabSound SFX")]
     [field: SerializeField] public EventReference tabSound { get; private set; }
+
+    [field: Header("QuestAccepted SFX")]
+    [field: SerializeField] public EventReference questAcceptedSound { get; private set; }
+
+    [field: Header("QuestCompleted SFX")]
+    [field: SerializeField] public EventReference questCompletedSound { get; private set; }
+
+    [field: Header("EmptyBucket SFX")]
+    [field: SerializeField] public EventReference emptyBucketSound { get; private set; }
+
+    [field: Header("FillWaterBucket SFX")]
+    [field: SerializeField] public EventReference fillWaterBucketSound { get; private set; }
     public static FMODEvents instance { get; private set; }
     void Awake()
     {
