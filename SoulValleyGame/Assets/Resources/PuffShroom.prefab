@@ -78,7 +78,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rotationSpeed: 50
   PickUpRadius: 0.5
-  itemData: {fileID: 11400000, guid: 610f36e588908ad43b326d4d329d9e90, type: 2}
+  itemData: {fileID: 11400000, guid: d2a2a4c7a9970d04587f3a290eb8dbe9, type: 2}
   whatIsGround:
     serializedVersion: 2
     m_Bits: 64
@@ -185,7 +185,7 @@ Transform:
   m_GameObject: {fileID: 5693982497433280048}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 2, y: 2, z: 2}
+  m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 6014358395902639719}

@@ -235,7 +235,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rotationSpeed: 50
   PickUpRadius: 0.5
-  itemData: {fileID: 0}
+  itemData: {fileID: 11400000, guid: 0518946cd195356499e142a324e74944, type: 2}
   whatIsGround:
     serializedVersion: 2
     m_Bits: 64

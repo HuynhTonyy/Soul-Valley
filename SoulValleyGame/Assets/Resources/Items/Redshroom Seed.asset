@@ -17,8 +17,8 @@ MonoBehaviour:
   MaxStackSize: 4
   Value: 50
   Description: 
-  icon: {fileID: 21300000, guid: 2f0cc3a2f88a36746bf683a679596446, type: 3}
-  ItemPreFab: {fileID: 2690433764724138472, guid: cc5ab8ae9439c5a49965cda846616734, type: 3}
+  icon: {fileID: 21300000, guid: cae3f043ca056ae4486d79b359ee2c47, type: 3}
+  ItemPreFab: {fileID: 5200681163900939743, guid: 553a32da35d61f649b13343b0c652e2f, type: 3}
   DayToGrow: 1
   seed: {fileID: 8885799355948067417, guid: 14468b22ae1e9c44bb452626ea149791, type: 3}
   seedling: {fileID: 4736637242831547837, guid: 8e78504fbc7c2c34f9a2e93e102ee31c, type: 3}
