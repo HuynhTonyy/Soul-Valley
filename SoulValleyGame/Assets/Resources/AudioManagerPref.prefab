@@ -167,6 +167,20 @@ MonoBehaviour:
       Data3: 1598324155
       Data4: -1702162863
     Path: event:/SFX/QuestCompleted
+  <emptyBucketSound>k__BackingField:
+    Guid:
+      Data1: 1044068812
+      Data2: 1319092507
+      Data3: -329576279
+      Data4: 1381115106
+    Path: event:/SFX/EmptyBucketSound
+  <fillWaterBucketSound>k__BackingField:
+    Guid:
+      Data1: 202820073
+      Data2: 1122905225
+      Data3: 1465175961
+      Data4: 907703205
+    Path: event:/SFX/FillWaterSound
 --- !u!1 &7176866739886624156
 GameObject:
   m_ObjectHideFlags: 0

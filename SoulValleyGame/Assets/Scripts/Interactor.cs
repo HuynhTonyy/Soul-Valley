@@ -123,6 +123,10 @@ public class Interactor : MonoBehaviour
                                         if (farmLand.Water())
                                             tool.currentDurability--;
                                     }
+                                    else if(tag == "FarmLand" && tool.currentDurability == 0)
+                                    {
+                                        AudioManager.instance.PlayOneShot(FMODEvents.instance.emptyBucketSound, this.transform.position);
+                                    }
                                     break;
                                 case ToolData.ToolType.Hoe:
                                     if (tag == "FarmLand"){
