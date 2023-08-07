@@ -85,18 +85,23 @@ public class FarmLand : MonoBehaviourPunCallbacks, ITimeTracker
                 break;
         }
     }
-    public void Water()
+    public bool Water()
     {
-        if(landState == LandState.Tilled && cropPlanted != null && cropPlanted.cropState != CropBehaviour.CropState.Harvestable)
+        if (landState == LandState.Tilled && cropPlanted != null && cropPlanted.cropState != CropBehaviour.CropState.Harvestable)
         {
             wateringSound.start();
             photonView.RPC("UpdateTimeWatered", RpcTarget.AllBufferedViaServer,
-                            TimeManager.Instance.GetTimeStamp().year, 
-                            (int)TimeManager.Instance.GetTimeStamp().season, 
+                            TimeManager.Instance.GetTimeStamp().year,
+                            (int)TimeManager.Instance.GetTimeStamp().season,
                             TimeManager.Instance.GetTimeStamp().day,
-                            TimeManager.Instance.GetTimeStamp().hour, 
+                            TimeManager.Instance.GetTimeStamp().hour,
                             TimeManager.Instance.GetTimeStamp().minute);
-            photonView.RPC("UpdateLandState", RpcTarget.AllBufferedViaServer,LandState.Watered);
+            photonView.RPC("UpdateLandState", RpcTarget.AllBufferedViaServer, LandState.Watered);
+            return true;
+        }
+        else
+        {
+            return false;
         }
     }
     public void Till()

@@ -7530,6 +7530,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 4294967295
   chest: {fileID: 0}
+  hotBar: {fileID: 0}
   shopKeeper: {fileID: 0}
   house: {fileID: 0}
   isInAction: 0

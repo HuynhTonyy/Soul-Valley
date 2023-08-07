@@ -13,7 +13,7 @@ public class Interactor : MonoBehaviour
     RaycastHit hit;
     public GameObject chest;
     PhotonView view;
-    StaticInventoryDisplay hotBar;
+    public StaticInventoryDisplay hotBar;
     new string tag;
     bool inRange;
     GameObject itemBP = null;
@@ -117,9 +117,11 @@ public class Interactor : MonoBehaviour
                         else if (tool){
                             switch (tool.toolType){
                                 case ToolData.ToolType.WateringCan:
-                                    if (tag == "FarmLand"){
+                                    if (tag == "FarmLand" && tool.currentDurability != 0)
+                                    {
                                         FarmLand farmLand = hit.transform.GetComponent<FarmLand>();
-                                        farmLand.Water();
+                                        if (farmLand.Water())
+                                            tool.currentDurability--;
                                     }
                                     break;
                                 case ToolData.ToolType.Hoe:

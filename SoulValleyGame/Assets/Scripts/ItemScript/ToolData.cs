@@ -14,4 +14,6 @@ public class ToolData : ItemScript
         Hammer
     }
     public ToolType toolType;
+    public int maxDurability;
+    public int currentDurability;
 }
