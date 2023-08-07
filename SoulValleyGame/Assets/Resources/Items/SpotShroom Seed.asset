@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c12c8eabc27d966459cd06b42ef3d23f, type: 3}
+  m_Name: SpotShroom Seed
+  m_EditorClassIdentifier: 
+  <Id>k__BackingField: SpotShroom Seed
+  DisplayName: WhiteShroom Seed
+  MaxStackSize: 5
+  Value: 60
+  Description: 
+  icon: {fileID: 21300000, guid: 3b2d459292b2f8840a6ec9ba5ffd5478, type: 3}
+  ItemPreFab: {fileID: 0}
+  DayToGrow: 2
+  seed: {fileID: 8885799355948067417, guid: 635b51e6db10c7f448950efc3eabb512, type: 3}
+  seedling: {fileID: 6904791752684956332, guid: b68bfdc0c08ac5743881e1f48d694dc5, type: 3}
+  harvestable: {fileID: 6127577382695157084, guid: 8360ec857b23a784693b2fa3a13467e6, type: 3}
+  CropToYield: {fileID: 11400000, guid: 0518946cd195356499e142a324e74944, type: 2}
+  amountToYield: 3
