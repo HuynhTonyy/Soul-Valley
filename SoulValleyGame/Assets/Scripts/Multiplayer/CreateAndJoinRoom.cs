@@ -71,7 +71,7 @@ public class CreateAndJoinRoom : MonoBehaviourPunCallbacks
     public override void OnJoinedRoom()
     {
         if(PhotonNetwork.IsMasterClient){
-            PhotonNetwork.LoadLevel("MainScene");
+            PhotonNetwork.LoadLevel(2);
         }
     }
     public void ReturnToMenu(){

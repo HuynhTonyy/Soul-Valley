@@ -78,6 +78,7 @@ MonoBehaviour:
   - TriggerAnim
   - SetQuestDisplay
   - RefreshShop
+  - showName
   DisableAutoOpenWizard: 1
   ShowSettings: 0
   DevRegionSetOnce: 1
