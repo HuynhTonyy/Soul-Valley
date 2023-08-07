@@ -1,5 +1,32 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-7116320110130165297
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/SFX/QuestAccepted
+  m_EditorClassIdentifier: 
+  Path: event:/SFX/QuestAccepted
+  Guid:
+    Data1: 1498134948
+    Data2: 1268827055
+    Data3: -275082853
+    Data4: 557859864
+  Banks:
+  - {fileID: 999089864123402435}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 2093
 --- !u!114 &-5990046560003961319
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -33,10 +60,10 @@ MonoBehaviour:
   Path: Assets/AudioSrc/Build/Desktop/Master.strings.bank
   Name: Master.strings
   StudioPath: bank:/Master.strings
-  lastModified: 638269434364605229
+  lastModified: 638270146684256003
   FileSizes:
   - Name: 
-    Value: 1360
+    Value: 1456
   Exists: 1
 --- !u!114 &-3607531824279114934
 MonoBehaviour:
@@ -53,7 +80,7 @@ MonoBehaviour:
   Path: Assets/AudioSrc/Build/Desktop/Master.bank
   Name: Master
   StudioPath: bank:/Master
-  lastModified: 638269434364585219
+  lastModified: 638270146684235903
   FileSizes: []
   Exists: 1
 --- !u!114 &-3373939145307082371
@@ -193,13 +220,42 @@ MonoBehaviour:
   - {fileID: -88062683389071530}
   - {fileID: 221430560238523344}
   - {fileID: 6312650992596703904}
+  - {fileID: -7116320110130165297}
+  - {fileID: 121605454701086359}
   EditorParameters: []
   MasterBanks:
   - {fileID: -3607531824279114934}
   StringsBanks:
   - {fileID: -4168122095708158088}
-  cacheTime: 638269441729844676
+  cacheTime: 638270152591662219
   cacheVersion: 131605
+--- !u!114 &121605454701086359
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/SFX/QuestCompleted
+  m_EditorClassIdentifier: 
+  Path: event:/SFX/QuestCompleted
+  Guid:
+    Data1: -1473408285
+    Data2: 1080978086
+    Data3: 1598324155
+    Data4: -1702162863
+  Banks:
+  - {fileID: 999089864123402435}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 1800
 --- !u!114 &221430560238523344
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -269,7 +325,7 @@ MonoBehaviour:
   Path: Assets/AudioSrc/Build/Desktop/SFX.bank
   Name: SFX
   StudioPath: bank:/SFX
-  lastModified: 638269441729844676
+  lastModified: 638270152591662219
   FileSizes: []
   Exists: 1
 --- !u!114 &4277821252416398119

@@ -153,6 +153,20 @@ MonoBehaviour:
       Data3: -1041938779
       Data4: 945174961
     Path: event:/SFX/TabOpenSound
+  <questAcceptedSound>k__BackingField:
+    Guid:
+      Data1: 1498134948
+      Data2: 1268827055
+      Data3: -275082853
+      Data4: 557859864
+    Path: event:/SFX/QuestAccepted
+  <questCompletedSound>k__BackingField:
+    Guid:
+      Data1: -1473408285
+      Data2: 1080978086
+      Data3: 1598324155
+      Data4: -1702162863
+    Path: event:/SFX/QuestCompleted
 --- !u!1 &7176866739886624156
 GameObject:
   m_ObjectHideFlags: 0
