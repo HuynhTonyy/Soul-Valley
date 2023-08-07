@@ -18,10 +18,10 @@ MonoBehaviour:
   Value: 60
   Description: 
   icon: {fileID: 21300000, guid: 5a08a6f42d86b5c499d5062f4b9c0217, type: 3}
-  ItemPreFab: {fileID: 5200681163900939743, guid: eebcd50b7cf29e24db4017bd8fed4491, type: 3}
+  ItemPreFab: {fileID: 5200681163900939743, guid: 553a32da35d61f649b13343b0c652e2f, type: 3}
   DayToGrow: 2
-  seed: {fileID: 8885799355948067417, guid: 422fd5a288b304d4188c7a380b71eaf8, type: 3}
-  seedling: {fileID: 4736637242831547837, guid: c2e4af68d2e936442a1d84c0a0eed847, type: 3}
+  seed: {fileID: 4736637242831547837, guid: c2e4af68d2e936442a1d84c0a0eed847, type: 3}
+  seedling: {fileID: 8885799355948067417, guid: 422fd5a288b304d4188c7a380b71eaf8, type: 3}
   harvestable: {fileID: 6127577382695157084, guid: 471c07c7827ffc742a537a1f8693cafa, type: 3}
   CropToYield: {fileID: 11400000, guid: d2a2a4c7a9970d04587f3a290eb8dbe9, type: 2}
   amountToYield: 3
