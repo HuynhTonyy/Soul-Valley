@@ -47,8 +47,14 @@ public class Interactor : MonoBehaviour
             int selectedSlot = hotBar.selectedSlot;
             inRange = Physics.Raycast(cam.transform.position, cam.transform.forward, out hit, 4f,whatIsGround,QueryTriggerInteraction.Ignore);
             //Throw item which is selected in hot bar
-            if(hotBar.GetSelectedItem(selectedSlot)  && GetComponentInChildren<InventoryUIControler>().isClosed && Keyboard.current.qKey.wasPressedThisFrame){
-                hotBar.throwItem(transform,selectedSlot);
+            if(hotBar.GetSelectedItem(selectedSlot)){
+                UseableData useableData = hotBar.GetUseableData(selectedSlot);
+                if(GetComponentInChildren<InventoryUIControler>().isClosed && Keyboard.current.qKey.wasPressedThisFrame){
+                    hotBar.throwItem(transform,selectedSlot);
+                }
+                else if(useableData && Mouse.current.rightButton.isPressed){
+                    hotBar.throwPokeBall(transform,selectedSlot);
+                }
             }
             //In range of sight
             if (inRange){

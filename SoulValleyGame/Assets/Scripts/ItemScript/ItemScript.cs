@@ -17,7 +17,7 @@ public class ItemScript : ScriptableObject
     public string Description = "";
     public Sprite icon;
     public GameObject ItemPreFab;
-
+    
     void OnValidate()
     {
         #if UNITY_EDITOR

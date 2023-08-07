@@ -67,6 +67,34 @@ public class StaticInventoryDisplay : InventoryDisplay
             Debug.Log("No item in the selected slot.");
         }
     }
+    public void throwPokeBall(Transform transform,int selectedSlot)
+    {
+        InventorySlot_UI selectedUISlot = slots[selectedSlot];
+        InventorySlot selectedSlotData = selectedUISlot.AssignInventorySlot;
+        Vector3 positionToSpawn = new Vector3(transform.position.x,transform.position.y+.25f,transform.position.z) + transform.forward * 1f;
+        if (selectedSlotData != null && selectedSlotData.ItemData != null){
+            UseableData useableData = selectedSlotData.ItemData as UseableData;
+            GameObject itemGameObject = useableData.pokeball;
+            if (selectedSlotData.GetCurrentStackSize() > 1)
+            {
+                selectedSlotData.RemoveFromStack(1);
+                GameObject newObject = PhotonNetwork.Instantiate(itemGameObject.name, positionToSpawn, Quaternion.identity);
+                newObject.GetComponent<Rigidbody>().AddForce(transform.forward * 5,ForceMode.Impulse);
+                
+            }
+            else
+            {
+                GameObject newObject = PhotonNetwork.Instantiate(itemGameObject.name, positionToSpawn, Quaternion.identity);
+                newObject.GetComponent<Rigidbody>().AddForce(transform.forward * 5,ForceMode.Impulse);
+                selectedSlotData.ClearSlot();
+            }
+            selectedUISlot.UpdateUISlot(selectedSlotData);
+        }
+        else
+        {
+            Debug.Log("No item in the selected slot.");
+        }
+    }
 
     public static void mouseThrow(Transform transform, InventorySlot slot)
     {
@@ -127,6 +155,12 @@ public class StaticInventoryDisplay : InventoryDisplay
     {
         InventorySystem inventorySystem = inventoryHolder.PrimaryInventorySystem;
         ToolData data = inventorySystem.GetSlot(selectedSlot).ItemData as ToolData;
+        return data;
+    }
+    public UseableData GetUseableData(int selectedSlot)
+    {
+        InventorySystem inventorySystem = inventoryHolder.PrimaryInventorySystem;
+        UseableData data = inventorySystem.GetSlot(selectedSlot).ItemData as UseableData;
         return data;
     }
     public void ChangedSelectedSlot(int value)

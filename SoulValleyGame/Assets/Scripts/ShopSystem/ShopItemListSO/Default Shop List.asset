@@ -39,6 +39,12 @@ MonoBehaviour:
     Amount: 20
   - itemData: {fileID: 11400000, guid: d2a2a4c7a9970d04587f3a290eb8dbe9, type: 2}
     Amount: 20
+  - itemData: {fileID: 11400000, guid: 2dca37cdd94512647be8f0c0527d8149, type: 2}
+    Amount: 20
+  - itemData: {fileID: 11400000, guid: f9d2c9da3b02fac48a6953f9518bcc23, type: 2}
+    Amount: 20
+  - itemData: {fileID: 11400000, guid: c4dcb0f1091450e47aab775820eed2d5, type: 2}
+    Amount: 20
   _maxAllowedGold: 1000
   _sellMarkUp: 0.25
   _buyMarkUp: 0.5
