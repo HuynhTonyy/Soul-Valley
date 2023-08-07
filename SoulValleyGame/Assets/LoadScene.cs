@@ -31,13 +31,17 @@ public class LoadScene : MonoBehaviourPunCallbacks
     }
     public void SetPlayerName()
     {
-        playerNameDisplay.GetComponent<TextMeshPro>().SetText(playerName.text.ToString());
         playerPrefab.GetComponent<PlayerCam>().enabled = true;
         playerPrefab.GetComponent<PlayerMovement>().enabled = true;
         playerPrefab.GetComponent<PlayerInventoryHolder>().enabled = true;
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
         gameObject.SetActive(false);
-        
+        photonView.RPC("showName", RpcTarget.AllBufferedViaServer,photonView.ViewID, playerName.text.ToString());
+    }
+    [PunRPC]
+    public void showName(int ViewID, string playerName)
+    {
+        PhotonView.Find(ViewID).GetComponent<TextMeshPro>().SetText(playerName);
     }
 }
