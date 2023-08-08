@@ -75,9 +75,7 @@ public class PlayerMovement : MonoBehaviour
         attributes.forward = RuntimeUtils.ToFMODVector(orientation.forward); // Set the forward vector (optional)
         attributes.up = RuntimeUtils.ToFMODVector(orientation.up);
         playerFootSteps = AudioManager.instance.CreateInstance(FMODEvents.instance.footSteps);
-        playerFootSteps.setVolume(0.5f);
         playerFootStepsSprint = AudioManager.instance.CreateInstance(FMODEvents.instance.footStepsSprint);
-        playerFootStepsSprint.setVolume(0.5f);
         playerFootSteps.set3DAttributes(attributes);
         playerFootStepsSprint.set3DAttributes(attributes);
         rb.freezeRotation = true;

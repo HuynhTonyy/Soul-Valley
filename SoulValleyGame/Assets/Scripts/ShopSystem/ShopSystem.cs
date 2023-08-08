@@ -26,9 +26,8 @@ public class ShopSystem
     public ShopSystem(int size, int gold, float buyMarkUp, float sellMarkUp)
     {
         _availableGold = gold;
-        _buyMarkUp = buyMarkUp;
-        _sellMarkUp = sellMarkUp;
-
+        _buyMarkUp = Mathf.RoundToInt(buyMarkUp); 
+        _sellMarkUp = Mathf.RoundToInt(sellMarkUp);
         SetShopSize(size);
     }
 

@@ -7,6 +7,17 @@ using UnityEngine.SceneManagement;
 
 public class AudioManager : MonoBehaviour
 {
+    [Header("Volume")]
+    [Range(0, 1)]
+    public float masterVolume = 1;
+    [Range(0, 1)]
+    public float musicVolume = 1;
+    [Range(0, 1)]
+    public float sfxVolume = 1;
+
+    private Bus masterBus;
+    private Bus musicBus;
+    private Bus sfxBus;
     public static AudioManager instance { get; private set; }
 
     private static List<EventInstance> eventInstancesList = new List<EventInstance>();
@@ -22,6 +33,16 @@ public class AudioManager : MonoBehaviour
             Debug.LogError("Found more than one Audio Manager");
         }
         instance = this;
+
+        masterBus = RuntimeManager.GetBus("bus:/");
+        musicBus = RuntimeManager.GetBus("bus:/Music");
+        sfxBus = RuntimeManager.GetBus("bus:/SFX");
+    }
+    private void Update()
+    {
+        masterBus.setVolume(masterVolume);
+        musicBus.setVolume(musicVolume);
+        sfxBus.setVolume(sfxVolume);
     }
     private void Start()
     {
