@@ -74,8 +74,8 @@ public class Interactor : MonoBehaviour
                         interactGO.enabled = true;
                     }
                     if(Mouse.current.rightButton.wasPressedThisFrame && GetComponentInChildren<InventoryUIControler>().isClosed){
-                        IIntractable interactable = hit.collider.GetComponent<IIntractable>();
-                        if (interactable != null) interactable.Interact(this);
+                        IIntractable interactable;
+                        if (hit.collider.TryGetComponent<IIntractable>(out interactable)) interactable.Interact(this);
                         if(hit.transform.gameObject.GetComponent<ChestInventory>())
                         {
                             chest = hit.transform.gameObject;
@@ -83,7 +83,8 @@ public class Interactor : MonoBehaviour
                     }
                 }else if(selectedLand){
                     selectedLand.Select(false);
-                }else if(interactGO){
+                }
+                if(interactGO && tag != "Interactable"){
                     interactGO.enabled = false;
                     interactGO = null;
                 }
