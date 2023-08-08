@@ -70,6 +70,10 @@ public class Interactor : MonoBehaviour
                         farmLand.Harvest(this.gameObject);
                     }
                 }else if(tag == "Interactable"){
+                    if(interactGO){
+                        interactGO.enabled = false;
+                        interactGO = null;
+                    }
                     if(hit.transform.gameObject.TryGetComponent<Outline>(out interactGO)){
                         interactGO.enabled = true;
                     }
@@ -85,8 +89,8 @@ public class Interactor : MonoBehaviour
                     selectedLand.Select(false);
                 }
                 if(interactGO && tag != "Interactable"){
-                    interactGO.enabled = false;
-                    interactGO = null;
+                        interactGO.enabled = false;
+                        interactGO = null;
                 }
                 if(hotBar.GetSelectedItem(selectedSlot)  && gameObject.GetComponentInChildren<InventoryUIControler>().isClosed){
                     SeedData seed = hotBar.GetSeed(selectedSlot);
