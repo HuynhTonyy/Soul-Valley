@@ -14,6 +14,7 @@ public class SaveGameManager : MonoBehaviourPunCallbacks
     [SerializeField] Button btnSave, btnLoad, btnExit;
     bool isEscape = false;
     public Image backGround;
+    public GameObject player;
 
     private void Awake()
     {
@@ -21,7 +22,7 @@ public class SaveGameManager : MonoBehaviourPunCallbacks
         SaveLoad.OnLoadGame += LoadData;
         if(!PhotonNetwork.IsMasterClient){
             btnSave.gameObject.SetActive(false);
-            // btnLoad.gameObject.SetActive(false);
+            btnLoad.gameObject.SetActive(false);
         }
     }
     void Start()
@@ -33,9 +34,13 @@ public class SaveGameManager : MonoBehaviourPunCallbacks
     }
     void Update()
     {
-        if(Keyboard.current.escapeKey.wasPressedThisFrame){
+        if(Keyboard.current.escapeKey.isPressed)
+        {
             AudioManager.instance.PlayOneShot(FMODEvents.instance.clickedSound, this.transform.position);
             if(isEscape){
+                player.GetComponent<PlayerCam>().enabled = true;
+                player.GetComponent<PlayerMovement>().enabled = true;
+                player.GetComponent<PlayerInventoryHolder>().enabled = true;
                 isEscape = false;
                 Cursor.visible = false;
                 Cursor.lockState = CursorLockMode.Locked;
@@ -43,8 +48,12 @@ public class SaveGameManager : MonoBehaviourPunCallbacks
                 btnSave.gameObject.SetActive(false);
                 btnLoad.gameObject.SetActive(false);
                 btnExit.gameObject.SetActive(false);
+
             }else{
                 isEscape = true;
+                player.GetComponent<PlayerCam>().enabled = false;
+                player.GetComponent<PlayerMovement>().enabled = false;
+                player.GetComponent<PlayerInventoryHolder>().enabled = false;
                 Cursor.visible = true;
                 Cursor.lockState = CursorLockMode.None;
                 backGround.gameObject.SetActive(true);

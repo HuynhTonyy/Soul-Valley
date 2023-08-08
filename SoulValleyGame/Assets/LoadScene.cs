@@ -18,7 +18,6 @@ public class LoadScene : MonoBehaviourPunCallbacks
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
         }
-        
         GetComponentInParent<PlayerCam>().enabled = false;
         GetComponentInParent<PlayerMovement>().enabled = false;
         GetComponentInParent<PlayerInventoryHolder>().enabled = false;
@@ -38,6 +37,7 @@ public class LoadScene : MonoBehaviourPunCallbacks
         loadingScene.SetActive(false);
         photonView.RPC("showName", RpcTarget.AllBufferedViaServer, gameObject.GetComponent<PhotonView>().ViewID,playerName.text.ToString());
     }
+
     [PunRPC]
     public void showName(int viewID, string playerName)
     {
