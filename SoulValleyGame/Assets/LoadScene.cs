@@ -22,13 +22,6 @@ public class LoadScene : MonoBehaviourPunCallbacks
         /*StartCoroutine(TimeUpdate());*/
         /* Destroy(gameObject);*/
     }
-    private void Update()
-    {
-        if(Keyboard.current.enterKey.isPressed)
-        {
-            SetPlayerName();
-        }
-    }
     public void SetPlayerName()
     {
         playerPrefab.GetComponent<PlayerCam>().enabled = true;
@@ -37,11 +30,11 @@ public class LoadScene : MonoBehaviourPunCallbacks
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
         gameObject.SetActive(false);
-        photonView.RPC("showName", RpcTarget.AllBufferedViaServer,photonView.ViewID, playerName.text.ToString());
+        photonView.RPC("showName", RpcTarget.AllBufferedViaServer,playerNameDisplay.GetComponent<PhotonView>().ViewID,playerName.text.ToString());
     }
     [PunRPC]
-    public void showName(int ViewID, string playerName)
+    public void showName(int viewID, string playerName)
     {
-        PhotonView.Find(ViewID).GetComponent<TextMeshPro>().SetText(playerName);
+        PhotonView.Find(viewID).GetComponent<TextMeshPro>().SetText(playerName);
     }
 }
