@@ -5,22 +5,27 @@ using UnityEngine;
 public class Blueprint : MonoBehaviour
 {
     public bool isPlaceable = true;
-    Renderer renderer;
+    SkinnedMeshRenderer[] renderers;
     [SerializeField] Material matEnable, matDisable;
     private void Start() {
-        renderer = GetComponent<Renderer>();
-        renderer.material = matEnable;
+        renderers = GetComponentsInChildren<SkinnedMeshRenderer>();
+        changeMaterial(matEnable);
     }
     private void OnTriggerEnter(Collider other) {
         isPlaceable = false;
-        renderer.material = matDisable;
+        changeMaterial(matDisable);
     }
     private void OnTriggerStay(Collider other) {
         isPlaceable = false;
-        renderer.material = matDisable;
+        changeMaterial(matDisable);
     }
     private void OnTriggerExit(Collider other) {
         isPlaceable = true;
-        renderer.material = matEnable;
+        changeMaterial(matEnable);
+    }
+    private void changeMaterial(Material materialToChange){
+        foreach(SkinnedMeshRenderer renderer in renderers){
+            renderer.material = materialToChange;
+        }
     }
 }
