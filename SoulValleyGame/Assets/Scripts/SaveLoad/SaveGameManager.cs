@@ -12,8 +12,11 @@ public class SaveGameManager : MonoBehaviourPunCallbacks
 {
     public static SaveData data;
     [SerializeField] Button btnSave, btnLoad, btnExit;
-    bool isEscape = false;
+    public bool isEscape = false;
     public Image backGround;
+    public GameObject player;
+    PlayerCam cam;
+    PlayerMovement move;
 
     private void Awake()
     {
@@ -21,38 +24,42 @@ public class SaveGameManager : MonoBehaviourPunCallbacks
         SaveLoad.OnLoadGame += LoadData;
         if(!PhotonNetwork.IsMasterClient){
             btnSave.gameObject.SetActive(false);
-            // btnLoad.gameObject.SetActive(false);
+            btnLoad.gameObject.SetActive(false);
         }
     }
     void Start()
     {
-        backGround.gameObject.SetActive(false);
+        backGround.enabled = false;
         btnSave.gameObject.SetActive(false);
         btnLoad.gameObject.SetActive(false);
         btnExit.gameObject.SetActive(false);
+        cam = player.GetComponent<PlayerCam>();
+        move =player.GetComponent<PlayerMovement>();
+
     }
-    void Update()
+    public void open()
     {
-        if(Keyboard.current.escapeKey.wasPressedThisFrame){
-            AudioManager.instance.PlayOneShot(FMODEvents.instance.clickedSound, this.transform.position);
-            if(isEscape){
-                isEscape = false;
-                Cursor.visible = false;
-                Cursor.lockState = CursorLockMode.Locked;
-                backGround.gameObject.SetActive(false);
-                btnSave.gameObject.SetActive(false);
-                btnLoad.gameObject.SetActive(false);
-                btnExit.gameObject.SetActive(false);
-            }else{
-                isEscape = true;
-                Cursor.visible = true;
-                Cursor.lockState = CursorLockMode.None;
-                backGround.gameObject.SetActive(true);
-                btnSave.gameObject.SetActive(true);
-                btnLoad.gameObject.SetActive(true);
-                btnExit.gameObject.SetActive(true);
-            }
-        }
+        isEscape = true;
+        cam.enabled = false;
+        move.enabled = false;
+        backGround.enabled = true;
+        btnSave.gameObject.SetActive(true);
+        btnLoad.gameObject.SetActive(true);
+        btnExit.gameObject.SetActive(true);
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
+    }
+    public void close()
+    {
+        isEscape = false;
+        cam.enabled = true;
+        move.enabled = true;
+        backGround.enabled = false;
+        btnSave.gameObject.SetActive(false);
+        btnLoad.gameObject.SetActive(false);
+        btnExit.gameObject.SetActive(false);
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
     }
     public void LeaveCurrentRoom()
     {
