@@ -17,7 +17,7 @@ MonoBehaviour:
   MaxStackSize: 5
   Value: 60
   Description: 
-  icon: {fileID: 21300000, guid: 13a35e1cfc2b9614bbc19e23e928df42, type: 3}
+  icon: {fileID: 21300000, guid: 6fe7dbaeca9c7284d8d9dc8edd0a7e13, type: 3}
   ItemPreFab: {fileID: 5200681163900939743, guid: ad283829bf77c6640bbe14a72671e174, type: 3}
   DayToGrow: 2
   seed: {fileID: 8885799355948067417, guid: 635b51e6db10c7f448950efc3eabb512, type: 3}
