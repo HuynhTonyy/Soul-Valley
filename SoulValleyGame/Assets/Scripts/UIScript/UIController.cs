@@ -8,13 +8,11 @@ public class UIController : MonoBehaviour
 {
     public bool isShopClosed = true;
     [SerializeField] public ShopKeeperDisplay _shopKeeperDisplay;
-    [SerializeField] public LoadScene loadScene;
 
 
     private void Awake()
     {
         _shopKeeperDisplay.gameObject.SetActive(false);
-        loadScene.gameObject.SetActive(true);
     }
 
     private void OnEnable()

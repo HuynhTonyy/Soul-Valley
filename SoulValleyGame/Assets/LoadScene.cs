@@ -9,28 +9,27 @@ using UnityEngine.UI;
 public class LoadScene : MonoBehaviourPunCallbacks
 {
     public InputField playerName;
-    public GameObject playerNameDisplay;
-    public GameObject playerPrefab;
+    public GameObject loadingScene;
 
     private void Start()
     {
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
-        playerPrefab.GetComponent<PlayerCam>().enabled = false;
-        playerPrefab.GetComponent<PlayerMovement>().enabled = false;
-        playerPrefab.GetComponent<PlayerInventoryHolder>().enabled = false;
+        GetComponentInParent<PlayerCam>().enabled = false;
+        GetComponentInParent<PlayerMovement>().enabled = false;
+        GetComponentInParent<PlayerInventoryHolder>().enabled = false;
         /*StartCoroutine(TimeUpdate());*/
         /* Destroy(gameObject);*/
     }
     public void SetPlayerName()
     {
-        playerPrefab.GetComponent<PlayerCam>().enabled = true;
-        playerPrefab.GetComponent<PlayerMovement>().enabled = true;
-        playerPrefab.GetComponent<PlayerInventoryHolder>().enabled = true;
+        GetComponentInParent<PlayerCam>().enabled = true;
+        GetComponentInParent<PlayerMovement>().enabled = true;
+        GetComponentInParent<PlayerInventoryHolder>().enabled = true;
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
-        gameObject.SetActive(false);
-        photonView.RPC("showName", RpcTarget.AllBufferedViaServer,playerNameDisplay.GetComponent<PhotonView>().ViewID,playerName.text.ToString());
+        loadingScene.SetActive(false);
+        photonView.RPC("showName", RpcTarget.AllBufferedViaServer, gameObject.GetComponent<PhotonView>().ViewID,playerName.text.ToString());
     }
     [PunRPC]
     public void showName(int viewID, string playerName)
