@@ -24,7 +24,8 @@ public class PlayerInventoryHolder : InventoryHolder
         view = GetComponent<PhotonView>();
         mouse = GetComponentInChildren<MouseItemData>();
 
-        if(!view.IsMine){
+        if (!view.IsMine)
+        {
             Destroy(canvas.gameObject);
         }
         inventoryUIControler = GetComponentInChildren<InventoryUIControler>();
@@ -63,8 +64,6 @@ public class PlayerInventoryHolder : InventoryHolder
                             StaticInventoryDisplay.mouseThrow(this.transform,mouse.AssignInventorySlot);
                             mouse.ClearSlot();
                         }
-
-
                     }
                     else 
                     {

@@ -13,8 +13,12 @@ public class LoadScene : MonoBehaviourPunCallbacks
 
     private void Start()
     {
-        Cursor.lockState = CursorLockMode.None;
-        Cursor.visible = true;
+        if(photonView.IsMine)
+        {
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
+        }
+        
         GetComponentInParent<PlayerCam>().enabled = false;
         GetComponentInParent<PlayerMovement>().enabled = false;
         GetComponentInParent<PlayerInventoryHolder>().enabled = false;
@@ -26,8 +30,11 @@ public class LoadScene : MonoBehaviourPunCallbacks
         GetComponentInParent<PlayerCam>().enabled = true;
         GetComponentInParent<PlayerMovement>().enabled = true;
         GetComponentInParent<PlayerInventoryHolder>().enabled = true;
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
+        if (photonView.IsMine)
+        {
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
+        }
         loadingScene.SetActive(false);
         photonView.RPC("showName", RpcTarget.AllBufferedViaServer, gameObject.GetComponent<PhotonView>().ViewID,playerName.text.ToString());
     }
