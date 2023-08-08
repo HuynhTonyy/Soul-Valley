@@ -15,6 +15,8 @@ public class PlayerInventoryHolder : InventoryHolder
     public static UnityAction OnPlayerInventoryChanged;
     public static UnityAction<InventorySystem, int> OnDynamicPlayerInventoryDisplayRequested;
     PhotonView view;
+    SaveGameManager saveGame;
+
     public void setPrimarySystem(InventorySystem invSys){
         this.primaryInventorySystem = invSys;
         OnPlayerInventoryChanged?.Invoke();
@@ -30,12 +32,29 @@ public class PlayerInventoryHolder : InventoryHolder
         }
         inventoryUIControler = GetComponentInChildren<InventoryUIControler>();
         uIController = GetComponentInChildren<UIController>();
+        saveGame = GetComponentInChildren<SaveGameManager>();
     }
     // Update is called once per frame
     void Update()
     {
         if(view.IsMine)
         {
+            if(Keyboard.current.capsLockKey.wasPressedThisFrame)
+            {
+                AudioManager.instance.PlayOneShot(FMODEvents.instance.clickedSound, this.transform.position);
+                if (saveGame.isEscape)
+                {
+                    saveGame.close();
+                }
+                else
+                {
+                    saveGame.open();
+                    inventoryUIControler.close();
+                    inventoryUIControler.isClosed = true;
+                    uIController.close();
+                    uIController.isShopClosed = true;
+                }
+            }
             if(Keyboard.current.tabKey.wasPressedThisFrame)
             {
                 if(!uIController.isShopClosed)
@@ -51,19 +70,12 @@ public class PlayerInventoryHolder : InventoryHolder
                         inventoryUIControler.close();
                         inventoryUIControler.isClosed = true;
                         GameObject chest = this.gameObject.GetComponent<Interactor>().chest;
-                        
                         if(chest)
                         {
                             this.gameObject.GetComponent<Interactor>().chest = null;
                             photonView.RPC("UpdateChest", RpcTarget.AllBufferedViaServer,chest.GetComponent<PhotonView>().ViewID);
                             chest.GetComponent<ChestInventory>().syncChest();
                         }  
-                        
-                        if(mouse.AssignInventorySlot.ItemData != null)
-                        {
-                            StaticInventoryDisplay.mouseThrow(this.transform,mouse.AssignInventorySlot);
-                            mouse.ClearSlot();
-                        }
                     }
                     else 
                     {
@@ -71,6 +83,11 @@ public class PlayerInventoryHolder : InventoryHolder
                         OnDynamicPlayerInventoryDisplayRequested?.Invoke(primaryInventorySystem, offset);
                         inventoryUIControler.isClosed = false;
                     }  
+                }
+                if (mouse.AssignInventorySlot.ItemData != null)
+                {
+                    StaticInventoryDisplay.mouseThrow(this.transform, mouse.AssignInventorySlot);
+                    mouse.ClearSlot();
                 }
             }
         }
