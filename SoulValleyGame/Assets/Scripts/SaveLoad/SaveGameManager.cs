@@ -14,7 +14,7 @@ public class SaveGameManager : MonoBehaviourPunCallbacks
     [SerializeField] Button btnSave, btnLoad, btnExit;
     public bool isEscape = false;
     public Image backGround;
-    public GameObject player;
+    public GameObject player, volumeHolder;
     PlayerCam cam;
     PlayerMovement move;
 
@@ -33,6 +33,7 @@ public class SaveGameManager : MonoBehaviourPunCallbacks
         btnSave.gameObject.SetActive(false);
         btnLoad.gameObject.SetActive(false);
         btnExit.gameObject.SetActive(false);
+        volumeHolder.SetActive(false);
         cam = player.GetComponent<PlayerCam>();
         move =player.GetComponent<PlayerMovement>();
 
@@ -46,6 +47,7 @@ public class SaveGameManager : MonoBehaviourPunCallbacks
         btnSave.gameObject.SetActive(true);
         btnLoad.gameObject.SetActive(true);
         btnExit.gameObject.SetActive(true);
+        volumeHolder.SetActive(true);
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.None;
     }
@@ -58,6 +60,7 @@ public class SaveGameManager : MonoBehaviourPunCallbacks
         btnSave.gameObject.SetActive(false);
         btnLoad.gameObject.SetActive(false);
         btnExit.gameObject.SetActive(false);
+        volumeHolder.SetActive(false);
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
     }

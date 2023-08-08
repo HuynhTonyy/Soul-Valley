@@ -4385,6 +4385,7 @@ MonoBehaviour:
   isEscape: 0
   backGround: {fileID: 2770402548218579976}
   player: {fileID: 8916870013705482626}
+  volumeHolder: {fileID: 5470121858164960867}
 --- !u!114 &2681034599503545986
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5452,6 +5453,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1086837916786543835}
   - component: {fileID: 7002583535085170981}
+  - component: {fileID: 2609625235453889496}
   m_Layer: 5
   m_Name: sfx
   m_TagString: Untagged
@@ -5532,7 +5534,32 @@ MonoBehaviour:
   m_Value: 0
   m_OnValueChanged:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 2609625235453889496}
+        m_TargetAssemblyTypeName: VolumeMenu, Assembly-CSharp
+        m_MethodName: OnSliderValueChanged
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &2609625235453889496
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2782718212728979495}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a47e61ebcb236f84b8a3c8d031056f55, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  volumeType: 2
 --- !u!1 &2901212653723749736
 GameObject:
   m_ObjectHideFlags: 0
@@ -8500,6 +8527,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1576966567860195489}
   - component: {fileID: 4138683651953235343}
+  - component: {fileID: 8036086811723208650}
   m_Layer: 5
   m_Name: master
   m_TagString: Untagged
@@ -8580,7 +8608,32 @@ MonoBehaviour:
   m_Value: 0
   m_OnValueChanged:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 8036086811723208650}
+        m_TargetAssemblyTypeName: VolumeMenu, Assembly-CSharp
+        m_MethodName: OnSliderValueChanged
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &8036086811723208650
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6934209677008806225}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a47e61ebcb236f84b8a3c8d031056f55, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  volumeType: 0
 --- !u!1 &6949837074108110169
 GameObject:
   m_ObjectHideFlags: 0
@@ -8789,6 +8842,7 @@ GameObject:
   m_Component:
   - component: {fileID: 523115576793859190}
   - component: {fileID: 1513156942058358606}
+  - component: {fileID: 2205043856496488525}
   m_Layer: 5
   m_Name: music
   m_TagString: Untagged
@@ -8869,7 +8923,32 @@ MonoBehaviour:
   m_Value: 0
   m_OnValueChanged:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 2205043856496488525}
+        m_TargetAssemblyTypeName: VolumeMenu, Assembly-CSharp
+        m_MethodName: OnSliderValueChanged
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &2205043856496488525
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7178895731674569949}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a47e61ebcb236f84b8a3c8d031056f55, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  volumeType: 1
 --- !u!1 &7270742591663878797
 GameObject:
   m_ObjectHideFlags: 0

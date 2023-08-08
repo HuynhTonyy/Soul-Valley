@@ -31,9 +31,6 @@ public class FarmLand : MonoBehaviourPunCallbacks, ITimeTracker
         hoeingSound = AudioManager.instance.CreateInstance(FMODEvents.instance.hoeingSound);
         wateringSound = AudioManager.instance.CreateInstance(FMODEvents.instance.wateringSound);
         harvestSound = AudioManager.instance.CreateInstance(FMODEvents.instance.harvestSound);
-        hoeingSound.setVolume(0.5f);
-        wateringSound.setVolume(0.5f);
-        harvestSound.setVolume(0.5f);
         attributes = new FMOD.ATTRIBUTES_3D();
         attributes.position = RuntimeUtils.ToFMODVector(transform.position); // Set the position in 3D space
         attributes.velocity = RuntimeUtils.ToFMODVector(Vector3.zero); // Set the velocity (optional)
