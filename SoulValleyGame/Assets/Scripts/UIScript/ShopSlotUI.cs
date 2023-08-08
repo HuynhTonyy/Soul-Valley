@@ -13,7 +13,8 @@ public class ShopSlotUI : MonoBehaviour
     [SerializeField] private ShopSlot _assignedItemSlot;
     public ShopKeeperDisplay ParentDisplay { get; private set; }
 
-    public float MarkUp { get; private set; }
+    public float BuyMarkUp { get; private set; }
+    public float SellMarkUp { get; private set; }
 
     private double SellPrice;
     private double BuyPrice;
@@ -29,19 +30,24 @@ public class ShopSlotUI : MonoBehaviour
         _itemCount.text = "";
         ParentDisplay = transform.parent.GetComponentInParent<ShopKeeperDisplay>();
     }
-    public void Init(ShopSlot slot, float markUp)
+
+    public void Init(ShopSlot slot, float buyMarkUp, float sellMarkUp)
     {
         _assignedItemSlot = slot;
-        MarkUp = markUp;
+        BuyMarkUp = buyMarkUp;
+        SellMarkUp = sellMarkUp;
         _tempAmount = slot.StackSize;
+        
         UpdateUISlott();
     }
     public void UpdateUISlott()
     {
         if(_assignedItemSlot.ItemData != null)
         {
-            SellPrice = _assignedItemSlot.ItemData.Value + _assignedItemSlot.ItemData.Value * 0.25;
-            BuyPrice = _assignedItemSlot.ItemData.Value + _assignedItemSlot.ItemData.Value * 0.5;
+            float randomSellP = Random.RandomRange(-0.05f, 0.12f);
+            float randomBuyP = Random.RandomRange(-0.02f, 0.2f);
+            SellPrice = Mathf.RoundToInt(_assignedItemSlot.ItemData.Value + _assignedItemSlot.ItemData.Value * SellMarkUp) + Mathf.RoundToInt((_assignedItemSlot.ItemData.Value * randomSellP));
+            BuyPrice = Mathf.RoundToInt(_assignedItemSlot.ItemData.Value + _assignedItemSlot.ItemData.Value * BuyMarkUp) + Mathf.RoundToInt((_assignedItemSlot.ItemData.Value * randomBuyP));
             _itemSprite.sprite = _assignedItemSlot.ItemData.icon;
             _itemSprite.color = Color.white;
             _itemCount.text = 'x' + _assignedItemSlot.StackSize.ToString();
@@ -60,6 +66,7 @@ public class ShopSlotUI : MonoBehaviour
 
     public void OnItemClick()
     {
+        Debug.Log(BuyMarkUp);
         if (_assignedItemSlot.ItemData != null)
         {
             string buyStr = "Buy Price: " + BuyPrice;

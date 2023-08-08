@@ -46,5 +46,5 @@ MonoBehaviour:
   - itemData: {fileID: 11400000, guid: c4dcb0f1091450e47aab775820eed2d5, type: 2}
     Amount: 20
   _maxAllowedGold: 1000
-  _sellMarkUp: 0.25
+  _sellMarkUp: 0.15
   _buyMarkUp: 0.5

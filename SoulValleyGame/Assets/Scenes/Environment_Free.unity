@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.14703594, g: 0.36398482, b: 0.57992315, a: 1}
+  m_IndirectSpecularColor: {r: 0.14703749, g: 0.3639866, b: 0.57992274, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -138,9 +138,21 @@ PrefabInstance:
       propertyPath: m_Name
       value: ShopNPC
       objectReference: {fileID: 0}
+    - target: {fileID: 2522131252452582578, guid: e50374a760e6dd340b39a33e81040119, type: 3}
+      propertyPath: _shopSystem._buyMarkUp
+      value: 0.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 2522131252452582578, guid: e50374a760e6dd340b39a33e81040119, type: 3}
+      propertyPath: _shopSystem._sellMarkUp
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2522131252452582578, guid: e50374a760e6dd340b39a33e81040119, type: 3}
+      propertyPath: _shopSystem._availableGold
+      value: 700
+      objectReference: {fileID: 0}
     - target: {fileID: 2522131252452582580, guid: e50374a760e6dd340b39a33e81040119, type: 3}
       propertyPath: m_RootOrder
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 2522131252452582580, guid: e50374a760e6dd340b39a33e81040119, type: 3}
       propertyPath: m_LocalPosition.x
@@ -3690,8 +3702,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -241.50146, y: -50}
-  m_SizeDelta: {x: 483.0023, y: 100}
+  m_AnchoredPosition: {x: -182.09143, y: -50}
+  m_SizeDelta: {x: 364.1822, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1110621755
 MonoBehaviour:
@@ -5703,10 +5715,10 @@ RectTransform:
   m_Father: {fileID: 1110621754}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 95.751, y: 0}
-  m_SizeDelta: {x: 291.5, y: 100}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1626744537
 MonoBehaviour:
@@ -5730,8 +5742,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: 'Currency:'
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 2e498d1c8094910479dc3e1b768306a4, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 2e498d1c8094910479dc3e1b768306a4, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: 2100000, guid: e73a58f6e2794ae7b1b7e50b7fb811b0, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -5755,10 +5767,10 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 72
+  m_fontSize: 36
   m_fontSizeBase: 36
   m_fontWeight: 400
-  m_enableAutoSizing: 1
+  m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 0
@@ -5791,7 +5803,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: -190.00781, y: 0, z: 0, w: 0}
+  m_margin: {x: 0.29248047, y: 0, z: 0, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0

@@ -25,10 +25,10 @@ public class ShopSystem
     }
     public ShopSystem(int size, int gold, float buyMarkUp, float sellMarkUp)
     {
+        Debug.Log(buyMarkUp);
         _availableGold = gold;
-        _buyMarkUp = buyMarkUp;
+        _buyMarkUp = buyMarkUp; 
         _sellMarkUp = sellMarkUp;
-
         SetShopSize(size);
     }
 
@@ -41,6 +41,8 @@ public class ShopSystem
     {
         return SellMarkUp;
     }
+
+
 
     private void SetShopSize(int size)
     {

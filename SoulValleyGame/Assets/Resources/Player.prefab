@@ -974,6 +974,11 @@ MonoBehaviour:
   BuyTabDisplay: {fileID: 696120408541389673}
   errorBoxAnimator: {fileID: 7104929228205926279}
   errText: {fileID: 4972197234727916396}
+  _shopSystem:
+    _shopInventory: []
+    _availableGold: 0
+    _buyMarkUp: 0
+    _sellMarkUp: 0
 --- !u!114 &2210804296139849371
 MonoBehaviour:
   m_ObjectHideFlags: 0
