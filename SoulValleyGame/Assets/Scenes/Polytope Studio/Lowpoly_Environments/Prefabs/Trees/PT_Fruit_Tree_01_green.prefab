@@ -109,7 +109,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1164602935277360391}
   - component: {fileID: 6229498194940338806}
-  - component: {fileID: 1164602937170222633}
   - component: {fileID: 2613314}
   m_Layer: 0
   m_Name: PT_Fruit_Tree_01_green
@@ -163,20 +162,6 @@ LODGroup:
     renderers:
     - renderer: {fileID: 6788130300613750309}
   m_Enabled: 1
---- !u!64 &1164602937170222633
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1973228233241776061}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 0}
 --- !u!64 &2613314
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -188,7 +173,7 @@ MeshCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 4
-  m_Convex: 0
+  m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: -65089136688577580, guid: fb0559a36ae9650449b6e3c26d5076a5, type: 3}
 --- !u!1 &5719100795698308424

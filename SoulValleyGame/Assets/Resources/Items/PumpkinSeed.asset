@@ -17,8 +17,8 @@ MonoBehaviour:
   MaxStackSize: 4
   Value: 70
   Description: shit
-  icon: {fileID: 21300000, guid: c06f1c2589a1dcc41b385388110af23f, type: 3}
-  ItemPreFab: {fileID: 2111610932176695751, guid: b15680852f6dad34b81468f9e869796c, type: 3}
+  icon: {fileID: 21300000, guid: abcda896a8866d74d9c65c5d7145444a, type: 3}
+  ItemPreFab: {fileID: 3894392587033564505, guid: f144aa2dc7c4f9049a1fd15f4460d747, type: 3}
   DayToGrow: 3
   seed: {fileID: 8076040044990304503, guid: 2d4b7ec9f5694474f813cbb89bae069f, type: 3}
   seedling: {fileID: 7103936883222715396, guid: 749e0ed10ad006647b5576b421f9dacb, type: 3}
