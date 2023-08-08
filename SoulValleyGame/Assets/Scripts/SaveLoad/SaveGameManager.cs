@@ -64,7 +64,7 @@ public class SaveGameManager : MonoBehaviourPunCallbacks
     public void LeaveCurrentRoom()
     {
         PhotonNetwork.LeaveRoom();
-        PhotonNetwork.LoadLevel("Lobby");
+        PhotonNetwork.LoadLevel(0);
     }
     public void DeleteData()
     {
