@@ -14,7 +14,7 @@ public class House : MonoBehaviour, IIntractable
     }
     public void Interact(Interactor interactor)
     {
-        if(TimeManager.Instance.GetTimeStamp().hour > 12 && TimeManager.Instance.GetTimeStamp().hour < 7)
+        if(TimeManager.Instance.GetTimeStamp().hour > 12)
         {
             interactor.isInAction = true;
             amountReady++;
@@ -28,7 +28,6 @@ public class House : MonoBehaviour, IIntractable
                 playerList.Clear();
                 amountReady = 0;
             }
-           
         }
         
     }

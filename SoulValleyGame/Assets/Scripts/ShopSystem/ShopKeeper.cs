@@ -19,10 +19,11 @@ public class ShopKeeper : MonoBehaviourPunCallbacks, IIntractable, ITimeTracker
     public void Interact(Interactor interactor)
     {
         playerInv = interactor.GetComponent<PlayerInventoryHolder>();
-
+        interactor.enabled = false;
+        interactor.hotBar.enabled = false;
         if (playerInv != null && !isInAction)
         {
-            interactor.shopKeeper= this.gameObject;
+            interactor.shopKeeper = this.gameObject;
             OnShopWindowRequested?.Invoke(_shopSystem, playerInv);
             photonView.RPC("UpdateShopState", RpcTarget.AllBufferedViaServer);
         }
