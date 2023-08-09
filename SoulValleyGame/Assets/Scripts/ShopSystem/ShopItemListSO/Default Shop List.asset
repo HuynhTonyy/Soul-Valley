@@ -39,6 +39,10 @@ MonoBehaviour:
     Amount: 20
   - itemData: {fileID: 11400000, guid: d2a2a4c7a9970d04587f3a290eb8dbe9, type: 2}
     Amount: 20
+  - itemData: {fileID: 11400000, guid: 7e8d4405c2297cb41b0fcf50f2e90015, type: 2}
+    Amount: 20
+  - itemData: {fileID: 11400000, guid: 206bbc9505996a44aaed857e3094c762, type: 2}
+    Amount: 20
   - itemData: {fileID: 11400000, guid: 2dca37cdd94512647be8f0c0527d8149, type: 2}
     Amount: 20
   - itemData: {fileID: 11400000, guid: f9d2c9da3b02fac48a6953f9518bcc23, type: 2}

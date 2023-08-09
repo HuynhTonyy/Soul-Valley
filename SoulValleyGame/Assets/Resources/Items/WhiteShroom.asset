@@ -15,7 +15,7 @@ MonoBehaviour:
   <Id>k__BackingField: WhiteShroom
   DisplayName: WhiteShroom
   MaxStackSize: 4
-  Value: 55
-  Description: Musht that is White
+  Value: 70
+  Description: Full growth WhiteShroom
   icon: {fileID: 21300000, guid: 844f1196fb999ff4ba231fdb65105860, type: 3}
   ItemPreFab: {fileID: 6904791752684956332, guid: 274150b4a05bdb341a0750e256824f7d, type: 3}

@@ -15,8 +15,8 @@ MonoBehaviour:
   <Id>k__BackingField: LegendaryEgg
   DisplayName: Legendary Lucky Egg
   MaxStackSize: 1
-  Value: 10000
-  Description: 
+  Value: 1000
+  Description: Spawn random legendary pet (u can never buy)
   icon: {fileID: 21300000, guid: 9741d89709d8538488f20fabde0f7054, type: 3}
   ItemPreFab: {fileID: 3611329475412820575, guid: ad36d4d9dfc54684ea531820e56a7695, type: 3}
   pokeball: {fileID: 3611329475412820575, guid: f3435587854231143ba1e62ea73dd92f, type: 3}

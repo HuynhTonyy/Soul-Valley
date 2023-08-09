@@ -16,9 +16,9 @@ MonoBehaviour:
   DisplayName: WateringCan
   MaxStackSize: 1
   Value: 50
-  Description: 
+  Description: Water crop (3 / time)
   icon: {fileID: 21300000, guid: 5ef8c6546020bb44aa80851ee160b22c, type: 3}
   ItemPreFab: {fileID: 254568738006658359, guid: 78a726f36ceb07f47b8351929fb9a9a7, type: 3}
   toolType: 0
   maxDurability: 3
-  currentDurability: 1
+  currentDurability: 0

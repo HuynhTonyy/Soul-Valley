@@ -15,8 +15,8 @@ MonoBehaviour:
   <Id>k__BackingField: PumpkinSeed
   DisplayName: PumpkinSeed
   MaxStackSize: 4
-  Value: 70
-  Description: shit
+  Value: 100
+  Description: Seed growth into Pumpkin
   icon: {fileID: 21300000, guid: abcda896a8866d74d9c65c5d7145444a, type: 3}
   ItemPreFab: {fileID: 3894392587033564505, guid: f144aa2dc7c4f9049a1fd15f4460d747, type: 3}
   DayToGrow: 3
@@ -24,4 +24,4 @@ MonoBehaviour:
   seedling: {fileID: 7103936883222715396, guid: 749e0ed10ad006647b5576b421f9dacb, type: 3}
   harvestable: {fileID: 8517094845421206280, guid: 73abbcdaefb5e264f97ae95c16d32537, type: 3}
   CropToYield: {fileID: 11400000, guid: 206bbc9505996a44aaed857e3094c762, type: 2}
-  amountToYield: 2
+  amountToYield: 3

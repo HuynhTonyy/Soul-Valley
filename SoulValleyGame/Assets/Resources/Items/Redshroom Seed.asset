@@ -15,8 +15,8 @@ MonoBehaviour:
   <Id>k__BackingField: Redshroom Seed
   DisplayName: Redshroom Seed
   MaxStackSize: 4
-  Value: 50
-  Description: 
+  Value: 20
+  Description: Seed growth into RedShroom
   icon: {fileID: 21300000, guid: a7167b0fa190cc3498d9eaaa250e3ac1, type: 3}
   ItemPreFab: {fileID: 5200681163900939743, guid: 553a32da35d61f649b13343b0c652e2f, type: 3}
   DayToGrow: 1

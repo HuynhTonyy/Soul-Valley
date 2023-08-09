@@ -226,4 +226,19 @@ public class EnemyAi : MonoBehaviour, IIntractable
         }
 
     }
+    // [System.Serializable]
+    // public struct PetsSaveData
+    // {
+    //     public GameObject gameObject;
+    //     public Vector3 position;
+    //     public Quaternion rotation;
+
+    //     public PetsSaveData(GameObject _gameObject, Vector3 _position, Quaternion _rotation)
+    //     {
+    //         gameObject = _gameObject;
+    //         position = _position;
+    //         rotation = _rotation;
+    //     }
+    // }
 }
+

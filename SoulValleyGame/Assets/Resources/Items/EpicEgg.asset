@@ -15,8 +15,8 @@ MonoBehaviour:
   <Id>k__BackingField: EpicEgg
   DisplayName: Epic Lucky Egg
   MaxStackSize: 4
-  Value: 1000
-  Description: 
+  Value: 700
+  Description: Spawn random epic  pet
   icon: {fileID: 21300000, guid: 3f56ac82ab397fe46a7611747cf4beef, type: 3}
   ItemPreFab: {fileID: 8919886191068218341, guid: c4927936b348cd549a17b28ec14564ea, type: 3}
   pokeball: {fileID: 8919886191068218341, guid: 7c08f989b5aa4044f93523ce90460ebd, type: 3}

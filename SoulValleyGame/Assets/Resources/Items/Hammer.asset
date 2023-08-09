@@ -16,7 +16,7 @@ MonoBehaviour:
   DisplayName: Hammer
   MaxStackSize: 1
   Value: 50
-  Description: Useless Hammer
+  Description: Use to break chest
   icon: {fileID: 21300000, guid: 961387612d054704ab3147a68cd4bf33, type: 3}
   ItemPreFab: {fileID: 8657937045339204609, guid: a480067502685e44284bc2ec84399d3d, type: 3}
   toolType: 5

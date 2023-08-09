@@ -15,8 +15,8 @@ MonoBehaviour:
   <Id>k__BackingField: Big_Chest_Placeable
   DisplayName: BigChestCollectable
   MaxStackSize: 1
-  Value: 200
-  Description: 
+  Value: 120
+  Description: Can hold up to 27 slot
   icon: {fileID: 21300000, guid: 1451b865663281f44a591e1397682862, type: 3}
   ItemPreFab: {fileID: 3793666601243203998, guid: 0dd432e955163254d959d2866c4b6e15, type: 3}
   itemBP: {fileID: 3277796189155498277, guid: 707785a1ef128ee4e8623c72ecaf299a, type: 3}

@@ -16,7 +16,7 @@ MonoBehaviour:
   DisplayName: Hoe
   MaxStackSize: 1
   Value: 50
-  Description: 
+  Description: Use to till farm land
   icon: {fileID: 21300000, guid: 803f3c2d3ab6560449520670e2dc4b1d, type: 3}
   ItemPreFab: {fileID: 2933863723346690380, guid: bbb57a72c4ea73240bb7cb585651ad57, type: 3}
   toolType: 1

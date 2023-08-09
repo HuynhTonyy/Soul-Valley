@@ -15,7 +15,7 @@ MonoBehaviour:
   <Id>k__BackingField: PuffShroom
   DisplayName: PuffShroom
   MaxStackSize: 4
-  Value: 55
-  Description: 
+  Value: 40
+  Description: Full growth PuffShroom
   icon: {fileID: 21300000, guid: 8cf6ccd930e82a54aba53475e5d01756, type: 3}
   ItemPreFab: {fileID: 2690433764724138472, guid: 14da9e23fc3eba44c8091369f290ec77, type: 3}

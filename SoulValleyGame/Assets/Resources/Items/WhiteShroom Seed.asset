@@ -15,8 +15,8 @@ MonoBehaviour:
   <Id>k__BackingField: WhiteShroom Seed
   DisplayName: WhiteShroom Seed
   MaxStackSize: 5
-  Value: 60
-  Description: 
+  Value: 50
+  Description: Seed growth into WhiteShroom
   icon: {fileID: 21300000, guid: f615199271e8a234f9814a315af7a404, type: 3}
   ItemPreFab: {fileID: 5200681163900939743, guid: a943d4c8566dea749b19910a822a3571, type: 3}
   DayToGrow: 2

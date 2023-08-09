@@ -15,7 +15,7 @@ MonoBehaviour:
   <Id>k__BackingField: SpotShroom
   DisplayName: SpotShroom
   MaxStackSize: 4
-  Value: 55
-  Description: Musht that is White
+  Value: 30
+  Description: Full growth SpotShroom
   icon: {fileID: 21300000, guid: 49e7a2fd1cf80d64593b16f0f7ee1894, type: 3}
   ItemPreFab: {fileID: 6904791752684956332, guid: b68bfdc0c08ac5743881e1f48d694dc5, type: 3}

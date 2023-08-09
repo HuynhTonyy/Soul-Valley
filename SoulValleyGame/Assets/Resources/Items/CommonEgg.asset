@@ -16,7 +16,7 @@ MonoBehaviour:
   DisplayName: Common Lucky Egg
   MaxStackSize: 10
   Value: 500
-  Description: 
+  Description: Spawn random common pet
   icon: {fileID: 21300000, guid: fe42810a6d14f794fa34cdd2842c6af3, type: 3}
   ItemPreFab: {fileID: 5401304932325430063, guid: 2900aab9d12e6b74ba0a30a9e2d01e84, type: 3}
   pokeball: {fileID: 5401304932325430063, guid: da00bfc7cd41d2c42bbd8e54fa6585da, type: 3}
