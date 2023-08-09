@@ -12,9 +12,11 @@ public class SaveGameManager : MonoBehaviourPunCallbacks
 {
     public static SaveData data;
     [SerializeField] Button btnSave, btnLoad, btnExit;
+    static ShopKeeperDisplay shopKeeperDisplay;
     public bool isEscape = false;
     public Image backGround;
     public GameObject player, volumeHolder;
+
     PlayerCam cam;
     PlayerMovement move;
 
@@ -29,6 +31,7 @@ public class SaveGameManager : MonoBehaviourPunCallbacks
     }
     void Start()
     {
+        shopKeeperDisplay = GetComponentInParent<ShopKeeperDisplay>();
         backGround.enabled = false;
         btnSave.gameObject.SetActive(false);
         btnLoad.gameObject.SetActive(false);
@@ -76,14 +79,30 @@ public class SaveGameManager : MonoBehaviourPunCallbacks
 
     public static void SaveData()
     {
-        var saveData = data;
-        SaveLoad.Save(saveData);
+        if(PhotonNetwork.IsMasterClient)
+        {
+            var saveData = data;
+            SaveLoad.Save(saveData);
+        }
+        else
+        {
+            shopKeeperDisplay.errText.SetText("Only the room Owner can save / load the game");
+            shopKeeperDisplay.errorBoxAnimator.SetTrigger("showTrig");
+            return;
+        }
+        
     }
 
     public static void LoadData(SaveData _data)
     {
-        if(!PhotonNetwork.IsMasterClient) return;
+        if(!PhotonNetwork.IsMasterClient)
+        {
+            shopKeeperDisplay.errText.SetText("Only the room Owner can save / load the game");
+            shopKeeperDisplay.errorBoxAnimator.SetTrigger("showTrig");
+            return;
+        }
         data = _data;
+        
     }
     public static void TryLoadData()
     {       

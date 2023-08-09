@@ -31,7 +31,7 @@ public class CurrencySystem : MonoBehaviourPunCallbacks
 
     void Update()
     {
-        souldCoinValues.SetText("Currency: " + gold);
+        souldCoinValues.SetText(gold.ToString());
     }
     [PunRPC]
     public void AddGold(int gold)
