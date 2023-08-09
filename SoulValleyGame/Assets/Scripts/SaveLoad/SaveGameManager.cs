@@ -16,7 +16,6 @@ public class SaveGameManager : MonoBehaviourPunCallbacks
     public bool isEscape = false;
     public Image backGround;
     public GameObject player, volumeHolder, Control, Tips;
-    public GameObject hotbar;
     public GameObject toolTip;
 
     PlayerCam cam;
@@ -43,9 +42,7 @@ public class SaveGameManager : MonoBehaviourPunCallbacks
     }
     public void open()
     {
-        hotbar.SetActive(false);
         toolTip.SetActive(false);
-        hotbar.GetComponent<StaticInventoryDisplay>().enabled = false;
         isEscape = true;
         cam.enabled = false;
         move.enabled = false;
@@ -61,9 +58,7 @@ public class SaveGameManager : MonoBehaviourPunCallbacks
     }
     public void close()
     {
-        hotbar.SetActive(true);
         toolTip.SetActive(true);
-        hotbar.GetComponent<StaticInventoryDisplay>().enabled = true;
         isEscape = false;
         cam.enabled = true;
         move.enabled = true;

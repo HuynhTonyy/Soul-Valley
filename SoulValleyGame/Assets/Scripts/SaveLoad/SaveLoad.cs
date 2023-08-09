@@ -44,7 +44,6 @@ public static class SaveLoad
             string json = File.ReadAllText(fullPath);
             data = JsonUtility.FromJson<SaveData>(json);
 
-
             OnLoadGame?.Invoke(data);
             Debug.Log("Loading game");
         }

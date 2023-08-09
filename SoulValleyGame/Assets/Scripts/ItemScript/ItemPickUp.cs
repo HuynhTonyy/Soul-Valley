@@ -57,7 +57,6 @@ public class ItemPickUp : MonoBehaviourPunCallbacks
         var inventory = other.transform.GetComponent<PlayerInventoryHolder>();
         if(inventory){
             if(inventory.AddToInventory(itemData,1)){
-                // SaveGameManager.data.collectedItems.Add(id);
                 if(PhotonNetwork.IsMasterClient)
                     SaveLoad.OnLoadGame -= LoadGame;
                 AudioManager.instance.PlayOneShot(FMODEvents.instance.itemCollected, this.transform.position);

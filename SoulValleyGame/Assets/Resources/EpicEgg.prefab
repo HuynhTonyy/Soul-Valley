@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: 2518323694945508854}
   - component: {fileID: 3790263103459568514}
   - component: {fileID: -8965039320099391969}
+  - component: {fileID: 2903456669544992446}
   m_Layer: 0
   m_Name: EpicEgg
   m_TagString: Untagged
@@ -193,3 +194,16 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &2903456669544992446
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8919886191068218341}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f2f6d31c9f4cab1458e5406b901cb5b0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  id: 0

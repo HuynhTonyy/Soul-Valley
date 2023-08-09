@@ -19,8 +19,8 @@ public class ShopKeeper : MonoBehaviourPunCallbacks, IIntractable, ITimeTracker
     public void Interact(Interactor interactor)
     {
         playerInv = interactor.GetComponent<PlayerInventoryHolder>();
-        interactor.enabled = false;
-        interactor.hotBar.enabled = false;
+        // interactor.hotBar.gameObject.SetActive(false);
+        // interactor.enabled = false;
         if (playerInv != null && !isInAction)
         {
             interactor.shopKeeper = this.gameObject;

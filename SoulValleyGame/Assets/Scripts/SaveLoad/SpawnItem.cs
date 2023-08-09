@@ -13,10 +13,13 @@ public class SpawnItem : MonoBehaviourPunCallbacks
 
     void LoadItem(SaveData data)
     {
+        Debug.Log(data.activeItems.Keys.Count);
         if(!PhotonNetwork.IsMasterClient) return;
+        
         foreach (var activeKey in data.activeItems.Keys)
         {
             ItemPickUpSaveData item = data.activeItems[activeKey];
+            Debug.Log(item.itemData.ItemPreFab.name);
             PhotonNetwork.Instantiate(item.itemData.ItemPreFab.name, item.position, item.rotation);
         }
     }

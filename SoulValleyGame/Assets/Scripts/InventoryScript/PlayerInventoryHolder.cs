@@ -13,7 +13,7 @@ public class PlayerInventoryHolder : InventoryHolder
     [SerializeField] private Canvas canvas;
     InventoryUIControler inventoryUIControler;
     MouseItemData mouse;
-    [SerializeField] StaticInventoryDisplay staticInventoryDisplay;
+    // [SerializeField] StaticInventoryDisplay staticInventoryDisplay;
     UIController uIController;
     public static UnityAction OnPlayerInventoryChanged;
     public static UnityAction<InventorySystem, int> OnDynamicPlayerInventoryDisplayRequested;
@@ -60,6 +60,10 @@ public class PlayerInventoryHolder : InventoryHolder
                     uIController.isShopClosed = true;
                     disable();
                     backGround.enabled=true;
+                    checkChest();
+                    if(gameObject.GetComponent<Interactor>().shopKeeper){
+                        gameObject.GetComponent<Interactor>().shopKeeper.GetComponent<ShopKeeper>().isInAction = false;
+                    }
                 }
             }
             if(!saveGame.isEscape && Keyboard.current.tabKey.wasPressedThisFrame)
@@ -68,6 +72,7 @@ public class PlayerInventoryHolder : InventoryHolder
                 {
                     uIController.close();
                     uIController.isShopClosed = true;
+                    // staticInventoryDisplay.gameObject.SetActive(true);
                     enable();
                     photonView.RPC("UpdateShopState", RpcTarget.AllBufferedViaServer,
                         this.gameObject.GetComponent<Interactor>().shopKeeper.GetComponent<PhotonView>().ViewID);
@@ -78,14 +83,7 @@ public class PlayerInventoryHolder : InventoryHolder
                         inventoryUIControler.close();
                         inventoryUIControler.isClosed = true;
                         enable();
-                        GameObject chest = this.gameObject.GetComponent<Interactor>().chest;
-                        if(chest)
-                        {
-                            this.gameObject.GetComponent<Interactor>().chest = null;
-                            photonView.RPC("UpdateChest", RpcTarget.AllBufferedViaServer,chest.GetComponent<PhotonView>().ViewID);
-                            chest.GetComponent<ChestInventory>().syncChest();
-                            chest.GetComponent<ChestInventory>().animator.SetTrigger("Close");
-                        }  
+                        checkChest();
                     }
                     else 
                     {
@@ -103,12 +101,22 @@ public class PlayerInventoryHolder : InventoryHolder
             }
         }
     }
+    private void checkChest(){
+        GameObject chest = this.gameObject.GetComponent<Interactor>().chest;
+        if(chest)
+        {
+            this.gameObject.GetComponent<Interactor>().chest = null;
+            photonView.RPC("UpdateChest", RpcTarget.AllBufferedViaServer,chest.GetComponent<PhotonView>().ViewID);
+            chest.GetComponent<ChestInventory>().syncChest();
+            chest.GetComponent<ChestInventory>().animator.SetTrigger("Close");
+        }  
+    }
     private void enable(){
-        staticInventoryDisplay.enabled = true;
+        // staticInventoryDisplay.gameObject.SetActive(true);
         gameObject.GetComponent<Interactor>().enabled = true;
     }
     private void disable(){
-        staticInventoryDisplay.enabled = false;
+        // staticInventoryDisplay.gameObject.SetActive(false);
         gameObject.GetComponent<Interactor>().enabled = false;
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.None;
