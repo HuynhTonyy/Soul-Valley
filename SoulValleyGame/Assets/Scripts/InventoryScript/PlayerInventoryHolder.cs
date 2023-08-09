@@ -40,7 +40,7 @@ public class PlayerInventoryHolder : InventoryHolder
     {
         if(view.IsMine)
         {
-            if(Keyboard.current.capsLockKey.wasPressedThisFrame)
+            if(Keyboard.current.escapeKey.wasPressedThisFrame)
             {
                 AudioManager.instance.PlayOneShot(FMODEvents.instance.clickedSound, this.transform.position);
                 if (saveGame.isEscape)

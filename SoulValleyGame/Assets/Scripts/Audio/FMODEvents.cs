@@ -48,6 +48,9 @@ public class FMODEvents : MonoBehaviour
 
     [field: Header("FillWaterBucket SFX")]
     [field: SerializeField] public EventReference fillWaterBucketSound { get; private set; }
+
+    [field: Header("SlimeWalk SFX")]
+    [field: SerializeField] public EventReference slimeWalkSound { get; private set; }
     public static FMODEvents instance { get; private set; }
     void Awake()
     {

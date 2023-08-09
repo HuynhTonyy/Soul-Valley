@@ -150,7 +150,7 @@ MonoBehaviour:
   Path: Assets/AudioSrc/Build/Desktop/Music.bank
   Name: Music
   StudioPath: bank:/Music
-  lastModified: 638269434413163201
+  lastModified: 638271963309111475
   FileSizes: []
   Exists: 1
 --- !u!114 &-1825191695218672125
@@ -375,12 +375,13 @@ MonoBehaviour:
   - {fileID: -37702760100192912}
   - {fileID: 1453707780921162305}
   - {fileID: 2499354125903253440}
+  - {fileID: 6046739488195399869}
   EditorParameters: []
   MasterBanks:
   - {fileID: 6719042925490897784}
   StringsBanks:
   - {fileID: 2143458217500791509}
-  cacheTime: 638270246202209743
+  cacheTime: 638271963309498646
   cacheVersion: 131605
 --- !u!114 &1453707780921162305
 MonoBehaviour:
@@ -424,10 +425,10 @@ MonoBehaviour:
   Path: Assets/AudioSrc/Build/Desktop/Master.strings.bank
   Name: Master.strings
   StudioPath: bank:/Master.strings
-  lastModified: 638270233736639351
+  lastModified: 638271895276198725
   FileSizes:
   - Name: 
-    Value: 1548
+    Value: 1658
   Exists: 1
 --- !u!114 &2337170014425057883
 MonoBehaviour:
@@ -510,7 +511,7 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 1000
---- !u!114 &4159508562720032430
+--- !u!114 &6046739488195399869
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -520,23 +521,23 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/SFX/QuestCompleted
+  m_Name: event:/SFX/SlimeWalk
   m_EditorClassIdentifier: 
-  Path: event:/SFX/QuestCompleted
+  Path: event:/SFX/SlimeWalk
   Guid:
-    Data1: -1473408285
-    Data2: 1080978086
-    Data3: 1598324155
-    Data4: -1702162863
+    Data1: 563447276
+    Data2: 1125060292
+    Data3: -1854598488
+    Data4: -1004297686
   Banks:
   - {fileID: 9001700310360765835}
   IsStream: 0
   Is3D: 1
-  IsOneShot: 1
+  IsOneShot: 0
   Parameters: []
   MinDistance: 1
   MaxDistance: 20
-  Length: 1800
+  Length: 700
 --- !u!114 &6719042925490897784
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -552,7 +553,7 @@ MonoBehaviour:
   Path: Assets/AudioSrc/Build/Desktop/Master.bank
   Name: Master
   StudioPath: bank:/Master
-  lastModified: 638270233736629347
+  lastModified: 638271895276168630
   FileSizes: []
   Exists: 1
 --- !u!114 &8056505650294779698
@@ -597,6 +598,6 @@ MonoBehaviour:
   Path: Assets/AudioSrc/Build/Desktop/SFX.bank
   Name: SFX
   StudioPath: bank:/SFX
-  lastModified: 638270246202209743
+  lastModified: 638271963309498646
   FileSizes: []
   Exists: 1

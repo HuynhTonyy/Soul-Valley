@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="AudioFile" id="{b1796d4f-344c-41e4-9a30-2d95e6ee8c2d}">
+		<property name="assetPath">
+			<value>SFX/slimejump.wav</value>
+		</property>
+		<property name="frequencyInKHz">
+			<value>44.0999985</value>
+		</property>
+		<property name="channelCount">
+			<value>1</value>
+		</property>
+		<property name="length">
+			<value>0.089999999999999997</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{724e656c-511b-4969-b03d-22e4bc11de6b}</destination>
+		</relationship>
+	</object>
+</objects>

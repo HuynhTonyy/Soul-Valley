@@ -254,7 +254,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   faces: {fileID: 11400000, guid: 8b8a7554fceb39841840f45a2d8da540, type: 2}
-  SmileBody: {fileID: 3198502390492704377}
+  SmileBody: {fileID: 6080307935716506405}
   currentState: 0
   animator: {fileID: -144036501295709396}
   agent: {fileID: -2256889491751521998}

@@ -288,7 +288,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   faces: {fileID: 11400000, guid: 8b8a7554fceb39841840f45a2d8da540, type: 2}
-  SmileBody: {fileID: 4281683080859636826}
+  SmileBody: {fileID: 7742023579735404407}
   currentState: 0
   animator: {fileID: -2606188588149427523}
   agent: {fileID: -5363512373445906924}

@@ -21,6 +21,8 @@ public class ShopSlotUI : MonoBehaviour
 
     private int _tempAmount;
 
+    float randomSellP, randomBuyP;
+
     private void Awake()
     {
         _itemSprite.sprite = null;
@@ -43,11 +45,9 @@ public class ShopSlotUI : MonoBehaviour
     public void UpdateUISlott()
     {
         if(_assignedItemSlot.ItemData != null)
-        {
-            float randomSellP = Random.RandomRange(-0.05f, 0.12f);
-            float randomBuyP = Random.RandomRange(-0.02f, 0.2f);
-            SellPrice = Mathf.RoundToInt(_assignedItemSlot.ItemData.Value + _assignedItemSlot.ItemData.Value * SellMarkUp) + Mathf.RoundToInt((_assignedItemSlot.ItemData.Value * randomSellP));
-            BuyPrice = Mathf.RoundToInt(_assignedItemSlot.ItemData.Value + _assignedItemSlot.ItemData.Value * BuyMarkUp) + Mathf.RoundToInt((_assignedItemSlot.ItemData.Value * randomBuyP));
+        {           
+            SellPrice = Mathf.RoundToInt(_assignedItemSlot.ItemData.Value + _assignedItemSlot.ItemData.Value * SellMarkUp);
+            BuyPrice = Mathf.RoundToInt(_assignedItemSlot.ItemData.Value + _assignedItemSlot.ItemData.Value * BuyMarkUp);
             _itemSprite.sprite = _assignedItemSlot.ItemData.icon;
             _itemSprite.color = Color.white;
             _itemCount.text = 'x' + _assignedItemSlot.StackSize.ToString();
