@@ -46,8 +46,7 @@ public class QuestDisplay : MonoBehaviourPunCallbacks
     }
     void finishQuest(string id)
     {
-        animator.SetTrigger("Finish");
-        // photonView.RPC("TriggerAnim",RpcTarget.AllBufferedViaServer,"finish");
+        photonView.RPC("TriggerAnim",RpcTarget.AllBufferedViaServer,"Finish");
         current = 0;
         photonView.RPC("ResetCurrent", RpcTarget.AllBufferedViaServer);
     }
@@ -57,7 +56,13 @@ public class QuestDisplay : MonoBehaviourPunCallbacks
     {
         current = amount;
         Quest quest = idToQuestMap[id];
-        max = quest.GetCurrentQuestStepPrefab().GetComponent<CollectQuestStep>().amountRequire;
+        CollectQuestStep collectQuestStep;
+        UseQuestStep useQuestStep;
+        if(quest.GetCurrentQuestStepPrefab().TryGetComponent<CollectQuestStep>(out collectQuestStep)){
+            max = collectQuestStep.amountRequire;
+        }else if(quest.GetCurrentQuestStepPrefab().TryGetComponent<UseQuestStep>(out useQuestStep)){
+            max = useQuestStep.amountRequire;
+        }
         title.SetText(quest.data.displayName);
         detail.SetText("Progress " + current.ToString() + " / " + max.ToString());
     }

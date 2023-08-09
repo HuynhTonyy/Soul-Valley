@@ -4,6 +4,8 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
 using Photon.Pun;
+using UnityEngine.UI;
+
 [RequireComponent(typeof(UniqueID))]
 public class PlayerInventoryHolder : InventoryHolder
 {
@@ -17,6 +19,7 @@ public class PlayerInventoryHolder : InventoryHolder
     public static UnityAction<InventorySystem, int> OnDynamicPlayerInventoryDisplayRequested;
     PhotonView view;
     SaveGameManager saveGame;
+    public Image backGround;
 
     public void setPrimarySystem(InventorySystem invSys){
         this.primaryInventorySystem = invSys;
@@ -26,7 +29,6 @@ public class PlayerInventoryHolder : InventoryHolder
         playerId = GetComponent<UniqueID>().ID;
         view = GetComponent<PhotonView>();
         mouse = GetComponentInChildren<MouseItemData>();
-
         if (!view.IsMine)
         {
             Destroy(canvas.gameObject);
@@ -40,13 +42,14 @@ public class PlayerInventoryHolder : InventoryHolder
     {
         if(view.IsMine)
         {
-            if(Keyboard.current.escapeKey.wasPressedThisFrame)
+            if(Keyboard.current.capsLockKey.wasPressedThisFrame)
             {
                 AudioManager.instance.PlayOneShot(FMODEvents.instance.clickedSound, this.transform.position);
                 if (saveGame.isEscape)
                 {
                     saveGame.close();
-                    disable();
+                    enable();
+                    backGround.enabled=false;
                 }
                 else
                 {
@@ -55,10 +58,11 @@ public class PlayerInventoryHolder : InventoryHolder
                     inventoryUIControler.isClosed = true;
                     uIController.close();
                     uIController.isShopClosed = true;
-                    enable();
+                    disable();
+                    backGround.enabled=true;
                 }
             }
-            if(Keyboard.current.tabKey.wasPressedThisFrame)
+            if(!saveGame.isEscape && Keyboard.current.tabKey.wasPressedThisFrame)
             {
                 if(!uIController.isShopClosed)
                 {
@@ -105,6 +109,8 @@ public class PlayerInventoryHolder : InventoryHolder
     private void disable(){
         staticInventoryDisplay.enabled = false;
         gameObject.GetComponent<Interactor>().enabled = false;
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
     }
     public bool AddToInventory(ItemScript item, int amount)
     {

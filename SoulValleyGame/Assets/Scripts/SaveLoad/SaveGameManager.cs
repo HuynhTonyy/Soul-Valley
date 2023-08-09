@@ -16,6 +16,8 @@ public class SaveGameManager : MonoBehaviourPunCallbacks
     public bool isEscape = false;
     public Image backGround;
     public GameObject player, volumeHolder, Control, Tips;
+    public GameObject hotbar;
+    public GameObject toolTip;
 
     PlayerCam cam;
     PlayerMovement move;
@@ -24,10 +26,6 @@ public class SaveGameManager : MonoBehaviourPunCallbacks
     {
         data = new SaveData();
         SaveLoad.OnLoadGame += LoadData;
-        if(!PhotonNetwork.IsMasterClient){
-            btnSave.gameObject.SetActive(false);
-            btnLoad.gameObject.SetActive(false);
-        }
     }
     void Start()
     {
@@ -45,6 +43,9 @@ public class SaveGameManager : MonoBehaviourPunCallbacks
     }
     public void open()
     {
+        hotbar.SetActive(false);
+        toolTip.SetActive(false);
+        hotbar.GetComponent<StaticInventoryDisplay>().enabled = false;
         isEscape = true;
         cam.enabled = false;
         move.enabled = false;
@@ -60,6 +61,9 @@ public class SaveGameManager : MonoBehaviourPunCallbacks
     }
     public void close()
     {
+        hotbar.SetActive(true);
+        toolTip.SetActive(true);
+        hotbar.GetComponent<StaticInventoryDisplay>().enabled = true;
         isEscape = false;
         cam.enabled = true;
         move.enabled = true;
@@ -94,7 +98,6 @@ public class SaveGameManager : MonoBehaviourPunCallbacks
         {
             shopKeeperDisplay.errText.SetText("Only the room Owner can save / load the game");
             shopKeeperDisplay.errorBoxAnimator.SetTrigger("showTrig");
-            return;
         }
         
     }
@@ -105,10 +108,9 @@ public class SaveGameManager : MonoBehaviourPunCallbacks
         {
             shopKeeperDisplay.errText.SetText("Only the room Owner can save / load the game");
             shopKeeperDisplay.errorBoxAnimator.SetTrigger("showTrig");
-            return;
+        }else{
+            data = _data;
         }
-        data = _data;
-        
     }
     public static void TryLoadData()
     {       

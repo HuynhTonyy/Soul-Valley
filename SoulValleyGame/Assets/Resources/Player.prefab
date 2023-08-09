@@ -3144,7 +3144,7 @@ RectTransform:
   m_Children:
   - {fileID: 5463785083610001817}
   m_Father: {fileID: 2770402547134820897}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -4470,6 +4470,8 @@ MonoBehaviour:
   volumeHolder: {fileID: 5470121858164960867}
   Control: {fileID: 1967725963163875448}
   Tips: {fileID: 5784626127823336421}
+  hotbar: {fileID: 2770402546264609950}
+  toolTip: {fileID: 4609946779101734452}
 --- !u!114 &2681034599503545986
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6991,9 +6993,9 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4609946779101734452}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1, y: 0.99999994, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2770402547134820897}
@@ -7095,7 +7097,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: 0, w: 0}
+  m_margin: {x: -214.50125, y: 0, z: -216.59387, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -8224,7 +8226,7 @@ RectTransform:
   m_Children:
   - {fileID: 1937392554807014201}
   m_Father: {fileID: 2770402547134820897}
-  m_RootOrder: 6
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -10951,6 +10953,7 @@ MonoBehaviour:
   offset: 9
   canvas: {fileID: 2770402547134820896}
   staticInventoryDisplay: {fileID: 2770402546264609944}
+  backGround: {fileID: 2770402548218579976}
 --- !u!114 &8916870013705482637
 MonoBehaviour:
   m_ObjectHideFlags: 0

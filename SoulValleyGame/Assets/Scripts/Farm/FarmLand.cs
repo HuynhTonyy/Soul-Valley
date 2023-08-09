@@ -59,6 +59,7 @@ public class FarmLand : MonoBehaviourPunCallbacks, ITimeTracker
             photonView.RPC("SetParentForCropObject", RpcTarget.AllBufferedViaServer, cropObject.GetComponent<PhotonView>().ViewID);
             cropPlanted = cropObject.GetComponent<CropBehaviour>();
             cropPlanted.PLant(seed);
+            GameEventManager.instance.inventoryEvent.UseItem(seed.Id,UseQuestStep.UseType.use);
             return true;
         }
         else

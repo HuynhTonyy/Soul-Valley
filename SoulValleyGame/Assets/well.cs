@@ -25,6 +25,7 @@ public class well : MonoBehaviour, IIntractable
         {
             fillWaterSound.start();
             tool.currentDurability = tool.maxDurability;
+            GameEventManager.instance.inventoryEvent.UseItem(tool.Id,UseQuestStep.UseType.reNew);
         }
     }
 }

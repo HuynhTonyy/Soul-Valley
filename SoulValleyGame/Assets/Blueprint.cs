@@ -12,7 +12,7 @@ public class Blueprint : MonoBehaviour
         changeMaterial(matEnable);
     }
     private void OnTriggerEnter(Collider other) {
-        isPlaceable = false;
+        isPlaceable = false;    
         changeMaterial(matDisable);
     }
     private void OnTriggerStay(Collider other) {

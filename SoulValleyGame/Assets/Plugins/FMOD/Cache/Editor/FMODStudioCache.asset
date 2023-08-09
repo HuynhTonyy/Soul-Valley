@@ -375,7 +375,7 @@ MonoBehaviour:
   - {fileID: -37702760100192912}
   - {fileID: 1453707780921162305}
   - {fileID: 2499354125903253440}
-  - {fileID: 6046739488195399869}
+  - {fileID: 8313774497610897901}
   EditorParameters: []
   MasterBanks:
   - {fileID: 6719042925490897784}
@@ -511,33 +511,6 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 1000
---- !u!114 &6046739488195399869
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/SFX/SlimeWalk
-  m_EditorClassIdentifier: 
-  Path: event:/SFX/SlimeWalk
-  Guid:
-    Data1: 563447276
-    Data2: 1125060292
-    Data3: -1854598488
-    Data4: -1004297686
-  Banks:
-  - {fileID: 9001700310360765835}
-  IsStream: 0
-  Is3D: 1
-  IsOneShot: 0
-  Parameters: []
-  MinDistance: 1
-  MaxDistance: 20
-  Length: 700
 --- !u!114 &6719042925490897784
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -583,6 +556,33 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 3626370
+--- !u!114 &8313774497610897901
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/SFX/SlimeWalk
+  m_EditorClassIdentifier: 
+  Path: event:/SFX/SlimeWalk
+  Guid:
+    Data1: 563447276
+    Data2: 1125060292
+    Data3: -1854598488
+    Data4: -1004297686
+  Banks:
+  - {fileID: 9001700310360765835}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 0
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 700
 --- !u!114 &9001700310360765835
 MonoBehaviour:
   m_ObjectHideFlags: 0

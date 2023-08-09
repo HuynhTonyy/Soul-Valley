@@ -34,16 +34,16 @@ public class Interactor : MonoBehaviour
             {
                 house.QuitQueue(gameObject);
             }
-            if (Keyboard.current.kKey.wasPressedThisFrame && PhotonNetwork.IsMasterClient){
-                SaveLoad.Save(SaveGameManager.data);
-            }
-            if (Keyboard.current.lKey.wasPressedThisFrame && PhotonNetwork.IsMasterClient){
-                SaveLoad.Load();
-            }
-            //Time skip
-            if (Keyboard.current.oKey.isPressed && PhotonNetwork.IsMasterClient){
-                TimeManager.Instance.Tick();
-            }
+            // if (Keyboard.current.kKey.wasPressedThisFrame && PhotonNetwork.IsMasterClient){
+            //     SaveLoad.Save(SaveGameManager.data);
+            // }
+            // if (Keyboard.current.lKey.wasPressedThisFrame && PhotonNetwork.IsMasterClient){
+            //     SaveLoad.Load();
+            // }
+            // //Time skip
+            // if (Keyboard.current.oKey.isPressed && PhotonNetwork.IsMasterClient){
+            //     TimeManager.Instance.Tick();
+            // }
             int selectedSlot = hotBar.selectedSlot;
             inRange = Physics.Raycast(cam.transform.position, cam.transform.forward, out hit, 4f,whatIsGround,QueryTriggerInteraction.Ignore);
             //Throw item which is selected in hot bar
@@ -52,7 +52,7 @@ public class Interactor : MonoBehaviour
                 if(GetComponentInChildren<InventoryUIControler>().isClosed && Keyboard.current.qKey.wasPressedThisFrame){
                     hotBar.throwItem(transform,selectedSlot);
                 }
-                else if(useableData && Mouse.current.rightButton.isPressed){
+                else if(useableData && Mouse.current.leftButton.isPressed){
                     hotBar.throwPokeBall(transform,selectedSlot);
                 }
             }
@@ -81,8 +81,8 @@ public class Interactor : MonoBehaviour
                         IIntractable interactable;
                         if (hit.collider.TryGetComponent<IIntractable>(out interactable)){
                             interactable.Interact(this);
-                            hotBar.enabled = false;
-                            this.enabled = false;
+                            // hotBar.enabled = false;
+                            // this.enabled = false;
                         }
                         if(hit.transform.gameObject.GetComponent<ChestInventory>())
                         {
@@ -135,8 +135,11 @@ public class Interactor : MonoBehaviour
                                     if (tag == "FarmLand" && tool.currentDurability != 0)
                                     {
                                         FarmLand farmLand = hit.transform.GetComponent<FarmLand>();
-                                        if (farmLand.Water())
+                                        if (farmLand.Water()){
+                                            GameEventManager.instance.inventoryEvent.UseItem(tool.Id,UseQuestStep.UseType.use);
                                             tool.currentDurability--;
+                                        }
+                                            
                                     }
                                     else if(tag == "FarmLand" && tool.currentDurability == 0)
                                     {
@@ -147,6 +150,7 @@ public class Interactor : MonoBehaviour
                                     if (tag == "FarmLand"){
                                         FarmLand farmLand = hit.transform.GetComponent<FarmLand>();
                                         farmLand.Till();
+                                        GameEventManager.instance.inventoryEvent.UseItem(tool.Id,UseQuestStep.UseType.use);
                                     }
                                     break;
                                 case ToolData.ToolType.Hammer:
@@ -154,6 +158,7 @@ public class Interactor : MonoBehaviour
                                         ChestInventory chestGO = hit.transform.gameObject.GetComponent<ChestInventory>();
                                         if(chestGO)
                                             chestGO.DestroyChestByPlayer();
+                                        GameEventManager.instance.inventoryEvent.UseItem(tool.Id,UseQuestStep.UseType.use);
                                     }
                                     break;
                             }
