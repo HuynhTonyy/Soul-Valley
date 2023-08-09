@@ -79,7 +79,11 @@ public class Interactor : MonoBehaviour
                     }
                     if(Mouse.current.rightButton.wasPressedThisFrame && GetComponentInChildren<InventoryUIControler>().isClosed){
                         IIntractable interactable;
-                        if (hit.collider.TryGetComponent<IIntractable>(out interactable)) interactable.Interact(this);
+                        if (hit.collider.TryGetComponent<IIntractable>(out interactable)){
+                            interactable.Interact(this);
+                            hotBar.enabled = false;
+                            this.enabled = false;
+                        }
                         if(hit.transform.gameObject.GetComponent<ChestInventory>())
                         {
                             chest = hit.transform.gameObject;

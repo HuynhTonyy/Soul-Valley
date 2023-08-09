@@ -11,6 +11,7 @@ public class PlayerInventoryHolder : InventoryHolder
     [SerializeField] private Canvas canvas;
     InventoryUIControler inventoryUIControler;
     MouseItemData mouse;
+    [SerializeField] StaticInventoryDisplay staticInventoryDisplay;
     UIController uIController;
     public static UnityAction OnPlayerInventoryChanged;
     public static UnityAction<InventorySystem, int> OnDynamicPlayerInventoryDisplayRequested;
@@ -45,6 +46,7 @@ public class PlayerInventoryHolder : InventoryHolder
                 if (saveGame.isEscape)
                 {
                     saveGame.close();
+                    disable();
                 }
                 else
                 {
@@ -53,6 +55,7 @@ public class PlayerInventoryHolder : InventoryHolder
                     inventoryUIControler.isClosed = true;
                     uIController.close();
                     uIController.isShopClosed = true;
+                    enable();
                 }
             }
             if(Keyboard.current.tabKey.wasPressedThisFrame)
@@ -61,6 +64,7 @@ public class PlayerInventoryHolder : InventoryHolder
                 {
                     uIController.close();
                     uIController.isShopClosed = true;
+                    enable();
                     photonView.RPC("UpdateShopState", RpcTarget.AllBufferedViaServer,
                         this.gameObject.GetComponent<Interactor>().shopKeeper.GetComponent<PhotonView>().ViewID);
                 }
@@ -69,6 +73,7 @@ public class PlayerInventoryHolder : InventoryHolder
                     {   
                         inventoryUIControler.close();
                         inventoryUIControler.isClosed = true;
+                        enable();
                         GameObject chest = this.gameObject.GetComponent<Interactor>().chest;
                         if(chest)
                         {
@@ -81,6 +86,7 @@ public class PlayerInventoryHolder : InventoryHolder
                     {
                         AudioManager.instance.PlayOneShot(FMODEvents.instance.tabSound, this.transform.position);
                         OnDynamicPlayerInventoryDisplayRequested?.Invoke(primaryInventorySystem, offset);
+                        disable();
                         inventoryUIControler.isClosed = false;
                     }  
                 }
@@ -91,6 +97,14 @@ public class PlayerInventoryHolder : InventoryHolder
                 }
             }
         }
+    }
+    private void enable(){
+        staticInventoryDisplay.enabled = true;
+        gameObject.GetComponent<Interactor>().enabled = true;
+    }
+    private void disable(){
+        staticInventoryDisplay.enabled = false;
+        gameObject.GetComponent<Interactor>().enabled = false;
     }
     public bool AddToInventory(ItemScript item, int amount)
     {

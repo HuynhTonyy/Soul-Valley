@@ -9,6 +9,7 @@ TagManager:
   - Placeable
   - Enemy
   - QuestManager
+  - ToolTip
   layers:
   - Default
   - TransparentFX

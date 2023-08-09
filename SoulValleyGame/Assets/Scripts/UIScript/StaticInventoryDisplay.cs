@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using Photon.Pun;
+using TMPro;
 
 public class StaticInventoryDisplay : InventoryDisplay
 {
-    GameObject crosshair;
+    [SerializeField] TextMeshProUGUI ToolTip;
     [SerializeField] private InventoryHolder inventoryHolder;
     [SerializeField] protected InventorySlot_UI[] slots;
     
@@ -132,10 +133,12 @@ public class StaticInventoryDisplay : InventoryDisplay
         InventorySlot slot = inventorySystem.GetSlot(selectedSlot);
         if (slot != null && slot.ItemData != null)
         {
+            ToolTip.SetText(slot.ItemData.DisplayName);
             return true;
         }
         else
         {
+            ToolTip.SetText("");
             return false;
         }
     }
