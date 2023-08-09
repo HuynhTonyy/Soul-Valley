@@ -15,7 +15,7 @@ public class SaveGameManager : MonoBehaviourPunCallbacks
     static ShopKeeperDisplay shopKeeperDisplay;
     public bool isEscape = false;
     public Image backGround;
-    public GameObject player, volumeHolder;
+    public GameObject player, volumeHolder, Control, Tips;
 
     PlayerCam cam;
     PlayerMovement move;
@@ -37,6 +37,8 @@ public class SaveGameManager : MonoBehaviourPunCallbacks
         btnLoad.gameObject.SetActive(false);
         btnExit.gameObject.SetActive(false);
         volumeHolder.SetActive(false);
+        Control.SetActive(false);
+        Tips.SetActive(false);
         cam = player.GetComponent<PlayerCam>();
         move =player.GetComponent<PlayerMovement>();
 
@@ -51,6 +53,8 @@ public class SaveGameManager : MonoBehaviourPunCallbacks
         btnLoad.gameObject.SetActive(true);
         btnExit.gameObject.SetActive(true);
         volumeHolder.SetActive(true);
+        Control.SetActive(true);
+        Tips.SetActive(true);
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.None;
     }
@@ -64,6 +68,8 @@ public class SaveGameManager : MonoBehaviourPunCallbacks
         btnLoad.gameObject.SetActive(false);
         btnExit.gameObject.SetActive(false);
         volumeHolder.SetActive(false);
+        Control.SetActive(false);
+        Tips.SetActive(false);
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
     }

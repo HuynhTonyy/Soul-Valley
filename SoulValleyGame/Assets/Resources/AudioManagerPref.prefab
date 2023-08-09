@@ -181,6 +181,13 @@ MonoBehaviour:
       Data3: 1465175961
       Data4: 907703205
     Path: event:/SFX/FillWaterSound
+  <slimeWalkSound>k__BackingField:
+    Guid:
+      Data1: 563447276
+      Data2: 1125060292
+      Data3: -1854598488
+      Data4: -1004297686
+    Path: event:/SFX/SlimeWalk
 --- !u!1 &7176866739886624156
 GameObject:
   m_ObjectHideFlags: 0
@@ -226,3 +233,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e642041d19eff46498dc8f5072b0f451, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  masterVolume: 1
+  musicVolume: 1
+  sfxVolume: 1

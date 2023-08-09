@@ -77,8 +77,8 @@ GameObject:
   - component: {fileID: 1437121314301406131}
   - component: {fileID: -4354885508608795913}
   - component: {fileID: -6133433336432730746}
-  - component: {fileID: -4975429391682058948}
   - component: {fileID: -4380420277821618644}
+  - component: {fileID: -4975429391682058948}
   - component: {fileID: 2560716143994433064}
   - component: {fileID: 8200827978384358800}
   - component: {fileID: -3626453686993505208}
@@ -210,25 +210,6 @@ MonoBehaviour:
   m_SynchronizeLayers:
   - SynchronizeType: 0
     LayerIndex: 0
---- !u!114 &-4975429391682058948
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2795397902362475942}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1ab578d28570d7c458ef434d72be22b4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  faces: {fileID: 11400000, guid: 8b8a7554fceb39841840f45a2d8da540, type: 2}
-  SmileBody: {fileID: 2795397902362475942}
-  currentState: 0
-  animator: {fileID: -4380420277821618644}
-  agent: {fileID: 2560716143994433064}
-  waypoints: []
-  damType: 0
 --- !u!95 &-4380420277821618644
 Animator:
   serializedVersion: 5
@@ -250,6 +231,25 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &-4975429391682058948
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2795397902362475942}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1ab578d28570d7c458ef434d72be22b4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  faces: {fileID: 11400000, guid: 8b8a7554fceb39841840f45a2d8da540, type: 2}
+  SmileBody: {fileID: 3154499432908429258}
+  currentState: 0
+  animator: {fileID: -4380420277821618644}
+  agent: {fileID: 2560716143994433064}
+  waypoints: []
+  damType: 0
 --- !u!195 &2560716143994433064
 NavMeshAgent:
   m_ObjectHideFlags: 0

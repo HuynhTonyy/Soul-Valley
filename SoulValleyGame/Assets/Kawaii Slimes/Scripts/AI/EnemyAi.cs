@@ -1,4 +1,6 @@
 ﻿
+using FMOD.Studio;
+using FMODUnity;
 using UnityEngine;
 using UnityEngine.AI;
 public enum SlimeAnimationState { Idle, Walk, Jump, Attack, Damage }
@@ -21,10 +23,23 @@ public class EnemyAi : MonoBehaviour, IIntractable
     public enum WalkType { Patroll, ToPlayer }
     private WalkType walkType;
     private GameObject player;
+
+    private EventInstance slimeWalkSound;
+    FMOD.ATTRIBUTES_3D attributes;
     void Start()
     {
         faceMaterial = SmileBody.GetComponent<Renderer>().materials[1];
+        Debug.Log(faceMaterial.name);
         walkType = WalkType.Patroll;
+        FMOD.ATTRIBUTES_3D attributes = new FMOD.ATTRIBUTES_3D();
+        attributes.position = RuntimeUtils.ToFMODVector(transform.position); // Set the position in 3D space
+        attributes.velocity = RuntimeUtils.ToFMODVector(Vector3.zero); // Set the velocity (optional)
+        attributes.forward = RuntimeUtils.ToFMODVector(transform.forward); // Set the forward vector (optional)
+        attributes.up = RuntimeUtils.ToFMODVector(transform.up);
+        slimeWalkSound = AudioManager.instance.CreateInstance(FMODEvents.instance.slimeWalkSound);
+        slimeWalkSound.setVolume(0.5f);
+        slimeWalkSound.set3DAttributes(attributes);
+        
     }
     public void WalkToNextDestination()
     {
@@ -41,6 +56,7 @@ public class EnemyAi : MonoBehaviour, IIntractable
     }
     void Update()
     {
+        UpdateSound();
         switch (currentState)
         {
             case SlimeAnimationState.Idle:
@@ -51,33 +67,30 @@ public class EnemyAi : MonoBehaviour, IIntractable
                 if (animator.GetCurrentAnimatorStateInfo(0).IsName("Walk")) return;
                 agent.isStopped = false;
                 agent.updateRotation = true;
+                agent.SetDestination(waypoints[0].position);
                 if (walkType == WalkType.ToPlayer)
                 {
-                    agent.SetDestination(waypoints[0].position);
-                    // SetFace(faces.WalkFace);
+
+                    SetFace(faces.WalkFace);
                     // // agent reaches the destination
-                    if (agent.remainingDistance < agent.stoppingDistance - 10)
+                    if (agent.remainingDistance < agent.stoppingDistance)
                     {
+                        
                         walkType = WalkType.Patroll;
                         //facing to camera
-                        transform.rotation = Quaternion.identity;
-                        currentState = SlimeAnimationState.Idle;
+                        
                     }
                 }
                 //Patroll
                 else
                 {
+                    
                     if (waypoints.Length == 0 || waypoints[0] == null) return;
 
-                    agent.SetDestination(waypoints[0].position);
-
                     // agent reaches the destination
-                    if (agent.remainingDistance < agent.stoppingDistance)
+                    if (agent.remainingDistance > agent.stoppingDistance)
                     {
-                        currentState = SlimeAnimationState.Idle;
-
-                        //wait 2s before go to next destionation
-                        Invoke(nameof(WalkToNextDestination),0);
+                        walkType = WalkType.ToPlayer;                        
                     }
 
                 }
@@ -124,6 +137,7 @@ public class EnemyAi : MonoBehaviour, IIntractable
             //     break;
 
         }
+        
 
     }
 
@@ -188,5 +202,28 @@ public class EnemyAi : MonoBehaviour, IIntractable
                 currentState = SlimeAnimationState.Idle;
                 break;
         }
+    }
+
+    private void UpdateSound()
+    {
+        attributes.position = RuntimeUtils.ToFMODVector(transform.position); // Set the position in 3D space
+        attributes.velocity = RuntimeUtils.ToFMODVector(Vector3.zero); // Set the velocity (optional)
+        attributes.forward = RuntimeUtils.ToFMODVector(transform.forward); // Set the forward vector (optional)
+        attributes.up = RuntimeUtils.ToFMODVector(transform.up);
+        slimeWalkSound.set3DAttributes(attributes);       
+        if (walkType == WalkType.ToPlayer)
+        {     
+            PLAYBACK_STATE playbackState;
+            slimeWalkSound.getPlaybackState(out playbackState);
+            if (playbackState.Equals(PLAYBACK_STATE.STOPPED))
+            {
+                slimeWalkSound.start();     
+            }
+        }
+        else
+        {
+            slimeWalkSound.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
+        }
+
     }
 }
