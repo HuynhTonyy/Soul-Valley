@@ -160,9 +160,9 @@ MonoBehaviour:
       stackSize: 5
     - itemData: {fileID: 11400000, guid: e077c6190f3da5f418d5802bbbd798f8, type: 2}
       stackSize: 5
-    _availableGold: 0
-    _buyMarkUp: 0
-    _sellMarkUp: 0
+    _availableGold: 700
+    _buyMarkUp: 0.5
+    _sellMarkUp: 0.2
   isInAction: 0
 --- !u!136 &2522131252452582581
 CapsuleCollider:

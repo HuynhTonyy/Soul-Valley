@@ -10,7 +10,6 @@ using Photon.Pun;
 public class ShopKeeper : MonoBehaviourPunCallbacks, IIntractable, ITimeTracker
 {
     [SerializeField] private ShopItemList _shopItemsHeld;
-    private ShopItemList _shopItemsHeldClone;
     [SerializeField] private ShopSystem _shopSystem;
     private PlayerInventoryHolder playerInv;
     public static UnityAction<ShopSystem, PlayerInventoryHolder> OnShopWindowRequested;
@@ -42,7 +41,6 @@ public class ShopKeeper : MonoBehaviourPunCallbacks, IIntractable, ITimeTracker
     {
         TimeManager.Instance.RegisterTracker(this);
         _shopSystem = new ShopSystem(_shopItemsHeld.Items.Count, _shopItemsHeld.MaxAllowedGold, _shopItemsHeld.BuyMarkUp, _shopItemsHeld.SellMarkUp);
-        _shopItemsHeldClone = _shopItemsHeld;
         foreach (var items in _shopItemsHeld.Items)
         {
             //Debug.Log($"{items.itemData.DisplayName}: {items.Amount}");

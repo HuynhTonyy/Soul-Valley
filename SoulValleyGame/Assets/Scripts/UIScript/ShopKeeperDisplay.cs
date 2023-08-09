@@ -8,7 +8,7 @@ using UnityEngine.UI;
 using Photon.Pun;
 using System;
 
-public class ShopKeeperDisplay : MonoBehaviourPunCallbacks
+public class ShopKeeperDisplay : MonoBehaviourPunCallbacks, ITimeTracker
 {
     [SerializeField] private ShopSlotUI _shopSlotPrefab;
 
@@ -35,7 +35,7 @@ public class ShopKeeperDisplay : MonoBehaviourPunCallbacks
     private double itemBuyPrice;
     private double itemSellPrice;
 
-    private ShopSystem _shopSystem;
+    public ShopSystem _shopSystem;
     private PlayerInventoryHolder _playerInventoryHolder;
     private InventorySystem _invSystem;
     public UnityAction OnPlayerInventoryChanged;
@@ -48,6 +48,7 @@ public class ShopKeeperDisplay : MonoBehaviourPunCallbacks
         RefreshDisplay();
         DisplayShopInventory();
     }
+    
 
     private void RefreshDisplay()
     {
@@ -101,8 +102,9 @@ public class ShopKeeperDisplay : MonoBehaviourPunCallbacks
         {
             if (item.ItemData == null) continue;
             var shopSlot = Instantiate(_shopSlotPrefab, _itemListContentPanel.transform);
-            shopSlot.Init(item, _shopSystem.BuyMarkUp);
+            shopSlot.Init(item, _shopSystem.BuyMarkUp, _shopSystem.SellMarkUp);
         }
+        
     }
 
     public void SetCurSelectedItem(ItemScript item, double buyPrice, double sellPrice)
@@ -191,6 +193,7 @@ public class ShopKeeperDisplay : MonoBehaviourPunCallbacks
     
     private void Start() {
         currencySystem = GameObject.FindFirstObjectByType<CurrencySystem>();
+        TimeManager.Instance.RegisterTracker(this);
     }
 
     [PunRPC]
@@ -200,5 +203,11 @@ public class ShopKeeperDisplay : MonoBehaviourPunCallbacks
         DisplayShopInventory();
     }
 
-    
+    public void ClockUpdate(GameTimeStamp timeStamp)
+    {
+        if (timeStamp.hour == 10)
+        {
+            photonView.RPC("UpdateShop", RpcTarget.AllBufferedViaServer);
+        }
+    }
 }
