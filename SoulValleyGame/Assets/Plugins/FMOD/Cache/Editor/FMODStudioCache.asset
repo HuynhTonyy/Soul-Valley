@@ -54,6 +54,33 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 500
+--- !u!114 &-6918968001231527828
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/SFX/QuestAccepted
+  m_EditorClassIdentifier: 
+  Path: event:/SFX/QuestAccepted
+  Guid:
+    Data1: 1498134948
+    Data2: 1268827055
+    Data3: -275082853
+    Data4: 557859864
+  Banks:
+  - {fileID: 9001700310360765835}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 2093
 --- !u!114 &-6882908331197627081
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -153,6 +180,33 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 3626370
+--- !u!114 &-1497891864591963670
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/SFX/EmptyBucketSound
+  m_EditorClassIdentifier: 
+  Path: event:/SFX/EmptyBucketSound
+  Guid:
+    Data1: 1044068812
+    Data2: 1319092507
+    Data3: -329576279
+    Data4: 1381115106
+  Banks:
+  - {fileID: 9001700310360765835}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 500
 --- !u!114 &-1122811026046336646
 MonoBehaviour:
   m_ObjectHideFlags: 0
