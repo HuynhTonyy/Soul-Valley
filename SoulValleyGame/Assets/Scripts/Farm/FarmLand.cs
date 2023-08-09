@@ -160,7 +160,7 @@ public class FarmLand : MonoBehaviourPunCallbacks, ITimeTracker
             cropPlanted = null;
             if(land.SeedData == null){
                 photonView.RPC("UpdateLandState",RpcTarget.AllBufferedViaServer,land.LandState);
-                timeWatered = new GameTimeStamp(0,(int)GameTimeStamp.Season.Spring,0,0,0);
+                timeWatered = new GameTimeStamp(0,(int)GameTimeStamp.Season.SPRING,0,0,0);
             }else{
                 landState = LandState.Tilled;
                 if(Plant(land.SeedData)){

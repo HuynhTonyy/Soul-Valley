@@ -15,6 +15,10 @@ public class SaveGameManager : MonoBehaviourPunCallbacks
     public bool isEscape = false;
     public Image backGround;
     public GameObject player, volumeHolder;
+
+    public static Animator errorBoxAnimator;
+    public static TextMeshProUGUI errText;
+
     PlayerCam cam;
     PlayerMovement move;
 
@@ -76,14 +80,30 @@ public class SaveGameManager : MonoBehaviourPunCallbacks
 
     public static void SaveData()
     {
-        var saveData = data;
-        SaveLoad.Save(saveData);
+        if(PhotonNetwork.IsMasterClient)
+        {
+            var saveData = data;
+            SaveLoad.Save(saveData);
+        }
+        else
+        {
+            errText.SetText("Only the room Owner can save / load the game");
+            errorBoxAnimator.SetTrigger("showTrig");
+            return;
+        }
+        
     }
 
     public static void LoadData(SaveData _data)
     {
-        if(!PhotonNetwork.IsMasterClient) return;
+        if(!PhotonNetwork.IsMasterClient)
+        {
+            errText.SetText("Only the room Owner can save / load the game");
+            errorBoxAnimator.SetTrigger("showTrig");
+            return;
+        }
         data = _data;
+        
     }
     public static void TryLoadData()
     {       

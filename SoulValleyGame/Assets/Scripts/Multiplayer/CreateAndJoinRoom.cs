@@ -12,6 +12,7 @@ public class CreateAndJoinRoom : MonoBehaviourPunCallbacks
     public Animator errorBoxAnimator;
     public TextMeshProUGUI errText;
     List<RoomInfo> roomList = new List<RoomInfo>();
+
     private void Awake()
     {
         PhotonNetwork.AutomaticallySyncScene = true;
@@ -22,7 +23,6 @@ public class CreateAndJoinRoom : MonoBehaviourPunCallbacks
         PhotonNetwork.AutomaticallySyncScene = true;
 
         PhotonNetwork.AddCallbackTarget(this);
-
     }
 
     public void JoinRoomInList(string roomName){
@@ -66,7 +66,11 @@ public class CreateAndJoinRoom : MonoBehaviourPunCallbacks
             ErrorMessage("Enter room name!");
             return;
         }
-        PhotonNetwork.JoinRoom(joinField.text);
+        if (PhotonNetwork.JoinRoom(joinField.text))
+        {
+            PhotonNetwork.JoinRoom(joinField.text);
+        }
+        else ErrorMessage("Room doesn't exist");
     }
     public override void OnJoinedRoom()
     {

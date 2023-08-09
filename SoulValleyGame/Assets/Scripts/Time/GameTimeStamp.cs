@@ -7,21 +7,21 @@ public class GameTimeStamp
     public int year;
     public enum Season
     {
-        Spring,
-        Summer,
-        Fall,
-        Winter
+        SPRING,
+        SUMMER,
+        FALL,
+        WINTER
     }
     //With this set up the first day of the game gonna be sunday
     public enum DayOfTheWeek
     {
-        Saturday,
-        Sunday, 
-        Monday, 
-        Tuesday, 
-        Wednesday,
-        Thursday,
-        Friday
+        SATURDAY,
+        SUNDAY, 
+        MONDAY, 
+        TUESDAY, 
+        WEDNESDAY,
+        THURSDAT,
+        FRIDAY
     }
     public Season season;
     public int day;
@@ -59,9 +59,9 @@ public class GameTimeStamp
         if (day > 30)
         {
             day = 1;
-            if (season == Season.Winter)
+            if (season == Season.WINTER)
             {
-                season = Season.Spring;
+                season = Season.SPRING;
                 year++;
             }
             else

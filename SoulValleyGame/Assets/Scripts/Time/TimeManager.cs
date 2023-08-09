@@ -25,7 +25,7 @@ public class TimeManager : MonoBehaviour, IPunObservable
     }
     private void Start()
     {
-        timeStamp = new GameTimeStamp(0, GameTimeStamp.Season.Spring, 1, 7, 0);
+        timeStamp = new GameTimeStamp(0, GameTimeStamp.Season.SPRING, 1, 7, 0);
         StartCoroutine(TimeUpdate());
     }
     IEnumerator TimeUpdate()
