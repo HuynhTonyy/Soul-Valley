@@ -54,6 +54,33 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 500
+--- !u!114 &-6918968001231527828
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/SFX/QuestAccepted
+  m_EditorClassIdentifier: 
+  Path: event:/SFX/QuestAccepted
+  Guid:
+    Data1: 1498134948
+    Data2: 1268827055
+    Data3: -275082853
+    Data4: 557859864
+  Banks:
+  - {fileID: 9001700310360765835}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 2093
 --- !u!114 &-6882908331197627081
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -81,6 +108,33 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 700
+--- !u!114 &-5211319152326925739
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/SFX/FillWaterSound
+  m_EditorClassIdentifier: 
+  Path: event:/SFX/FillWaterSound
+  Guid:
+    Data1: 202820073
+    Data2: 1122905225
+    Data3: 1465175961
+    Data4: 907703205
+  Banks:
+  - {fileID: 9001700310360765835}
+  IsStream: 1
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 1800
 --- !u!114 &-2760580256120143331
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -126,6 +180,33 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 3626370
+--- !u!114 &-1497891864591963670
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/SFX/EmptyBucketSound
+  m_EditorClassIdentifier: 
+  Path: event:/SFX/EmptyBucketSound
+  Guid:
+    Data1: 1044068812
+    Data2: 1319092507
+    Data3: -329576279
+    Data4: 1381115106
+  Banks:
+  - {fileID: 9001700310360765835}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 500
 --- !u!114 &-1122811026046336646
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -263,12 +344,16 @@ MonoBehaviour:
   - {fileID: -520872897661047702}
   - {fileID: -8313450966719505268}
   - {fileID: 3937039373657229231}
+  - {fileID: -6918968001231527828}
+  - {fileID: -1497891864591963670}
+  - {fileID: 4159508562720032430}
+  - {fileID: -5211319152326925739}
   EditorParameters: []
   MasterBanks:
   - {fileID: 6719042925490897784}
   StringsBanks:
   - {fileID: 2143458217500791509}
-  cacheTime: 638269441729844676
+  cacheTime: 638270246202209743
   cacheVersion: 131605
 --- !u!114 &2143458217500791509
 MonoBehaviour:
@@ -285,10 +370,10 @@ MonoBehaviour:
   Path: Assets/AudioSrc/Build/Desktop/Master.strings.bank
   Name: Master.strings
   StudioPath: bank:/Master.strings
-  lastModified: 638269434364605229
+  lastModified: 638270233736639351
   FileSizes:
   - Name: 
-    Value: 1360
+    Value: 1548
   Exists: 1
 --- !u!114 &2337170014425057883
 MonoBehaviour:
@@ -344,6 +429,33 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 1000
+--- !u!114 &4159508562720032430
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/SFX/QuestCompleted
+  m_EditorClassIdentifier: 
+  Path: event:/SFX/QuestCompleted
+  Guid:
+    Data1: -1473408285
+    Data2: 1080978086
+    Data3: 1598324155
+    Data4: -1702162863
+  Banks:
+  - {fileID: 9001700310360765835}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 1800
 --- !u!114 &6719042925490897784
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -359,7 +471,7 @@ MonoBehaviour:
   Path: Assets/AudioSrc/Build/Desktop/Master.bank
   Name: Master
   StudioPath: bank:/Master
-  lastModified: 638269434364585219
+  lastModified: 638270233736629347
   FileSizes: []
   Exists: 1
 --- !u!114 &8056505650294779698
@@ -404,6 +516,6 @@ MonoBehaviour:
   Path: Assets/AudioSrc/Build/Desktop/SFX.bank
   Name: SFX
   StudioPath: bank:/SFX
-  lastModified: 638269441729844676
+  lastModified: 638270246202209743
   FileSizes: []
   Exists: 1
