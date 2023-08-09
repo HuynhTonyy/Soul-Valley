@@ -70,3 +70,4 @@ MonoBehaviour:
   itemData: {fileID: 11400000, guid: 4a953ac1320f56640b779983a59f138e, type: 2}
   amountRequire: 9
   currentAmount: 0
+  useType: 0

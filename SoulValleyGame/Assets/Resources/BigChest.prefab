@@ -142,6 +142,7 @@ MonoBehaviour:
     inventorySlot: []
   offset: 9
   itemData: {fileID: 11400000, guid: 01eaa4830c22f514d872a1b52a27939c, type: 2}
+  animator: {fileID: 0}
   isUsed: 0
 --- !u!54 &7941723249759868345
 Rigidbody:

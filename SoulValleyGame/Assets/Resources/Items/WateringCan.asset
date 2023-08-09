@@ -21,4 +21,4 @@ MonoBehaviour:
   ItemPreFab: {fileID: 254568738006658359, guid: 78a726f36ceb07f47b8351929fb9a9a7, type: 3}
   toolType: 0
   maxDurability: 3
-  currentDurability: 2
+  currentDurability: 3

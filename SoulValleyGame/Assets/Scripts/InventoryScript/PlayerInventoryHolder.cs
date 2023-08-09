@@ -84,6 +84,7 @@ public class PlayerInventoryHolder : InventoryHolder
                             this.gameObject.GetComponent<Interactor>().chest = null;
                             photonView.RPC("UpdateChest", RpcTarget.AllBufferedViaServer,chest.GetComponent<PhotonView>().ViewID);
                             chest.GetComponent<ChestInventory>().syncChest();
+                            chest.GetComponent<ChestInventory>().animator.SetTrigger("Close");
                         }  
                     }
                     else 

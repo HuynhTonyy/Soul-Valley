@@ -13,6 +13,7 @@ public class ChestInventory : InventoryHolder, IIntractable, IPunObservable
 
     string id;
     PhotonView view;
+    public Animator animator;
     public bool isUsed = false;
 
     List<ItemScript> listOfItem = new List<ItemScript>();
@@ -27,6 +28,7 @@ public class ChestInventory : InventoryHolder, IIntractable, IPunObservable
             SaveLoad.OnSaveData += SaveChest;
         view = GetComponent<PhotonView>();
         listOfItem = getAllItem();
+        animator = GetComponent<Animator>();
     }
     private void SaveChest()
     {
@@ -53,6 +55,7 @@ public class ChestInventory : InventoryHolder, IIntractable, IPunObservable
         photonView.RPC("chestState",RpcTarget.AllBufferedViaServer);
         OnDynamicInventoryDisplayRequested?.Invoke(primaryInventorySystem,0,interactor.gameObject.GetComponent<PlayerInventoryHolder>().PrimaryInventorySystem,9);
         interactor.gameObject.GetComponentInChildren<InventoryUIControler>().isClosed = false;
+        animator.SetTrigger("Open");
     }
     public void syncChest()
     {

@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 14a8ddbf419c97c45bba61851de082b2, type: 3}
   m_Name: PlantWhiteShroomSeed
   m_EditorClassIdentifier: 
-  <id>k__BackingField: PlantSpotShroomSeed
+  <id>k__BackingField: PlantWhiteShroomSeed
   displayName: Plant Spot Shroom Seed
   goldRequirement: 0
   questPrerequisites: []
