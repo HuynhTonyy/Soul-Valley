@@ -47,6 +47,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cropState: 0
   growth: 1
+  maxGrowth: 0
   seedData: {fileID: 0}
 --- !u!114 &6704538212392981004
 MonoBehaviour:

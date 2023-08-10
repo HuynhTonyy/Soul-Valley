@@ -23,7 +23,7 @@ public class FarmLand : MonoBehaviourPunCallbacks, ITimeTracker
         Tilled,
         Watered
     }
-    LandState landState = LandState.Dry;
+    public LandState landState = LandState.Dry;
     GameTimeStamp timeWatered;
     new Renderer renderer;
     private void Start()

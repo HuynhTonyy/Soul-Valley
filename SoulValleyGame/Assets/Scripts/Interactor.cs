@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using Photon.Pun;
+using TMPro;
 
 public class Interactor : MonoBehaviour
 {
@@ -21,6 +22,14 @@ public class Interactor : MonoBehaviour
     Outline interactGO;
     public House house;
     public bool isInAction = false;
+
+    // Farm land info
+    [SerializeField] GameObject cropInfoDisplay;
+    [SerializeField] TextMeshProUGUI name;
+    [SerializeField] TextMeshProUGUI landState;
+    [SerializeField] TextMeshProUGUI cropState;
+    [SerializeField] TextMeshProUGUI time;
+
     private void Start() {
         view = GetComponent<PhotonView>();
         hotBar = GetComponentInChildren<StaticInventoryDisplay>();
@@ -66,6 +75,20 @@ public class Interactor : MonoBehaviour
                     }
                     selectedLand = farmLand;
                     farmLand.Select(true);
+                    //Display time info
+                    if(farmLand.cropPlanted){
+                        name.SetText(farmLand.cropPlanted.seedData.CropToYield.DisplayName);
+                        int timeRemain = farmLand.cropPlanted.maxGrowth - farmLand.cropPlanted.growth;
+                        if(timeRemain <= 0)
+                            time.SetText("Harvestable");
+                        else
+                            time.SetText((timeRemain)+" min");
+                        landState.SetText(farmLand.landState.ToString());
+                        cropInfoDisplay.SetActive(true);
+                    }else
+                        cropInfoDisplay.SetActive(false);
+                    
+                    
                     if(Keyboard.current.eKey.wasReleasedThisFrame && farmLand.cropPlanted && farmLand.cropPlanted.cropState == CropBehaviour.CropState.Harvestable){
                         farmLand.Harvest(this.gameObject);
                     }
@@ -91,6 +114,7 @@ public class Interactor : MonoBehaviour
                     }
                 }else if(selectedLand){
                     selectedLand.Select(false);
+                    cropInfoDisplay.SetActive(false);
                 }
                 if(interactGO && tag != "Interactable"){
                         interactGO.enabled = false;
@@ -174,6 +198,7 @@ public class Interactor : MonoBehaviour
             else{
                 if(selectedLand){
                     selectedLand.Select(false);
+                    cropInfoDisplay.SetActive(false);
                 }
                 if(interactGO){
                     interactGO.enabled = false;

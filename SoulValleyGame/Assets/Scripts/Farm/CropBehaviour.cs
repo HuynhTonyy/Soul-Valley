@@ -14,7 +14,7 @@ public class CropBehaviour : MonoBehaviourPunCallbacks
     }
     public CropState cropState;
     public int growth = 1;
-    int maxGrowth;
+    public int maxGrowth;
     public SeedData seedData;
     public void PLant(SeedData seedToGrow)
     {
@@ -34,6 +34,7 @@ public class CropBehaviour : MonoBehaviourPunCallbacks
 
     public void Grow()
     {
+        if(cropState == CropState.Harvestable) return;
         growth++;
         if(growth >= maxGrowth / 2 && cropState == CropState.Seed)
         {
