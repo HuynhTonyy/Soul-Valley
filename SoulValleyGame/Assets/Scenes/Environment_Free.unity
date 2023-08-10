@@ -6272,7 +6272,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1489201693}
   - component: {fileID: 1489201692}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: PostProcessing
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6291,6 +6291,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8b9a305e18de0c04dbd257a21cd47087, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  sharedProfile: {fileID: 11400000, guid: 58451f5d32d635948ae60b33412dee5a, type: 2}
+  isGlobal: 1
+  blendDistance: 0
+  weight: 1
+  priority: 0
 --- !u!4 &1489201693
 Transform:
   m_ObjectHideFlags: 0
