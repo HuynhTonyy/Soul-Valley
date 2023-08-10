@@ -19,22 +19,50 @@ public class Interactor : MonoBehaviour
     bool inRange;
     GameObject itemBP = null;
     public GameObject shopKeeper;
+    public PetAI pet;
     Outline interactGO;
     public House house;
     public bool isInAction = false;
+    public GameObject petControllerUI;
 
     // Farm land info
     [SerializeField] GameObject cropInfoDisplay;
     [SerializeField] TextMeshProUGUI name;
     [SerializeField] TextMeshProUGUI landState;
-    [SerializeField] TextMeshProUGUI cropState;
     [SerializeField] TextMeshProUGUI time;
 
     private void Start() {
         view = GetComponent<PhotonView>();
         hotBar = GetComponentInChildren<StaticInventoryDisplay>();
         house = GameObject.FindObjectOfType<House>();
+        petControllerUI.SetActive(false);
     }
+    public void TurnOnPetControllerUI(){
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
+        petControllerUI.SetActive(true);
+    }
+    public void TurnOffPetControllerUI(){
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
+        petControllerUI.SetActive(false);
+    }
+    public void TellPetToIdle(){
+        pet.Idle();
+        TurnOffPetControllerUI();
+    }
+    public void TellPetToFollow(){
+        pet.Follow(transform);
+        TurnOffPetControllerUI();
+    }
+    public void TellPetToCollect(){
+        pet.Collect();
+        TurnOffPetControllerUI();
+    }
+    
+
+
+
     private void Update()
     {
         

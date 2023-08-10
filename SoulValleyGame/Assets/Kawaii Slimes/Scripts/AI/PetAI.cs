@@ -3,8 +3,11 @@ using FMOD.Studio;
 using FMODUnity;
 using UnityEngine;
 using UnityEngine.AI;
+using Photon.Pun;
+using System.Collections;
+
 public enum SlimeAnimationState { Idle, Walk, Jump, Attack, Damage }
-public class EnemyAi : MonoBehaviour, IIntractable
+public class PetAI : MonoBehaviour, IIntractable
 {
 
     public Face faces;
@@ -20,17 +23,22 @@ public class EnemyAi : MonoBehaviour, IIntractable
     private Material faceMaterial;
     private Vector3 originPos;
 
-    public enum WalkType { Patroll, ToPlayer }
+    public enum WalkType { Patroll, ToDestination}
     private WalkType walkType;
-    private GameObject player;
+
+    public enum WorkType { None, Follow, Collect}
+    private WorkType workType;
+    private bool isCollecting = false;
 
     private EventInstance slimeWalkSound;
     FMOD.ATTRIBUTES_3D attributes;
+    public int timePerCollect;
     void Start()
     {
         faceMaterial = SmileBody.GetComponent<Renderer>().materials[1];
         Debug.Log(faceMaterial.name);
         walkType = WalkType.Patroll;
+        workType = WorkType.None;
         FMOD.ATTRIBUTES_3D attributes = new FMOD.ATTRIBUTES_3D();
         attributes.position = RuntimeUtils.ToFMODVector(transform.position); // Set the position in 3D space
         attributes.velocity = RuntimeUtils.ToFMODVector(Vector3.zero); // Set the velocity (optional)
@@ -41,18 +49,48 @@ public class EnemyAi : MonoBehaviour, IIntractable
         slimeWalkSound.set3DAttributes(attributes);
         
     }
-    public void WalkToNextDestination()
+    void Collecting()
     {
-        currentState = SlimeAnimationState.Walk;
-        agent.SetDestination(waypoints[0].position);
-        // agent.SetDestination()
-        SetFace(faces.WalkFace);
+        string objectName = waypoints[0].gameObject.GetComponent<CropHarvest>().itemData.ItemPreFab.name;
+        Vector3 _dropOffset = new Vector3(Random.Range(-0.1f, 0.1f), 0, Random.Range(-0.1f, 0.1f));
+        GameObject newObject = PhotonNetwork.Instantiate(objectName,new Vector3(waypoints[0].position.x-1,waypoints[0].position.y+1,waypoints[0].position.z+1) + _dropOffset,Quaternion.identity);
+        newObject.GetComponent<Rigidbody>().AddForce(waypoints[0].forward * 5,ForceMode.Impulse);
     }
-    public void CancelGoNextDestination() => CancelInvoke(nameof(WalkToNextDestination));
-
+    // public void CancelGoNextDestination() => CancelInvoke(nameof(Collect));
+    void StopCollecting(){
+        isCollecting = false;
+        workType = WorkType.None;
+        CancelInvoke ("Collecting");
+    }
+    void MoveToDestination(Vector3 destination){
+        agent.isStopped = false;
+        agent.updateRotation = true;
+        agent.SetDestination(destination);
+    }
     void SetFace(Texture tex)
     {
         faceMaterial.SetTexture("_MainTex", tex);
+    }
+    public float GetRemainingDistance()
+    {
+        float distance = 0;
+        Vector3[] corners = agent.path.corners;
+
+        if (corners.Length > 2)
+        {
+                for (int i = 1; i < corners.Length; i++)
+                {
+                    Vector2 previous = new Vector2(corners[i - 1].x, corners[i - 1].z);
+                    Vector2 current = new Vector2(corners[i].x, corners[i].z);
+
+                    distance += Vector2.Distance(previous, current);
+                }
+        }
+        else 
+        {
+                distance = agent.remainingDistance;
+        }
+        return distance;
     }
     void Update()
     {
@@ -64,33 +102,45 @@ public class EnemyAi : MonoBehaviour, IIntractable
                 StopAgent();
                 break;
             case SlimeAnimationState.Walk:
-                if (animator.GetCurrentAnimatorStateInfo(0).IsName("Walk")) return;
-                agent.isStopped = false;
-                agent.updateRotation = true;
-                agent.SetDestination(waypoints[0].position);
-                if (walkType == WalkType.ToPlayer)
+                if (animator.GetCurrentAnimatorStateInfo(0).IsName("Walk") || animator.GetCurrentAnimatorStateInfo(0).IsName("Attack")) return;
+                MoveToDestination(waypoints[0].position);
+                if (walkType == WalkType.ToDestination)
                 {
-
                     SetFace(faces.WalkFace);
                     // // agent reaches the destination
-                    if (agent.remainingDistance < agent.stoppingDistance)
+                    float remainingDistance = GetRemainingDistance();
+                    if (remainingDistance <= agent.stoppingDistance && remainingDistance != 0)
                     {
-                        
-                        walkType = WalkType.Patroll;
-                        //facing to camera
+                        if(workType == WorkType.Follow)
+                            walkType = WalkType.Patroll;
+                        else if(workType == WorkType.Collect){
+                            SetFace(faces.attackFace);
+                            animator.SetTrigger("Attack");
+                            if(!isCollecting){
+                                isCollecting = true;
+                                StopAgent();
+                                InvokeRepeating("Collecting", timePerCollect, timePerCollect);
+                            }
+                        }
+                    }
+                    else{
+                        if(isCollecting){
+                            CancelInvoke("Collecting");
+                            isCollecting = false;
+                            MoveToDestination(waypoints[0].position);
+                        }
                         
                     }
                 }
                 //Patroll
-                else
+                else if (walkType == WalkType.Patroll)
                 {
-                    
                     if (waypoints.Length == 0 || waypoints[0] == null) return;
 
                     // agent reaches the destination
                     if (agent.remainingDistance > agent.stoppingDistance)
                     {
-                        walkType = WalkType.ToPlayer;                        
+                        walkType = WalkType.ToDestination;                        
                     }
 
                 }
@@ -160,7 +210,7 @@ public class EnemyAi : MonoBehaviour, IIntractable
             float distanceOrg = Vector3.Distance(transform.position, originPos);
             if (distanceOrg > 1f)
             {
-                walkType = WalkType.ToPlayer;
+                walkType = WalkType.ToDestination;
                 currentState = SlimeAnimationState.Walk;
             }
             else currentState = SlimeAnimationState.Idle;
@@ -170,7 +220,7 @@ public class EnemyAi : MonoBehaviour, IIntractable
 
         if (message.Equals("AnimationAttackEnded"))
         {
-            currentState = SlimeAnimationState.Idle;
+            // currentState = SlimeAnimationState.Idle;
         }
 
         if (message.Equals("AnimationJumpEnded"))
@@ -190,18 +240,59 @@ public class EnemyAi : MonoBehaviour, IIntractable
 
     public void Interact(Interactor interactor)
     {
-        switch (currentState)
-        {
-            case SlimeAnimationState.Idle:
-                waypoints = new Transform[1];
-                waypoints[0] = interactor.gameObject.transform;
-                currentState = SlimeAnimationState.Walk;
-                walkType = WalkType.ToPlayer;
-                break;
-            case SlimeAnimationState.Walk:
-                currentState = SlimeAnimationState.Idle;
-                break;
-        }
+            //set idle 
+        //currentState = SlimeAnimationState.Idle;
+            //set follow
+        // waypoints = new Transform[1];
+        // waypoints[0] = interactor.gameObject.transform;
+        // currentState = SlimeAnimationState.Walk;
+        // walkType = WalkType.ToDestination;
+        // workType = WorkType.Follow;
+            //set collect ore
+        // waypoints = new Transform[1];
+        // waypoints[0] = GameObject.FindGameObjectWithTag("Ore").transform;
+        // currentState = SlimeAnimationState.Walk;
+        // walkType = WalkType.ToDestination;
+        // workType = WorkType.Collect;
+        interactor.pet = this;
+        interactor.TurnOnPetControllerUI();
+        // switch (currentState)
+        // {
+        //     case SlimeAnimationState.Idle:
+        //         // waypoints = new Transform[1];
+        //         // waypoints[0] = interactor.gameObject.transform;
+        //         // currentState = SlimeAnimationState.Walk;
+        //         // walkType = WalkType.ToDestination;
+
+        //         waypoints = new Transform[1];
+        //         waypoints[0] = GameObject.FindGameObjectWithTag("Ore").transform;
+        //         currentState = SlimeAnimationState.Walk;
+        //         walkType = WalkType.ToDestination;
+        //         workType = WorkType.Collect;
+        //         break;
+        //     case SlimeAnimationState.Walk:
+        //         currentState = SlimeAnimationState.Idle;
+        //         break;
+        // }
+    }
+    public void Idle(){
+        StopCollecting();
+        currentState = SlimeAnimationState.Idle;
+    }
+    public void Follow(Transform transform){
+        StopCollecting();
+        waypoints = new Transform[1];
+        waypoints[0] = transform;
+        currentState = SlimeAnimationState.Walk;
+        walkType = WalkType.ToDestination;
+    }
+    public void Collect(){
+        StopCollecting();
+        waypoints = new Transform[1];
+        waypoints[0] = GameObject.FindGameObjectWithTag("Ore").transform;
+        currentState = SlimeAnimationState.Walk;
+        walkType = WalkType.ToDestination;
+        workType = WorkType.Collect;
     }
 
     private void UpdateSound()
@@ -211,7 +302,7 @@ public class EnemyAi : MonoBehaviour, IIntractable
         attributes.forward = RuntimeUtils.ToFMODVector(transform.forward); // Set the forward vector (optional)
         attributes.up = RuntimeUtils.ToFMODVector(transform.up);
         slimeWalkSound.set3DAttributes(attributes);       
-        if (walkType == WalkType.ToPlayer)
+        if (walkType == WalkType.ToDestination)
         {     
             PLAYBACK_STATE playbackState;
             slimeWalkSound.getPlaybackState(out playbackState);
