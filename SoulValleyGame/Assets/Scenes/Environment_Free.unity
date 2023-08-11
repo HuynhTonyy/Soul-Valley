@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.1470247, g: 0.36394262, b: 0.5799059, a: 1}
+  m_IndirectSpecularColor: {r: 0.14703594, g: 0.36398482, b: 0.57992315, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1431,7 +1431,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 669344221207731256, guid: fc59d1be29f700b408a9e06790138fea, type: 3}
       propertyPath: m_RootOrder
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 669344221207731256, guid: fc59d1be29f700b408a9e06790138fea, type: 3}
       propertyPath: m_LocalScale.x
@@ -3729,7 +3729,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9103171939639073637, guid: c80fbf850ad97a34694544deb65b7fa2, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 73.9
+      value: 76.12
       objectReference: {fileID: 0}
     - target: {fileID: 9103171939639073637, guid: c80fbf850ad97a34694544deb65b7fa2, type: 3}
       propertyPath: m_LocalRotation.w
@@ -14946,7 +14946,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 298665018193742919, guid: 454f2b945db56b64a8b0a482b24c5cfe, type: 3}
       propertyPath: m_RootOrder
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 298665018193742919, guid: 454f2b945db56b64a8b0a482b24c5cfe, type: 3}
       propertyPath: m_LocalPosition.x
@@ -17553,13 +17553,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5724032257203909400}
   m_LocalRotation: {x: -0, y: -0.31055292, z: -0, w: 0.9505561}
-  m_LocalPosition: {x: 65.276, y: 3.205, z: 56.302}
+  m_LocalPosition: {x: 66.6, y: 3.205, z: 57.27}
   m_LocalScale: {x: 0.76, y: 0.76, z: 0.76}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 686917365}
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: -36.185, z: 0}
 --- !u!135 &5727110048465012421
 SphereCollider:

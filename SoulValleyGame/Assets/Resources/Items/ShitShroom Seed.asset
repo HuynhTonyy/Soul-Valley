@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c12c8eabc27d966459cd06b42ef3d23f, type: 3}
+  m_Name: ShitShroom Seed
+  m_EditorClassIdentifier: 
+  <Id>k__BackingField: ShitShroom Seed
+  DisplayName: ShitShroom Seed
+  MaxStackSize: 4
+  Value: 45
+  Description: SHITTT SEED
+  icon: {fileID: 21300000, guid: c06f1c2589a1dcc41b385388110af23f, type: 3}
+  ItemPreFab: {fileID: 5200681163900939743, guid: fa6a47e16f1d93f49b49151b7789a0f1, type: 3}
+  DayToGrow: 2
+  seed: {fileID: 2949569857002820423, guid: 1f3cb44a9c03e0c4981eaea480a08285, type: 3}
+  seedling: {fileID: 7802213552439370728, guid: 98756a5d443b29745aeb400bf7123f2d, type: 3}
+  harvestable: {fileID: 1491240809929612115, guid: d3409c64d177dbf4d94de8ca90d2f290, type: 3}
+  CropToYield: {fileID: 11400000, guid: 7d9798bd13e45a54dbec4cfab089ab6f, type: 2}
+  amountToYield: 3
