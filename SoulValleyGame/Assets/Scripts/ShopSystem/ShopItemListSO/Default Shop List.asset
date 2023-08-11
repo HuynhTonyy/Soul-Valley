@@ -13,44 +13,60 @@ MonoBehaviour:
   m_Name: Default Shop List
   m_EditorClassIdentifier: 
   _items:
-  - itemData: {fileID: 11400000, guid: fcda694406921e14b83e43c7799fd9e9, type: 2}
-    Amount: 20
-  - itemData: {fileID: 11400000, guid: 610f36e588908ad43b326d4d329d9e90, type: 2}
-    Amount: 10
-  - itemData: {fileID: 11400000, guid: a97455bf733eb934cab12c792f431124, type: 2}
-    Amount: 8
   - itemData: {fileID: 11400000, guid: 4a953ac1320f56640b779983a59f138e, type: 2}
     Amount: 8
   - itemData: {fileID: 11400000, guid: e4fc799e1444b7d4ea0c09325bb87eb7, type: 2}
     Amount: 8
-  - itemData: {fileID: 11400000, guid: 01eaa4830c22f514d872a1b52a27939c, type: 2}
-    Amount: 10
+  - itemData: {fileID: 11400000, guid: a97455bf733eb934cab12c792f431124, type: 2}
+    Amount: 8
   - itemData: {fileID: 11400000, guid: e077c6190f3da5f418d5802bbbd798f8, type: 2}
+    Amount: 8
+  - itemData: {fileID: 11400000, guid: 01eaa4830c22f514d872a1b52a27939c, type: 2}
+    Amount: 8
+  - itemData: {fileID: 11400000, guid: fcda694406921e14b83e43c7799fd9e9, type: 2}
+    Amount: 16
+  - itemData: {fileID: 11400000, guid: 610f36e588908ad43b326d4d329d9e90, type: 2}
+    Amount: 10
+  - itemData: {fileID: 11400000, guid: ab4ddfd9030a9fe48b5bbae4abfa2095, type: 2}
+    Amount: 16
+  - itemData: {fileID: 11400000, guid: 7d9798bd13e45a54dbec4cfab089ab6f, type: 2}
+    Amount: 10
+  - itemData: {fileID: 11400000, guid: 53517e6744f84214e83399e40ffd8bd2, type: 2}
+    Amount: 16
+  - itemData: {fileID: 11400000, guid: efeed1520a5529243a4311e5edd716bb, type: 2}
+    Amount: 10
+  - itemData: {fileID: 11400000, guid: 34a1216b77b3a4f47be15305e4a69529, type: 2}
+    Amount: 16
+  - itemData: {fileID: 11400000, guid: 2b2f45106f07fed448ff68ec848a9b50, type: 2}
+    Amount: 10
+  - itemData: {fileID: 11400000, guid: 87595ffe682ec4544bde44e4a416101f, type: 2}
+    Amount: 16
+  - itemData: {fileID: 11400000, guid: 5b4dca093130e844bb206834e01da110, type: 2}
     Amount: 10
   - itemData: {fileID: 11400000, guid: acfb8f45c2dce594ba0e378fbe1bacaf, type: 2}
-    Amount: 20
+    Amount: 16
   - itemData: {fileID: 11400000, guid: 2b63d2e475bc7dc48868a678239a6d8c, type: 2}
-    Amount: 20
+    Amount: 10
   - itemData: {fileID: 11400000, guid: e64ed198974da4e429d26aefd4eae493, type: 2}
-    Amount: 20
+    Amount: 16
   - itemData: {fileID: 11400000, guid: 0518946cd195356499e142a324e74944, type: 2}
-    Amount: 20
+    Amount: 10
   - itemData: {fileID: 11400000, guid: 569610449864e9b45b31856776ce1bae, type: 2}
-    Amount: 20
+    Amount: 16
   - itemData: {fileID: 11400000, guid: d2a2a4c7a9970d04587f3a290eb8dbe9, type: 2}
-    Amount: 20
+    Amount: 10
   - itemData: {fileID: 11400000, guid: 7e8d4405c2297cb41b0fcf50f2e90015, type: 2}
-    Amount: 20
+    Amount: 16
   - itemData: {fileID: 11400000, guid: 206bbc9505996a44aaed857e3094c762, type: 2}
-    Amount: 20
+    Amount: 10
   - itemData: {fileID: 11400000, guid: dfb7d1d30e67d6c42abc9fa2f2460e24, type: 2}
     Amount: 20
   - itemData: {fileID: 11400000, guid: 2dca37cdd94512647be8f0c0527d8149, type: 2}
-    Amount: 20
+    Amount: 16
   - itemData: {fileID: 11400000, guid: f9d2c9da3b02fac48a6953f9518bcc23, type: 2}
-    Amount: 20
+    Amount: 16
   - itemData: {fileID: 11400000, guid: c4dcb0f1091450e47aab775820eed2d5, type: 2}
-    Amount: 20
+    Amount: 8
   _maxAllowedGold: 1000
   _sellMarkUp: 0.15
   _buyMarkUp: 0.5
