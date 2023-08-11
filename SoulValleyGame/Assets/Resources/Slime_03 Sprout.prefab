@@ -167,6 +167,7 @@ MonoBehaviour:
   agent: {fileID: 1034404484449832638}
   waypoints: []
   damType: 0
+  isDisplayUI: 0
   timePerCollect: 1440
 --- !u!95 &6153663229621343364
 Animator:

@@ -13,19 +13,22 @@ public class PlayerInventoryHolder : InventoryHolder
     [SerializeField] private Canvas canvas;
     InventoryUIControler inventoryUIControler;
     MouseItemData mouse;
-    // [SerializeField] StaticInventoryDisplay staticInventoryDisplay;
+    [SerializeField] StaticInventoryDisplay staticInventoryDisplay;
     UIController uIController;
     public static UnityAction OnPlayerInventoryChanged;
     public static UnityAction<InventorySystem, int> OnDynamicPlayerInventoryDisplayRequested;
     PhotonView view;
     SaveGameManager saveGame;
     public Image backGround;
+    public PetAI pet;
+    public GameObject petControllerUI;
 
     public void setPrimarySystem(InventorySystem invSys){
         this.primaryInventorySystem = invSys;
         OnPlayerInventoryChanged?.Invoke();
     }
     private void Start(){
+        petControllerUI.SetActive(false);
         playerId = GetComponent<UniqueID>().ID;
         view = GetComponent<PhotonView>();
         mouse = GetComponentInChildren<MouseItemData>();
@@ -48,8 +51,10 @@ public class PlayerInventoryHolder : InventoryHolder
                 if (saveGame.isEscape)
                 {
                     saveGame.close();
-                    enable();
-                    backGround.enabled=false;
+                    staticInventoryDisplay.TurnOnHotBarDisplay();
+                    staticInventoryDisplay.ToolTip.enabled = true;
+                    staticInventoryDisplay.isInAction = false;
+                    TurnOffUI();
                 }
                 else
                 {
@@ -58,8 +63,13 @@ public class PlayerInventoryHolder : InventoryHolder
                     inventoryUIControler.isClosed = true;
                     uIController.close();
                     uIController.isShopClosed = true;
-                    disable();
-                    backGround.enabled=true;
+                    staticInventoryDisplay.TurnOffHotBarDisplay();
+                    staticInventoryDisplay.isInAction = true;
+                    staticInventoryDisplay.ToolTip.enabled = false;
+                    if(pet != null && pet.isDisplayUI){
+                        TurnOffPetControllerUI();
+                    }
+                    TurnOnUI();
                     checkChest();
                     if(gameObject.GetComponent<Interactor>().shopKeeper){
                         gameObject.GetComponent<Interactor>().shopKeeper.GetComponent<ShopKeeper>().isInAction = false;
@@ -72,8 +82,10 @@ public class PlayerInventoryHolder : InventoryHolder
                 {
                     uIController.close();
                     uIController.isShopClosed = true;
-                    // staticInventoryDisplay.gameObject.SetActive(true);
-                    enable();
+                    staticInventoryDisplay.TurnOnHotBarDisplay();
+                    staticInventoryDisplay.isInAction = false;
+                    staticInventoryDisplay.ToolTip.enabled = true;
+                    TurnOffUI();
                     photonView.RPC("UpdateShopState", RpcTarget.AllBufferedViaServer,
                         this.gameObject.GetComponent<Interactor>().shopKeeper.GetComponent<PhotonView>().ViewID);
                 }
@@ -82,15 +94,24 @@ public class PlayerInventoryHolder : InventoryHolder
                     {   
                         inventoryUIControler.close();
                         inventoryUIControler.isClosed = true;
-                        enable();
+                        staticInventoryDisplay.TurnOnHotBarDisplay();
+                        staticInventoryDisplay.isInAction = false;
+                        staticInventoryDisplay.ToolTip.enabled = true;
+                        TurnOffUI();
                         checkChest();
+                    }else if(pet != null && pet.isDisplayUI){
+                        TurnOffPetControllerUI();
+                        staticInventoryDisplay.ToolTip.enabled = true;
                     }
                     else 
                     {
                         AudioManager.instance.PlayOneShot(FMODEvents.instance.tabSound, this.transform.position);
                         OnDynamicPlayerInventoryDisplayRequested?.Invoke(primaryInventorySystem, offset);
-                        disable();
+                        TurnOnUI();
+                        staticInventoryDisplay.TurnOnHotBarDisplay();
                         inventoryUIControler.isClosed = false;
+                        staticInventoryDisplay.isInAction = true;
+                        staticInventoryDisplay.ToolTip.enabled = true;
                     }  
                 }
                 if (mouse.AssignInventorySlot.ItemData != null)
@@ -101,6 +122,7 @@ public class PlayerInventoryHolder : InventoryHolder
             }
         }
     }
+
     private void checkChest(){
         GameObject chest = this.gameObject.GetComponent<Interactor>().chest;
         if(chest)
@@ -111,13 +133,21 @@ public class PlayerInventoryHolder : InventoryHolder
             chest.GetComponent<ChestInventory>().animator.SetTrigger("Close");
         }  
     }
-    private void enable(){
-        // staticInventoryDisplay.gameObject.SetActive(true);
+    private void TurnOffUI(){
+        backGround.enabled = false;
         gameObject.GetComponent<Interactor>().enabled = true;
+        gameObject.GetComponent<PlayerMovement>().enabled = true;
+        gameObject.GetComponent<PlayerCam>().enabled = true;
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
     }
-    private void disable(){
-        // staticInventoryDisplay.gameObject.SetActive(false);
-        gameObject.GetComponent<Interactor>().enabled = false;
+    private void TurnOnUI(){
+        backGround.enabled = true;
+        Interactor interactor = gameObject.GetComponent<Interactor>();
+        interactor.enabled = false;
+        interactor.cropInfoDisplay.SetActive(false);
+        gameObject.GetComponent<PlayerMovement>().enabled = false;
+        gameObject.GetComponent<PlayerCam>().enabled = false;
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.None;
     }
@@ -144,6 +174,32 @@ public class PlayerInventoryHolder : InventoryHolder
                 }
             }
         }
+    }
+    public void TurnOnPetControllerUI(){
+        pet.isDisplayUI = true;
+        staticInventoryDisplay.TurnOffHotBarDisplay();
+        staticInventoryDisplay.isInAction = false;
+        TurnOnUI();
+        petControllerUI.SetActive(true);
+    }
+    public void TurnOffPetControllerUI(){
+        pet.isDisplayUI = false;
+        staticInventoryDisplay.TurnOnHotBarDisplay();
+        staticInventoryDisplay.isInAction = false;
+        TurnOffUI();
+        petControllerUI.SetActive(false);
+    }
+    public void TellPetToIdle(){
+        pet.Idle();
+        TurnOffPetControllerUI();
+    }
+    public void TellPetToFollow(){
+        pet.Follow(transform);
+        TurnOffPetControllerUI();
+    }
+    public void TellPetToCollect(){
+        pet.Collect();
+        TurnOffPetControllerUI();
     }
 
     private void OnEnable() {

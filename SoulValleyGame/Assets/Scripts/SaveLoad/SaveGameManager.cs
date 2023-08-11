@@ -18,8 +18,8 @@ public class SaveGameManager : MonoBehaviourPunCallbacks
     public GameObject player, volumeHolder, Control, Tips;
     public GameObject toolTip;
 
-    PlayerCam cam;
-    PlayerMovement move;
+    // PlayerCam cam;
+    // PlayerMovement move;
 
     private void Awake()
     {
@@ -40,16 +40,16 @@ public class SaveGameManager : MonoBehaviourPunCallbacks
         volumeHolder.SetActive(false);
         Control.SetActive(false);
         Tips.SetActive(false);
-        cam = player.GetComponent<PlayerCam>();
-        move =player.GetComponent<PlayerMovement>();
+        // cam = player.GetComponent<PlayerCam>();
+        // move =player.GetComponent<PlayerMovement>();
 
     }
     public void open()
     {
         toolTip.SetActive(false);
         isEscape = true;
-        cam.enabled = false;
-        move.enabled = false;
+        // cam.enabled = false;
+        // move.enabled = false;
         backGround.enabled = true;
         btnSave.gameObject.SetActive(true);
         btnLoad.gameObject.SetActive(true);
@@ -57,15 +57,15 @@ public class SaveGameManager : MonoBehaviourPunCallbacks
         volumeHolder.SetActive(true);
         Control.SetActive(true);
         Tips.SetActive(true);
-        Cursor.visible = true;
-        Cursor.lockState = CursorLockMode.None;
+        // Cursor.visible = true;
+        // Cursor.lockState = CursorLockMode.None;
     }
     public void close()
     {
         toolTip.SetActive(true);
         isEscape = false;
-        cam.enabled = true;
-        move.enabled = true;
+        // cam.enabled = true;
+        // move.enabled = true;
         backGround.enabled = false;
         btnSave.gameObject.SetActive(false);
         btnLoad.gameObject.SetActive(false);
@@ -73,8 +73,8 @@ public class SaveGameManager : MonoBehaviourPunCallbacks
         volumeHolder.SetActive(false);
         Control.SetActive(false);
         Tips.SetActive(false);
-        Cursor.visible = false;
-        Cursor.lockState = CursorLockMode.Locked;
+        // Cursor.visible = false;
+        // Cursor.lockState = CursorLockMode.Locked;
     }
     public void LeaveCurrentRoom()
     {

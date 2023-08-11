@@ -29,6 +29,7 @@ public class PetAI : MonoBehaviour, IIntractable
     public enum WorkType { None, Follow, Collect}
     private WorkType workType;
     private bool isCollecting = false;
+    public bool isDisplayUI = false;
 
     private EventInstance slimeWalkSound;
     FMOD.ATTRIBUTES_3D attributes;
@@ -254,8 +255,9 @@ public class PetAI : MonoBehaviour, IIntractable
         // currentState = SlimeAnimationState.Walk;
         // walkType = WalkType.ToDestination;
         // workType = WorkType.Collect;
-        interactor.pet = this;
-        interactor.TurnOnPetControllerUI();
+        interactor.gameObject.GetComponent<PlayerInventoryHolder>().pet = this;
+        interactor.hotBar.ToolTip.enabled = false;
+        interactor.gameObject.GetComponent<PlayerInventoryHolder>().TurnOnPetControllerUI();
         // switch (currentState)
         // {
         //     case SlimeAnimationState.Idle:

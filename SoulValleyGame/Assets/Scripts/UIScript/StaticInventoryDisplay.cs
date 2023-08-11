@@ -4,15 +4,17 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using Photon.Pun;
 using TMPro;
+using UnityEngine.UI;
 
 public class StaticInventoryDisplay : InventoryDisplay
 {
-    [SerializeField] TextMeshProUGUI ToolTip;
+    public TextMeshProUGUI ToolTip;
     [SerializeField] private InventoryHolder inventoryHolder;
     [SerializeField] protected InventorySlot_UI[] slots;
     
     public InventorySlot InventorySlot;
     public int selectedSlot=0;
+    public bool isInAction = false;
     protected override void Start()
     {
         base.Start();
@@ -199,6 +201,7 @@ public class StaticInventoryDisplay : InventoryDisplay
         }
     }
     private void Update() {
+        if(isInAction)return;
         float scrollValue = Input.mouseScrollDelta.y;
 
         if (selectedSlot > -1 && selectedSlot < 9)
@@ -226,5 +229,22 @@ public class StaticInventoryDisplay : InventoryDisplay
                 GetSelectedItem(selectedSlot);
             }
         }
+    }
+    public void TurnOffHotBarDisplay(){
+        gameObject.GetComponent<Image>().enabled = false;
+        foreach(InventorySlot_UI inventorySlot in slots){
+            inventorySlot.gameObject.GetComponent<Image>().enabled = false;
+            inventorySlot.itemSprite.enabled = false;
+            inventorySlot.itemCount.enabled = false;
+        }
+    }
+    public void TurnOnHotBarDisplay(){
+        gameObject.GetComponent<Image>().enabled = true;
+        foreach(InventorySlot_UI inventorySlot in slots){
+            inventorySlot.gameObject.GetComponent<Image>().enabled = true;
+            inventorySlot.itemSprite.enabled = true;
+            inventorySlot.itemCount.enabled = true;
+        }
+        RefreshStaticDisplay();
     }
 }

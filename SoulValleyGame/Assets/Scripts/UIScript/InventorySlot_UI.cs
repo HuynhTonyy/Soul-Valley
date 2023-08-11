@@ -9,8 +9,8 @@ using UnityEngine.Events;
 
 public class InventorySlot_UI : MonoBehaviour,IPointerClickHandler
 {
-    [SerializeField] private Image itemSprite;
-    [SerializeField] private TextMeshProUGUI itemCount;
+    public Image itemSprite;
+    public TextMeshProUGUI itemCount;
     [SerializeField] private InventorySlot assignInventorySlot;
 
     private Button btn; 
