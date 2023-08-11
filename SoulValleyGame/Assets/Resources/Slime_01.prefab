@@ -187,6 +187,7 @@ MonoBehaviour:
   agent: {fileID: 1131595419}
   waypoints: []
   damType: 0
+  isDisplayUI: 0
   timePerCollect: 720
 --- !u!195 &1131595419
 NavMeshAgent:
