@@ -438,7 +438,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rotationSpeed: 50
   PickUpRadius: 0.3
-  itemData: {fileID: 11400000, guid: 87595ffe682ec4544bde44e4a416101f, type: 2}
+  itemData: {fileID: 11400000, guid: 53517e6744f84214e83399e40ffd8bd2, type: 2}
   whatIsGround:
     serializedVersion: 2
     m_Bits: 64
