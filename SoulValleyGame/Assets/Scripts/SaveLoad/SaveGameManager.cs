@@ -34,8 +34,8 @@ public class SaveGameManager : MonoBehaviourPunCallbacks
     void Start()
     {
         backGround.enabled = false;
-        btnSave.gameObject.SetActive(false);
-        btnLoad.gameObject.SetActive(false);
+        // btnSave.gameObject.SetActive(false);
+        // btnLoad.gameObject.SetActive(false);
         btnExit.gameObject.SetActive(false);
         volumeHolder.SetActive(false);
         Control.SetActive(false);
@@ -51,8 +51,8 @@ public class SaveGameManager : MonoBehaviourPunCallbacks
         // cam.enabled = false;
         // move.enabled = false;
         backGround.enabled = true;
-        btnSave.gameObject.SetActive(true);
-        btnLoad.gameObject.SetActive(true);
+        // btnSave.gameObject.SetActive(true);
+        // btnLoad.gameObject.SetActive(true);
         btnExit.gameObject.SetActive(true);
         volumeHolder.SetActive(true);
         Control.SetActive(true);
@@ -67,8 +67,8 @@ public class SaveGameManager : MonoBehaviourPunCallbacks
         // cam.enabled = true;
         // move.enabled = true;
         backGround.enabled = false;
-        btnSave.gameObject.SetActive(false);
-        btnLoad.gameObject.SetActive(false);
+        // btnSave.gameObject.SetActive(false);
+        // btnLoad.gameObject.SetActive(false);
         btnExit.gameObject.SetActive(false);
         volumeHolder.SetActive(false);
         Control.SetActive(false);

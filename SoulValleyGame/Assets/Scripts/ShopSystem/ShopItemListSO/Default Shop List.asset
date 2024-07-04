@@ -27,10 +27,6 @@ MonoBehaviour:
     Amount: 16
   - itemData: {fileID: 11400000, guid: 610f36e588908ad43b326d4d329d9e90, type: 2}
     Amount: 10
-  - itemData: {fileID: 11400000, guid: ab4ddfd9030a9fe48b5bbae4abfa2095, type: 2}
-    Amount: 16
-  - itemData: {fileID: 11400000, guid: 7d9798bd13e45a54dbec4cfab089ab6f, type: 2}
-    Amount: 10
   - itemData: {fileID: 11400000, guid: 53517e6744f84214e83399e40ffd8bd2, type: 2}
     Amount: 16
   - itemData: {fileID: 11400000, guid: efeed1520a5529243a4311e5edd716bb, type: 2}
