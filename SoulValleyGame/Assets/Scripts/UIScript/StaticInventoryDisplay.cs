@@ -135,7 +135,16 @@ public class StaticInventoryDisplay : InventoryDisplay
         InventorySlot slot = inventorySystem.GetSlot(selectedSlot);
         if (slot != null && slot.ItemData != null)
         {
-            ToolTip.SetText(slot.ItemData.DisplayName);
+            if (slot.ItemData.DisplayName == "WateringCan")
+            {
+                ToolData slotItem = slot.ItemData as ToolData;
+                string durability = slotItem.currentDurability + "/" + slotItem.maxDurability;
+                ToolTip.SetText(slot.ItemData.DisplayName + " ( " + durability + " )");
+            }
+            else
+            {
+                ToolTip.SetText(slot.ItemData.DisplayName);
+            }
             return true;
         }
         else

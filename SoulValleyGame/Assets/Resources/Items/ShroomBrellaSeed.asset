@@ -17,7 +17,7 @@ MonoBehaviour:
   MaxStackSize: 4
   Value: 55
   Description: ShroomBrellaSeed
-  icon: {fileID: 21300000, guid: 6da0b706915df9548baa7bfcaa002a1d, type: 3}
+  icon: {fileID: 21300000, guid: 4f94b6f153472e04dbd618ba6e74e706, type: 3}
   ItemPreFab: {fileID: 5200681163900939743, guid: 3e7b2598247beae40876e2163defec82, type: 3}
   DayToGrow: 2
   seed: {fileID: 188673849151986698, guid: c2912d742f06a3b4bae9a9e34b62917c, type: 3}

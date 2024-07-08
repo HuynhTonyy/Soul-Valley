@@ -87,7 +87,7 @@ public class Interactor : MonoBehaviour
                         name.SetText(farmLand.cropPlanted.seedData.CropToYield.DisplayName);
                         int timeRemain = farmLand.cropPlanted.maxGrowth - farmLand.cropPlanted.growth;
                         if(timeRemain <= 0)
-                            time.SetText("Harvestable");
+                            time.SetText("Press E to harvest");
                         else
                             time.SetText((timeRemain)+" min");
                         landState.SetText(farmLand.landState.ToString());

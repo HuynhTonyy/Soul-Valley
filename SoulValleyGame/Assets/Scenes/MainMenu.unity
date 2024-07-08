@@ -811,26 +811,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: AudioManagerPref
       objectReference: {fileID: 0}
-    - target: {fileID: 7176866738098146434, guid: 044db679ef9b8524e92df298618e6cf9, type: 3}
-      propertyPath: <slimeWalkSound>k__BackingField.Path
-      value: event:/SFX/SlimeWalk
-      objectReference: {fileID: 0}
-    - target: {fileID: 7176866738098146434, guid: 044db679ef9b8524e92df298618e6cf9, type: 3}
-      propertyPath: <slimeWalkSound>k__BackingField.Guid.Data1
-      value: 563447276
-      objectReference: {fileID: 0}
-    - target: {fileID: 7176866738098146434, guid: 044db679ef9b8524e92df298618e6cf9, type: 3}
-      propertyPath: <slimeWalkSound>k__BackingField.Guid.Data2
-      value: 1125060292
-      objectReference: {fileID: 0}
-    - target: {fileID: 7176866738098146434, guid: 044db679ef9b8524e92df298618e6cf9, type: 3}
-      propertyPath: <slimeWalkSound>k__BackingField.Guid.Data3
-      value: -1854598488
-      objectReference: {fileID: 0}
-    - target: {fileID: 7176866738098146434, guid: 044db679ef9b8524e92df298618e6cf9, type: 3}
-      propertyPath: <slimeWalkSound>k__BackingField.Guid.Data4
-      value: -1004297686
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 044db679ef9b8524e92df298618e6cf9, type: 3}
 --- !u!1 &1267953117

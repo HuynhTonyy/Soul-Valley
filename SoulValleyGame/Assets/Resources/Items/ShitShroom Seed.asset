@@ -13,11 +13,11 @@ MonoBehaviour:
   m_Name: ShitShroom Seed
   m_EditorClassIdentifier: 
   <Id>k__BackingField: ShitShroom Seed
-  DisplayName: ShitShroom Seed
+  DisplayName: ShiftShroom Seed
   MaxStackSize: 4
   Value: 45
   Description: SHITTT SEED
-  icon: {fileID: 21300000, guid: c06f1c2589a1dcc41b385388110af23f, type: 3}
+  icon: {fileID: 21300000, guid: ef20972aaf8acd9448b8cf89656aebea, type: 3}
   ItemPreFab: {fileID: 5200681163900939743, guid: fa6a47e16f1d93f49b49151b7789a0f1, type: 3}
   DayToGrow: 2
   seed: {fileID: 2949569857002820423, guid: 1f3cb44a9c03e0c4981eaea480a08285, type: 3}

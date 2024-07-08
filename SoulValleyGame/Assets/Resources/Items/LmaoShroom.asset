@@ -17,5 +17,5 @@ MonoBehaviour:
   MaxStackSize: 4
   Value: 60
   Description: LMAOO
-  icon: {fileID: 21300000, guid: 26192102de14c3a4e9884bf32bd0801e, type: 3}
+  icon: {fileID: 21300000, guid: 78316ab2672b80f43a6583598589c7e9, type: 3}
   ItemPreFab: {fileID: 6717204923677180317, guid: 294faebe935f7d44eae269f3f7f967ed, type: 3}

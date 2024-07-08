@@ -17,7 +17,7 @@ MonoBehaviour:
   MaxStackSize: 4
   Value: 45
   Description: BloomShroom Seed
-  icon: {fileID: 21300000, guid: cdcfd66cdaea98047893b5b6f34babad, type: 3}
+  icon: {fileID: 21300000, guid: 4475ddc3a994dc54b98d000c4f45fa6d, type: 3}
   ItemPreFab: {fileID: 5200681163900939743, guid: 381aca50e8af78d45ae862225848402b, type: 3}
   DayToGrow: 2
   seed: {fileID: 4906692444895844338, guid: 076d63d6602938244af790f817bb5be0, type: 3}

@@ -17,5 +17,5 @@ MonoBehaviour:
   MaxStackSize: 4
   Value: 65
   Description: Shroom that look like an umbrella
-  icon: {fileID: 21300000, guid: 841c1b2a787e76e4382c00d2d2b40517, type: 3}
+  icon: {fileID: 21300000, guid: fe0369fbaf91ca946bbbfc6d68036b4d, type: 3}
   ItemPreFab: {fileID: 5195926924014860400, guid: 034cd882e7097e5428f83f6caf4a3352, type: 3}

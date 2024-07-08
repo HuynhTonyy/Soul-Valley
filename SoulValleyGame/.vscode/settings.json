@@ -52,5 +52,6 @@
         "temp/":true,
         "Temp/":true
     },
-    "dotnet.defaultSolution": "SoulValleyGame.sln"
+    "dotnet.defaultSolution": "SoulValleyGame.sln",
+    "dotnet.preferCSharpExtension": true
 }

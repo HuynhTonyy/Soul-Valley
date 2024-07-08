@@ -17,5 +17,5 @@ MonoBehaviour:
   MaxStackSize: 4
   Value: 50
   Description: BloomShroom
-  icon: {fileID: 21300000, guid: 945456a5221978b4289cdbf995d3e736, type: 3}
+  icon: {fileID: 21300000, guid: 82b40d0f6f40e4d4994d7bdb1ccf1523, type: 3}
   ItemPreFab: {fileID: 8943322424667573955, guid: 9f269adf5d5037640b2f27c11cbef744, type: 3}

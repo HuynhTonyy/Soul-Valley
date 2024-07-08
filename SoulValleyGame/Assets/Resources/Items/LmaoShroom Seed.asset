@@ -17,7 +17,7 @@ MonoBehaviour:
   MaxStackSize: 4
   Value: 50
   Description: LmaoShroom Seed
-  icon: {fileID: 21300000, guid: 6c7b065c6b8ef844d83a901b260cf136, type: 3}
+  icon: {fileID: 21300000, guid: ec21143d746c48d4d8ba14b559bc6908, type: 3}
   ItemPreFab: {fileID: 5200681163900939743, guid: 75d65862732f5924d9043099b6df147a, type: 3}
   DayToGrow: 2
   seed: {fileID: 3714806012148869071, guid: d7b69f8e92bd5d140aef91d5a3e76ee3, type: 3}

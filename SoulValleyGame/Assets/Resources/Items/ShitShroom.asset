@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: ShitShroom
   m_EditorClassIdentifier: 
   <Id>k__BackingField: ShitShroom
-  DisplayName: ShitShroom
+  DisplayName: ShiftShroom
   MaxStackSize: 4
   Value: 55
-  Description: SHITTTTT
-  icon: {fileID: 21300000, guid: ab7d3c3bf78ff3f438b47383e1109815, type: 3}
-  ItemPreFab: {fileID: 6378831375375671915, guid: 556e2391602156a44a5f8643d8fd26f4, type: 3}
+  Description: ShiftShroom healthy
+  icon: {fileID: 21300000, guid: 6194a1c366eec0b4f8e77e2bcd73f360, type: 3}
+  ItemPreFab: {fileID: 3703497009650703171, guid: 5bbd954067ec3f040a63ab352ed4172b, type: 3}
