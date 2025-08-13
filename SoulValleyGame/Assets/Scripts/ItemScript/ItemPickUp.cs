@@ -72,7 +72,7 @@ public class ItemPickUp : MonoBehaviourPunCallbacks
             Collider[] colliders = Physics.OverlapSphere(transform.position,groundRadius, whatIsGround);
             if(colliders.Length != 0){
                 rb.useGravity = false;
-                rb.velocity = Vector3.zero;
+                rb.linearVelocity = Vector3.zero;
                 rb.angularVelocity = Vector3.zero;
                 isGround = true;
             }

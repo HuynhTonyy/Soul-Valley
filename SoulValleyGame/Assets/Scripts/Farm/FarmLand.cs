@@ -25,22 +25,22 @@ public class FarmLand : MonoBehaviourPunCallbacks, ITimeTracker
     }
     public LandState landState = LandState.Dry;
     GameTimeStamp timeWatered;
-    new Renderer renderer;
+    private MeshRenderer renderer;
     private void Start()
     {
-        hoeingSound = AudioManager.instance.CreateInstance(FMODEvents.instance.hoeingSound);
-        wateringSound = AudioManager.instance.CreateInstance(FMODEvents.instance.wateringSound);
-        harvestSound = AudioManager.instance.CreateInstance(FMODEvents.instance.harvestSound);
-        attributes = new FMOD.ATTRIBUTES_3D();
-        attributes.position = RuntimeUtils.ToFMODVector(transform.position); // Set the position in 3D space
-        attributes.velocity = RuntimeUtils.ToFMODVector(Vector3.zero); // Set the velocity (optional)
-        attributes.forward = RuntimeUtils.ToFMODVector(transform.forward); // Set the forward vector (optional)
-        attributes.up = RuntimeUtils.ToFMODVector(transform.up);
-        hoeingSound.set3DAttributes(attributes);
-        wateringSound.set3DAttributes(attributes);
-        harvestSound.set3DAttributes(attributes);
+        renderer = GetComponent<MeshRenderer>();
+        // hoeingSound = AudioManager.instance.CreateInstance(FMODEvents.instance.hoeingSound);
+        // wateringSound = AudioManager.instance.CreateInstance(FMODEvents.instance.wateringSound);
+        // harvestSound = AudioManager.instance.CreateInstance(FMODEvents.instance.harvestSound);
+        // attributes = new FMOD.ATTRIBUTES_3D();
+        // attributes.position = RuntimeUtils.ToFMODVector(transform.position); // Set the position in 3D space
+        // attributes.velocity = RuntimeUtils.ToFMODVector(Vector3.zero); // Set the velocity (optional)
+        // attributes.forward = RuntimeUtils.ToFMODVector(transform.forward); // Set the forward vector (optional)
+        // attributes.up = RuntimeUtils.ToFMODVector(transform.up);
+        // hoeingSound.set3DAttributes(attributes);
+        // wateringSound.set3DAttributes(attributes);
+        // harvestSound.set3DAttributes(attributes);
         TimeManager.Instance.RegisterTracker(this);
-        renderer = GetComponent<Renderer>();
         if(PhotonNetwork.IsMasterClient){
             SaveLoad.OnSaveData += SaveFarmData;
             SaveLoad.OnLoadGame += LoadFarmData;
@@ -87,7 +87,7 @@ public class FarmLand : MonoBehaviourPunCallbacks, ITimeTracker
     {
         if (landState == LandState.Tilled && cropPlanted != null && cropPlanted.cropState != CropBehaviour.CropState.Harvestable)
         {
-            wateringSound.start();
+            // wateringSound.start();
             photonView.RPC("UpdateTimeWatered", RpcTarget.AllBufferedViaServer,
                             TimeManager.Instance.GetTimeStamp().year,
                             (int)TimeManager.Instance.GetTimeStamp().season,
@@ -106,7 +106,7 @@ public class FarmLand : MonoBehaviourPunCallbacks, ITimeTracker
     {
         if (landState == LandState.Dry && cropPlanted == null)
         {
-            hoeingSound.start();
+            // hoeingSound.start();
             photonView.RPC("UpdateLandState", RpcTarget.AllBufferedViaServer,LandState.Tilled);
         }
 

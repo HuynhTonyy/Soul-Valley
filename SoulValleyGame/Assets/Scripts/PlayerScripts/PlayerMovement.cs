@@ -93,12 +93,12 @@ public class PlayerMovement : MonoBehaviour
             
             if (grounded)
             {
-                rb.drag = groundDrag;
+                rb.linearDamping = groundDrag;
                 animator.SetBool("isJumping", false);
             }
                 
             else
-                rb.drag = 0;
+                rb.linearDamping = 0;
         }
         
     }
